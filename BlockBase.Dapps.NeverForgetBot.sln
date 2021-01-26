@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlockBase.Dapps.NeverForgetBot.ConsoleApp", "BlockBase.Dapps.NeverForgetBot.ConsoleApp\BlockBase.Dapps.NeverForgetBot.ConsoleApp.csproj", "{08520852-0417-4834-9279-F9514CA38CD4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlockBase.Dapps.NeverForgetBot.ConsoleApp", "BlockBase.Dapps.NeverForgetBot.ConsoleApp\BlockBase.Dapps.NeverForgetBot.ConsoleApp.csproj", "{08520852-0417-4834-9279-F9514CA38CD4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlockBase.Dapps.NeverForgetBot.WebApp", "BlockBase.Dapps.NeverForgetBot.WebApp\BlockBase.Dapps.NeverForgetBot.WebApp.csproj", "{E9768C8D-0958-420A-AD93-C4BEBB408A3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlockBase.Dapps.NeverForgetBot.WebApp", "BlockBase.Dapps.NeverForgetBot.WebApp\BlockBase.Dapps.NeverForgetBot.WebApp.csproj", "{E9768C8D-0958-420A-AD93-C4BEBB408A3C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlockBase.Dapps.NeverForgetBot.Business", "BlockBase.Dapps.NeverForgetBot.Business\BlockBase.Dapps.NeverForgetBot.Business.csproj", "{672062BA-2D77-4654-AE44-BF725C2445BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlockBase.Dapps.NeverForgetBot.Business", "BlockBase.Dapps.NeverForgetBot.Business\BlockBase.Dapps.NeverForgetBot.Business.csproj", "{672062BA-2D77-4654-AE44-BF725C2445BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlockBase.Dapps.NeverForgetBot.Dal", "BlockBase.Dapps.NeverForgetBot.Dal\BlockBase.Dapps.NeverForgetBot.Dal.csproj", "{1D0E314D-B374-4D73-AA25-D094F9EB66E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlockBase.Dapps.NeverForgetBot.Dal", "BlockBase.Dapps.NeverForgetBot.Dal\BlockBase.Dapps.NeverForgetBot.Dal.csproj", "{1D0E314D-B374-4D73-AA25-D094F9EB66E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlockBase.Dapps.NeverForgetBot.Data", "BlockBase.Dapps.NeverForgetBot.Data\BlockBase.Dapps.NeverForgetBot.Data.csproj", "{ECDF8F4F-F2F4-4450-80C2-A5F3CA1EF880}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlockBase.Dapps.NeverForgetBot.Data", "BlockBase.Dapps.NeverForgetBot.Data\BlockBase.Dapps.NeverForgetBot.Data.csproj", "{ECDF8F4F-F2F4-4450-80C2-A5F3CA1EF880}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlockBase.BBLinq", "BlockBase.BBLinq\BlockBase.BBLinq.csproj", "{433B254C-A901-4873-8DA1-BBD3880BC6C0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{ECDF8F4F-F2F4-4450-80C2-A5F3CA1EF880}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ECDF8F4F-F2F4-4450-80C2-A5F3CA1EF880}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ECDF8F4F-F2F4-4450-80C2-A5F3CA1EF880}.Release|Any CPU.Build.0 = Release|Any CPU
+		{433B254C-A901-4873-8DA1-BBD3880BC6C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{433B254C-A901-4873-8DA1-BBD3880BC6C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{433B254C-A901-4873-8DA1-BBD3880BC6C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{433B254C-A901-4873-8DA1-BBD3880BC6C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BlockBase.Dapps.NeverForgetBot.Dal\BlockBase.Dapps.NeverForgetBot.Dal.csproj" />
+    <ProjectReference Include="..\BlockBase.Dapps.NeverForgetBot.Data\BlockBase.Dapps.NeverForgetBot.Data.csproj" />
+  </ItemGroup>
+
 </Project>
