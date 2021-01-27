@@ -1,11 +1,9 @@
 ﻿using BlockBase.Dapps.NeverForgetBot.Business.BusinessModels;
 using BlockBase.Dapps.NeverForgetBot.Business.Interfaces;
 using BlockBase.Dapps.NeverForgetBot.Business.OperationResults;
-using BlockBase.Dapps.NeverForgetBot.Dal.DAOs;
 using BlockBase.Dapps.NeverForgetBot.Dal.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
@@ -31,17 +29,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
                 await _dao.InsertAsync(redditContext.ToData());
             });
         }
-
-        //public async Task<OperationResult> AddAsync<RedditContext>(List<RedditContext> entities)
-        //{
-        //    var executor = new DbOperationExecutor();
-
-        //    return await executor.ExecuteOperation(async () =>
-        //    {
-        //        var dao = new RedditContextDao();
-        //        await dao.InsertAsync<RedditContext>(entity);
-        //    });
-        //}
         #endregion
 
         #region Read
@@ -76,6 +63,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
 
             return await executor.ExecuteOperation(async () =>
             {
+                redditContext.IsDeleted = true;
                 redditContext.DeletedAt = DateTime.UtcNow;
                 var redditContextModel = await _dao.GetAsync(redditContext.Id);
                 await _dao.DeleteAsync(redditContextModel);

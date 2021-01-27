@@ -4,7 +4,6 @@ using BlockBase.Dapps.NeverForgetBot.Business.OperationResults;
 using BlockBase.Dapps.NeverForgetBot.Dal.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
@@ -30,17 +29,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
                 await _dao.InsertAsync(twitterContext.ToData());
             });
         }
-
-        //public async Task<OperationResult> AddAsync<TwitterContext>(List<TwitterContext> entities)
-        //{
-        //    var executor = new DbOperationExecutor();
-
-        //    return await executor.ExecuteOperation(async () =>
-        //    {
-        //        var dao = new TwitterContextDao();
-        //        await dao.InsertAsync<TwitterContext>(entity);
-        //    });
-        //}
         #endregion
 
         #region Read
@@ -75,6 +63,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
 
             return await executor.ExecuteOperation(async () =>
             {
+                twitterContext.IsDeleted = true;
                 twitterContext.DeletedAt = DateTime.UtcNow;
                 var twitterContextModel = await _dao.GetAsync(twitterContext.Id);
                 await _dao.DeleteAsync(twitterContextModel);

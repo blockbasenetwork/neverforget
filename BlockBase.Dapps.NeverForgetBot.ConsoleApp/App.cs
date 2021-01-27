@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using BlockBase.Dapps.NeverForgetBot.Data.Context;
+using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
 {
@@ -6,7 +7,10 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
     {
         public async Task Run()
         {
-           
+            using (var context = new NeverForgetBotDbContext())
+            {
+                var result = context.CreateDatabase().Result;
+            }
         }
     }
 }
