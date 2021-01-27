@@ -1,5 +1,8 @@
-﻿using BlockBase.Dapps.NeverForgetBot.Business.OperationResults;
+﻿using BlockBase.Dapps.NeverForgetBot.Business.BusinessModels;
+using BlockBase.Dapps.NeverForgetBot.Business.Interfaces;
+using BlockBase.Dapps.NeverForgetBot.Business.OperationResults;
 using BlockBase.Dapps.NeverForgetBot.Dal.DAOs;
+using BlockBase.Dapps.NeverForgetBot.Dal.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,72 +10,90 @@ using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
 {
-    public class RedditContextBO
+    public class RedditContextBo : IRedditContextBo
     {
-        public async Task<OperationResult> AddAsync<RedditContext>(RedditContext entity)
+        private readonly IRedditContextDao _dao;
+
+        public RedditContextBo(IRedditContextDao dao)
+        {
+            _dao = dao;
+        }
+
+        #region Create
+        public async Task<OperationResult> InsertAsync(RedditContextBusinessModel redditContext)
         {
             var executor = new DbOperationExecutor();
 
             return await executor.ExecuteOperation(async () =>
             {
-                var dao = new RedditContextDao();
-                await dao.InsertAsync<RedditContext>(entity);
+                redditContext.CreatedAt = DateTime.UtcNow;
+                redditContext.UpdatedAt = redditContext.CreatedAt;
+                await _dao.InsertAsync(redditContext.ToData());
             });
         }
 
-        public async Task<OperationResult> AddAsync<RedditContext>(List<RedditContext> entities)
+        //public async Task<OperationResult> AddAsync<RedditContext>(List<RedditContext> entities)
+        //{
+        //    var executor = new DbOperationExecutor();
+
+        //    return await executor.ExecuteOperation(async () =>
+        //    {
+        //        var dao = new RedditContextDao();
+        //        await dao.InsertAsync<RedditContext>(entity);
+        //    });
+        //}
+        #endregion
+
+        #region Read
+        public async Task<OperationResult<RedditContextBusinessModel>> GetAsync(Guid id)
+        {
+            var executor = new DbOperationExecutor();
+
+            return (OperationResult<RedditContextBusinessModel>)await executor.ExecuteOperation(async () =>
+            {
+                await _dao.GetAsync(id);
+            });
+        }
+        #endregion
+
+        #region Update
+        public async Task<OperationResult> UpdateAsync(RedditContextBusinessModel redditContext)
         {
             var executor = new DbOperationExecutor();
 
             return await executor.ExecuteOperation(async () =>
             {
-                var dao = new RedditContextDao();
-                await dao.InsertAsync<RedditContext>(entity);
+                redditContext.UpdatedAt = DateTime.UtcNow;
+                await _dao.UpdateAsync(redditContext.ToData());
             });
         }
+        #endregion
 
-        public async Task<OperationResult> UpdateAsync<RedditContext>(RedditContext entity)
+        #region Delete
+        public async Task<OperationResult> DeleteAsync(RedditContextBusinessModel redditContext)
         {
             var executor = new DbOperationExecutor();
 
             return await executor.ExecuteOperation(async () =>
             {
-                var dao = new RedditContextDao();
-                await dao.UpdateAsync<RedditContext>(entity);
+                redditContext.DeletedAt = DateTime.UtcNow;
+                var redditContextModel = await _dao.GetAsync(redditContext.Id);
+                await _dao.DeleteAsync(redditContextModel);
             });
         }
+        #endregion
 
-        public async Task<OperationResult> RemoveAsync<RedditContext>(RedditContext entity)
+        #region List
+        public async Task<OperationResult<List<RedditContextBusinessModel>>> GetAllAsync()
         {
             var executor = new DbOperationExecutor();
 
-            return await executor.ExecuteOperation(async () =>
+            return (OperationResult<List<RedditContextBusinessModel>>)await executor.ExecuteOperation(async () =>
             {
-                var dao = new RedditContextDao();
-                await dao.DeleteAsync<RedditContext>(entity);
+                await _dao.GetAllAsync();
             });
         }
+        #endregion
 
-        public async Task<OperationResult> GetAsync<RedditContext>(Guid id)
-        {
-            var executor = new DbOperationExecutor();
-
-            return await executor.ExecuteOperation<RedditContext>(async () =>
-            {
-                var dao = new RedditContextDao();
-                return await dao.GetAsync<RedditContext>(id);
-            });
-        }
-
-        public async Task<OpResult<List<RedditContext>>> GetListAsync<RedditContext>()
-        {
-            var executor = new DbOperationExecutor();
-
-            return await executor.ExecuteOperation<List<RedditContext>>(async () =>
-            {
-                var dao = new RedditContextDao();
-                return await dao.ListAsync<RedditContext>();
-            });
-        }
     }
 }

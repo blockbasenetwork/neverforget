@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BlockBase.Dapps.NeverForgetBot.Business.Interfaces
 {
-    public interface IRedditContextBo :IBo<RedditContextBusinessModel>
+    public interface ITwitterContextBo : IBo<TwitterContextBusinessModel>
     {
 
     }

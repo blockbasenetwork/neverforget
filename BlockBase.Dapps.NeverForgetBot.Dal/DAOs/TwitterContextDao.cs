@@ -16,15 +16,17 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.DAOs
         //    BbContext = bbContext;
         //}
 
-
-        public async Task DeleteAsync(TwitterContext entity)
+        #region Create
+        public async Task InsertAsync(TwitterContext entity)
         {
             using (var context = new NeverForgetBotDbContext())
             {
-                await context.TwitterContext.Delete(entity);
+                await context.TwitterContext.Insert(entity);
             }
         }
+        #endregion
 
+        #region Read
         public async Task<TwitterContext> GetAsync(Guid id)
         {
             using (var context = new NeverForgetBotDbContext())
@@ -33,7 +35,29 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.DAOs
                 return result.Result;
             }
         }
+        #endregion
 
+        #region Update
+        public async Task UpdateAsync(TwitterContext entity)
+        {
+            using (var context = new NeverForgetBotDbContext())
+            {
+                await context.TwitterContext.Update(entity);
+            }
+        }
+        #endregion
+
+        #region Delete
+        public async Task DeleteAsync(TwitterContext entity)
+        {
+            using (var context = new NeverForgetBotDbContext())
+            {
+                await context.TwitterContext.Delete(entity);
+            }
+        }
+        #endregion
+
+        #region List
         public async Task<List<TwitterContext>> GetAllAsync()
         {
             using (var context = new NeverForgetBotDbContext())
@@ -42,21 +66,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.DAOs
                 return (List<TwitterContext>)result.Result;
             }
         }
-
-        public async Task InsertAsync(TwitterContext entity)
-        {
-            using (var context = new NeverForgetBotDbContext())
-            {
-                await context.TwitterContext.Insert(entity);
-            }
-        }
-
-        public async Task UpdateAsync(TwitterContext entity)
-        {
-            using (var context = new NeverForgetBotDbContext())
-            {
-                await context.TwitterContext.Update(entity);
-            }
-        }
+        #endregion
+        
     }
 }

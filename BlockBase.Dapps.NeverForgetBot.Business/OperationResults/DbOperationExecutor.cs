@@ -13,12 +13,12 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.OperationResults
                 await func.Invoke();
 
 
-                return new OperationResult();
+                return new OperationResult() {Success = true};
             }
             catch (Exception ex)
             {
 
-                return new OperationResult();
+                return new OperationResult() { Success = false, Exception = ex};
             }
         }
 
@@ -30,12 +30,12 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.OperationResults
                 await func.Invoke();
 
 
-                return new OperationResult<TResult>();
+                return new OperationResult<TResult>() { Success = true};
             }
             catch (Exception ex)
             {
 
-                return new OperationResult<TResult>();
+                return new OperationResult<TResult>() { Success = false, Exception = ex };
             }
         }
     }
