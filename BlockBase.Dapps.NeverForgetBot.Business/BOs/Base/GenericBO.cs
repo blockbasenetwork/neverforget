@@ -1,5 +1,4 @@
 ﻿using BlockBase.Dapps.NeverForgetBot.Business.OperationResults;
-using BlockBase.Dapps.NeverForgetBot.Dal;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

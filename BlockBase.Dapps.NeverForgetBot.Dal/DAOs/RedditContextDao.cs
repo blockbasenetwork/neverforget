@@ -9,53 +9,53 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.DAOs
 {
     public class RedditContextDao : IRedditContextDao
     {
-        protected readonly NeverForgetBotDbContext BbContext;
+        //protected readonly NeverForgetBotDbContext BbContext;
 
-        public RedditContextDao(NeverForgetBotDbContext bbContext)
-        {
-            BbContext = bbContext;
-        }
+        //public RedditContextDao(NeverForgetBotDbContext bbContext)
+        //{
+        //    BbContext = bbContext;
+        //}
 
 
         public async Task DeleteAsync(RedditContext entity)
         {
-            using (BbContext)
+            using (var context = new NeverForgetBotDbContext())
             {
-                await BbContext.RedditContext.Delete(entity);
+                await context.RedditContext.Delete(entity);
             }
         }
 
         public async Task<RedditContext> GetAsync(Guid id)
         {
-            using (BbContext)
+            using (var context = new NeverForgetBotDbContext())
             {
-                var result = await BbContext.RedditContext.Get(id);
+                var result = await context.RedditContext.Get(id);
                 return result.Result;
             }
         }
 
         public async Task<List<RedditContext>> GetAllAsync()
         {
-            using (BbContext)
+            using (var context = new NeverForgetBotDbContext())
             {
-                var result = await BbContext.RedditContext.List();
+                var result = await context.RedditContext.List();
                 return (List<RedditContext>)result.Result;
             }
         }
 
         public async Task InsertAsync(RedditContext entity)
         {
-            using (BbContext)
+            using (var context = new NeverForgetBotDbContext())
             {
-                await BbContext.RedditContext.Insert(entity);
+                await context.RedditContext.Insert(entity);
             }
         }
 
         public async Task UpdateAsync(RedditContext entity)
         {
-            using (BbContext)
+            using (var context = new NeverForgetBotDbContext())
             {
-                await BbContext.RedditContext.Update(entity);
+                await context.RedditContext.Update(entity);
             }
         }
     }

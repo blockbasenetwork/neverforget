@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using System.Transactions;
 
 namespace BlockBase.Dapps.NeverForgetBot.Business.OperationResults
 {
@@ -8,53 +7,35 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.OperationResults
     {
         public async Task<OperationResult> ExecuteOperation(Func<Task> func)
         {
-            var transactionOptions = new TransactionOptions
+            try
             {
-                IsolationLevel = IsolationLevel.ReadCommitted,
-                Timeout = TimeSpan.FromSeconds(10)
-            };
-            using (var transactionScope = new TransansactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled))
+
+                await func.Invoke();
+
+
+                return new OperationResult();
+            }
+            catch (Exception ex)
             {
-                try
-                {
 
-                    await func.Invoke();
-
-                    transactionScope.Complete();
-
-                    return new OperationResult(true);
-                }
-                catch (Exception ex)
-                {
-
-                    return new OperationResult(ex);
-                }
+                return new OperationResult();
             }
         }
 
         public async Task<OperationResult<TResult>> ExecuteOperations<TResult>(Func<Task<TResult>> func)
         {
-            var transactionOptions = new TransactionOptions
+            try
             {
-                IsolationLevel = IsolationLevel.ReadCommitted,
-                Timeout = TimeSpan.FromSeconds(10)
-            };
-            using (var transactionScope = new TransansactionScope(TransactionScopeOption.Required, transactionOptions, TransactionScopeAsyncFlowOption.Enabled))
+
+                await func.Invoke();
+
+
+                return new OperationResult<TResult>();
+            }
+            catch (Exception ex)
             {
-                try
-                {
 
-                    await func.Invoke();
-
-                    transactionScope.Complete();
-
-                    return new OperationResult<TResult>(result);
-                }
-                catch (Exception ex)
-                {
-
-                    return new OperationResult<TResult>(ex);
-                }
+                return new OperationResult<TResult>();
             }
         }
     }
