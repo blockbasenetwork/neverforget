@@ -8,10 +8,10 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Interfaces.Base
 {
     public interface IBaseDao<TEntity> where TEntity : class, IEntity
     {
-        Task<TEntity> InsertAsync(TEntity entity);
+        Task InsertAsync(TEntity entity);
         Task<TEntity> GetAsync(Guid id);
-        Task<List<QueryResult>> GetAllAsync();
-        Task<TEntity> UpdateAsync(TEntity entity);
-        Task<TEntity> DeleteAsync(TEntity entity);
+        Task<List<TEntity>> GetAllAsync();
+        Task UpdateAsync(TEntity entity);
+        Task DeleteAsync(TEntity entity);
     }
 }

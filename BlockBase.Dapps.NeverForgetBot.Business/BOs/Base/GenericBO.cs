@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace BlockBase.Dapps.NeverForgetBot.Business
+namespace BlockBase.Dapps.NeverForgetBot.Business.BOs.Base
 {
     public class GenericBO
     {

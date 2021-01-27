@@ -1,5 +1,4 @@
-﻿using BlockBase.BBLinq.Results;
-using BlockBase.Dapps.NeverForgetBot.Dal.Interfaces;
+﻿using BlockBase.Dapps.NeverForgetBot.Dal.Interfaces;
 using BlockBase.Dapps.NeverForgetBot.Data.Context;
 using BlockBase.Dapps.NeverForgetBot.Data.Entities;
 using System;
@@ -17,7 +16,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.DAOs
             BbContext = bbContext;
         }
 
-        public void DeleteAsync(TwitterContext entity)
+
+        public async Task DeleteAsync(TwitterContext entity)
         {
             using (BbContext)
             {
@@ -34,28 +34,28 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.DAOs
             }
         }
 
-        public async Task<List<IEnumerable<TwitterContext>>> GetAllAsync()
+        public async Task<List<TwitterContext>> GetAllAsync()
         {
             using (BbContext)
             {
                 var result = await BbContext.TwitterContext.List();
-                return result.Result;
+                return (List<TwitterContext>)result.Result;
             }
         }
 
-        public void InsertAsync(TwitterContext entity)
+        public async Task InsertAsync(TwitterContext entity)
         {
             using (BbContext)
             {
-                BbContext.TwitterContext.Insert(entity);
+                await BbContext.TwitterContext.Insert(entity);
             }
         }
 
-        public void UpdateAsync(TwitterContext entity)
+        public async Task UpdateAsync(TwitterContext entity)
         {
             using (BbContext)
             {
-                BbContext.TwitterContext.Update(entity);
+                await BbContext.TwitterContext.Update(entity);
             }
         }
     }

@@ -1,6 +1,4 @@
-﻿using BlockBase.BBLinq.Results;
-using BlockBase.Dapps.NeverForgetBot.Dal.Interfaces;
-using BlockBase.Dapps.NeverForgetBot.Dal.Interfaces.Base;
+﻿using BlockBase.Dapps.NeverForgetBot.Dal.Interfaces;
 using BlockBase.Dapps.NeverForgetBot.Data.Context;
 using BlockBase.Dapps.NeverForgetBot.Data.Entities;
 using System;
@@ -18,18 +16,13 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.DAOs
             BbContext = bbContext;
         }
 
+
         public async Task DeleteAsync(RedditContext entity)
         {
             using (BbContext)
             {
                 await BbContext.RedditContext.Delete(entity);
-                
             }
-        }
-
-        public Task<List<QueryResult>> GetAllAsync()
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<RedditContext> GetAsync(Guid id)
@@ -41,14 +34,14 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.DAOs
             }
         }
 
-        //public async Task<List<RedditContext>> GetAllAsync()
-        //{
-        //    using (BbContext)
-        //    {
-        //        var result = await BbContext.RedditContext.List();
-        //        return result.Result;
-        //    }
-        //}
+        public async Task<List<RedditContext>> GetAllAsync()
+        {
+            using (BbContext)
+            {
+                var result = await BbContext.RedditContext.List();
+                return (List<RedditContext>)result.Result;
+            }
+        }
 
         public async Task InsertAsync(RedditContext entity)
         {
