@@ -1,4 +1,5 @@
-﻿using BlockBase.Dapps.NeverForgetBot.Data.Context;
+﻿using BlockBase.Dapps.NeverForgetBot.ConsoleApp.API;
+using BlockBase.Dapps.NeverForgetBot.Data.Context;
 using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
@@ -7,10 +8,9 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
     {
         public async Task Run()
         {
-            using (var context = new NeverForgetBotDbContext())
-            {
-                var result = context.CreateDatabase().Result;
-            }
+
+            ApiHelper.InitializeClient();
+            await RedditScrapper.RedditInfo();
         }
     }
 }
