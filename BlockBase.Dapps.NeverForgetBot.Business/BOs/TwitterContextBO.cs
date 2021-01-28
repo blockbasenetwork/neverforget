@@ -11,18 +11,18 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
     public class TwitterContextBo : ITwitterContextBo
     {
         private readonly ITwitterContextDao _dao;
+        private readonly IDbOperationExecutor _opExecutor;
 
-        public TwitterContextBo(ITwitterContextDao dao)
+        public TwitterContextBo(ITwitterContextDao dao, IDbOperationExecutor opExecutor)
         {
             _dao = dao;
+            _opExecutor = opExecutor;
         }
 
         #region Create
         public async Task<OperationResult> InsertAsync(TwitterContextBusinessModel twitterContext)
         {
-            var executor = new DbOperationExecutor();
-
-            return await executor.ExecuteOperation(async () =>
+            return await _opExecutor.ExecuteOperation(async () =>
             {
                 twitterContext.CreatedAt = DateTime.UtcNow;
                 twitterContext.UpdatedAt = twitterContext.CreatedAt;
@@ -34,9 +34,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
         #region Read
         public async Task<OperationResult<TwitterContextBusinessModel>> GetAsync(Guid id)
         {
-            var executor = new DbOperationExecutor();
-
-            return (OperationResult<TwitterContextBusinessModel>)await executor.ExecuteOperation(async () =>
+            return (OperationResult<TwitterContextBusinessModel>)await _opExecutor.ExecuteOperation(async () =>
             {
                 await _dao.GetAsync(id);
             });
@@ -46,9 +44,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
         #region Update
         public async Task<OperationResult> UpdateAsync(TwitterContextBusinessModel twitterContext)
         {
-            var executor = new DbOperationExecutor();
-
-            return await executor.ExecuteOperation(async () =>
+            return await _opExecutor.ExecuteOperation(async () =>
             {
                 twitterContext.UpdatedAt = DateTime.UtcNow;
                 await _dao.UpdateAsync(twitterContext.ToData());
@@ -59,9 +55,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
         #region Delete
         public async Task<OperationResult> DeleteAsync(TwitterContextBusinessModel twitterContext)
         {
-            var executor = new DbOperationExecutor();
-
-            return await executor.ExecuteOperation(async () =>
+            return await _opExecutor.ExecuteOperation(async () =>
             {
                 twitterContext.IsDeleted = true;
                 twitterContext.DeletedAt = DateTime.UtcNow;
@@ -74,9 +68,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
         #region List
         public async Task<OperationResult<List<TwitterContextBusinessModel>>> GetAllAsync()
         {
-            var executor = new DbOperationExecutor();
-
-            return (OperationResult<List<TwitterContextBusinessModel>>)await executor.ExecuteOperation(async () =>
+            return (OperationResult<List<TwitterContextBusinessModel>>)await _opExecutor.ExecuteOperation(async () =>
             {
                 await _dao.GetAllAsync();
             });

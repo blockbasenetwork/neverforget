@@ -11,18 +11,19 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
     public class RedditContextBo : IRedditContextBo
     {
         private readonly IRedditContextDao _dao;
+        private readonly IDbOperationExecutor _opExecutor;
 
-        public RedditContextBo(IRedditContextDao dao)
+        public RedditContextBo(IRedditContextDao dao, IDbOperationExecutor opExecutor)
         {
             _dao = dao;
+            _opExecutor = opExecutor;
+
         }
 
         #region Create
         public async Task<OperationResult> InsertAsync(RedditContextBusinessModel redditContext)
         {
-            var executor = new DbOperationExecutor();
-
-            return await executor.ExecuteOperation(async () =>
+            return await _opExecutor.ExecuteOperation(async () =>
             {
                 redditContext.CreatedAt = DateTime.UtcNow;
                 redditContext.UpdatedAt = redditContext.CreatedAt;
@@ -34,9 +35,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
         #region Read
         public async Task<OperationResult<RedditContextBusinessModel>> GetAsync(Guid id)
         {
-            var executor = new DbOperationExecutor();
-
-            return (OperationResult<RedditContextBusinessModel>)await executor.ExecuteOperation(async () =>
+            return (OperationResult<RedditContextBusinessModel>)await _opExecutor.ExecuteOperation(async () =>
             {
                 await _dao.GetAsync(id);
             });
@@ -46,9 +45,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
         #region Update
         public async Task<OperationResult> UpdateAsync(RedditContextBusinessModel redditContext)
         {
-            var executor = new DbOperationExecutor();
-
-            return await executor.ExecuteOperation(async () =>
+            return await _opExecutor.ExecuteOperation(async () =>
             {
                 redditContext.UpdatedAt = DateTime.UtcNow;
                 await _dao.UpdateAsync(redditContext.ToData());
@@ -59,9 +56,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
         #region Delete
         public async Task<OperationResult> DeleteAsync(RedditContextBusinessModel redditContext)
         {
-            var executor = new DbOperationExecutor();
-
-            return await executor.ExecuteOperation(async () =>
+            return await _opExecutor.ExecuteOperation(async () =>
             {
                 redditContext.IsDeleted = true;
                 redditContext.DeletedAt = DateTime.UtcNow;
@@ -74,9 +69,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
         #region List
         public async Task<OperationResult<List<RedditContextBusinessModel>>> GetAllAsync()
         {
-            var executor = new DbOperationExecutor();
-
-            return (OperationResult<List<RedditContextBusinessModel>>)await executor.ExecuteOperation(async () =>
+            return (OperationResult<List<RedditContextBusinessModel>>)await _opExecutor.ExecuteOperation(async () =>
             {
                 await _dao.GetAllAsync();
             });

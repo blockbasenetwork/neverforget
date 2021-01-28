@@ -1,9 +1,10 @@
-﻿using System;
+﻿using BlockBase.Dapps.NeverForgetBot.Business.Interfaces;
+using System;
 using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.Business.OperationResults
 {
-    public class DbOperationExecutor
+    public class DbOperationExecutor : IDbOperationExecutor
     {
         public async Task<OperationResult> ExecuteOperation(Func<Task> func)
         {

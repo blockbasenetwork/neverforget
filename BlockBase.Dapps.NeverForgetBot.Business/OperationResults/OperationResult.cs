@@ -7,8 +7,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.OperationResults
         public bool Success { get; set; }
         
         public Exception Exception { get; set; }
-
-        public string Message { get; set; }
     }
 
     public class OperationResult<T> : OperationResult
