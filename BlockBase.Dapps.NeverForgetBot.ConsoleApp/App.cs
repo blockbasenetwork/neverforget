@@ -1,4 +1,6 @@
-﻿using BlockBase.Dapps.NeverForgetBot.Services.API;
+﻿using BlockBase.Dapps.NeverForgetBot.Business.BOs;
+using BlockBase.Dapps.NeverForgetBot.Data.Entities;
+using BlockBase.Dapps.NeverForgetBot.Services.API;
 using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
@@ -9,7 +11,6 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
         {
 
             ApiHelper.InitializeClient();
-            await RedditScrapper.RedditInfo();
         }
     }
 }

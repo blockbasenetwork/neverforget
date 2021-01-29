@@ -1,7 +1,9 @@
 ﻿using BlockBase.Dapps.NeverForgetBot.Business.BusinessModels;
 using BlockBase.Dapps.NeverForgetBot.Business.Interfaces;
 using BlockBase.Dapps.NeverForgetBot.Business.OperationResults;
+using BlockBase.Dapps.NeverForgetBot.Dal.DAOs;
 using BlockBase.Dapps.NeverForgetBot.Dal.Interfaces;
+using BlockBase.Dapps.NeverForgetBot.Services.API.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -18,6 +20,24 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
             _dao = dao;
             _opExecutor = opExecutor;
 
+        }
+
+
+        public static async Task<OperationResult> ProcessRedditInfoAsync(RedditModel[] modelArray)
+        {
+
+            foreach (RedditModel model in modelArray)
+            {
+                var dao = new RedditContextDao();
+                var boModel = new RedditContextBusinessModel();
+                model.Author = boModel.Author;
+                model.Body = boModel.CommentPost;
+                model.Created_Utc = boModel.PostingDate;
+                model.Id = boModel.CommentId;
+                model.SubReddit = boModel.SubReddit;
+                await dao.InsertAsync(boModel.ToData());
+            }
+            return new OperationResult() { Success = true };
         }
 
         #region Create
