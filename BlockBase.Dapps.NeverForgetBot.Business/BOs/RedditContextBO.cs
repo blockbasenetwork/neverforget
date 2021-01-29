@@ -23,8 +23,14 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
         }
 
 
-        public static async Task<OperationResult> ProcessRedditInfoAsync(RedditModel[] modelArray)
+        public async Task<OperationResult> ProcessRedditInfoAsync(RedditModel[] modelArray)
         {
+            //pedir dados ao pushshift
+            //para cada um 
+                //processa dados e regista no blockbase
+                //faz post no reddit com comentário com link para os dados
+
+
 
             foreach (RedditModel model in modelArray)
             {
