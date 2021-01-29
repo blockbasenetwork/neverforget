@@ -13,8 +13,9 @@ namespace BlockBase.Dapps.NeverForgetBot.Data.Entities
 
 
         public string CommentId { get; set; }
+        public string CommentPost { get; set; }
 
-        public DateTime PostingDate { get; set; }
+        public int PostingDate { get; set; }
 
         public string Author { get; set; }
 

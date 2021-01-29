@@ -1,12 +1,9 @@
-﻿using BlockBase.Dapps.NeverForgetBot.ConsoleApp.API.Models;
-using Newtonsoft.Json;
+﻿using BlockBase.Dapps.NeverForgetBot.Services.API.Models;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp.API
+namespace BlockBase.Dapps.NeverForgetBot.Services.API
 {
     public class RedditScrapper
     {
@@ -15,13 +12,12 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp.API
         {
             string url = "https://api.pushshift.io/reddit/comment/search/?&q=neverforgetbot";
 
-            using(HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(url))
+            using (HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(url))
             {
                 if (response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadAsAsync<RedditResultModel>();
                     return result.Data;
-
                 }
                 else
                 {

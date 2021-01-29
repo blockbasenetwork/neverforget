@@ -1,5 +1,4 @@
-﻿using BlockBase.Dapps.NeverForgetBot.ConsoleApp.API;
-using BlockBase.Dapps.NeverForgetBot.Data.Context;
+﻿using BlockBase.Dapps.NeverForgetBot.Services.API;
 using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp

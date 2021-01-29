@@ -9,12 +9,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.DAOs
 {
     public class RedditContextDao : IRedditContextDao
     {
-        //protected readonly NeverForgetBotDbContext BbContext;
-
-        //public RedditContextDao(NeverForgetBotDbContext bbContext)
-        //{
-        //    BbContext = bbContext;
-        //}
 
         #region Create
         public async Task InsertAsync(RedditContext entity)

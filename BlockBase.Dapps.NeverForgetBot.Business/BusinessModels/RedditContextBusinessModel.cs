@@ -7,7 +7,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessModels
     {
         public Guid Id { get; set; }
         public string CommentId { get; set; }
-        public DateTime PostingDate { get; set; }
+        public string CommentPost { get; set; }
+        public int PostingDate { get; set; }
         public string Author { get; set; }
         public string SubReddit { get; set; }
 
@@ -22,6 +23,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessModels
             {
                 Id = redditContext.Id,
                 CommentId = redditContext.CommentId,
+                CommentPost = redditContext.CommentPost,
                 PostingDate = redditContext.PostingDate,
                 Author = redditContext.Author,
                 SubReddit = redditContext.SubReddit,
@@ -38,6 +40,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessModels
             {
                 Id = Id,
                 CommentId = CommentId,
+                CommentPost = CommentPost,
                 PostingDate = PostingDate,
                 Author = Author,
                 SubReddit = SubReddit,
