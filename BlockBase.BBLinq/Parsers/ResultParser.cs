@@ -113,6 +113,10 @@ namespace BlockBase.BBLinq.Parsers
                     var newInstance = Activator.CreateInstance(typeof(T));
                     for(var i = 0; i<values.Length; i++)
                     {
+                        if (Nullable.GetUnderlyingType(typeof(T)) != null && data[i] == string.Empty)
+                        {
+                            continue;
+                        }
                         var property = fields[response.Columns[i]];
                         property.SetValue(newInstance, values[i]);
                     }
@@ -164,7 +168,15 @@ namespace BlockBase.BBLinq.Parsers
                 }
                 else
                 {
-                    args.Add(Convert.ChangeType(values[i], propType));
+                    if(values[i] == string.Empty)
+                    {
+                        args.Add(null);
+                    }
+                    else
+                    {
+                        args.Add(Convert.ChangeType(values[i], propType));
+                    }
+                    
                 }
             }
             return args.ToArray();

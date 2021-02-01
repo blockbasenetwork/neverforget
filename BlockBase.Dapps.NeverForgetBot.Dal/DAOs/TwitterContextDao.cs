@@ -9,12 +9,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.DAOs
 {
     public class TwitterContextDao : ITwitterContextDao
     {
-        //protected readonly NeverForgetBotDbContext BbContext;
-
-        //public TwitterContextDao(NeverForgetBotDbContext bbContext)
-        //{
-        //    BbContext = bbContext;
-        //}
 
         #region Create
         public async Task InsertAsync(TwitterContext entity)
@@ -35,6 +29,24 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.DAOs
                 return result.Result;
             }
         }
+
+        public async Task<TwitterContext> GetNonDeletedAsync(Guid id)
+        {
+            using (var context = new NeverForgetBotDbContext())
+            {
+                var result = await context.TwitterContext.Get(e => (e.Id == id && !e.IsDeleted) ? e : null);
+                return result.Result;
+            }
+        }
+
+        public async Task<TwitterContext> GetDeletedAsync(Guid id)
+        {
+            using (var context = new NeverForgetBotDbContext())
+            {
+                var result = await context.TwitterContext.Get(e => (e.Id == id && e.IsDeleted) ? e : null);
+                return result.Result;
+            }
+        }
         #endregion
 
         #region Update
@@ -48,11 +60,20 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.DAOs
         #endregion
 
         #region Delete
-        public async Task DeleteAsync(TwitterContext entity)
+        public async Task HardDeleteAsync(TwitterContext entity)
         {
             using (var context = new NeverForgetBotDbContext())
             {
                 await context.TwitterContext.Delete(entity);
+            }
+        }
+
+        public async Task DeleteAsync(TwitterContext entity)
+        {
+            using (var context = new NeverForgetBotDbContext())
+            {
+                entity.IsDeleted = true;
+                await context.TwitterContext.Update(entity);
             }
         }
         #endregion
@@ -66,7 +87,24 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.DAOs
                 return (List<TwitterContext>)result.Result;
             }
         }
+
+        public async Task<List<TwitterContext>> GetAllNonDeletedAsync()
+        {
+            using (var context = new NeverForgetBotDbContext())
+            {
+                var result = await context.TwitterContext.Where(e => !e.IsDeleted).List();
+                return (List<TwitterContext>)result.Result;
+            }
+        }
+
+        public async Task<List<TwitterContext>> GetAllDeletedAsync()
+        {
+            using (var context = new NeverForgetBotDbContext())
+            {
+                var result = await context.TwitterContext.Where(e => e.IsDeleted).List();
+                return (List<TwitterContext>)result.Result;
+            }
+        }
         #endregion
-        
     }
 }

@@ -13,4 +13,14 @@
     <PackageReference Include="coverlet.collector" Version="1.3.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BlockBase.BBLinq\BlockBase.BBLinq.csproj" />
+    <ProjectReference Include="..\BlockBase.Dapps.NeverForgetBot.Business\BlockBase.Dapps.NeverForgetBot.Business.csproj" />
+    <ProjectReference Include="..\BlockBase.Dapps.NeverForgetBot.ConsoleApp\BlockBase.Dapps.NeverForgetBot.ConsoleApp.csproj" />
+    <ProjectReference Include="..\BlockBase.Dapps.NeverForgetBot.Dal\BlockBase.Dapps.NeverForgetBot.Dal.csproj" />
+    <ProjectReference Include="..\BlockBase.Dapps.NeverForgetBot.Data\BlockBase.Dapps.NeverForgetBot.Data.csproj" />
+    <ProjectReference Include="..\BlockBase.Dapps.NeverForgetBot.Services\BlockBase.Dapps.NeverForgetBot.Services.csproj" />
+    <ProjectReference Include="..\BlockBase.Dapps.NeverForgetBot.WebApp\BlockBase.Dapps.NeverForgetBot.WebApp.csproj" />
+  </ItemGroup>
+
 </Project>
