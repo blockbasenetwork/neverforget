@@ -2,6 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BlockBase.Dapps.NeverForgetBot.Business.BOs;
+using BlockBase.Dapps.NeverForgetBot.Business.Interfaces;
+using BlockBase.Dapps.NeverForgetBot.Dal.DAOs;
+using BlockBase.Dapps.NeverForgetBot.Dal.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -24,6 +28,12 @@ namespace BlockBase.Dapps.NeverForgetBot.WebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddTransient<IRedditContextDao, RedditContextDao>();
+            services.AddTransient<IRedditContextBo, RedditContextBo>();
+
+            services.AddTransient<ITwitterContextDao, TwitterContextDao>();
+            services.AddTransient<ITwitterContextBo, TwitterContextBo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,6 +51,9 @@ namespace BlockBase.Dapps.NeverForgetBot.WebApp
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+
+            //app.UseSerilogRequestLogging();
 
             app.UseRouting();
 

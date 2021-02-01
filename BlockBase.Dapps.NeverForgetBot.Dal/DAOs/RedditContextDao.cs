@@ -29,6 +29,24 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.DAOs
                 return result.Result;
             }
         }
+
+        public async Task<RedditContext> GetNonDeletedAsync(Guid id)
+        {
+            using (var context = new NeverForgetBotDbContext())
+            {
+                var result = await context.RedditContext.Get(e => (e.Id == id && !e.IsDeleted) ? e : null);
+                return result.Result;
+            }
+        }
+
+        public async Task<RedditContext> GetDeletedAsync(Guid id)
+        {
+            using (var context = new NeverForgetBotDbContext())
+            {
+                var result = await context.RedditContext.Get(e => (e.Id == id && e.IsDeleted == true) ? e : null);
+                return result.Result;
+            }
+        }
         #endregion
 
         #region Update
@@ -42,11 +60,20 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.DAOs
         #endregion
 
         #region Delete
-        public async Task DeleteAsync(RedditContext entity)
+        public async Task HardDeleteAsync(RedditContext entity)
         {
             using (var context = new NeverForgetBotDbContext())
             {
                 await context.RedditContext.Delete(entity);
+            }
+        }
+
+        public async Task DeleteAsync(RedditContext entity)
+        {
+            using (var context = new NeverForgetBotDbContext())
+            {
+                entity.IsDeleted = true;
+                await context.RedditContext.Update(entity);
             }
         }
         #endregion
@@ -57,6 +84,24 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.DAOs
             using (var context = new NeverForgetBotDbContext())
             {
                 var result = await context.RedditContext.List();
+                return (List<RedditContext>)result.Result;
+            }
+        }
+
+        public async Task<List<RedditContext>> GetAllNonDeletedAsync()
+        {
+            using (var context = new NeverForgetBotDbContext())
+            {
+                var result = await context.RedditContext.Where(e => !e.IsDeleted).List();
+                return (List<RedditContext>)result.Result;
+            }
+        }
+
+        public async Task<List<RedditContext>> GetAllDeletedAsync()
+        {
+            using (var context = new NeverForgetBotDbContext())
+            {
+                var result = await context.RedditContext.Where(e => e.IsDeleted).List();
                 return (List<RedditContext>)result.Result;
             }
         }
