@@ -36,14 +36,9 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
                 .Build();
 
 
-
             //obter a instância do IoC e pedir a esta, a instância do RedditContextBO
             //var context = services.Resolve<IRedditContextBO>();
             //
-
-            //como configurar IoC no dotnet core
-            //registar mapeamentos no IoC
-            //services.AddSingleton/Scoped/Transient/*.*<IRedditContextDao, RedditContexxtDao>();
         }
     }
 }
