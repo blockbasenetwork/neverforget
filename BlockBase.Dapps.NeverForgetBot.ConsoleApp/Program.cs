@@ -1,4 +1,10 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using BlockBase.Dapps.NeverForgetBot.Business.BOs;
+using BlockBase.Dapps.NeverForgetBot.Business.Interfaces;
+using BlockBase.Dapps.NeverForgetBot.Dal.DAOs;
+using BlockBase.Dapps.NeverForgetBot.Dal.Interfaces;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Serilog;
 using System;
 using System.IO;
@@ -20,8 +26,24 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
                 .CreateLogger();
             Log.Logger.Information("App Start");
 
-            var app = new App();
-            Task.WaitAll(app.Run());
+            #region IoC Container 
+            var host = Host.CreateDefaultBuilder()
+                .ConfigureServices((context, services) =>
+                {
+                    services.AddSingleton<App>();
+
+                    services.AddSingleton<IRedditContextBo, RedditContextBo>();
+                    services.AddSingleton<IRedditContextBo, RedditContextBo>();
+
+                    services.AddSingleton<IRedditContextDao, RedditContextDao>();
+                    services.AddSingleton<ITwitterContextDao, TwitterContextDao>();
+                })
+                .UseSerilog()
+                .Build();
+            #endregion
+
+            //var app = new App();
+            //Task.WaitAll(app.Run());
         }
 
         static void BuildConfig(IConfigurationBuilder builder)
