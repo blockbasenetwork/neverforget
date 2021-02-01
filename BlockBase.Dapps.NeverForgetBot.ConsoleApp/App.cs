@@ -15,6 +15,11 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
     {
         public async Task Run()
         {
+            //using (var context = new NeverForgetBotDbContext())
+            //{
+            //    var result = context.CreateDatabase().Result;
+            //}
+
 
             ApiHelper.InitializeClient();
 
