@@ -10,7 +10,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.DAOs
 {
     public class RedditContextDao : IRedditContextDao
     {
-
         #region Create
         public async Task InsertAsync(RedditContext entity)
         {
@@ -35,8 +34,15 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.DAOs
         {
             using (var context = new NeverForgetBotDbContext())
             {
-                var result = await context.RedditContext.Get(e => (!e.IsDeleted) ? e : null);
-                return result.Result;
+                var result = await context.RedditContext.Where(e => e.Id == id && e.IsDeleted == false).List();
+                if (result.Result == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return result.Result.ToList().FirstOrDefault();
+                }
             }
         }
         #endregion
@@ -101,7 +107,14 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.DAOs
             using (var context = new NeverForgetBotDbContext())
             {
                 var result = await context.RedditContext.Where(e => e.IsDeleted == true).List();
-                return result.Result.ToList();
+                if (result.Result == null)
+                {
+                    return new List<RedditContext>();
+                }
+                else
+                {
+                    return result.Result.ToList();
+                }
             }
         }
         #endregion

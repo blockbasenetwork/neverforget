@@ -42,7 +42,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
 
             var redditDAO = new RedditContextDao();
 
-
             var redditContext = new RedditContext { Id = Guid.NewGuid(), CommentId = "tk1", Author = "Autor", SubReddit = "Testing", CommentPost = "NeverForgetThis", PostingDate = 1270637661, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow };
             redditDAO.InsertAsync(redditContext).Wait();
             var redditContext2 = new RedditContext { Id = Guid.NewGuid(), CommentId = "tk2", Author = "Autor", SubReddit = "Testando", CommentPost = "NeverForgetThis", PostingDate = 1270637662, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow };
@@ -50,12 +49,9 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
             var redditContext3 = new RedditContext { Id = Guid.NewGuid(), CommentId = "tk3", Author = "Ator", SubReddit = "Testing", CommentPost = "NeverForgetThis", PostingDate = 1270637663, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow };
             redditDAO.InsertAsync(redditContext3).Wait();
 
-
             var redditContextList = redditDAO.GetAllAsync().Result;
 
-
-
-            Assert.IsTrue(redditContextList != null);
+            Assert.IsTrue(redditContextList.Count == 3);
         }
 
         [TestMethod]
@@ -131,14 +127,13 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
 
 
             redditDAO.DeleteAsync(redditContext3).Wait();
+
             var resGetNonDeleted = redditDAO.GetNonDeletedAsync(redditContext3.Id).Result;
-            var resGet = redditDAO.GetAsync(redditContext3.Id).Result;
+            var resGetNonDeleted2 = redditDAO.GetNonDeletedAsync(redditContext2.Id).Result;
 
 
-
-            Assert.IsTrue(resGetNonDeleted == null && resGet != null);
+            Assert.IsTrue(resGetNonDeleted == null && resGetNonDeleted2 != null);
         }
-
         
         [TestMethod]
         public void TestGetAllNonDeletedReddit()
@@ -163,11 +158,12 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
             redditDAO.DeleteAsync(redditContext3).Wait();
 
             var redditContextList = redditDAO.GetAllAsync().Result;
+
             var redditContextListNonDeleted = redditDAO.GetAllNonDeletedAsync().Result;
 
 
 
-            Assert.IsTrue(redditContextList[2] != null && redditContextListNonDeleted[2] == null);
+            //Assert.IsTrue(redditContextList.Contains);
         }
 
         [TestMethod]
@@ -196,7 +192,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
 
 
 
-            Assert.IsTrue(redditContextList.Count == 2 && redditContextListDeleted.Count == 1);
+            Assert.IsTrue(redditContextList.Count == 3 && redditContextListDeleted.Count == 1);
         }
     }
 }

@@ -3,13 +3,13 @@ using BlockBase.Dapps.NeverForgetBot.Data.Context;
 using BlockBase.Dapps.NeverForgetBot.Data.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.Dal.DAOs
 {
     public class TwitterContextDao : ITwitterContextDao
     {
-
         #region Create
         public async Task InsertAsync(TwitterContext entity)
         {
@@ -34,16 +34,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.DAOs
         {
             using (var context = new NeverForgetBotDbContext())
             {
-                var result = await context.TwitterContext.Get(e => (e.Id == id && !e.IsDeleted) ? e : null);
-                return result.Result;
-            }
-        }
-
-        public async Task<TwitterContext> GetDeletedAsync(Guid id)
-        {
-            using (var context = new NeverForgetBotDbContext())
-            {
-                var result = await context.TwitterContext.Get(e => (e.Id == id && e.IsDeleted) ? e : null);
+                var result = await context.TwitterContext.Get(e => (!e.IsDeleted) ? e : null);
                 return result.Result;
             }
         }
@@ -84,7 +75,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.DAOs
             using (var context = new NeverForgetBotDbContext())
             {
                 var result = await context.TwitterContext.List();
-                return (List<TwitterContext>)result.Result;
+                return result.Result.ToList();
             }
         }
 
@@ -92,8 +83,15 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.DAOs
         {
             using (var context = new NeverForgetBotDbContext())
             {
-                var result = await context.TwitterContext.Where(e => !e.IsDeleted).List();
-                return (List<TwitterContext>)result.Result;
+                var result = await context.TwitterContext.Where(e => e.IsDeleted == false).List();
+                if (result.Result == null)
+                {
+                    return new List<TwitterContext>();
+                }
+                else
+                {
+                    return result.Result.ToList();
+                }
             }
         }
 
@@ -101,8 +99,15 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.DAOs
         {
             using (var context = new NeverForgetBotDbContext())
             {
-                var result = await context.TwitterContext.Where(e => e.IsDeleted).List();
-                return (List<TwitterContext>)result.Result;
+                var result = await context.TwitterContext.Where(e => e.IsDeleted == true).List();
+                if (result.Result == null)
+                {
+                    return new List<TwitterContext>();
+                }
+                else
+                {
+                    return result.Result.ToList();
+                }
             }
         }
         #endregion

@@ -6,6 +6,7 @@ using BlockBase.Dapps.NeverForgetBot.Dal.Interfaces;
 using BlockBase.Dapps.NeverForgetBot.Services.API.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
@@ -23,28 +24,28 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
         }
 
 
-        public async Task<OperationResult> ProcessRedditInfoAsync(RedditModel[] modelArray)
-        {
-            //pedir dados ao pushshift
-            //para cada um 
-                //processa dados e regista no blockbase
-                //faz post no reddit com comentário com link para os dados
+        //public async Task<OperationResult> ProcessRedditInfoAsync(RedditModel[] modelArray)
+        //{
+        //    //pedir dados ao pushshift
+        //    //para cada um 
+        //        //processa dados e regista no blockbase
+        //        //faz post no reddit com comentário com link para os dados
 
 
 
-            foreach (RedditModel model in modelArray)
-            {
-                var dao = new RedditContextDao();
-                var boModel = new RedditContextBusinessModel();
-                model.Author = boModel.Author;
-                model.Body = boModel.CommentPost;
-                model.Created_Utc = boModel.PostingDate;
-                model.Id = boModel.CommentId;
-                model.SubReddit = boModel.SubReddit;
-                await dao.InsertAsync(boModel.ToData());
-            }
-            return new OperationResult() { Success = true };
-        }
+        //    foreach (RedditModel model in modelArray)
+        //    {
+        //        var dao = new RedditContextDao();
+        //        var boModel = new RedditContextBusinessModel();
+        //        model.Author = boModel.Author;
+        //        model.Body = boModel.CommentPost;
+        //        model.Created_Utc = boModel.PostingDate;
+        //        model.Id = boModel.CommentId;
+        //        model.SubReddit = boModel.SubReddit;
+        //        await dao.InsertAsync(boModel.ToData());
+        //    }
+        //    return new OperationResult() { Success = true };
+        //}
 
         #region Create
         public async Task<OperationResult> InsertAsync(RedditContextBusinessModel redditContext)
@@ -63,7 +64,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
         {
             return await _opExecutor.ExecuteOperation<RedditContextBusinessModel>(async () => 
             {
-                var result = await _dao.GetAsync(id);
+                var result = await _dao.GetNonDeletedAsync(id);
                 return RedditContextBusinessModel.FromData(result);
             });
         }
@@ -96,9 +97,10 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
         #region List
         public async Task<OperationResult<List<RedditContextBusinessModel>>> GetAllAsync()
         {
-            return (OperationResult<List<RedditContextBusinessModel>>)await _opExecutor.ExecuteOperation(async () =>
+            return await _opExecutor.ExecuteOperation<List<RedditContextBusinessModel>>(async () =>
             {
-                await _dao.GetAllAsync();
+                var result = await _dao.GetAllNonDeletedAsync();
+                return result.Select(context => RedditContextBusinessModel.FromData(context)).ToList();
             });
         }
         #endregion
