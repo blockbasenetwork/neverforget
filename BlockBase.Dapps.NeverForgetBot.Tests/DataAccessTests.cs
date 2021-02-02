@@ -10,7 +10,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
     public class DataAccessTests
     {
         [TestMethod]
-        public void TestInsertAndGetRedditContextAsync()
+        public void TestInsertAndGetReddit()
         {
             using (var context = new NeverForgetBotDbContext())
             {
@@ -32,7 +32,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
         }
 
         [TestMethod]
-        public void TestGetAllRedditContextAsync()
+        public void TestGetAllReddit()
         {
             using (var context = new NeverForgetBotDbContext())
             {
@@ -59,7 +59,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
         }
 
         [TestMethod]
-        public void TestUpdateRedditContextAsync()
+        public void TestUpdateReddit()
         {
             using (var context = new NeverForgetBotDbContext())
             {
@@ -84,7 +84,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
         }
 
         [TestMethod]
-        public void TestDeleteRedditContextAsync()
+        public void TestDeleteReddit()
         {
             using (var context = new NeverForgetBotDbContext())
             {
@@ -111,7 +111,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
         }
 
         [TestMethod]
-        public void TestDeleteAndGetNonDeletedRedditContextAsync()
+        public void TestGetNonDeletedReddit()
         {
             using (var context = new NeverForgetBotDbContext())
             {
@@ -139,8 +139,9 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
             Assert.IsTrue(resGetNonDeleted == null && resGet != null);
         }
 
+        
         [TestMethod]
-        public void TestDeleteAndGetDeletedRedditContextAsync()
+        public void TestGetAllNonDeletedReddit()
         {
             using (var context = new NeverForgetBotDbContext())
             {
@@ -160,38 +161,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
 
 
             redditDAO.DeleteAsync(redditContext3).Wait();
-            var resGetDeleted = redditDAO.GetDeletedAsync(redditContext3.Id).Result;
 
-
-            var resGet = redditDAO.GetAsync(redditContext3.Id).Result;
-            var resGetDeleted2 = redditDAO.GetDeletedAsync(redditContext2.Id).Result;
-
-
-
-            Assert.IsTrue(resGetDeleted != null && resGet != null && resGetDeleted2 == null);
-        }
-
-        [TestMethod]
-        public void TestDeleteAndGetAllNonDeletedRedditContextAsync()
-        {
-            using (var context = new NeverForgetBotDbContext())
-            {
-                var resultDrop = context.DropDatabase().Result;
-                var resultCreate = context.CreateDatabase().Result;
-            }
-
-            var redditDAO = new RedditContextDao();
-
-
-            var redditContext = new RedditContext { Id = Guid.NewGuid(), CommentId = "tk1", Author = "Autor", SubReddit = "Testing", CommentPost = "NeverForgetThis", PostingDate = 1270637661, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow };
-            redditDAO.InsertAsync(redditContext).Wait();
-            var redditContext2 = new RedditContext { Id = Guid.NewGuid(), CommentId = "tk2", Author = "Autor", SubReddit = "Testando", CommentPost = "NeverForgetThis", PostingDate = 1270637662, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow };
-            redditDAO.InsertAsync(redditContext2).Wait();
-            var redditContext3 = new RedditContext { Id = Guid.NewGuid(), CommentId = "tk3", Author = "Ator", SubReddit = "Testing", CommentPost = "NeverForgetThis", PostingDate = 1270637663, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow };
-            redditDAO.InsertAsync(redditContext3).Wait();
-
-
-            redditDAO.DeleteAsync(redditContext3).Wait();
             var redditContextList = redditDAO.GetAllAsync().Result;
             var redditContextListNonDeleted = redditDAO.GetAllNonDeletedAsync().Result;
 
@@ -201,7 +171,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
         }
 
         [TestMethod]
-        public void TestDeleteAndGetAllDeletedRedditContextAsync()
+        public void TestGetAllDeletedReddit()
         {
             using (var context = new NeverForgetBotDbContext())
             {

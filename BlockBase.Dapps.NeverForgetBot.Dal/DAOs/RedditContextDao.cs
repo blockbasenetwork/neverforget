@@ -39,15 +39,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.DAOs
                 return result.Result;
             }
         }
-
-        public async Task<RedditContext> GetDeletedAsync(Guid id)
-        {
-            using (var context = new NeverForgetBotDbContext())
-            {
-                var result = await context.RedditContext.Where(e => (e.IsDeleted && e.Id == id)).List();
-                return result.Result.ToList().FirstOrDefault();
-            }
-        }
         #endregion
 
         #region Update
@@ -85,7 +76,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.DAOs
             using (var context = new NeverForgetBotDbContext())
             {
                 var result = await context.RedditContext.List();
-                return (List<RedditContext>)result.Result;
+                return result.Result.ToList();
             }
         }
 
@@ -94,7 +85,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.DAOs
             using (var context = new NeverForgetBotDbContext())
             {
                 var result = await context.RedditContext.Where(e => !e.IsDeleted).List();
-                return (List<RedditContext>)result.Result;
+                return result.Result.ToList();
             }
         }
 
@@ -102,8 +93,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.DAOs
         {
             using (var context = new NeverForgetBotDbContext())
             {
-                var result = await context.RedditContext.Where(e => e.IsDeleted).List();
-                return (List<RedditContext>)result.Result;
+                var result = await context.RedditContext.Where(e => e.IsDeleted == true).List();
+                return result.Result.ToList();
             }
         }
         #endregion

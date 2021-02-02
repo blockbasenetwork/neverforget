@@ -10,7 +10,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Interfaces.Base
         Task InsertAsync(TEntity entity);
         Task<TEntity> GetAsync(Guid id);
         Task<TEntity> GetNonDeletedAsync(Guid id);
-        Task<TEntity> GetDeletedAsync(Guid id);
         Task<List<TEntity>> GetAllAsync();
         Task<List<TEntity>> GetAllNonDeletedAsync();
         Task<List<TEntity>> GetAllDeletedAsync();
