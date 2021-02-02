@@ -23,20 +23,20 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.OperationResults
             }
         }
 
-        public async Task<OperationResult<TResult>> ExecuteOperations<TResult>(Func<Task<TResult>> func)
+        public async Task<OperationResult<TResult>> ExecuteOperation<TResult>(Func<Task<TResult>> func)
         {
             try
             {
 
-                await func.Invoke();
+                var result = await func.Invoke();
 
 
-                return new OperationResult<TResult>() { Success = true};
+                return new OperationResult<TResult>(result);
             }
             catch (Exception ex)
             {
 
-                return new OperationResult<TResult>() { Success = false, Exception = ex };
+                return new OperationResult<TResult>(ex);
             }
         }
     }

@@ -32,7 +32,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
         }
 
         [TestMethod]
-        public void TestGetListRedditContextAsync()
+        public void TestGetAllRedditContextAsync()
         {
             using (var context = new NeverForgetBotDbContext())
             {
@@ -55,7 +55,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
 
 
 
-            Assert.IsTrue(redditContextList[2] != null);
+            Assert.IsTrue(redditContextList != null);
         }
 
         [TestMethod]
@@ -161,6 +161,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
 
             redditDAO.DeleteAsync(redditContext3).Wait();
             var resGetDeleted = redditDAO.GetDeletedAsync(redditContext3.Id).Result;
+
+
             var resGet = redditDAO.GetAsync(redditContext3.Id).Result;
             var resGetDeleted2 = redditDAO.GetDeletedAsync(redditContext2.Id).Result;
 

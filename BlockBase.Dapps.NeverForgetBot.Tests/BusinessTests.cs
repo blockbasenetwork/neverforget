@@ -1,6 +1,7 @@
 using BlockBase.Dapps.NeverForgetBot.Business.BOs;
 using BlockBase.Dapps.NeverForgetBot.Business.BusinessModels;
 using BlockBase.Dapps.NeverForgetBot.Business.OperationResults;
+using BlockBase.Dapps.NeverForgetBot.ConsoleApp;
 using BlockBase.Dapps.NeverForgetBot.Dal.DAOs;
 using BlockBase.Dapps.NeverForgetBot.Data.Context;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -26,9 +27,10 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
 
 
             var redditContextBM = new RedditContextBusinessModel { Id = Guid.NewGuid(), CommentId = "tk1", Author = "Autor", SubReddit = "Testing", CommentPost = "NeverForgetThis", PostingDate = 1270637661, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow };
+
             redditBO.InsertAsync(redditContextBM).Wait();
 
-            var resGet = redditDAO.GetAsync(redditContextBM.Id).Result;
+            var resGet = redditBO.GetAsync(redditContextBM.Id).Result;
 
 
 

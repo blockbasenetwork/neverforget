@@ -3,6 +3,7 @@ using BlockBase.Dapps.NeverForgetBot.Data.Context;
 using BlockBase.Dapps.NeverForgetBot.Data.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.Dal.DAOs
@@ -34,7 +35,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.DAOs
         {
             using (var context = new NeverForgetBotDbContext())
             {
-                var result = await context.RedditContext.Get(e => (e.Id == id && !e.IsDeleted) ? e : null);
+                var result = await context.RedditContext.Get(e => (!e.IsDeleted) ? e : null);
                 return result.Result;
             }
         }
@@ -43,8 +44,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.DAOs
         {
             using (var context = new NeverForgetBotDbContext())
             {
-                var result = await context.RedditContext.Get(e => (e.Id == id && e.IsDeleted == true) ? e : null);
-                return result.Result;
+                var result = await context.RedditContext.Where(e => (e.IsDeleted && e.Id == id)).List();
+                return result.Result.ToList().FirstOrDefault();
             }
         }
         #endregion

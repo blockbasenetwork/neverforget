@@ -61,9 +61,10 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
         #region Read
         public async Task<OperationResult<RedditContextBusinessModel>> GetAsync(Guid id)
         {
-            return (OperationResult<RedditContextBusinessModel>)await _opExecutor.ExecuteOperation(async () =>
+            return await _opExecutor.ExecuteOperation<RedditContextBusinessModel>(async () => 
             {
-                await _dao.GetAsync(id);
+                var result = await _dao.GetAsync(id);
+                return RedditContextBusinessModel.FromData(result);
             });
         }
         #endregion

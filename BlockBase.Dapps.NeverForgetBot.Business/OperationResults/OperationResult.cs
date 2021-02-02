@@ -12,5 +12,17 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.OperationResults
     public class OperationResult<T> : OperationResult
     {
         public T Result { get; set; }
+
+        public OperationResult(T result)
+        {
+            Result = result;
+            Success = true;
+        }
+
+        public OperationResult(Exception ex)
+        {
+            Exception = ex;
+            Success = false;    
+        }
     }
 }
