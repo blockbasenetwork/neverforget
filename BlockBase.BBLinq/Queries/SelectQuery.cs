@@ -106,7 +106,7 @@ namespace BlockBase.BBLinq.Queries
                 foreach (var join in Joins)
                 {
                     var parameter = join.Parameters;
-                    var condition = (new BbSqlQueryBuilder()).ParseQuery(join.Body);
+                    var condition = (new BbSqlQueryBuilder()).ParseQuery(Origin, join.Body);
                     var joinTableName = string.Empty;
                     if (!list.Contains(parameter[0].Type))
                     {
@@ -124,7 +124,7 @@ namespace BlockBase.BBLinq.Queries
             }
             if (Where != null)
             {
-                var condition = (new BbSqlQueryBuilder()).ParseQuery(Where.Body);
+                var condition = (new BbSqlQueryBuilder()).ParseQuery(Origin, Where.Body);
                 QueryBuilder.WhiteSpace().Where(condition.ToString());
             }
             else if (Key != null)

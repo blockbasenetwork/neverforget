@@ -67,7 +67,7 @@ namespace BlockBase.BBLinq.Queries
 
             if (Where != null)
             {
-                QueryBuilder.WhiteSpace().Where().WhiteSpace().ParseQuery(Where.Body);
+                QueryBuilder.WhiteSpace().Where().WhiteSpace().ParseQuery(typeof(T), Where.Body);
             }
             else if (Record != null)
             {

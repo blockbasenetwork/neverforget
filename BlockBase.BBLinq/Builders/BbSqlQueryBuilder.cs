@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using System;
+using System.Linq.Expressions;
 using BlockBase.BBLinq.Dictionaries;
 using BlockBase.BBLinq.ExtensionMethods;
 using BlockBase.BBLinq.Pocos;
@@ -580,7 +581,7 @@ namespace BlockBase.BBLinq.Builders
         /// </summary>
         /// <param name="expression">a complex expression</param>
         /// <returns>the query as a string</returns>
-        public BbSqlQueryBuilder ParseQuery(Expression expression)
+        public BbSqlQueryBuilder ParseQuery(Type type, Expression expression)
         {
             while (true)
             {
@@ -606,15 +607,15 @@ namespace BlockBase.BBLinq.Builders
                         {
                             if (memberExpression.IsPropertyMemberAccess())
                             {
-                                var tableField = ParsePropertyAccess(memberExpression);
+                                var tableField = ParsePropertyAccess(type, memberExpression);
                                 FieldOnTable(tableField.Table, tableField.Field);
                             }
                             break;
                         }
                     case BinaryExpression binaryExpression:
-                        ParseQuery(binaryExpression.Left)
+                        ParseQuery(type, binaryExpression.Left)
                             .WhiteSpace().Append(ParseOperator(binaryExpression.NodeType))
-                            .WhiteSpace().ParseQuery(binaryExpression.Right);
+                            .WhiteSpace().ParseQuery(type, binaryExpression.Right);
                         break;
                     case ConstantExpression constantExpression:
                         return Append(WrapValue(constantExpression.Value));
@@ -687,10 +688,10 @@ namespace BlockBase.BBLinq.Builders
         /// </summary>
         /// <param name="expression"></param>
         /// <returns></returns>
-        private static FieldValue ParsePropertyAccess(MemberExpression expression)
+        private static FieldValue ParsePropertyAccess(Type type, MemberExpression expression)
         {
             var member = expression.Member;
-            var tableName = member.DeclaringType.GetTableName();
+            var tableName = type.GetTableName();
             var fieldName = member.GetFieldName();
             return new FieldValue() { Table = tableName, Field = fieldName };
         }

@@ -196,7 +196,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
 
 
 
-            Assert.IsTrue(redditContextList[2] != null && redditContextListDeleted[1] == null);
+            Assert.IsTrue(redditContextList.Count == 2 && redditContextListDeleted.Count == 1);
         }
     }
 }

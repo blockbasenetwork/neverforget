@@ -62,7 +62,7 @@ namespace BlockBase.BBLinq.Queries
 
             if (Where != null)
             {
-                var query = new BbSqlQueryBuilder().ParseQuery(Where.Body);
+                var query = new BbSqlQueryBuilder().ParseQuery(typeof(T), Where.Body);
                 QueryBuilder.WhiteSpace().Where().WhiteSpace().Append(query.ToString());
             }
             else if (Record != null)
