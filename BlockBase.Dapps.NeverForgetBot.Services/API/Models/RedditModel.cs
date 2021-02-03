@@ -1,5 +1,7 @@
 ﻿//using BlockBase.Dapps.NeverForgetBot.Business.BusinessModels;
 
+using System.Text.RegularExpressions;
+
 namespace BlockBase.Dapps.NeverForgetBot.Services.API.Models
 {
     public class RedditResultModel

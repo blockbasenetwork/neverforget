@@ -9,7 +9,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API
     {
         public static async Task<RedditModel[]> RedditInfo()
         {
-            string url = "https://api.pushshift.io/reddit/comment/search/?q=and";
+            string url = "https://api.pushshift.io/reddit/comment/search/?q=neverforgetbot";
 
             using (HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(url))
             {

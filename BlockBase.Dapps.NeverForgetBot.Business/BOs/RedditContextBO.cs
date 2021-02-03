@@ -1,12 +1,12 @@
 ﻿using BlockBase.Dapps.NeverForgetBot.Business.BusinessModels;
 using BlockBase.Dapps.NeverForgetBot.Business.Interfaces;
 using BlockBase.Dapps.NeverForgetBot.Business.OperationResults;
-using BlockBase.Dapps.NeverForgetBot.Dal.DAOs;
 using BlockBase.Dapps.NeverForgetBot.Dal.Interfaces;
 using BlockBase.Dapps.NeverForgetBot.Services.API.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
@@ -23,17 +23,14 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
 
         }
 
-
-        public async Task<OperationResult> ProcessRedditInfoAsync(RedditModel[] modelArray)
+        public async Task<OperationResult> FromApiRedditModel(RedditModel[] modelArray)
         {
-            //faz post no reddit com comentário com link para os dados
-
             foreach (RedditModel model in modelArray)
             {
                 var boModel = new RedditContextBusinessModel();
                 boModel.Id = Guid.NewGuid();
                 boModel.Author = model.Author;
-                boModel.CommentPost = model.Body;
+                boModel.CommentPost = CleanComment(model.Body);
                 boModel.PostingDate = model.Created_Utc;
                 boModel.CommentId = model.Id;
                 boModel.SubReddit = model.SubReddit;
@@ -44,6 +41,16 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
             }
             return new OperationResult() { Success = true };
         }
+
+        #region Process Data
+        public
+
+        private string CleanComment(string body)
+        {
+            var unquotedString = Regex.Replace(body, @"\b'\b", "''");
+            return unquotedString;
+        }
+        #endregion
 
         #region Create
         public async Task<OperationResult> InsertAsync(RedditContextBusinessModel redditContext)
@@ -60,7 +67,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
         #region Read
         public async Task<OperationResult<RedditContextBusinessModel>> GetAsync(Guid id)
         {
-            return await _opExecutor.ExecuteOperation<RedditContextBusinessModel>(async () => 
+            return await _opExecutor.ExecuteOperation<RedditContextBusinessModel>(async () =>
             {
                 var result = await _dao.GetNonDeletedAsync(id);
                 return RedditContextBusinessModel.FromData(result);

@@ -27,7 +27,7 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
             ApiHelper.InitializeClient();
 
             var content = await RedditCollector.RedditInfo();
-            await _redditContextBo.ProcessRedditInfoAsync(content);
+            await _redditContextBo.FromApiRedditModel(content);
         }
     }
 }
