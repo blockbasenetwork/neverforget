@@ -42,11 +42,10 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
                 })
                 .UseSerilog()
                 .Build();
+            #endregion
 
             var app = host.Services.GetService<App>();
             Task.WaitAll(app.Run());
-
-            #endregion
 
         }
 

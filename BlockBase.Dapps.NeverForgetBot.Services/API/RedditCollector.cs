@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.Services.API
 {
-    public class RedditScrapper
+    public class RedditCollector
     {
         public static async Task<RedditModel[]> RedditInfo()
         {
-            string url = "https://api.pushshift.io/reddit/comment/search/?&q=neverforgetbot";
+            string url = "https://api.pushshift.io/reddit/comment/search/?q=and";
 
             using (HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(url))
             {

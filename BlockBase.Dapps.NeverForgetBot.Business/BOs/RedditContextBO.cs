@@ -24,28 +24,26 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
         }
 
 
-        //public async Task<OperationResult> ProcessRedditInfoAsync(RedditModel[] modelArray)
-        //{
-        //    //pedir dados ao pushshift
-        //    //para cada um 
-        //        //processa dados e regista no blockbase
-        //        //faz post no reddit com comentário com link para os dados
+        public async Task<OperationResult> ProcessRedditInfoAsync(RedditModel[] modelArray)
+        {
+            //faz post no reddit com comentário com link para os dados
 
+            foreach (RedditModel model in modelArray)
+            {
+                var boModel = new RedditContextBusinessModel();
+                boModel.Id = Guid.NewGuid();
+                boModel.Author = model.Author;
+                boModel.CommentPost = model.Body;
+                boModel.PostingDate = model.Created_Utc;
+                boModel.CommentId = model.Id;
+                boModel.SubReddit = model.SubReddit;
+                boModel.CreatedAt = DateTime.UtcNow;
+                boModel.UpdatedAt = boModel.CreatedAt;
 
-
-        //    foreach (RedditModel model in modelArray)
-        //    {
-        //        var dao = new RedditContextDao();
-        //        var boModel = new RedditContextBusinessModel();
-        //        model.Author = boModel.Author;
-        //        model.Body = boModel.CommentPost;
-        //        model.Created_Utc = boModel.PostingDate;
-        //        model.Id = boModel.CommentId;
-        //        model.SubReddit = boModel.SubReddit;
-        //        await dao.InsertAsync(boModel.ToData());
-        //    }
-        //    return new OperationResult() { Success = true };
-        //}
+                await _dao.InsertAsync(boModel.ToData());
+            }
+            return new OperationResult() { Success = true };
+        }
 
         #region Create
         public async Task<OperationResult> InsertAsync(RedditContextBusinessModel redditContext)
