@@ -1,5 +1,6 @@
 ﻿using BlockBase.Dapps.NeverForgetBot.Business.BOs;
 using BlockBase.Dapps.NeverForgetBot.Business.Interfaces;
+using BlockBase.Dapps.NeverForgetBot.Business.OperationResults;
 using BlockBase.Dapps.NeverForgetBot.Dal.DAOs;
 using BlockBase.Dapps.NeverForgetBot.Dal.Interfaces;
 using Microsoft.Extensions.Configuration;
@@ -18,11 +19,9 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
         {       
             var builder = new ConfigurationBuilder();
             BuildConfig(builder);
-             
+
             Log.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(builder.Build())
-                .Enrich.FromLogContext()
-                .WriteTo.Console()
                 .CreateLogger();
             Log.Logger.Information("App Start");
 
@@ -32,18 +31,23 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
                 {
                     services.AddSingleton<App>();
 
-                    services.AddSingleton<IRedditContextBo, RedditContextBo>();
-                    services.AddSingleton<IRedditContextBo, RedditContextBo>();
+                    services.AddSingleton<IDbOperationExecutor, DbOperationExecutor>();
 
                     services.AddSingleton<IRedditContextDao, RedditContextDao>();
                     services.AddSingleton<ITwitterContextDao, TwitterContextDao>();
+
+                    services.AddSingleton<IRedditContextBo, RedditContextBo>();
+                    services.AddSingleton<ITwitterContextBo, TwitterContextBo>();
+
                 })
                 .UseSerilog()
                 .Build();
+
+            var app = host.Services.GetService<App>();
+            Task.WaitAll(app.Run());
+
             #endregion
 
-            //var app = new App();
-            //Task.WaitAll(app.Run());
         }
 
         static void BuildConfig(IConfigurationBuilder builder)

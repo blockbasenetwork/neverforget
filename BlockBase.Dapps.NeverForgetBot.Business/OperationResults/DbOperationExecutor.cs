@@ -1,4 +1,5 @@
 ﻿using BlockBase.Dapps.NeverForgetBot.Business.Interfaces;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 
@@ -6,6 +7,13 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.OperationResults
 {
     public class DbOperationExecutor : IDbOperationExecutor
     {
+        private readonly ILogger<DbOperationExecutor> _logger;
+
+        public DbOperationExecutor(ILogger<DbOperationExecutor> logger)
+        {
+            _logger = logger;
+        }
+
         public async Task<OperationResult> ExecuteOperation(Func<Task> func)
         {
             try
@@ -18,7 +26,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.OperationResults
             }
             catch (Exception ex)
             {
-
+                _logger.LogError(ex.ToString());
                 return new OperationResult() { Success = false, Exception = ex};
             }
         }
@@ -35,7 +43,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.OperationResults
             }
             catch (Exception ex)
             {
-
+                _logger.LogError(ex.ToString());
                 return new OperationResult<TResult>(ex);
             }
         }

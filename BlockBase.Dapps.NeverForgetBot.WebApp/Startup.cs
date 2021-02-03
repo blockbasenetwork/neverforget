@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BlockBase.Dapps.NeverForgetBot.Business.BOs;
 using BlockBase.Dapps.NeverForgetBot.Business.Interfaces;
+using BlockBase.Dapps.NeverForgetBot.Business.OperationResults;
 using BlockBase.Dapps.NeverForgetBot.Dal.DAOs;
 using BlockBase.Dapps.NeverForgetBot.Dal.Interfaces;
 using Microsoft.AspNetCore.Builder;
@@ -28,6 +29,8 @@ namespace BlockBase.Dapps.NeverForgetBot.WebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddTransient<IDbOperationExecutor, DbOperationExecutor>();
 
             services.AddTransient<IRedditContextDao, RedditContextDao>();
             services.AddTransient<IRedditContextBo, RedditContextBo>();
