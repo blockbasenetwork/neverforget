@@ -2,6 +2,7 @@
 using BlockBase.Dapps.NeverForgetBot.Data.Entities.Base;
 using BlockBase.Dapps.NeverForgetBot.Data.Interfaces;
 using System;
+using System.Collections.Generic;
 
 namespace BlockBase.Dapps.NeverForgetBot.Data.Entities
 {
@@ -11,14 +12,11 @@ namespace BlockBase.Dapps.NeverForgetBot.Data.Entities
         [PrimaryKey]
         public Guid Id { get; set; }
 
+        public virtual ICollection<RedditComment> RedditComments { get; set; }
+        public virtual ICollection<RedditSubmission> RedditSubmissions { get; set; }
 
-        public string CommentId { get; set; }
-        public string CommentPost { get; set; }
-
-        public int PostingDate { get; set; }
-
-        public string Author { get; set; }
-
-        public string SubReddit { get; set; }
+        [ForeignKey(Name = "RequestType")]
+        public Guid RequestTypeId { get; set; }
+        public virtual RequestType RequestType { get; set; }
     }
 }
