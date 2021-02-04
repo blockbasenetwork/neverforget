@@ -2,6 +2,7 @@
 using BlockBase.Dapps.NeverForgetBot.Data.Entities.Base;
 using BlockBase.Dapps.NeverForgetBot.Data.Interfaces;
 using System;
+using System.Collections.Generic;
 
 namespace BlockBase.Dapps.NeverForgetBot.Data.Entities
 {
@@ -11,14 +12,11 @@ namespace BlockBase.Dapps.NeverForgetBot.Data.Entities
         [PrimaryKey]
         public Guid Id { get; set; }
 
-        public string TweetId { get; set; }
-        public string TweetText { get; set; }
-        public DateTime TweetDate { get; set; }
-        public string AuthorId { get; set; }
-        public string Author { get; set; }
-        public string? InReplyToTweetId { get; set; }
-        public string? InReplyToUserId { get; set; }
-        public string? InReplyToUser { get; set; }
-        //public string? Hashtags { get; set; }
+        public virtual ICollection<TwitterComment> TwitterComments { get; set; }
+        public virtual ICollection<TwitterSubmission> TwitterSubmissions { get; set; }
+
+        [ForeignKey(Name = "RequestType")]
+        public Guid RequestTypeId { get; set; }
+        public virtual RequestType RequestType { get; set; }
     }
 }
