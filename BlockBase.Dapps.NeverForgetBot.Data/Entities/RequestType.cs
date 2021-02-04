@@ -10,6 +10,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Data.Entities
         public string Name { get; set; }
 
         public virtual RedditContext RedditContext { get; set; }
+        public virtual TwitterContext TwitterContext { get; set; }
 
 
     }
