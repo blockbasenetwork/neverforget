@@ -6,14 +6,10 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessModels
     public class RedditContextBusinessModel
     {
         public Guid Id { get; set; }
-        public string CommentId { get; set; }
-        public string CommentPost { get; set; }
-        public DateTime PostingDate { get; set; }
-        public string Author { get; set; }
-        public string SubReddit { get; set; }
+        public Guid RequestTypeId { get; set; }
+        public RequestType RequestType { get; set; }
 
         public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime? DeletedAt { get; set; }
 
@@ -22,15 +18,12 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessModels
             return new RedditContextBusinessModel()
             {
                 Id = redditContext.Id,
-                CommentId = redditContext.CommentId,
-                CommentPost = redditContext.CommentPost,
-                PostingDate = redditContext.PostingDate,
-                Author = redditContext.Author,
-                SubReddit = redditContext.SubReddit,
+                RequestTypeId = redditContext.RequestTypeId,
+                RequestType = redditContext.RequestType,
                 CreatedAt = redditContext.CreatedAt,
-                UpdatedAt = redditContext.UpdatedAt,
                 IsDeleted = redditContext.IsDeleted,
                 DeletedAt = redditContext.DeletedAt
+
             };
         }
 
@@ -39,13 +32,9 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessModels
             return new RedditContext()
             {
                 Id = Id,
-                CommentId = CommentId,
-                CommentPost = CommentPost,
-                PostingDate = PostingDate,
-                Author = Author,
-                SubReddit = SubReddit,
+                RequestTypeId = RequestTypeId,
+                RequestType = RequestType,
                 CreatedAt = CreatedAt,
-                UpdatedAt = UpdatedAt,
                 IsDeleted = IsDeleted,
                 DeletedAt = DeletedAt
             };

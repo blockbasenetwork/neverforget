@@ -34,10 +34,18 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
                     services.AddSingleton<IDbOperationExecutor, DbOperationExecutor>();
 
                     services.AddSingleton<IRedditContextDao, RedditContextDao>();
+                    services.AddSingleton<IRedditCommentDao, RedditCommentDao>();
+                    services.AddSingleton<IRedditSubmimssionDao, RedditSubmissionDao>();
                     services.AddSingleton<ITwitterContextDao, TwitterContextDao>();
+                    services.AddSingleton<ITwitterCommentDao, TwitterCommentDao>();
+                    services.AddSingleton<ITwitterSubmissionDao, TwitterSubmissionDao>();
 
                     services.AddSingleton<IRedditContextBo, RedditContextBo>();
+                    services.AddSingleton<IRedditCommentBo, RedditCommentBo>();
+                    services.AddSingleton<IRedditSubmissionBo, RedditSubmissionBo>();
                     services.AddSingleton<ITwitterContextBo, TwitterContextBo>();
+                    services.AddSingleton<ITwitterCommentBo, TwitterCommentBo>();
+                    services.AddSingleton<ITwitterSubmissionBo, TwitterSubmissionBo>();
 
                 })
                 .UseSerilog()

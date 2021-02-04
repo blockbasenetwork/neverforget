@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
 {
-    public class RedditContextBo : IRedditContextBo
+    public class RedditCommentBo : IRedditCommentBo
     {
-        private readonly IRedditContextDao _dao;
+        private readonly IRedditCommentDao _dao;
         private readonly IDbOperationExecutor _opExecutor;
 
-        public RedditContextBo(IRedditContextDao dao, IDbOperationExecutor opExecutor)
+        public RedditCommentBo(IRedditCommentDao dao, IDbOperationExecutor opExecutor)
         {
             _dao = dao;
             _opExecutor = opExecutor;
@@ -25,7 +25,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
         //{
         //    foreach (RedditModel model in modelArray)
         //    {
-        //        var boModel = new RedditContextBusinessModel();
+        //        var boModel = new RedditSubmissionBusinessModel();
         //        boModel.Id = Guid.NewGuid();
         //        boModel.Author = model.Author;
         //        boModel.CommentPost = CleanComment(model.Body);
@@ -47,7 +47,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
         //}
 
 
-        ////public bool CheckIfExists (RedditContextBusinessModel model)
+        ////public bool CheckIfExists (RedditSubmissionBusinessModel model)
         ////{
         ////    var modelList = _dao.GetAllNonDeletedAsync().Result;
         ////    modelList.Where(m => m.CommentId == model.CommentId) ? true : false;
@@ -62,50 +62,49 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
         //#endregion
 
         #region Create
-        public async Task<OperationResult> InsertAsync(RedditContextBusinessModel redditContext)
+        public async Task<OperationResult> InsertAsync(RedditCommentBusinessModel redditComment)
         {
             return await _opExecutor.ExecuteOperation(async () =>
             {
-                redditContext.CreatedAt = DateTime.UtcNow;
-                await _dao.InsertAsync(redditContext.ToData());
+                redditComment.CreatedAt = DateTime.UtcNow;
+                await _dao.InsertAsync(redditComment.ToData());
             });
         }
         #endregion
 
         #region Read
-        public async Task<OperationResult<RedditContextBusinessModel>> GetAsync(Guid id)
+        public async Task<OperationResult<RedditCommentBusinessModel>> GetAsync(Guid id)
         {
-            return await _opExecutor.ExecuteOperation<RedditContextBusinessModel>(async () =>
+            return await _opExecutor.ExecuteOperation<RedditCommentBusinessModel>(async () =>
             {
                 var result = await _dao.GetNonDeletedAsync(id);
-                return RedditContextBusinessModel.FromData(result);
+                return RedditCommentBusinessModel.FromData(result);
             });
         }
         #endregion
 
         #region Delete
-        public async Task<OperationResult> DeleteAsync(RedditContextBusinessModel redditContext)
+        public async Task<OperationResult> DeleteAsync(RedditCommentBusinessModel redditComment)
         {
             return await _opExecutor.ExecuteOperation(async () =>
             {
-                redditContext.IsDeleted = true;
-                redditContext.DeletedAt = DateTime.UtcNow;
-                var redditContextModel = await _dao.GetAsync(redditContext.Id);
-                await _dao.DeleteAsync(redditContextModel);
+                redditComment.IsDeleted = true;
+                redditComment.DeletedAt = DateTime.UtcNow;
+                var redditCommentModel = await _dao.GetAsync(redditComment.Id);
+                await _dao.DeleteAsync(redditCommentModel);
             });
         }
         #endregion
 
         #region List
-        public async Task<OperationResult<List<RedditContextBusinessModel>>> GetAllAsync()
+        public async Task<OperationResult<List<RedditCommentBusinessModel>>> GetAllAsync()
         {
-            return await _opExecutor.ExecuteOperation<List<RedditContextBusinessModel>>(async () =>
+            return await _opExecutor.ExecuteOperation<List<RedditCommentBusinessModel>>(async () =>
             {
                 var result = await _dao.GetAllNonDeletedAsync();
-                return result.Select(context => RedditContextBusinessModel.FromData(context)).ToList();
+                return result.Select(context => RedditCommentBusinessModel.FromData(context)).ToList();
             });
         }
         #endregion
-
     }
 }

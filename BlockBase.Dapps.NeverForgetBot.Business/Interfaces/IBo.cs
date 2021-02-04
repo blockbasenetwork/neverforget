@@ -9,7 +9,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.Interfaces
     {
         Task<OperationResult> InsertAsync(T item);
         Task<OperationResult<T>> GetAsync(Guid id);
-        Task<OperationResult> UpdateAsync(T item);
         Task<OperationResult> DeleteAsync(T item);
         Task<OperationResult<List<T>>> GetAllAsync();
     }

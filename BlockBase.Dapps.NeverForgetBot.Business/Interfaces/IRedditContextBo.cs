@@ -7,6 +7,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.Interfaces
 {
     public interface IRedditContextBo :IBo<RedditContextBusinessModel>
     {
-        Task<OperationResult> FromApiRedditModel(RedditModel[] modelArray);
+        //Task<OperationResult> FromApiRedditModel(RedditModel[] modelArray);
     }
 }

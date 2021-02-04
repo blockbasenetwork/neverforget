@@ -8,12 +8,20 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
     public class App
     {
         private IRedditContextBo _redditContextBo;
+        private IRedditCommentBo _redditCommentBo;
+        private IRedditSubmissionBo _redditSubmissionBo;
         private ITwitterContextBo _twitterContextBo;
+        private ITwitterCommentBo _twitterCommentBo;
+        private ITwitterSubmissionBo _twitterSubmisionBo;
 
-        public App(IRedditContextBo redditContextBo, ITwitterContextBo twitterContextBo)
+        public App(IRedditContextBo redditContextBo, IRedditCommentBo redditCommentBo, IRedditSubmissionBo redditSubmissionBo, ITwitterContextBo twitterContextBo, ITwitterCommentBo twitterCommentBo, ITwitterSubmissionBo twitterSubmissionBo)
         {
             _redditContextBo = redditContextBo;
+            _redditCommentBo = redditCommentBo;
+            _redditSubmissionBo = redditSubmissionBo;
             _twitterContextBo = twitterContextBo;
+            _twitterCommentBo = twitterCommentBo;
+            _twitterSubmissionBo = twitterSubmissionBo;
         }
 
         public async Task Run()
@@ -26,8 +34,8 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
 
             ApiHelper.InitializeClient();
 
-            var content = await RedditCollector.RedditInfo();
-            await _redditContextBo.FromApiRedditModel(content);
+            //var content = await RedditCollector.RedditInfo();
+            //await _redditContextBo.FromApiRedditModel(content);
         }
     }
 }

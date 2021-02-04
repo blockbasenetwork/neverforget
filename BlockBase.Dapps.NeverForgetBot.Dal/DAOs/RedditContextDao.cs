@@ -91,7 +91,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.DAOs
             using (var context = new NeverForgetBotDbContext())
             {
                 var result = await context.RedditContext.Where(e => e.IsDeleted == false).List();
-                if(result.Result == null)
+                if (result.Result == null)
                 {
                     return new List<RedditContext>();
                 }

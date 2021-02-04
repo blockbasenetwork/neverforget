@@ -5,16 +5,17 @@ using BlockBase.Dapps.NeverForgetBot.Dal.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
 {
-    public class RedditContextBo : IRedditContextBo
+    public class RedditSubmissionBo : IRedditSubmissionBo
     {
-        private readonly IRedditContextDao _dao;
+        private readonly IRedditSubmissionDao _dao;
         private readonly IDbOperationExecutor _opExecutor;
 
-        public RedditContextBo(IRedditContextDao dao, IDbOperationExecutor opExecutor)
+        public RedditSubmissionBo(IRedditSubmissionDao dao, IDbOperationExecutor opExecutor)
         {
             _dao = dao;
             _opExecutor = opExecutor;
@@ -25,7 +26,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
         //{
         //    foreach (RedditModel model in modelArray)
         //    {
-        //        var boModel = new RedditContextBusinessModel();
+        //        var boModel = new RedditSubmissionBusinessModel();
         //        boModel.Id = Guid.NewGuid();
         //        boModel.Author = model.Author;
         //        boModel.CommentPost = CleanComment(model.Body);
@@ -47,7 +48,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
         //}
 
 
-        ////public bool CheckIfExists (RedditContextBusinessModel model)
+        ////public bool CheckIfExists (RedditSubmissionBusinessModel model)
         ////{
         ////    var modelList = _dao.GetAllNonDeletedAsync().Result;
         ////    modelList.Where(m => m.CommentId == model.CommentId) ? true : false;
@@ -62,50 +63,49 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
         //#endregion
 
         #region Create
-        public async Task<OperationResult> InsertAsync(RedditContextBusinessModel redditContext)
+        public async Task<OperationResult> InsertAsync(RedditSubmissionBusinessModel redditSubmission)
         {
             return await _opExecutor.ExecuteOperation(async () =>
             {
-                redditContext.CreatedAt = DateTime.UtcNow;
-                await _dao.InsertAsync(redditContext.ToData());
+                redditSubmission.CreatedAt = DateTime.UtcNow;
+                await _dao.InsertAsync(redditSubmission.ToData());
             });
         }
         #endregion
 
         #region Read
-        public async Task<OperationResult<RedditContextBusinessModel>> GetAsync(Guid id)
+        public async Task<OperationResult<RedditSubmissionBusinessModel>> GetAsync(Guid id)
         {
-            return await _opExecutor.ExecuteOperation<RedditContextBusinessModel>(async () =>
+            return await _opExecutor.ExecuteOperation<RedditSubmissionBusinessModel>(async () =>
             {
                 var result = await _dao.GetNonDeletedAsync(id);
-                return RedditContextBusinessModel.FromData(result);
+                return RedditSubmissionBusinessModel.FromData(result);
             });
         }
         #endregion
-
+     
         #region Delete
-        public async Task<OperationResult> DeleteAsync(RedditContextBusinessModel redditContext)
+        public async Task<OperationResult> DeleteAsync(RedditSubmissionBusinessModel redditSubmission)
         {
             return await _opExecutor.ExecuteOperation(async () =>
             {
-                redditContext.IsDeleted = true;
-                redditContext.DeletedAt = DateTime.UtcNow;
-                var redditContextModel = await _dao.GetAsync(redditContext.Id);
-                await _dao.DeleteAsync(redditContextModel);
+                redditSubmission.IsDeleted = true;
+                redditSubmission.DeletedAt = DateTime.UtcNow;
+                var redditSubmissionModel = await _dao.GetAsync(redditSubmission.Id);
+                await _dao.DeleteAsync(redditSubmissionModel);
             });
         }
         #endregion
 
         #region List
-        public async Task<OperationResult<List<RedditContextBusinessModel>>> GetAllAsync()
+        public async Task<OperationResult<List<RedditSubmissionBusinessModel>>> GetAllAsync()
         {
-            return await _opExecutor.ExecuteOperation<List<RedditContextBusinessModel>>(async () =>
+            return await _opExecutor.ExecuteOperation<List<RedditSubmissionBusinessModel>>(async () =>
             {
                 var result = await _dao.GetAllNonDeletedAsync();
-                return result.Select(context => RedditContextBusinessModel.FromData(context)).ToList();
+                return result.Select(context => RedditSubmissionBusinessModel.FromData(context)).ToList();
             });
         }
         #endregion
-
     }
 }
