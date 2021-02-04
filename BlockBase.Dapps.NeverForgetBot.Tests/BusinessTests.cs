@@ -144,7 +144,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
             }
 
             var twitterDAO = new TwitterContextDao();
-            var opExecutor = new DbOperationExecutor();
+            var mockLogger = new Mock<ILogger<DbOperationExecutor>>();
+            var opExecutor = new DbOperationExecutor(mockLogger.Object);
             var twitterBO = new TwitterContextBo(twitterDAO, opExecutor);
 
             var twitterContextBM = new TwitterContextBusinessModel
@@ -202,7 +203,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
             }
 
             var twitterDAO = new TwitterContextDao();
-            var opExecutor = new DbOperationExecutor();
+            var mockLogger = new Mock<ILogger<DbOperationExecutor>>();
+            var opExecutor = new DbOperationExecutor(mockLogger.Object);
             var twitterBO = new TwitterContextBo(twitterDAO, opExecutor);
 
             var twitterContextBM = new TwitterContextBusinessModel
@@ -268,7 +270,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
             }
 
             var twitterDAO = new TwitterContextDao();
-            var opExecutor = new DbOperationExecutor();
+            var mockLogger = new Mock<ILogger<DbOperationExecutor>>();
+            var opExecutor = new DbOperationExecutor(mockLogger.Object);
             var twitterBO = new TwitterContextBo(twitterDAO, opExecutor);
 
             var twitterContextBM = new TwitterContextBusinessModel
@@ -337,7 +340,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
             }
 
             var twitterDAO = new TwitterContextDao();
-            var opExecutor = new DbOperationExecutor();
+            var mockLogger = new Mock<ILogger<DbOperationExecutor>>();
+            var opExecutor = new DbOperationExecutor(mockLogger.Object);
             var twitterBO = new TwitterContextBo(twitterDAO, opExecutor);
 
             var twitterContextBM = new TwitterContextBusinessModel
