@@ -11,11 +11,14 @@ namespace BlockBase.Dapps.NeverForgetBot.Data.Entities
         [PrimaryKey]
         public Guid Id { get; set; }
 
-
-        public long CommentId { get; set; }
-
-        public DateTime PostingDate { get; set; }
-
+        public string TweetId { get; set; }
+        public string TweetText { get; set; }
+        public DateTime TweetDate { get; set; }
+        public string AuthorId { get; set; }
         public string Author { get; set; }
+        public string? InReplyToTweetId { get; set; }
+        public string? InReplyToUserId { get; set; }
+        public string? InReplyToUser { get; set; }
+        //public string? Hashtags { get; set; }
     }
 }

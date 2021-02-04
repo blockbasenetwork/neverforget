@@ -12,6 +12,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
     [TestClass]
     public class BusinessTests
     {
+        #region REDDIT
         [TestMethod]
         public void TestInsertAndGetReddit()
         {
@@ -124,5 +125,269 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
 
             Assert.IsTrue(redditContextBM3.IsDeleted == true);
         }
+        #endregion
+
+
+        #region TWITTER
+        [TestMethod]
+        public void TestInsertAndGetTwitter()
+        {
+            using (var context = new NeverForgetBotDbContext())
+            {
+                var resultDrop = context.DropDatabase().Result;
+                var resultCreate = context.CreateDatabase().Result;
+            }
+
+            var twitterDAO = new TwitterContextDao();
+            var opExecutor = new DbOperationExecutor();
+            var twitterBO = new TwitterContextBo(twitterDAO, opExecutor);
+
+            var twitterContextBM = new TwitterContextBusinessModel
+            {
+                Id = Guid.NewGuid(),
+                TweetId = "tk1",
+                TweetText = "@_NeverForgetBot Tweet1",
+                TweetDate = DateTime.UtcNow,
+                AuthorId = "Au1",
+                Author = "Author1",
+                InReplyToTweetId = null,
+                InReplyToUserId = null,
+                InReplyToUser = null,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                DeletedAt = null,
+                IsDeleted = false
+            };
+
+            var twitterContextBMDeleted = new TwitterContextBusinessModel
+            {
+                Id = Guid.NewGuid(),
+                TweetId = "tk2",
+                TweetText = "@_NeverForgetBot Tweet2 #comment",
+                TweetDate = DateTime.UtcNow,
+                AuthorId = "Au2",
+                Author = "Author2",
+                InReplyToTweetId = twitterContextBM.TweetId,
+                InReplyToUserId = twitterContextBM.AuthorId,
+                InReplyToUser = twitterContextBM.Author,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow,
+                DeletedAt = null,
+                IsDeleted = true
+            };
+
+            twitterBO.InsertAsync(twitterContextBM).Wait();
+            twitterBO.InsertAsync(twitterContextBMDeleted).Wait();
+
+            var resGet = twitterBO.GetAsync(twitterContextBM.Id).Result.Result;
+            var resGetDeleted = twitterBO.GetAsync(twitterContextBMDeleted.Id).Result.Result;
+
+
+
+            Assert.IsTrue(resGet != null && resGetDeleted == null);
+        }
+
+        [TestMethod]
+        public void TestGetAllNonDeletedTwitter()
+        {
+            using (var context = new NeverForgetBotDbContext())
+            {
+                var resultDrop = context.DropDatabase().Result;
+                var resultCreate = context.CreateDatabase().Result;
+            }
+
+            var twitterDAO = new TwitterContextDao();
+            var opExecutor = new DbOperationExecutor();
+            var twitterBO = new TwitterContextBo(twitterDAO, opExecutor);
+
+            var twitterContextBM = new TwitterContextBusinessModel
+            {
+                Id = Guid.NewGuid(),
+                TweetId = "tk1",
+                TweetText = "@_NeverForgetBot Tweet1",
+                TweetDate = DateTime.UtcNow,
+                AuthorId = "Au1",
+                Author = "Author1",
+                InReplyToTweetId = null,
+                InReplyToUserId = null,
+                InReplyToUser = null,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow
+            };
+            twitterBO.InsertAsync(twitterContextBM).Wait();
+
+            var twitterContextBM2 = new TwitterContextBusinessModel
+            {
+                Id = Guid.NewGuid(),
+                TweetId = "tk2",
+                TweetText = "@_NeverForgetBot Tweet2 #comment",
+                TweetDate = DateTime.UtcNow,
+                AuthorId = "Au2",
+                Author = "Author2",
+                InReplyToTweetId = twitterContextBM.TweetId,
+                InReplyToUserId = twitterContextBM.AuthorId,
+                InReplyToUser = twitterContextBM.Author,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow
+            };
+            twitterBO.InsertAsync(twitterContextBM2).Wait();
+
+            var twitterContextBM3 = new TwitterContextBusinessModel
+            {
+                Id = Guid.NewGuid(),
+                TweetId = "tk3",
+                TweetText = "@_NeverForgetBot Tweet3 #tweet #test",
+                TweetDate = DateTime.UtcNow,
+                AuthorId = "Au3",
+                Author = "Author3",
+                InReplyToTweetId = twitterContextBM2.TweetId,
+                InReplyToUserId = twitterContextBM2.AuthorId,
+                InReplyToUser = twitterContextBM2.Author,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow
+            };
+            twitterBO.InsertAsync(twitterContextBM3).Wait();
+
+            var twitterContextBMList = twitterBO.GetAllAsync().Result.Result;
+
+            Assert.IsTrue(twitterContextBMList.Count == 3);
+        }
+
+        [TestMethod]
+        public void TestUpdateTwitter()
+        {
+            using (var context = new NeverForgetBotDbContext())
+            {
+                var resultDrop = context.DropDatabase().Result;
+                var resultCreate = context.CreateDatabase().Result;
+            }
+
+            var twitterDAO = new TwitterContextDao();
+            var opExecutor = new DbOperationExecutor();
+            var twitterBO = new TwitterContextBo(twitterDAO, opExecutor);
+
+            var twitterContextBM = new TwitterContextBusinessModel
+            {
+                Id = Guid.NewGuid(),
+                TweetId = "tk1",
+                TweetText = "@_NeverForgetBot Tweet1",
+                TweetDate = DateTime.UtcNow,
+                AuthorId = "Au1",
+                Author = "Author1",
+                InReplyToTweetId = null,
+                InReplyToUserId = null,
+                InReplyToUser = null,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow
+            };
+            twitterBO.InsertAsync(twitterContextBM).Wait();
+
+            var twitterContextBM2 = new TwitterContextBusinessModel
+            {
+                Id = Guid.NewGuid(),
+                TweetId = "tk2",
+                TweetText = "@_NeverForgetBot Tweet2 #comment",
+                TweetDate = DateTime.UtcNow,
+                AuthorId = "Au2",
+                Author = "Author2",
+                InReplyToTweetId = twitterContextBM.TweetId,
+                InReplyToUserId = twitterContextBM.AuthorId,
+                InReplyToUser = twitterContextBM.Author,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow
+            };
+            twitterBO.InsertAsync(twitterContextBM2).Wait();
+
+            var twitterContextBM3 = new TwitterContextBusinessModel
+            {
+                Id = Guid.NewGuid(),
+                TweetId = "tk3",
+                TweetText = "@_NeverForgetBot Tweet3 #tweet #test",
+                TweetDate = DateTime.UtcNow,
+                AuthorId = "Au3",
+                Author = "Author3",
+                InReplyToTweetId = twitterContextBM2.TweetId,
+                InReplyToUserId = twitterContextBM2.AuthorId,
+                InReplyToUser = twitterContextBM2.Author,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow
+            };
+            twitterBO.InsertAsync(twitterContextBM3).Wait();
+
+
+            var resGet = twitterBO.GetAsync(twitterContextBM.Id).Result.Result;
+            resGet.Author = "NewAuthor";
+            twitterBO.UpdateAsync(resGet).Wait();
+
+            Assert.IsTrue(resGet.Author == "NewAuthor");
+        }
+
+        [TestMethod]
+        public void TestDeleteTwitter()
+        {
+            using (var context = new NeverForgetBotDbContext())
+            {
+                var resultDrop = context.DropDatabase().Result;
+                var resultCreate = context.CreateDatabase().Result;
+            }
+
+            var twitterDAO = new TwitterContextDao();
+            var opExecutor = new DbOperationExecutor();
+            var twitterBO = new TwitterContextBo(twitterDAO, opExecutor);
+
+            var twitterContextBM = new TwitterContextBusinessModel
+            {
+                Id = Guid.NewGuid(),
+                TweetId = "tk1",
+                TweetText = "@_NeverForgetBot Tweet1",
+                TweetDate = DateTime.UtcNow,
+                AuthorId = "Au1",
+                Author = "Author1",
+                InReplyToTweetId = null,
+                InReplyToUserId = null,
+                InReplyToUser = null,
+
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow
+            };
+            twitterBO.InsertAsync(twitterContextBM).Wait();
+
+            var twitterContextBM2 = new TwitterContextBusinessModel
+            {
+                Id = Guid.NewGuid(),
+                TweetId = "tk2",
+                TweetText = "@_NeverForgetBot Tweet2 #comment",
+                TweetDate = DateTime.UtcNow,
+                AuthorId = "Au2",
+                Author = "Author2",
+                InReplyToTweetId = twitterContextBM.TweetId,
+                InReplyToUserId = twitterContextBM.AuthorId,
+                InReplyToUser = twitterContextBM.Author,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow
+            };
+            twitterBO.InsertAsync(twitterContextBM2).Wait();
+
+            var twitterContextBM3 = new TwitterContextBusinessModel
+            {
+                Id = Guid.NewGuid(),
+                TweetId = "tk3",
+                TweetText = "@_NeverForgetBot Tweet3 #tweet #test",
+                TweetDate = DateTime.UtcNow,
+                AuthorId = "Au3",
+                Author = "Author3",
+                InReplyToTweetId = twitterContextBM2.TweetId,
+                InReplyToUserId = twitterContextBM2.AuthorId,
+                InReplyToUser = twitterContextBM2.Author,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow
+            };
+            twitterBO.InsertAsync(twitterContextBM3).Wait();
+
+            twitterBO.DeleteAsync(twitterContextBM3).Wait();
+
+            Assert.IsTrue(twitterContextBM3.IsDeleted == true);
+        }
+        #endregion
     }
 }
