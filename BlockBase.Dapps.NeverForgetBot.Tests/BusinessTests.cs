@@ -1,10 +1,11 @@
 using BlockBase.Dapps.NeverForgetBot.Business.BOs;
 using BlockBase.Dapps.NeverForgetBot.Business.BusinessModels;
 using BlockBase.Dapps.NeverForgetBot.Business.OperationResults;
-using BlockBase.Dapps.NeverForgetBot.ConsoleApp;
 using BlockBase.Dapps.NeverForgetBot.Dal.DAOs;
 using BlockBase.Dapps.NeverForgetBot.Data.Context;
+using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using System;
 
 namespace BlockBase.Dapps.NeverForgetBot.Tests
@@ -23,7 +24,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
             }
 
             var redditDAO = new RedditContextDao();
-            var opExecutor = new DbOperationExecutor();
+            var mockLogger = new Mock<ILogger<DbOperationExecutor>>();
+            var opExecutor = new DbOperationExecutor(mockLogger.Object);
             var redditBO = new RedditContextBo(redditDAO, opExecutor);
 
 
@@ -51,7 +53,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
             }
 
             var redditDAO = new RedditContextDao();
-            var opExecutor = new DbOperationExecutor();
+            var mockLogger = new Mock<ILogger<DbOperationExecutor>>();
+            var opExecutor = new DbOperationExecutor(mockLogger.Object);
             var redditBO = new RedditContextBo(redditDAO, opExecutor);
 
 
@@ -80,7 +83,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
             }
 
             var redditDAO = new RedditContextDao();
-            var opExecutor = new DbOperationExecutor();
+            var mockLogger = new Mock<ILogger<DbOperationExecutor>>();
+            var opExecutor = new DbOperationExecutor(mockLogger.Object);
             var redditBO = new RedditContextBo(redditDAO, opExecutor);
 
 
@@ -109,7 +113,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
             }
 
             var redditDAO = new RedditContextDao();
-            var opExecutor = new DbOperationExecutor();
+            var mockLogger = new Mock<ILogger<DbOperationExecutor>>();
+            var opExecutor = new DbOperationExecutor(mockLogger.Object);
             var redditBO = new RedditContextBo(redditDAO, opExecutor);
 
 
