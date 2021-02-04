@@ -26,7 +26,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
             return await _opExecutor.ExecuteOperation(async () =>
             {
                 twitterContext.CreatedAt = DateTime.UtcNow;
-                twitterContext.UpdatedAt = twitterContext.CreatedAt;
                 await _dao.InsertAsync(twitterContext.ToData());
             });
         }
@@ -48,7 +47,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
         {
             return await _opExecutor.ExecuteOperation(async () =>
             {
-                twitterContext.UpdatedAt = DateTime.UtcNow;
                 await _dao.UpdateAsync(twitterContext.ToData());
             });
         }
