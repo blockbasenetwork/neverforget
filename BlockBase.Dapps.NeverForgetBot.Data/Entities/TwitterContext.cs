@@ -10,12 +10,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Data.Entities
     {
         [PrimaryKey]
         public Guid Id { get; set; }
-
-
         public long CommentId { get; set; }
-
         public DateTime PostingDate { get; set; }
-
         public string Author { get; set; }
     }
 }

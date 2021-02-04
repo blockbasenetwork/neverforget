@@ -31,7 +31,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
                 boModel.Id = Guid.NewGuid();
                 boModel.Author = model.Author;
                 boModel.CommentPost = CleanComment(model.Body);
-                boModel.PostingDate = model.Created_Utc;
+                boModel.PostingDate = FromUnixTime(model.Created_Utc);
                 boModel.CommentId = model.Id;
                 boModel.SubReddit = model.SubReddit;
                 boModel.CreatedAt = DateTime.UtcNow;
@@ -43,7 +43,19 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
         }
 
         #region Process Data
-        public
+        private static readonly DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        public DateTime FromUnixTime(int unixTime)
+        {
+            return epoch.AddSeconds(unixTime);
+        }
+
+
+        //public bool CheckIfExists (RedditContextBusinessModel model)
+        //{
+        //    var modelList = _dao.GetAllNonDeletedAsync().Result;
+        //    modelList.Where(m => m.CommentId == model.CommentId) ? true : false;
+        //}
+
 
         private string CleanComment(string body)
         {
