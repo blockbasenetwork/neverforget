@@ -34,8 +34,15 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.DAOs
         {
             using (var context = new NeverForgetBotDbContext())
             {
-                var result = await context.TwitterContext.Get(e => (!e.IsDeleted) ? e : null);
-                return result.Result;
+                var result = await context.TwitterContext.Where(e => e.Id == id && e.IsDeleted == false).List();
+                if (result.Result == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return result.Result.ToList().FirstOrDefault();
+                }
             }
         }
         #endregion
@@ -84,7 +91,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.DAOs
             using (var context = new NeverForgetBotDbContext())
             {
                 var result = await context.TwitterContext.Where(e => e.IsDeleted == false).List();
-                if (result.Result == null)
+                if(result.Result == null)
                 {
                     return new List<TwitterContext>();
                 }
@@ -100,7 +107,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.DAOs
             using (var context = new NeverForgetBotDbContext())
             {
                 var result = await context.TwitterContext.Where(e => e.IsDeleted == true).List();
-                if (result.Result == null)
+                if(result.Result == null)
                 {
                     return new List<TwitterContext>();
                 }

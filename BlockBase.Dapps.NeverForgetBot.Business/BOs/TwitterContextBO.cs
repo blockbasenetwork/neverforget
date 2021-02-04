@@ -4,6 +4,7 @@ using BlockBase.Dapps.NeverForgetBot.Business.OperationResults;
 using BlockBase.Dapps.NeverForgetBot.Dal.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
@@ -34,9 +35,10 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
         #region Read
         public async Task<OperationResult<TwitterContextBusinessModel>> GetAsync(Guid id)
         {
-            return (OperationResult<TwitterContextBusinessModel>)await _opExecutor.ExecuteOperation(async () =>
+            return await _opExecutor.ExecuteOperation<TwitterContextBusinessModel>(async () =>
             {
-                await _dao.GetAsync(id);
+                var result = await _dao.GetNonDeletedAsync(id);
+                return TwitterContextBusinessModel.FromData(result);
             });
         }
         #endregion
@@ -68,9 +70,10 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
         #region List
         public async Task<OperationResult<List<TwitterContextBusinessModel>>> GetAllAsync()
         {
-            return (OperationResult<List<TwitterContextBusinessModel>>)await _opExecutor.ExecuteOperation(async () =>
+            return await _opExecutor.ExecuteOperation<List<TwitterContextBusinessModel>>(async () =>
             {
-                await _dao.GetAllAsync();
+                var result = await _dao.GetAllNonDeletedAsync();
+                return result.Select(context => TwitterContextBusinessModel.FromData(context)).ToList();
             });
         }
         #endregion
