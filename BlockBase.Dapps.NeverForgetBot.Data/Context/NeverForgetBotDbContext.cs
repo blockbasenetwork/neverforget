@@ -19,6 +19,15 @@ namespace BlockBase.Dapps.NeverForgetBot.Data.Context
         }
 
         public BbSet<RedditContext, Guid> RedditContext { get; set; }
+        public BbSet<RedditComment, Guid> RedditComment { get; set; }
+        public BbSet<RedditSubmission, Guid> RedditSubmission { get; set; }
+
         public BbSet<TwitterContext, Guid> TwitterContext { get; set; }
+        public BbSet<TwitterComment, Guid> TwitterComment { get; set; }
+        public BbSet<TwitterSubmission, Guid> TwitterSubmission { get; set; }
+
+        public BbSet<RequestType, int> RequestType { get; set; }
+
+
     }
 }

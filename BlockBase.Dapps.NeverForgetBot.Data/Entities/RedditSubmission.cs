@@ -1,10 +1,12 @@
 ﻿using BlockBase.BBLinq.Annotations;
+using BlockBase.Dapps.NeverForgetBot.Data.Entities.Base;
+using BlockBase.Dapps.NeverForgetBot.Data.Interfaces;
 using System;
 
 namespace BlockBase.Dapps.NeverForgetBot.Data.Entities
 {
     [Table(Name = "RedditSubmissions")]
-    public class RedditSubmission
+    public class RedditSubmission : AuditEntity, IEntity
     {
         [PrimaryKey]
         public Guid Id { get; set; }
