@@ -15,8 +15,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Data.Entities
         public virtual ICollection<TwitterComment> TwitterComments { get; set; }
         public virtual ICollection<TwitterSubmission> TwitterSubmissions { get; set; }
 
-        [ForeignKey(Name = "RequestType")]
-        public Guid RequestTypeId { get; set; }
-        public virtual RequestType RequestType { get; set; }
+        //[ForeignKey(Name = "RequestTypes")]
+        //public Guid RequestTypeId { get; set; }
+        //public virtual RequestType RequestType { get; set; }
     }
 }

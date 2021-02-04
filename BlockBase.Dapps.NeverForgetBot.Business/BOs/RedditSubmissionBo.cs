@@ -5,7 +5,6 @@ using BlockBase.Dapps.NeverForgetBot.Dal.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
@@ -22,16 +21,16 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
 
         }
 
-        //public async Task<OperationResult> FromApiRedditModel(RedditModel[] modelArray)
+        //public async Task<OperationResult> FromApiRedditSubmissionModel(RedditSubmissionModel[] modelArray)
         //{
-        //    foreach (RedditModel model in modelArray)
+        //    foreach (RedditSubmissionModel model in modelArray)
         //    {
         //        var boModel = new RedditSubmissionBusinessModel();
         //        boModel.Id = Guid.NewGuid();
         //        boModel.Author = model.Author;
-        //        boModel.CommentPost = CleanComment(model.Body);
-        //        boModel.PostingDate = FromUnixTime(model.Created_Utc);
-        //        boModel.CommentId = model.Id;
+        //        boModel.Text = CleanComment(model.Body);
+        //        boModel.SubmissionDate = FromUnixTime(model.Created_Utc);
+        //        boModel.SubmissionId = model.Id;
         //        boModel.SubReddit = model.SubReddit;
         //        boModel.CreatedAt = DateTime.UtcNow;
 
@@ -46,14 +45,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
         //{
         //    return epoch.AddSeconds(unixTime);
         //}
-
-
-        ////public bool CheckIfExists (RedditSubmissionBusinessModel model)
-        ////{
-        ////    var modelList = _dao.GetAllNonDeletedAsync().Result;
-        ////    modelList.Where(m => m.CommentId == model.CommentId) ? true : false;
-        ////}
-
 
         //private string CleanComment(string body)
         //{
@@ -83,7 +74,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
             });
         }
         #endregion
-     
+
         #region Delete
         public async Task<OperationResult> DeleteAsync(RedditSubmissionBusinessModel redditSubmission)
         {

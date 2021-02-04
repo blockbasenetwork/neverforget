@@ -2,9 +2,11 @@
 using BlockBase.Dapps.NeverForgetBot.Business.Interfaces;
 using BlockBase.Dapps.NeverForgetBot.Business.OperationResults;
 using BlockBase.Dapps.NeverForgetBot.Dal.Interfaces;
+using BlockBase.Dapps.NeverForgetBot.Services.API.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
@@ -21,45 +23,39 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
 
         }
 
-        //public async Task<OperationResult> FromApiRedditModel(RedditModel[] modelArray)
-        //{
-        //    foreach (RedditModel model in modelArray)
-        //    {
-        //        var boModel = new RedditSubmissionBusinessModel();
-        //        boModel.Id = Guid.NewGuid();
-        //        boModel.Author = model.Author;
-        //        boModel.CommentPost = CleanComment(model.Body);
-        //        boModel.PostingDate = FromUnixTime(model.Created_Utc);
-        //        boModel.CommentId = model.Id;
-        //        boModel.SubReddit = model.SubReddit;
-        //        boModel.CreatedAt = DateTime.UtcNow;
+        public async Task<OperationResult> FromApiRedditCommentModel(RedditCommentModel[] modelArray)
+        {
+            foreach (RedditCommentModel model in modelArray)
+            {
+                var boModel = new RedditCommentBusinessModel();
+                boModel.Id = Guid.NewGuid();
+                boModel.Author = model.Author;
+                boModel.Text = CleanComment(model.Body);
+                boModel.CommentDate = FromUnixTime(model.Created_Utc);
+                boModel.CommentId = model.Id;
+                boModel.ParentId = model.Parent_Id;
+                boModel.ParentSubmissionId = model.Link_Id;
+                boModel.SubReddit = model.SubReddit;
+                boModel.CreatedAt = DateTime.UtcNow;
 
-        //        await _dao.InsertAsync(boModel.ToData());
-        //    }
-        //    return new OperationResult() { Success = true };
-        //}
+                await _dao.InsertAsync(boModel.ToData());
+            }
+            return new OperationResult() { Success = true };
+        }
 
-        //#region Process Data
-        //private static readonly DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-        //public DateTime FromUnixTime(int unixTime)
-        //{
-        //    return epoch.AddSeconds(unixTime);
-        //}
+        #region Process Data
+        private static readonly DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        public DateTime FromUnixTime(int unixTime)
+        {
+            return epoch.AddSeconds(unixTime);
+        }
 
-
-        ////public bool CheckIfExists (RedditSubmissionBusinessModel model)
-        ////{
-        ////    var modelList = _dao.GetAllNonDeletedAsync().Result;
-        ////    modelList.Where(m => m.CommentId == model.CommentId) ? true : false;
-        ////}
-
-
-        //private string CleanComment(string body)
-        //{
-        //    var unquotedString = Regex.Replace(body, @"\b'\b", "''");
-        //    return unquotedString;
-        //}
-        //#endregion
+        private string CleanComment(string body)
+        {
+            var unquotedString = Regex.Replace(body, @"\b'\b", "''");
+            return unquotedString;
+        }
+        #endregion
 
         #region Create
         public async Task<OperationResult> InsertAsync(RedditCommentBusinessModel redditComment)

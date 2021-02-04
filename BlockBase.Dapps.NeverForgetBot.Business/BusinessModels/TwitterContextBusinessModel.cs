@@ -7,7 +7,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessModels
     {
         public Guid Id { get; set; }
         public Guid RequestTypeId { get; set; }
-        public RequestType RequestType { get; set; }
+        //public RequestType RequestType { get; set; }
         public DateTime CreatedAt { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime? DeletedAt { get; set; }
@@ -17,8 +17,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessModels
             return new TwitterContextBusinessModel()
             {
                 Id = twitterContext.Id,
-                RequestTypeId = twitterContext.RequestTypeId,
-                RequestType = twitterContext.RequestType,
+                //RequestTypeId = twitterContext.RequestTypeId,
+                //RequestType = twitterContext.RequestType,
                 CreatedAt = twitterContext.CreatedAt,
                 IsDeleted = twitterContext.IsDeleted,
                 DeletedAt = twitterContext.DeletedAt
@@ -30,8 +30,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessModels
             return new TwitterContext()
             {
                 Id = Id,
-                RequestTypeId = RequestTypeId,
-                RequestType = RequestType,
+                //RequestTypeId = RequestTypeId,
+                //RequestType = RequestType,
                 CreatedAt = CreatedAt,
                 IsDeleted = IsDeleted,
                 DeletedAt = DeletedAt

@@ -2,8 +2,6 @@
 using BlockBase.Dapps.NeverForgetBot.Data.Entities.Base;
 using BlockBase.Dapps.NeverForgetBot.Data.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BlockBase.Dapps.NeverForgetBot.Data.Entities
 {
@@ -18,7 +16,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Data.Entities
         public string Author { get; set; }
         public DateTime SubmissionDate { get; set; }
 
-        [ForeignKey(Name = "TwitterContext")]
+        [ForeignKey(Name = "TwitterContexts")]
         public Guid TwitterContextId { get; set; }
         public virtual TwitterContext TwitterContext { get; set; }
     }

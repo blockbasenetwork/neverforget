@@ -3,6 +3,7 @@ using BlockBase.Dapps.NeverForgetBot.Business.Interfaces;
 using BlockBase.Dapps.NeverForgetBot.Business.OperationResults;
 using BlockBase.Dapps.NeverForgetBot.Dal.DAOs;
 using BlockBase.Dapps.NeverForgetBot.Dal.Interfaces;
+using BlockBase.Dapps.NeverForgetBot.Services.API;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -16,7 +17,7 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
     class Program
     {
         static void Main(string[] args)
-        {       
+        {
             var builder = new ConfigurationBuilder();
             BuildConfig(builder);
 
@@ -35,7 +36,7 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
 
                     services.AddSingleton<IRedditContextDao, RedditContextDao>();
                     services.AddSingleton<IRedditCommentDao, RedditCommentDao>();
-                    services.AddSingleton<IRedditSubmimssionDao, RedditSubmissionDao>();
+                    services.AddSingleton<IRedditSubmissionDao, RedditSubmissionDao>();
                     services.AddSingleton<ITwitterContextDao, TwitterContextDao>();
                     services.AddSingleton<ITwitterCommentDao, TwitterCommentDao>();
                     services.AddSingleton<ITwitterSubmissionDao, TwitterSubmissionDao>();
@@ -46,6 +47,9 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
                     services.AddSingleton<ITwitterContextBo, TwitterContextBo>();
                     services.AddSingleton<ITwitterCommentBo, TwitterCommentBo>();
                     services.AddSingleton<ITwitterSubmissionBo, TwitterSubmissionBo>();
+
+                    services.AddSingleton<RedditCollector>();
+
 
                 })
                 .UseSerilog()

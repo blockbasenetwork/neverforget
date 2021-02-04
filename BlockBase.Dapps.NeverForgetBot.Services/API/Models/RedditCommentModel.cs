@@ -1,13 +1,11 @@
-﻿//using BlockBase.Dapps.NeverForgetBot.Business.BusinessModels;
-
-namespace BlockBase.Dapps.NeverForgetBot.Services.API.Models
+﻿namespace BlockBase.Dapps.NeverForgetBot.Services.API.Models
 {
-    public class RedditResultModel
+    public class RedditCommentResultModel
     {
-        public RedditModel[] Data { get; set; }
+        public RedditCommentModel[] Data { get; set; }
     }
 
-    public class RedditModel
+    public class RedditCommentModel
     {
         public string Author { get; set; }
         public string Body { get; set; }
@@ -15,5 +13,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API.Models
         public string Id { get; set; }
         public string SubReddit { get; set; }
         public string Parent_Id { get; set; }
+        public string Link_Id { get; set; }
     }
 }

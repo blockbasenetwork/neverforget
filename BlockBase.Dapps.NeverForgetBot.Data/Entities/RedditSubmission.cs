@@ -17,7 +17,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Data.Entities
         public string SubReddit { get; set; }
         public DateTime SubmissionDate { get; set; }
 
-        [ForeignKey(Name = "RedditContext")]
+        [ForeignKey(Name = "RedditContexts")]
         public Guid RedditContextId { get; set; }
         public virtual RedditContext RedditContext { get; set; }
     }

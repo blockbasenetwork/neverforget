@@ -5,17 +5,16 @@ using BlockBase.Dapps.NeverForgetBot.Dal.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
 {
-    public class TwitterCommentBO : ITwitterCommentBo
+    public class TwitterCommentBo : ITwitterCommentBo
     {
         private readonly ITwitterCommentDao _dao;
         private readonly IDbOperationExecutor _opExecutor;
 
-        public TwitterCommentBO(ITwitterCommentDao dao, IDbOperationExecutor opExecutor)
+        public TwitterCommentBo(ITwitterCommentDao dao, IDbOperationExecutor opExecutor)
         {
             _dao = dao;
             _opExecutor = opExecutor;

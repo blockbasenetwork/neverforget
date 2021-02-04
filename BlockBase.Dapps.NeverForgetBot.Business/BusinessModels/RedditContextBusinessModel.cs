@@ -7,7 +7,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessModels
     {
         public Guid Id { get; set; }
         public Guid RequestTypeId { get; set; }
-        public RequestType RequestType { get; set; }
+        //public RequestType RequestType { get; set; }
 
         public DateTime CreatedAt { get; set; }
         public bool IsDeleted { get; set; }
@@ -18,8 +18,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessModels
             return new RedditContextBusinessModel()
             {
                 Id = redditContext.Id,
-                RequestTypeId = redditContext.RequestTypeId,
-                RequestType = redditContext.RequestType,
+                //RequestTypeId = redditContext.RequestTypeId,
+                //RequestType = redditContext.RequestType,
                 CreatedAt = redditContext.CreatedAt,
                 IsDeleted = redditContext.IsDeleted,
                 DeletedAt = redditContext.DeletedAt
@@ -32,8 +32,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessModels
             return new RedditContext()
             {
                 Id = Id,
-                RequestTypeId = RequestTypeId,
-                RequestType = RequestType,
+                //RequestTypeId = RequestTypeId,
+                //RequestType = RequestType,
                 CreatedAt = CreatedAt,
                 IsDeleted = IsDeleted,
                 DeletedAt = DeletedAt
