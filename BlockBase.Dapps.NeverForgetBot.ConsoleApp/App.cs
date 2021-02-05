@@ -44,8 +44,10 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
 
             ApiHelper.InitializeClient();
 
-            var content = _redditCollector.RedditInfo().Result;
-            await _redditCommentBo.FromApiRedditCommentModel(content);
+            var content = _redditCollector.RedditContextInfo().Result;
+            var comment = _redditCollector.RedditInfo().Result;
+
+            await _redditContextBo.FromApiRedditModel(content, comment);
         }
     }
 }

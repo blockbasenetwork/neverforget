@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BlockBase.Dapps.NeverForgetBot.Common\BlockBase.Dapps.NeverForgetBot.Common.csproj" />
     <ProjectReference Include="..\BlockBase.Dapps.NeverForgetBot.Dal\BlockBase.Dapps.NeverForgetBot.Dal.csproj" />
     <ProjectReference Include="..\BlockBase.Dapps.NeverForgetBot.Data\BlockBase.Dapps.NeverForgetBot.Data.csproj" />
     <ProjectReference Include="..\BlockBase.Dapps.NeverForgetBot.Services\BlockBase.Dapps.NeverForgetBot.Services.csproj" />

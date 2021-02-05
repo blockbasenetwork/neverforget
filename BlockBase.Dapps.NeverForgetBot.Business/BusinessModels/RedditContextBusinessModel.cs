@@ -1,4 +1,5 @@
-﻿using BlockBase.Dapps.NeverForgetBot.Data.Entities;
+﻿using BlockBase.Dapps.NeverForgetBot.Common.Enums;
+using BlockBase.Dapps.NeverForgetBot.Data.Entities;
 using System;
 
 namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessModels
@@ -6,8 +7,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessModels
     public class RedditContextBusinessModel
     {
         public Guid Id { get; set; }
-        public Guid RequestTypeId { get; set; }
-        //public RequestType RequestType { get; set; }
+        public int RequestTypeId { get; set; }
+        public RequestTypeEnum RequestType { get; set; }
 
         public DateTime CreatedAt { get; set; }
         public bool IsDeleted { get; set; }
@@ -18,8 +19,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessModels
             return new RedditContextBusinessModel()
             {
                 Id = redditContext.Id,
-                //RequestTypeId = redditContext.RequestTypeId,
-                //RequestType = redditContext.RequestType,
+                RequestTypeId = redditContext.RequestTypeId,
+                RequestType = (RequestTypeEnum)redditContext.RequestTypeId,
                 CreatedAt = redditContext.CreatedAt,
                 IsDeleted = redditContext.IsDeleted,
                 DeletedAt = redditContext.DeletedAt
@@ -32,8 +33,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessModels
             return new RedditContext()
             {
                 Id = Id,
-                //RequestTypeId = RequestTypeId,
-                //RequestType = RequestType,
+                RequestTypeId = RequestTypeId,
                 CreatedAt = CreatedAt,
                 IsDeleted = IsDeleted,
                 DeletedAt = DeletedAt

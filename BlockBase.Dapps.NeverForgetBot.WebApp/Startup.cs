@@ -7,6 +7,7 @@ using BlockBase.Dapps.NeverForgetBot.Business.Interfaces;
 using BlockBase.Dapps.NeverForgetBot.Business.OperationResults;
 using BlockBase.Dapps.NeverForgetBot.Dal.DAOs;
 using BlockBase.Dapps.NeverForgetBot.Dal.Interfaces;
+using BlockBase.Dapps.NeverForgetBot.Services.API;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -32,11 +33,22 @@ namespace BlockBase.Dapps.NeverForgetBot.WebApp
 
             services.AddTransient<IDbOperationExecutor, DbOperationExecutor>();
 
-            services.AddTransient<IRedditContextDao, RedditContextDao>();
-            services.AddTransient<IRedditContextBo, RedditContextBo>();
+            services.AddSingleton<IRedditContextDao, RedditContextDao>();
+            services.AddSingleton<IRedditCommentDao, RedditCommentDao>();
+            services.AddSingleton<IRedditSubmissionDao, RedditSubmissionDao>();
+            services.AddSingleton<ITwitterContextDao, TwitterContextDao>();
+            services.AddSingleton<ITwitterCommentDao, TwitterCommentDao>();
+            services.AddSingleton<ITwitterSubmissionDao, TwitterSubmissionDao>();
 
-            services.AddTransient<ITwitterContextDao, TwitterContextDao>();
-            services.AddTransient<ITwitterContextBo, TwitterContextBo>();
+            services.AddSingleton<IRedditContextBo, RedditContextBo>();
+            services.AddSingleton<IRedditCommentBo, RedditCommentBo>();
+            services.AddSingleton<IRedditSubmissionBo, RedditSubmissionBo>();
+            services.AddSingleton<ITwitterContextBo, TwitterContextBo>();
+            services.AddSingleton<ITwitterCommentBo, TwitterCommentBo>();
+            services.AddSingleton<ITwitterSubmissionBo, TwitterSubmissionBo>();
+
+            services.AddSingleton<RedditCollector>();
+            //services.AddSingleTon<TwitterCollector>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

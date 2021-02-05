@@ -23,7 +23,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
 
         }
 
-        public async Task<OperationResult> FromApiRedditCommentModel(RedditCommentModel[] modelArray)
+        public async Task<OperationResult> FromApiRedditCommentModel(RedditCommentModel[] modelArray, Guid id)
         {
             foreach (RedditCommentModel model in modelArray)
             {
@@ -37,8 +37,10 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
                 boModel.ParentSubmissionId = model.Link_Id;
                 boModel.SubReddit = model.SubReddit;
                 boModel.CreatedAt = DateTime.UtcNow;
+                boModel.RedditContextId = id;
 
-                await _dao.InsertAsync(boModel.ToData());
+                var result = boModel.ToData();
+                await _dao.InsertAsync(result);
             }
             return new OperationResult() { Success = true };
         }
@@ -49,6 +51,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
         {
             return epoch.AddSeconds(unixTime);
         }
+
+
 
         private string CleanComment(string body)
         {

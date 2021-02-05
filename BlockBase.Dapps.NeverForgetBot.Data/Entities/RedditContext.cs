@@ -15,8 +15,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Data.Entities
         public virtual ICollection<RedditComment> RedditComments { get; set; }
         public virtual ICollection<RedditSubmission> RedditSubmissions { get; set; }
 
-        //[ForeignKey(Name = "RequestTypes")]
-        //public Guid RequestTypeId { get; set; }
-        //public virtual RequestType RequestType { get; set; }
+        [ForeignKey(Name = "RequestTypes")]
+        public int RequestTypeId { get; set; }
+        public virtual RequestType RequestType { get; set; }
     }
 }

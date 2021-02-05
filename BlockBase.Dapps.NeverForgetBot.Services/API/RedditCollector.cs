@@ -7,6 +7,14 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API
 {
     public class RedditCollector
     {
+        public async Task<RedditContextModel[]> RedditContextInfo()
+        {
+            string url = "https://api.pushshift.io/reddit/comment/search/?q=!neverforgetbot";
+
+            var result = await FetchDataFromReddit<RedditContextResultModel>(url);
+            return result.Data;
+        }
+
         public async Task<RedditCommentModel[]> RedditInfo()
         {
             string url = "https://api.pushshift.io/reddit/comment/search/?q=!neverforgetbot";

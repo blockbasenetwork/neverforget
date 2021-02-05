@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BlockBase.BBLinq\BlockBase.BBLinq.csproj" />
+    <ProjectReference Include="..\BlockBase.Dapps.NeverForgetBot.Common\BlockBase.Dapps.NeverForgetBot.Common.csproj" />
     <ProjectReference Include="..\BlockBase.Dapps.NeverForgetBot.Data\BlockBase.Dapps.NeverForgetBot.Data.csproj" />
   </ItemGroup>
 
