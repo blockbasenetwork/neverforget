@@ -38,7 +38,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
                 };
                 var requestType = CheckRequestType(model.Body);
 
-                if (requestType == RequestTypeEnum.Post)
+                if (requestType == RequestTypeEnum.Comment || requestType == RequestTypeEnum.Default)
                 {
                     await _commentBo.FromApiRedditCommentModel(commentArray, boModel.Id);
                 }

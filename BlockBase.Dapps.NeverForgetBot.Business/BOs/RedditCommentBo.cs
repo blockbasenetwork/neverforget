@@ -52,8 +52,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
             return epoch.AddSeconds(unixTime);
         }
 
-
-
         private string CleanComment(string body)
         {
             var unquotedString = Regex.Replace(body, @"\b'\b", "''");

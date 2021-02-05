@@ -13,7 +13,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Data.Entities
         public Guid Id { get; set; }
 
         public virtual ICollection<RedditComment> RedditComments { get; set; }
-        public virtual ICollection<RedditSubmission> RedditSubmissions { get; set; }
+        public virtual RedditSubmission RedditSubmission { get; set; }
 
         [ForeignKey(Name = "RequestTypes")]
         public int RequestTypeId { get; set; }
