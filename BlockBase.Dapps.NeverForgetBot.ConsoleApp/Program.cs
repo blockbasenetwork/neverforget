@@ -34,6 +34,7 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
 
                     services.AddSingleton<IDbOperationExecutor, DbOperationExecutor>();
 
+                    services.AddSingleton<IRequestTypeDao, RequestTypeDao>();
                     services.AddSingleton<IRedditContextDao, RedditContextDao>();
                     services.AddSingleton<IRedditCommentDao, RedditCommentDao>();
                     services.AddSingleton<IRedditSubmissionDao, RedditSubmissionDao>();

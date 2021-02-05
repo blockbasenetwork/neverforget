@@ -23,25 +23,24 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
 
         }
 
-        public async Task<OperationResult> FromApiRedditCommentModel(RedditCommentModel[] modelArray, Guid id)
-        {
-            foreach (RedditCommentModel model in modelArray)
-            {
-                var boModel = new RedditCommentBusinessModel();
-                boModel.Id = Guid.NewGuid();
-                boModel.Author = model.Author;
-                boModel.Text = CleanComment(model.Body);
-                boModel.CommentDate = FromUnixTime(model.Created_Utc);
-                boModel.CommentId = model.Id;
-                boModel.ParentId = model.Parent_Id;
-                boModel.ParentSubmissionId = model.Link_Id;
-                boModel.SubReddit = model.SubReddit;
-                boModel.CreatedAt = DateTime.UtcNow;
-                boModel.RedditContextId = id;
 
-                var result = boModel.ToData();
-                await _dao.InsertAsync(result);
-            }
+        public async Task<OperationResult> FromApiRedditCommentModel(RedditCommentModel model, Guid id)
+        {
+            var boModel = new RedditCommentBusinessModel()
+            {
+                Id = Guid.NewGuid(),
+                Author = model.Author,
+                Text = CleanComment(model.Body),
+                CommentDate = FromUnixTime(model.Created_Utc),
+                CommentId = model.Id,
+                ParentId = model.Parent_Id,
+                ParentSubmissionId = model.Link_Id,
+                SubReddit = model.SubReddit,
+                CreatedAt = DateTime.UtcNow,
+                RedditContextId = id
+            };
+            var result = boModel.ToData();
+            await _dao.InsertAsync(result);
             return new OperationResult() { Success = true };
         }
 

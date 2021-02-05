@@ -3,8 +3,8 @@
     public enum RequestTypeEnum
     {
         Default = 0,
-        Post = 1,
+        Comment = 1,
         Thread = 2,
-        Comment = 4
+        Post = 3
     }
 }

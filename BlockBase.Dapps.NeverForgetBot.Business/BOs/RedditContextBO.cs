@@ -29,25 +29,30 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
 
         public async Task<OperationResult> FromApiRedditModel(RedditContextModel[] modelArray, RedditCommentModel[] commentArray)
         {
-            foreach (var model in modelArray)
+            for (var i = 0; i < modelArray.Length; i++)
             {
                 var boModel = new RedditContextBusinessModel()
                 {
                     Id = Guid.NewGuid(),
                     CreatedAt = DateTime.UtcNow
                 };
-                var requestType = CheckRequestType(model.Body);
 
-                if (requestType == RequestTypeEnum.Comment || requestType == RequestTypeEnum.Default)
-                {
-                    await _commentBo.FromApiRedditCommentModel(commentArray, boModel.Id);
-                }
-
-
+                var requestType = CheckRequestType(modelArray[i].Body);
 
                 var result = boModel.ToData();
                 await _dao.InsertAsync(result);
+
+                if (requestType == RequestTypeEnum.Comment || requestType == RequestTypeEnum.Default)
+                {
+
+                    await _commentBo.FromApiRedditCommentModel(commentArray[i], boModel.Id);
+                }
+                else if (requestType == RequestTypeEnum.Thread)
+                {
+
+                }
             }
+
 
             return new OperationResult() { Success = true };
         }
@@ -55,7 +60,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
         #region Process Data
         private RequestTypeEnum CheckRequestType(string body)
         {
-            if (body.ToLower().Contains("!neverforgetbot post"))
+            if (body.ToLower().Contains("!neverforgetbot post")) //Regex(!neverforgetbot+ +comment)
             {
                 return RequestTypeEnum.Post;
             }
