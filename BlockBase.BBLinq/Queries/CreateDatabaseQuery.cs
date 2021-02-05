@@ -82,7 +82,7 @@ namespace BlockBase.BBLinq.Queries
                 
                 if (tableCounter == tableList.Count-1 && tableList.Count > 0)
                 {
-                    tableCounter = 0;
+                    tableCounter = -1;
                 }
             }
             return organizedTables.ToArray();

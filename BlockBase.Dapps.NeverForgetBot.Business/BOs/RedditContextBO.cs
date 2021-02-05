@@ -31,9 +31,11 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
         {
             foreach (var model in modelArray)
             {
-                var boModel = new RedditContextBusinessModel();
-                boModel.Id = Guid.NewGuid();
-                boModel.CreatedAt = DateTime.UtcNow;
+                var boModel = new RedditContextBusinessModel()
+                {
+                    Id = Guid.NewGuid(),
+                    CreatedAt = DateTime.UtcNow
+                };
                 var requestType = CheckRequestType(model.Body);
 
                 if (requestType == RequestTypeEnum.Post)
