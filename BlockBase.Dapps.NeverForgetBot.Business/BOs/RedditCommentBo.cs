@@ -1,7 +1,7 @@
-﻿using BlockBase.Dapps.NeverForgetBot.Business.BusinessModels;
-using BlockBase.Dapps.NeverForgetBot.Business.Interfaces;
+﻿using BlockBase.Dapps.NeverForgetBot.Business.Interfaces;
 using BlockBase.Dapps.NeverForgetBot.Business.OperationResults;
 using BlockBase.Dapps.NeverForgetBot.Dal.Interfaces;
+using BlockBase.Dapps.NeverForgetBot.Data.Entities;
 using BlockBase.Dapps.NeverForgetBot.Services.API.Models;
 using System;
 using System.Collections.Generic;
@@ -26,11 +26,11 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
 
         public async Task<OperationResult> FromApiRedditCommentModel(RedditCommentModel model, Guid id)
         {
-            var boModel = new RedditCommentBusinessModel()
+            var dataModel = new RedditComment()
             {
                 Id = Guid.NewGuid(),
                 Author = model.Author,
-                Text = CleanComment(model.Body),
+                Content = CleanComment(model.Body),
                 CommentDate = FromUnixTime(model.Created_Utc),
                 CommentId = model.Id,
                 ParentId = model.Parent_Id,
@@ -39,8 +39,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
                 CreatedAt = DateTime.UtcNow,
                 RedditContextId = id
             };
-            var result = boModel.ToData();
-            await _dao.InsertAsync(result);
+            await _dao.InsertAsync(dataModel);
             return new OperationResult() { Success = true };
         }
 
@@ -59,47 +58,47 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
         #endregion
 
         #region Create
-        public async Task<OperationResult> InsertAsync(RedditCommentBusinessModel redditComment)
+        public async Task<OperationResult> InsertAsync(RedditComment redditComment)
         {
             return await _opExecutor.ExecuteOperation(async () =>
             {
                 redditComment.CreatedAt = DateTime.UtcNow;
-                await _dao.InsertAsync(redditComment.ToData());
+                await _dao.InsertAsync(redditComment);
             });
         }
         #endregion
 
         #region Read
-        public async Task<OperationResult<RedditCommentBusinessModel>> GetAsync(Guid id)
+        public async Task<OperationResult<RedditComment>> GetAsync(Guid id)
         {
-            return await _opExecutor.ExecuteOperation<RedditCommentBusinessModel>(async () =>
+            return await _opExecutor.ExecuteOperation<RedditComment>(async () =>
             {
                 var result = await _dao.GetNonDeletedAsync(id);
-                return RedditCommentBusinessModel.FromData(result);
+                return result;
             });
         }
         #endregion
 
         #region Delete
-        public async Task<OperationResult> DeleteAsync(RedditCommentBusinessModel redditComment)
+        public async Task<OperationResult> DeleteAsync(RedditComment redditComment)
         {
             return await _opExecutor.ExecuteOperation(async () =>
             {
                 redditComment.IsDeleted = true;
                 redditComment.DeletedAt = DateTime.UtcNow;
-                var redditCommentModel = await _dao.GetAsync(redditComment.Id);
-                await _dao.DeleteAsync(redditCommentModel);
+                var commentDelete = await _dao.GetAsync(redditComment.Id);
+                await _dao.DeleteAsync(commentDelete);
             });
         }
         #endregion
 
         #region List
-        public async Task<OperationResult<List<RedditCommentBusinessModel>>> GetAllAsync()
+        public async Task<OperationResult<List<RedditComment>>> GetAllAsync()
         {
-            return await _opExecutor.ExecuteOperation<List<RedditCommentBusinessModel>>(async () =>
+            return await _opExecutor.ExecuteOperation<List<RedditComment>>(async () =>
             {
                 var result = await _dao.GetAllNonDeletedAsync();
-                return result.Select(context => RedditCommentBusinessModel.FromData(context)).ToList();
+                return result.Select(context => context).ToList();
             });
         }
         #endregion

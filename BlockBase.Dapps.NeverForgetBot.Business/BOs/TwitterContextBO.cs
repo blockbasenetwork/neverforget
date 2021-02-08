@@ -1,7 +1,7 @@
-﻿using BlockBase.Dapps.NeverForgetBot.Business.BusinessModels;
-using BlockBase.Dapps.NeverForgetBot.Business.Interfaces;
+﻿using BlockBase.Dapps.NeverForgetBot.Business.Interfaces;
 using BlockBase.Dapps.NeverForgetBot.Business.OperationResults;
 using BlockBase.Dapps.NeverForgetBot.Dal.Interfaces;
+using BlockBase.Dapps.NeverForgetBot.Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,57 +21,47 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
         }
 
         #region Create
-        public async Task<OperationResult> InsertAsync(TwitterContextBusinessModel twitterContext)
+        public async Task<OperationResult> InsertAsync(TwitterContext twitterContext)
         {
             return await _opExecutor.ExecuteOperation(async () =>
             {
                 twitterContext.CreatedAt = DateTime.UtcNow;
-                await _dao.InsertAsync(twitterContext.ToData());
+                await _dao.InsertAsync(twitterContext);
             });
         }
         #endregion
 
         #region Read
-        public async Task<OperationResult<TwitterContextBusinessModel>> GetAsync(Guid id)
+        public async Task<OperationResult<TwitterContext>> GetAsync(Guid id)
         {
-            return await _opExecutor.ExecuteOperation<TwitterContextBusinessModel>(async () =>
+            return await _opExecutor.ExecuteOperation<TwitterContext>(async () =>
             {
                 var result = await _dao.GetNonDeletedAsync(id);
-                return TwitterContextBusinessModel.FromData(result);
-            });
-        }
-        #endregion
-
-        #region Update
-        public async Task<OperationResult> UpdateAsync(TwitterContextBusinessModel twitterContext)
-        {
-            return await _opExecutor.ExecuteOperation(async () =>
-            {
-                await _dao.UpdateAsync(twitterContext.ToData());
+                return result;
             });
         }
         #endregion
 
         #region Delete
-        public async Task<OperationResult> DeleteAsync(TwitterContextBusinessModel twitterContext)
+        public async Task<OperationResult> DeleteAsync(TwitterContext twitterContext)
         {
             return await _opExecutor.ExecuteOperation(async () =>
             {
                 twitterContext.IsDeleted = true;
                 twitterContext.DeletedAt = DateTime.UtcNow;
-                var twitterContextModel = await _dao.GetAsync(twitterContext.Id);
-                await _dao.DeleteAsync(twitterContextModel);
+                var contextDelete = await _dao.GetAsync(twitterContext.Id);
+                await _dao.DeleteAsync(contextDelete);
             });
         }
         #endregion
 
         #region List
-        public async Task<OperationResult<List<TwitterContextBusinessModel>>> GetAllAsync()
+        public async Task<OperationResult<List<TwitterContext>>> GetAllAsync()
         {
-            return await _opExecutor.ExecuteOperation<List<TwitterContextBusinessModel>>(async () =>
+            return await _opExecutor.ExecuteOperation<List<TwitterContext>>(async () =>
             {
                 var result = await _dao.GetAllNonDeletedAsync();
-                return result.Select(context => TwitterContextBusinessModel.FromData(context)).ToList();
+                return result.Select(context => context).ToList();
             });
         }
         #endregion

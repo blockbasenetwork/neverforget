@@ -42,23 +42,23 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
 
         public async Task Run()
         {
-            using (var context = new NeverForgetBotDbContext())
-            {
-                var resultDrop = context.DropDatabase().Result;
-                var resultCreate = context.CreateDatabase().Result;
-            }
+            //using (var context = new NeverForgetBotDbContext())
+            //{
+            //    var resultDrop = context.DropDatabase().Result;
+            //    var resultCreate = context.CreateDatabase().Result;
+            //}
 
-            #region Build RequestType Table
-            RequestType defaultRequest = new RequestType { Id = (int)RequestTypeEnum.Default, Name = "Default" };
-            RequestType commentRequest = new RequestType { Id = (int)RequestTypeEnum.Comment, Name = "Comment" };
-            RequestType threadRequest = new RequestType { Id = (int)RequestTypeEnum.Thread, Name = "Thread" };
-            RequestType postRequest = new RequestType { Id = (int)RequestTypeEnum.Post, Name = "Post" };
+            //#region Build RequestType Table
+            //RequestType defaultRequest = new RequestType { Id = (int)RequestTypeEnum.Default, Name = "Default" };
+            //RequestType commentRequest = new RequestType { Id = (int)RequestTypeEnum.Comment, Name = "Comment" };
+            //RequestType threadRequest = new RequestType { Id = (int)RequestTypeEnum.Thread, Name = "Thread" };
+            //RequestType postRequest = new RequestType { Id = (int)RequestTypeEnum.Post, Name = "Post" };
 
-            await _requestTypeDao.InsertAsync(defaultRequest);
-            await _requestTypeDao.InsertAsync(commentRequest);
-            await _requestTypeDao.InsertAsync(threadRequest);
-            await _requestTypeDao.InsertAsync(postRequest);
-            #endregion
+            //await _requestTypeDao.InsertAsync(defaultRequest);
+            //await _requestTypeDao.InsertAsync(commentRequest);
+            //await _requestTypeDao.InsertAsync(threadRequest);
+            //await _requestTypeDao.InsertAsync(postRequest);
+            //#endregion
 
 
             ApiHelper.InitializeClient();

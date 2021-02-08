@@ -1,8 +1,8 @@
-﻿using BlockBase.Dapps.NeverForgetBot.Business.BusinessModels;
+﻿using BlockBase.Dapps.NeverForgetBot.Data.Entities;
 
 namespace BlockBase.Dapps.NeverForgetBot.Business.Interfaces
 {
-    public interface IRedditSubmissionBo : IBo<RedditSubmissionBusinessModel>
+    public interface IRedditSubmissionBo : IBo<RedditSubmission>
     {
     }
 }

@@ -13,7 +13,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Data.Entities
 
         public string CommentId { get; set; }
         public string ReplyToId { get; set; }
-        public string Text { get; set; }
+        public string Content { get; set; }
         public string Author { get; set; }
         public DateTime CommentDate { get; set; }
 

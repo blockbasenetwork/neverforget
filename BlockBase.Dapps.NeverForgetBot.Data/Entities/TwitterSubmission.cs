@@ -12,7 +12,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Data.Entities
         public Guid Id { get; set; }
 
         public string SubmissionId { get; set; }
-        public string Text { get; set; }
+        public string Content { get; set; }
         public string Author { get; set; }
         public DateTime SubmissionDate { get; set; }
 
