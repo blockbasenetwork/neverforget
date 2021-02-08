@@ -1,7 +1,9 @@
 ﻿using BlockBase.Dapps.NeverForgetBot.Business.Interfaces;
 using BlockBase.Dapps.NeverForgetBot.Business.OperationResults;
+using BlockBase.Dapps.NeverForgetBot.Common;
 using BlockBase.Dapps.NeverForgetBot.Dal.Interfaces;
 using BlockBase.Dapps.NeverForgetBot.Data.Entities;
+using BlockBase.Dapps.NeverForgetBot.Services.API.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,37 +23,24 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
 
         }
 
-        //public async Task<OperationResult> FromApiRedditSubmissionModel(RedditSubmissionModel[] modelArray)
-        //{
-        //    foreach (RedditSubmissionModel model in modelArray)
-        //    {
-        //        var boModel = new RedditSubmissionBusinessModel();
-        //        boModel.Id = Guid.NewGuid();
-        //        boModel.Author = model.Author;
-        //        boModel.Content = CleanComment(model.Body);
-        //        boModel.SubmissionDate = FromUnixTime(model.Created_Utc);
-        //        boModel.SubmissionId = model.Id;
-        //        boModel.SubReddit = model.SubReddit;
-        //        boModel.CreatedAt = DateTime.UtcNow;
+        public async Task<OperationResult> FromApiRedditSubmissionModel(RedditSubmissionModel model, Guid id)
+        {
+            var dataModel = new RedditSubmission()
+            {
+                Id = Guid.NewGuid(),
+                Title = model.Title,
+                Author = model.Author,
+                Content = Helpers.CleanComment(model.SelfText),
+                SubmissionDate = Helpers.FromUnixTime(model.Created_Utc),
+                SubmissionId = model.Id,
+                SubReddit = model.SubReddit,
+                CreatedAt = DateTime.UtcNow,
+                RedditContextId = id
+            };
+            await _dao.InsertAsync(dataModel);
 
-        //        await _dao.InsertAsync(boModel.ToData());
-        //    }
-        //    return new OperationResult() { Success = true };
-        //}
-
-        //#region Process Data
-        //private static readonly DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-        //public DateTime FromUnixTime(int unixTime)
-        //{
-        //    return epoch.AddSeconds(unixTime);
-        //}
-
-        //private string CleanComment(string body)
-        //{
-        //    var unquotedString = Regex.Replace(body, @"\b'\b", "''");
-        //    return unquotedString;
-        //}
-        //#endregion
+            return new OperationResult() { Success = true };
+        }
 
         #region Create
         public async Task<OperationResult> InsertAsync(RedditSubmission redditSubmission)

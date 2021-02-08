@@ -15,7 +15,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API
             return result.Data;
         }
 
-        public async Task<RedditCommentModel[]> RedditInfo()
+        public async Task<RedditCommentModel[]> RedditCommentInfo()
         {
             string url = "https://api.pushshift.io/reddit/comment/search/?q=!neverforgetbot";
 
@@ -23,7 +23,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API
             return result.Data;
         }
 
-        public async Task<RedditCommentModel[]> RedditCommentIdInfo(string id)
+        public async Task<RedditCommentModel[]> RedditParentCommentInfo(string id)
         {
             string url = "https://api.pushshift.io/reddit/comment/search/?ids=" + id;
 
@@ -31,7 +31,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API
             return result.Data;
         }
 
-        public async Task<RedditSubmissionModel[]> RedditPostIdInfo(string id)
+        public async Task<RedditSubmissionModel[]> RedditSubmissionInfo(string id)
         {
             string url = "https://api.pushshift.io/reddit/submission/search/?ids=" + id;
 

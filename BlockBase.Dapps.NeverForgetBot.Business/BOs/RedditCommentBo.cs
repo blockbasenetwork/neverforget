@@ -1,12 +1,12 @@
 ﻿using BlockBase.Dapps.NeverForgetBot.Business.Interfaces;
 using BlockBase.Dapps.NeverForgetBot.Business.OperationResults;
+using BlockBase.Dapps.NeverForgetBot.Common;
 using BlockBase.Dapps.NeverForgetBot.Dal.Interfaces;
 using BlockBase.Dapps.NeverForgetBot.Data.Entities;
 using BlockBase.Dapps.NeverForgetBot.Services.API.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
@@ -20,9 +20,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
         {
             _dao = dao;
             _opExecutor = opExecutor;
-
         }
-
 
         public async Task<OperationResult> FromApiRedditCommentModel(RedditCommentModel model, Guid id)
         {
@@ -30,8 +28,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
             {
                 Id = Guid.NewGuid(),
                 Author = model.Author,
-                Content = CleanComment(model.Body),
-                CommentDate = FromUnixTime(model.Created_Utc),
+                Content = Helpers.CleanComment(model.Body),
+                CommentDate = Helpers.FromUnixTime(model.Created_Utc),
                 CommentId = model.Id,
                 ParentId = model.Parent_Id,
                 ParentSubmissionId = model.Link_Id,
@@ -42,20 +40,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
             await _dao.InsertAsync(dataModel);
             return new OperationResult() { Success = true };
         }
-
-        #region Process Data
-        private static readonly DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-        public DateTime FromUnixTime(int unixTime)
-        {
-            return epoch.AddSeconds(unixTime);
-        }
-
-        private string CleanComment(string body)
-        {
-            var unquotedString = Regex.Replace(body, @"\b'\b", "''");
-            return unquotedString;
-        }
-        #endregion
 
         #region Create
         public async Task<OperationResult> InsertAsync(RedditComment redditComment)

@@ -3,6 +3,7 @@ using BlockBase.Dapps.NeverForgetBot.Business.OperationResults;
 using BlockBase.Dapps.NeverForgetBot.Common.Enums;
 using BlockBase.Dapps.NeverForgetBot.Dal.Interfaces;
 using BlockBase.Dapps.NeverForgetBot.Data.Entities;
+using BlockBase.Dapps.NeverForgetBot.Services.API;
 using BlockBase.Dapps.NeverForgetBot.Services.API.Models;
 using System;
 using System.Collections.Generic;
@@ -19,54 +20,95 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
         private readonly IRedditSubmissionBo _submissionBo;
         private readonly IRedditCommentBo _commentBo;
         private readonly IRedditCommentDao _commentDao;
+        private readonly RedditCollector _redditCollector;
 
-        public RedditContextBo(IRedditContextDao dao, IDbOperationExecutor opExecutor, IRedditSubmissionBo submissionBo, IRedditCommentBo commentBo, IRedditCommentDao commentDao)
+        public RedditContextBo(IRedditContextDao dao, IDbOperationExecutor opExecutor, IRedditSubmissionBo submissionBo, IRedditCommentBo commentBo, IRedditCommentDao commentDao, RedditCollector redditCollector)
         {
             _dao = dao;
             _opExecutor = opExecutor;
             _submissionBo = submissionBo;
             _commentBo = commentBo;
             _commentDao = commentDao;
+            _redditCollector = redditCollector;
         }
 
         public async Task<OperationResult> FromApiRedditModel(RedditContextModel[] modelArray, RedditCommentModel[] commentArray)
         {
             for (var i = 0; i < modelArray.Length; i++)
             {
-                if (_commentDao.GetAllNonDeletedAsync().Result.Any(c => c.CommentId == commentArray[i].Id))
+                if (!_commentDao.GetAllNonDeletedAsync().Result.Any(c => c.CommentId == commentArray[i].Id))
                 {
+                    #region Create Context
+                    var contextModel = new RedditContext()
+                    {
+                        Id = Guid.NewGuid(),
+                        CreatedAt = DateTime.UtcNow
+                    };
+                    var requestType = CheckRequestType(modelArray[i].Body);
+                    await _dao.InsertAsync(contextModel);
+                    #endregion
 
-                }
-
-                var dataModel = new RedditContext()
-                {
-                    Id = Guid.NewGuid(),
-                    CreatedAt = DateTime.UtcNow
-                };
-
-                var requestType = CheckRequestType(modelArray[i].Body);
-
-                await _dao.InsertAsync(dataModel);
-
-                //var isContained = await _commentBo.GetAllAsync().Result.Result.Contains();
-
-
-                if (requestType == RequestTypeEnum.Comment || requestType == RequestTypeEnum.Default)
-                {
-                    await _commentBo.FromApiRedditCommentModel(commentArray[i], dataModel.Id);
-                }
-                else if (requestType == RequestTypeEnum.Thread)
-                {
-
+                    if (requestType == RequestTypeEnum.Comment || requestType == RequestTypeEnum.Default)
+                    {
+                        await _commentBo.FromApiRedditCommentModel(commentArray[i], contextModel.Id);
+                        await GetAndInsertParentComment(commentArray[i], contextModel.Id);
+                    }
+                    if (requestType == RequestTypeEnum.Thread)
+                    {
+                        await _commentBo.FromApiRedditCommentModel(commentArray[i], contextModel.Id);
+                        await GetAndInsertAllParentComment(commentArray[i], contextModel.Id);
+                    }
+                    else if (requestType == RequestTypeEnum.Post)
+                    {
+                        await _commentBo.FromApiRedditCommentModel(commentArray[i], contextModel.Id);
+                        await GetAndInsertSubmission(commentArray[i], contextModel.Id);
+                    }
                 }
             }
-
-
             return new OperationResult() { Success = true };
         }
 
         #region Process Data
-        //private bool CheckIfExists()
+        private async Task<OperationResult> GetAndInsertParentComment(RedditCommentModel comment, Guid id)
+        {
+            var parentId = comment.Parent_Id;
+            bool checkParent = Regex.IsMatch(parentId, @"^t3_");
+            if (!checkParent)
+            {
+                var cleanId = Regex.Replace(parentId, @"^(\bt1_\B)", " ");
+                var result = await _redditCollector.RedditParentCommentInfo(cleanId);
+                await _commentBo.FromApiRedditCommentModel(result.FirstOrDefault(), id);
+            }
+            else
+            {
+                var cleanId = Regex.Replace(parentId, @"^(\bt3_\B)", " ");
+                var submission = await _redditCollector.RedditSubmissionInfo(cleanId);
+                await _submissionBo.FromApiRedditSubmissionModel(submission.FirstOrDefault(), id);
+            }
+            return new OperationResult() { Success = true };
+        }
+
+        private async Task<OperationResult> GetAndInsertAllParentComment(RedditCommentModel comment, Guid id)
+        {
+            var parentId = comment.Parent_Id;
+            bool checkParent = Regex.IsMatch(parentId, @"^t3_");
+            if (!checkParent)
+            {
+                var cleanId = Regex.Replace(parentId, @"^(\bt1_\B)", " ");
+                var result = await _redditCollector.RedditParentCommentInfo(cleanId);
+                await _commentBo.FromApiRedditCommentModel(result.FirstOrDefault(), id);
+                await GetAndInsertAllParentComment(result.FirstOrDefault(), id);
+            }
+            return new OperationResult() { Success = true };
+        }
+        private async Task<OperationResult> GetAndInsertSubmission(RedditCommentModel comment, Guid id)
+        {
+            var parentId = comment.Link_Id;
+            var cleanId = Regex.Replace(parentId, @"^(\bt3_\B)", " ");
+            var submission = await _redditCollector.RedditSubmissionInfo(cleanId);
+            await _submissionBo.FromApiRedditSubmissionModel(submission.FirstOrDefault(), id);
+            return new OperationResult() { Success = true };
+        }
 
         private RequestTypeEnum CheckRequestType(string body)
         {

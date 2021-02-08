@@ -8,7 +8,7 @@
     public class RedditSubmissionModel
     {
         public string Author { get; set; }
-        public string Body { get; set; }
+        public string SelfText { get; set; }
         public int Created_Utc { get; set; }
         public string Id { get; set; }
         public string SubReddit { get; set; }
