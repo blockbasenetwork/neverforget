@@ -1,10 +1,15 @@
 ﻿using BlockBase.Dapps.NeverForgetBot.Business.Interfaces;
 using BlockBase.Dapps.NeverForgetBot.Business.OperationResults;
+using BlockBase.Dapps.NeverForgetBot.Common.Enums;
 using BlockBase.Dapps.NeverForgetBot.Dal.Interfaces;
 using BlockBase.Dapps.NeverForgetBot.Data.Entities;
+using BlockBase.Dapps.NeverForgetBot.Services.API;
+using BlockBase.Dapps.NeverForgetBot.Services.API.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
@@ -13,12 +18,178 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
     {
         private readonly ITwitterContextDao _dao;
         private readonly IDbOperationExecutor _opExecutor;
+        private readonly ITwitterCommentDao _commentDao;
+        private readonly ITwitterCommentBo _commentBo;
+        private readonly ITwitterSubmissionBo _submissionBo;
+        private readonly TwitterCollector _twitterCollector;
 
-        public TwitterContextBo(ITwitterContextDao dao, IDbOperationExecutor opExecutor)
+        public TwitterContextBo(ITwitterContextDao dao, IDbOperationExecutor opExecutor, ITwitterCommentDao commentDao, ITwitterCommentBo commentBo, ITwitterSubmissionBo submissionBo, TwitterCollector twitterCollector)
         {
             _dao = dao;
             _opExecutor = opExecutor;
+            _commentDao = commentDao;
+            _commentBo = commentBo;
+            _submissionBo = submissionBo;
+            _twitterCollector = twitterCollector;
         }
+
+        public async Task<OperationResult> FromApiTwitterModel(TweetModel[] modelArray)
+        {
+            foreach (var model in modelArray)
+            {
+                if (!_commentDao.GetAllNonDeletedAsync().Result.Any(c => c.CommentId == model.Id))
+                {
+                    var contextModel = new TwitterContext()
+                    {
+                        Id = Guid.NewGuid(),
+                        CreatedAt = DateTime.UtcNow
+                    };
+                   
+                    await _dao.InsertAsync(contextModel);
+
+                    var requestType = CheckRequestType(model.Full_text);
+
+                    if (requestType == RequestTypeEnum.Comment || requestType == RequestTypeEnum.Default)
+                    {
+                        await _commentBo.FromApiTwitterCommentModel(model, contextModel.Id);
+                        await GetAndInsertParentComment(model, contextModel.Id);
+                    }
+                    if (requestType == RequestTypeEnum.Thread)
+                    {
+                        await _commentBo.FromApiTwitterCommentModel(model, contextModel.Id);
+                        await GetAndInsertAllParentComment(model, contextModel.Id);
+                    }
+                    else if (requestType == RequestTypeEnum.Post)
+                    {
+                        await _commentBo.FromApiTwitterCommentModel(model, contextModel.Id);
+                        await GetAndInsertSubmission(model, contextModel.Id);
+                        
+                    }
+                }
+                //await _commentBo.FromApiTwitterCommentModel(model, boModel.Id);
+            }
+
+            return new OperationResult() { Success = true };
+        }
+
+        
+        public async Task<OperationResult> GetAndInsertParentComment(TweetModel tweet, Guid id)
+        {
+            if (tweet.In_reply_to_status_id_str != null)
+            {
+                var tweetInfo = await _twitterCollector.GetTweet(tweet.In_reply_to_status_id_str);
+                await _commentBo.FromApiTwitterCommentModel(tweetInfo, id);
+            }
+            else
+            {
+                var tweetInfo = await _twitterCollector.GetTweet(tweet.In_reply_to_status_id_str);
+                await _submissionBo.FromApiTwitterSubmissionModel(tweetInfo, id);
+            }
+            
+            return new OperationResult() { Success = true };
+        }
+
+        public async Task<OperationResult> GetAndInsertAllParentComment(TweetModel tweet, Guid id)
+        {
+            if (tweet.In_reply_to_status_id_str != null)
+            {
+                List<TweetModel> thread = await GetThreadFromTweet(tweet.In_reply_to_status_id_str);
+
+                foreach (var t in thread)
+                {
+                    if (t.In_reply_to_status_id_str != null)
+                    {
+                        await _commentBo.FromApiTwitterCommentModel(t, id);
+                    }
+                    else
+                    {
+                        await GetAndInsertSubmission(t, id);
+                    }
+                }
+            }
+
+            return new OperationResult() { Success = true };
+        }
+
+        public async Task<OperationResult> GetAndInsertSubmission(TweetModel tweet, Guid id)
+        {
+            if(tweet.In_reply_to_status_id_str != null)
+            {
+                var submission = await _twitterCollector.GetSubmissionFromTweet(tweet.In_reply_to_status_id_str);
+                await _submissionBo.FromApiTwitterSubmissionModel(submission, id);
+            }
+            else
+            {
+                await _submissionBo.FromApiTwitterSubmissionModel(tweet, id);
+            }
+            
+
+            return new OperationResult() { Success = true };
+        }
+
+        #region HELP
+        public async Task<List<TweetModel>> GetThreadFromTweet(string id)
+        {
+            List<TweetModel> result = new List<TweetModel>();
+
+            var request = await _twitterCollector.GetTweet(id);
+
+            result.Add(request);
+
+            if (request.In_reply_to_status_id_str != null)
+            {
+                do
+                {
+                    var parent = await _twitterCollector.GetTweet(result.Last().In_reply_to_status_id_str);
+
+                    result.Add(parent);
+                } while (result.Last().In_reply_to_status_id_str != null);
+            }
+
+            return result;
+        }
+        public TwitterComment ApiToTwitterComment(TweetModel tweet)
+        {
+            TwitterComment comment = new TwitterComment();
+
+            comment.Id = Guid.NewGuid();
+            comment.TwitterContextId = Guid.Empty;
+            comment.CommentId = tweet.Id;
+            comment.ReplyToId = tweet.In_reply_to_status_id_str;
+            comment.Content = tweet.Full_text;
+            comment.Author = tweet.User.Screen_name;
+            comment.CommentDate = tweet.Created_at;
+            comment.CreatedAt = DateTime.UtcNow;
+
+            return comment;
+        }
+        public TwitterSubmission ApiToTwitterSubmission(TweetModel tweet)
+        {
+            TwitterSubmission submission = new TwitterSubmission();
+
+            submission.Id = Guid.NewGuid();
+            submission.TwitterContextId = Guid.Empty;
+            submission.SubmissionId = tweet.Id;
+            submission.Content = tweet.Full_text;
+            submission.Author = tweet.User.Screen_name;
+            submission.SubmissionDate = tweet.Created_at;
+            submission.CreatedAt = DateTime.UtcNow;
+
+            return submission;
+        }
+        private RequestTypeEnum CheckRequestType(string body)
+        {
+            if (body.ToLower().Contains("@_neverforgetbot post"))
+            {
+                return RequestTypeEnum.Post;
+            }
+            else if (body.ToLower().Contains("@_neverforgetbot thread"))
+            {
+                return RequestTypeEnum.Thread;
+            }
+            else return RequestTypeEnum.Comment;
+        }
+        #endregion
 
         #region Create
         public async Task<OperationResult> InsertAsync(TwitterContext twitterContext)

@@ -16,7 +16,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Data.Entities
         public virtual TwitterSubmission TwitterSubmission { get; set; }
 
         [ForeignKey(Name = "RequestTypes")]
-        public Guid RequestTypeId { get; set; }
+        public int RequestTypeId { get; set; }
         public virtual RequestType RequestType { get; set; }
     }
 }
