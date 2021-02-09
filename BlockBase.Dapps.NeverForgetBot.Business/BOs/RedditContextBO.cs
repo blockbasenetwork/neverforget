@@ -17,102 +17,151 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
     {
         private readonly IRedditContextDao _dao;
         private readonly IDbOperationExecutor _opExecutor;
-        private readonly IRedditSubmissionBo _submissionBo;
-        private readonly IRedditCommentBo _commentBo;
         private readonly IRedditCommentDao _commentDao;
+        private readonly IRedditSubmissionDao _submissionDao;
         private readonly RedditCollector _redditCollector;
 
-        public RedditContextBo(IRedditContextDao dao, IDbOperationExecutor opExecutor, IRedditSubmissionBo submissionBo, IRedditCommentBo commentBo, IRedditCommentDao commentDao, RedditCollector redditCollector)
+        public RedditContextBo(IRedditContextDao dao, IDbOperationExecutor opExecutor, IRedditSubmissionDao submissionDao, IRedditCommentDao commentDao, RedditCollector redditCollector)
         {
             _dao = dao;
             _opExecutor = opExecutor;
-            _submissionBo = submissionBo;
-            _commentBo = commentBo;
+            _submissionDao = submissionDao;
             _commentDao = commentDao;
             _redditCollector = redditCollector;
         }
 
         public async Task<OperationResult> FromApiRedditModel(RedditContextModel[] modelArray, RedditCommentModel[] commentArray)
         {
-            for (var i = 0; i < modelArray.Length; i++)
+            return await _opExecutor.ExecuteOperation(async () =>
             {
-                if (!_commentDao.GetAllNonDeletedAsync().Result.Any(c => c.CommentId == commentArray[i].Id))
+                for (var i = 0; i < modelArray.Length; i++)
                 {
-                    #region Create Context
-                    var contextModel = new RedditContext()
+                    if (!_commentDao.GetAllNonDeletedAsync().Result.Any(c => c.CommentId == commentArray[i].Id))
                     {
-                        Id = Guid.NewGuid(),
-                        CreatedAt = DateTime.UtcNow
-                    };
-                    var requestType = CheckRequestType(modelArray[i].Body);
-                    await _dao.InsertAsync(contextModel);
-                    #endregion
+                        #region Create Context
+                        var contextModel = new RedditContext()
+                        {
+                            Id = Guid.NewGuid(),
+                            CreatedAt = DateTime.UtcNow
+                        };
+                        var requestType = CheckRequestType(modelArray[i].Body);
+                        await _dao.InsertAsync(contextModel);
+                        #endregion
 
-                    if (requestType == RequestTypeEnum.Comment || requestType == RequestTypeEnum.Default)
-                    {
-                        await _commentBo.FromApiRedditCommentModel(commentArray[i], contextModel.Id);
-                        await GetAndInsertParentComment(commentArray[i], contextModel.Id);
-                    }
-                    if (requestType == RequestTypeEnum.Thread)
-                    {
-                        await _commentBo.FromApiRedditCommentModel(commentArray[i], contextModel.Id);
-                        await GetAndInsertAllParentComment(commentArray[i], contextModel.Id);
-                    }
-                    else if (requestType == RequestTypeEnum.Post)
-                    {
-                        await _commentBo.FromApiRedditCommentModel(commentArray[i], contextModel.Id);
-                        await GetAndInsertSubmission(commentArray[i], contextModel.Id);
+                        var comment = commentArray[i].ToData();
+                        comment.RedditContextId = contextModel.Id;
+                        if (comment.Link != null)
+                        {
+                            comment.Link = Regex.Replace(comment.Link, @"^(/)", "https://www.reddit.com/");
+                        }
+                        else
+                        {
+                            comment.Link = await GetLink(comment);
+                        }
+
+                        if (requestType == RequestTypeEnum.Comment || requestType == RequestTypeEnum.Default)
+                        {
+                            var isParent = CheckParentId(comment.ParentId);
+                            if (isParent)
+                            {
+                                var parentComment = await GetDefaultComments(comment, contextModel.Id);
+                                await _commentDao.InsertAsync(comment);
+                                await _commentDao.InsertAsync(parentComment);
+                            }
+                            else if (!isParent)
+                            {
+                                var parentSubmission = await GetDefaultSubmissions(comment, contextModel.Id);
+                                await _commentDao.InsertAsync(comment);
+                                await _submissionDao.InsertAsync(parentSubmission);
+                            }
+                        }
+                        else if (requestType == RequestTypeEnum.Post)
+                        {
+                            var submission = await GetSubmission(comment, contextModel.Id);
+                            await _commentDao.InsertAsync(comment);
+                            await _submissionDao.InsertAsync(submission);
+                        }
+
+                        #region To be implemented
+                        //else if (requestType == RequestTypeEnum.Thread)
+                        //{
+                        //    await _commentBo.FromApiRedditCommentModel(commentArray[i], contextModel.Id);
+                        //    await GetAndInsertAllParentComment(commentArray[i], contextModel.Id);
+                        //}
+                        #endregion
                     }
                 }
-            }
-            return new OperationResult() { Success = true };
+            });
         }
 
         #region Process Data
-        private async Task<OperationResult> GetAndInsertParentComment(RedditCommentModel comment, Guid id)
+
+        private async Task<RedditComment> GetDefaultComments(RedditComment comment, Guid id)
         {
-            var parentId = comment.Parent_Id;
-            bool checkParent = Regex.IsMatch(parentId, @"^t3_");
-            if (!checkParent)
-            {
-                var cleanId = Regex.Replace(parentId, @"^(\bt1_\B)", " ");
-                var result = await _redditCollector.RedditParentCommentInfo(cleanId);
-                await _commentBo.FromApiRedditCommentModel(result.FirstOrDefault(), id);
-            }
-            else
-            {
-                var cleanId = Regex.Replace(parentId, @"^(\bt3_\B)", " ");
-                var submission = await _redditCollector.RedditSubmissionInfo(cleanId);
-                await _submissionBo.FromApiRedditSubmissionModel(submission.FirstOrDefault(), id);
-            }
-            return new OperationResult() { Success = true };
+            var cleanId = Regex.Replace(comment.ParentId, @"^(\bt1_\B)", " ");
+            var commentArray = await _redditCollector.RedditParentCommentInfo(cleanId);
+            var parentToData = commentArray.FirstOrDefault().ToData();
+            parentToData.RedditContextId = id;
+            parentToData.Link = Regex.Replace(parentToData.Link, @"^(/)", "https://www.reddit.com/");
+            return parentToData;
         }
 
-        private async Task<OperationResult> GetAndInsertAllParentComment(RedditCommentModel comment, Guid id)
+        private async Task<RedditSubmission> GetDefaultSubmissions(RedditComment comment, Guid id)
         {
-            var parentId = comment.Parent_Id;
-            bool checkParent = Regex.IsMatch(parentId, @"^t3_");
-            if (!checkParent)
-            {
-                var cleanId = Regex.Replace(parentId, @"^(\bt1_\B)", " ");
-                var result = await _redditCollector.RedditParentCommentInfo(cleanId);
-                await _commentBo.FromApiRedditCommentModel(result.FirstOrDefault(), id);
-                await GetAndInsertAllParentComment(result.FirstOrDefault(), id);
-            }
-            return new OperationResult() { Success = true };
+            var cleanId = Regex.Replace(comment.ParentId, @"^(\bt3_\B)", " ");
+            var submissionArray = await _redditCollector.RedditSubmissionInfo(cleanId);
+            var parentToData = submissionArray.FirstOrDefault().ToData();
+            parentToData.RedditContextId = id;
+            var permalink = Regex.Replace(parentToData.Link, @"^(\bhttps://www.reddit.com\B)", " ");
+            if (permalink == parentToData.MediaLink) parentToData.MediaLink = " ";
+            return parentToData;
         }
-        private async Task<OperationResult> GetAndInsertSubmission(RedditCommentModel comment, Guid id)
+
+        private async Task<RedditSubmission> GetSubmission(RedditComment comment, Guid id)
         {
-            var parentId = comment.Link_Id;
-            var cleanId = Regex.Replace(parentId, @"^(\bt3_\B)", " ");
-            var submission = await _redditCollector.RedditSubmissionInfo(cleanId);
-            await _submissionBo.FromApiRedditSubmissionModel(submission.FirstOrDefault(), id);
-            return new OperationResult() { Success = true };
+            var cleanId = Regex.Replace(comment.ParentSubmissionId, @"^(\bt3_\B)", " ");
+            var submissionArray = await _redditCollector.RedditSubmissionInfo(cleanId);
+            var submissionToData = submissionArray.FirstOrDefault().ToData();
+            submissionToData.RedditContextId = id;
+            var permalink = Regex.Replace(submissionToData.Link, @"^(\bhttps://www.reddit.com\B)", " ");
+            if (permalink == submissionToData.MediaLink) submissionToData.MediaLink = " ";
+            return submissionToData;
+        }
+
+        #region To be implemented
+        //private async Task GetAndInsertAllParentComment(RedditCommentModel comment, Guid id)
+        //{
+        //    var parentId = comment.Parent_Id;
+        //    bool checkParent = Regex.IsMatch(parentId, @"^t3_");
+        //    if (!checkParent)
+        //    {
+        //        var cleanId = Regex.Replace(parentId, @"^(\bt1_\B)", " ");
+        //        var result = await _redditCollector.RedditParentCommentInfo(cleanId);
+        //        await _commentBo.FromApiRedditCommentModel(result.FirstOrDefault(), id);
+        //        await GetAndInsertAllParentComment(result.FirstOrDefault(), id);
+        //    }
+        //}
+        #endregion 
+
+        private async Task<string> GetLink(RedditComment comment)
+        {
+            var cleanId = Regex.Replace(comment.ParentSubmissionId, @"^(\bt3_\B)", " ");
+            var commentId = comment.CommentId;
+            var submissionArray = await _redditCollector.RedditSubmissionInfo(cleanId);
+            var sumbissionLink = submissionArray.FirstOrDefault().ToData().Link;
+            return Regex.Replace(sumbissionLink, @"$(/)", $"/{commentId}");
+        }
+
+        private bool CheckParentId(string id)
+        {
+            bool checkParent = Regex.IsMatch(id, @"^t1_");
+            if (checkParent) return true;
+            else return false;
         }
 
         private RequestTypeEnum CheckRequestType(string body)
         {
-            if (body.ToLower().Contains("!neverforgetbot post")) //Regex(!neverforgetbot+ +post)
+            if (Regex.IsMatch(body, @"(!neverforgetbot+ +post)"))
             {
                 return RequestTypeEnum.Post;
             }
@@ -120,7 +169,11 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
             {
                 return RequestTypeEnum.Thread;
             }
-            else return RequestTypeEnum.Comment;
+            else if (Regex.IsMatch(body, @"(!neverforgetbot+ +comment)"))
+            {
+                return RequestTypeEnum.Comment;
+            }
+            else return RequestTypeEnum.Default;
         }
         #endregion
 

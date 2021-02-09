@@ -17,6 +17,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Data.Entities
         public DateTime CommentDate { get; set; }
         public string Author { get; set; }
         public string SubReddit { get; set; }
+        public string? Link { get; set; }
 
         [ForeignKey(Name = "RedditContexts")]
         public Guid RedditContextId { get; set; }

@@ -8,6 +8,5 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.Interfaces
 {
     public interface IRedditSubmissionBo : IBo<RedditSubmission>
     {
-        Task<OperationResult> FromApiRedditSubmissionModel(RedditSubmissionModel modelArray, Guid id);
     }
 }

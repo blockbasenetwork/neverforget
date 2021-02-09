@@ -1,6 +1,5 @@
 ﻿using BlockBase.Dapps.NeverForgetBot.Business.Interfaces;
 using BlockBase.Dapps.NeverForgetBot.Business.OperationResults;
-using BlockBase.Dapps.NeverForgetBot.Common;
 using BlockBase.Dapps.NeverForgetBot.Dal.Interfaces;
 using BlockBase.Dapps.NeverForgetBot.Data.Entities;
 using BlockBase.Dapps.NeverForgetBot.Services.API.Models;
@@ -22,24 +21,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
             _opExecutor = opExecutor;
         }
 
-        public async Task<OperationResult> FromApiRedditCommentModel(RedditCommentModel model, Guid id)
-        {
-            var dataModel = new RedditComment()
-            {
-                Id = Guid.NewGuid(),
-                Author = model.Author,
-                Content = Helpers.CleanComment(model.Body),
-                CommentDate = Helpers.FromUnixTime(model.Created_Utc),
-                CommentId = model.Id,
-                ParentId = model.Parent_Id,
-                ParentSubmissionId = model.Link_Id,
-                SubReddit = model.SubReddit,
-                CreatedAt = DateTime.UtcNow,
-                RedditContextId = id
-            };
-            await _dao.InsertAsync(dataModel);
-            return new OperationResult() { Success = true };
-        }
 
         #region Create
         public async Task<OperationResult> InsertAsync(RedditComment redditComment)
