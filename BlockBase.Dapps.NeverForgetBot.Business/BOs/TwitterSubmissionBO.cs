@@ -2,6 +2,7 @@
 using BlockBase.Dapps.NeverForgetBot.Business.OperationResults;
 using BlockBase.Dapps.NeverForgetBot.Dal.Interfaces;
 using BlockBase.Dapps.NeverForgetBot.Data.Entities;
+using BlockBase.Dapps.NeverForgetBot.Services.API.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,24 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
         {
             _dao = dao;
             _opExecutor = opExecutor;
+        }
+
+        public async Task<OperationResult> FromApiTwitterSubmissionModel(TweetModel model, Guid id)
+        {
+            var submissionModel = new TwitterSubmission()
+            {
+                Id = Guid.NewGuid(),
+                TwitterContextId = id,
+                SubmissionId = model.Id,
+                Content = model.Full_text,
+                Author = model.User.Screen_name,
+                SubmissionDate = model.Created_at,
+                CreatedAt = DateTime.UtcNow,
+            };
+
+            await _dao.InsertAsync(submissionModel);
+
+            return new OperationResult() { Success = true };
         }
 
         #region Create

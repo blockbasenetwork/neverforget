@@ -50,6 +50,7 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
                     services.AddSingleton<ITwitterSubmissionBo, TwitterSubmissionBo>();
 
                     services.AddSingleton<RedditCollector>();
+                    services.AddSingleton<TwitterCollector>();
 
 
                 })

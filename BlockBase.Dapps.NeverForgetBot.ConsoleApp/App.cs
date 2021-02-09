@@ -18,6 +18,7 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
         private ITwitterSubmissionBo _twitterSubmissionBo;
         private IRequestTypeDao _requestTypeDao;
         private RedditCollector _redditCollector;
+        private TwitterCollector _twitterCollector;
 
         public App(
             IRedditContextBo redditContextBo,
@@ -27,7 +28,8 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
             ITwitterCommentBo twitterCommentBo,
             ITwitterSubmissionBo twitterSubmissionBo,
             IRequestTypeDao requestTypeDao,
-            RedditCollector redditCollector
+            RedditCollector redditCollector,
+            TwitterCollector twitterCollector
             )
         {
             _redditContextBo = redditContextBo;
@@ -38,6 +40,7 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
             _twitterSubmissionBo = twitterSubmissionBo;
             _requestTypeDao = requestTypeDao;
             _redditCollector = redditCollector;
+            _twitterCollector = twitterCollector;
         }
 
         public async Task Run()
@@ -60,6 +63,13 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
             await _requestTypeDao.InsertAsync(postRequest);
             #endregion
 
+            /*
+            TwitterApi.AuthenticateClient();
+
+            var mentions = await _twitterCollector.GetMentions();
+            
+            await _twitterContextBo.FromApiTwitterModel(mentions);
+            */
 
             ApiHelper.InitializeClient();
 
