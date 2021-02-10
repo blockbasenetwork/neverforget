@@ -22,13 +22,13 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
                                       
                                   }*/
             var _context = new NeverForgetBotDbContext();
-
-            var redditContext = from comment in _context.RedditComment
+            var redditContext = new GeneralContextPoco();
+            /*var redditContext = _context.RedditComment.
                                 where comment.RedditContextId == contextId
                                 select new GeneralContextPoco
                                 {
                                     AuthorComment = comment.c
-                                };
+                                };*/
 
             return redditContext;
         }

@@ -5,6 +5,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="GenericDataAccess\Class1.cs" />
+    <Compile Remove="GenericDataAccess\Class2.cs" />
+    <Compile Remove="GenericDataAccess\Class3.cs" />
+    <Compile Remove="GenericDataAccess\Class4.cs" />
+    <Compile Remove="GenericDataAccess\Class5.cs" />
+    <Compile Remove="GenericDataAccess\Class6.cs" />
+    <Compile Remove="GenericDataAccess\Interfaces\Class1.cs" />
+    <Compile Remove="GenericDataAccess\Interfaces\Class2.cs" />
+    <Compile Remove="GenericDataAccess\Interfaces\Class3.cs" />
+    <Compile Remove="GenericDataAccess\Interfaces\Class4.cs" />
+    <Compile Remove="GenericDataAccess\Interfaces\Class5.cs" />
+    <Compile Remove="GenericDataAccess\Interfaces\Class6.cs" />
+    <Compile Remove="GenericDataAccess\Interfaces\IRedditSubmission.cs" />
+    <Compile Remove="GenericDataAccess\RedditComentDao.cs" />
+    <Compile Remove="GenericDataAccess\SubmissionDao.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.2" />
     <PackageReference Include="System.Threading.Tasks" Version="4.3.0" />
   </ItemGroup>
