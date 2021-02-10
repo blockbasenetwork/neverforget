@@ -15,22 +15,28 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
 
         public GeneralContextPoco GetRedditContext(Guid contextId)
         {
-            /*var redditContext =  (from ctx in _context.RedditContext
-                                  where ctx.Id == contextId
-                                  select new GeneralContextPoco
-                                  {
-                                      
-                                  }*/
-            var _context = new NeverForgetBotDbContext();
+            var redditContext = new GeneralContextPoco();
 
-            var redditContext = from comment in _context.RedditComment
+            using (var _context = new NeverForgetBotDbContext())
+            {
+                redditContext = _context.RedditComment.Where(rc => rc.RedditContextId == contextId).List(rc => new GeneralContextPoco() 
+                { 
+                    AuthorComment = rc.Author
+                });
+            }
+
+            
+
+            /*var redditContext = _context.RedditComment.
                                 where comment.RedditContextId == contextId
                                 select new GeneralContextPoco
                                 {
                                     AuthorComment = comment.c
-                                };
+                                };*/
 
             return redditContext;
         }
     }
 }
+
+//dao->where-> .List();

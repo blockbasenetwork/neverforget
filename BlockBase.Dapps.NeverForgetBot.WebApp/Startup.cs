@@ -5,8 +5,7 @@ using System.Threading.Tasks;
 using BlockBase.Dapps.NeverForgetBot.Business.BOs;
 using BlockBase.Dapps.NeverForgetBot.Business.Interfaces;
 using BlockBase.Dapps.NeverForgetBot.Business.OperationResults;
-using BlockBase.Dapps.NeverForgetBot.Dal.DAOs;
-using BlockBase.Dapps.NeverForgetBot.Dal.Interfaces;
+
 using BlockBase.Dapps.NeverForgetBot.Services.API;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -33,13 +32,13 @@ namespace BlockBase.Dapps.NeverForgetBot.WebApp
 
             services.AddTransient<IDbOperationExecutor, DbOperationExecutor>();
 
-            services.AddSingleton<IRequestTypeDao, RequestTypeDao>();
-            services.AddSingleton<IRedditContextDao, RedditContextDao>();
-            services.AddSingleton<IRedditCommentDao, RedditCommentDao>();
-            services.AddSingleton<IRedditSubmissionDao, RedditSubmissionDao>();
-            services.AddSingleton<ITwitterContextDao, TwitterContextDao>();
-            services.AddSingleton<ITwitterCommentDao, TwitterCommentDao>();
-            services.AddSingleton<ITwitterSubmissionDao, TwitterSubmissionDao>();
+            //services.AddSingleton<IRequestTypeDao, RequestTypeDao>();
+            //services.AddSingleton<IRedditContextDao, RedditContextDao>();
+            //services.AddSingleton<IRedditCommentDao, RedditCommentDao>();
+            //services.AddSingleton<IRedditSubmissionDao, RedditSubmissionDao>();
+            //services.AddSingleton<ITwitterContextDao, TwitterContextDao>();
+            //services.AddSingleton<ITwitterCommentDao, TwitterCommentDao>();
+            //services.AddSingleton<ITwitterSubmissionDao, TwitterSubmissionDao>();
 
             services.AddSingleton<IRedditContextBo, RedditContextBo>();
             services.AddSingleton<IRedditCommentBo, RedditCommentBo>();

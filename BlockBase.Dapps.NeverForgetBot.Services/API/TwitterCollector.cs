@@ -60,8 +60,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API
             {
                 var result = await TwitterApi.Client.Tweets.GetTweetAsync(long.Parse(id));
                 string jsonResult = TwitterApi.Client.Json.Serialize(result);
-                TweetModel tweet = JsonConvert.DeserializeObject<TweetModel>(jsonResult);
-
+                var tweet = JsonConvert.DeserializeObject<TweetModel>(jsonResult);
+                
                 return tweet;
             }
             catch (TwitterException e)
@@ -69,8 +69,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API
                 throw e;
             }
         }
-
-        public async Task<TweetModel> GetSubmissionFromTweet(string id)
+        public async Task<TweetModel> GetParentFrom(string id)
         {
             try
             {
@@ -78,11 +77,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API
                 string jsonResult = TwitterApi.Client.Json.Serialize(result);
                 TweetModel tweet = JsonConvert.DeserializeObject<TweetModel>(jsonResult);
 
-                if(tweet.In_reply_to_status_id_str != null)
-                {
-                    return await GetSubmissionFromTweet(tweet.In_reply_to_status_id_str);
-                }
-
                 return tweet;
             }
             catch (TwitterException e)
@@ -91,8 +85,29 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API
             }
         }
 
+            /*public async Task<TweetModel> GetSubmissionFromTweet(string id)
+            {
+                try
+                {
+                    var result = await TwitterApi.Client.Tweets.GetTweetAsync(long.Parse(id));
+                    string jsonResult = TwitterApi.Client.Json.Serialize(result);
+                    TweetModel tweet = JsonConvert.DeserializeObject<TweetModel>(jsonResult);
 
-        public async Task<string> GetTweetJson(string id)
+                    if(tweet.In_reply_to_status_id_str != null)
+                    {
+                        return await GetSubmissionFromTweet(tweet.In_reply_to_status_id_str);
+                    }
+
+                    return tweet;
+                }
+                catch (TwitterException e)
+                {
+                    throw e;
+                }
+            }*/
+
+
+            public async Task<string> GetTweetJson(string id)
         {
             try
             {

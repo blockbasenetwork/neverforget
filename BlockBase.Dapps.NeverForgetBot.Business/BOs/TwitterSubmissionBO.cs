@@ -21,24 +21,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BOs
             _opExecutor = opExecutor;
         }
 
-        public async Task<OperationResult> FromApiTwitterSubmissionModel(TweetModel model, Guid id)
-        {
-            var submissionModel = new TwitterSubmission()
-            {
-                Id = Guid.NewGuid(),
-                TwitterContextId = id,
-                SubmissionId = model.Id,
-                Content = model.Full_text,
-                Author = model.User.Screen_name,
-                SubmissionDate = model.Created_at,
-                CreatedAt = DateTime.UtcNow,
-            };
-
-            await _dao.InsertAsync(submissionModel);
-
-            return new OperationResult() { Success = true };
-        }
-
         #region Create
         public async Task<OperationResult> InsertAsync(TwitterSubmission twitterSubmission)
         {
