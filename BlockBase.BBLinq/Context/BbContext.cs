@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using BlockBase.BBLinq.Builders;
+﻿using BlockBase.BBLinq.Builders;
 using BlockBase.BBLinq.Dictionaries;
 using BlockBase.BBLinq.Exceptions;
 using BlockBase.BBLinq.ExtensionMethods;
@@ -11,6 +8,9 @@ using BlockBase.BBLinq.QueryExecutors;
 using BlockBase.BBLinq.Results;
 using BlockBase.BBLinq.Sets;
 using BlockBase.BBLinq.Settings;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BlockBase.BBLinq.Context
 {
@@ -66,6 +66,19 @@ namespace BlockBase.BBLinq.Context
             var res = Executor.ExecuteQueryAsync(query.ToString());
             Executor.UseDatabase = true;
             return await ResultParser.ParseQueryResult(res);
+        }
+
+        public BbSet<T, TKey> Set<T, TKey>() where T:class
+        {
+            var properties = GetType().GetProperties();
+            foreach (var property in properties)
+            {
+                if (property.PropertyType == typeof(BbSet<T, TKey>))
+                {
+                    return (BbSet<T, TKey>)property.GetValue(this);
+                }
+            }
+            return default;
         }
     }
 }

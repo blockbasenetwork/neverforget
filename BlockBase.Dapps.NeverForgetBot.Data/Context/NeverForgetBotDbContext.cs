@@ -22,7 +22,5 @@ namespace BlockBase.Dapps.NeverForgetBot.Data.Context
         public BbSet<TwitterSubmission, Guid> TwitterSubmission { get; set; }
 
         public BbSet<RequestType, int> RequestType { get; set; }
-
-
     }
 }
