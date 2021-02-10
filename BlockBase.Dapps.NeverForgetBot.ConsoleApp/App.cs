@@ -63,13 +63,13 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
             await _requestTypeDao.InsertAsync(postRequest);
             #endregion
 
-            /*
-            TwitterApi.AuthenticateClient();
 
-            var mentions = await _twitterCollector.GetMentions();
-            
-            await _twitterContextBo.FromApiTwitterModel(mentions);
-            */
+            //TwitterApi.AuthenticateClient();
+
+            //var mentions = await _twitterCollector.GetMentions();
+
+            //await _twitterContextBo.FromApiTwitterModel(mentions);
+
 
             ApiHelper.InitializeClient();
 
