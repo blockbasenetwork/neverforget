@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.Dal.DaoGeneric
 {
-    public class BaseDao<TEntity> : IBaseDao<TEntity> where TEntity : class, IEntity
+    public class BaseDao<TEntity, TKey> : IBaseDao<TEntity, TKey> where TEntity : class, IEntity
     {
         protected readonly BbContext BbContext;
 
@@ -16,7 +16,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.DaoGeneric
         }
 
 
-        public virtual async Task<TEntity> GetAsync(Guid id)
+        public virtual async Task<TEntity> GetAsync(TKey id)
         {
             return await BbContext.Set<TEntity, Guid>();
         }
