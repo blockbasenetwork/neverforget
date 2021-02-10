@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlockBase.Dapps.NeverForgetBot.Common.Enums;
+using System;
 
 namespace BlockBase.Dapps.NeverForgetBot.Data.Pocos
 {
@@ -18,6 +19,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Data.Pocos
         public virtual string LinkSubmission { get; set; }
         public virtual DateTime SubmissionDateSubmission { get; set; }
 
-        //public virtual SourceType SourceType { get; set; }
+        public virtual SourceTypeEnum SourceType { get; set; }
     }
 }

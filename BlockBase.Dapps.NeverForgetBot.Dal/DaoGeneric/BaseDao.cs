@@ -18,7 +18,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.DaoGeneric
 
         public virtual async Task<TEntity> GetAsync(Guid id)
         {
-            return await BbContext.Set<TEntity, Guid>().SingleOrDefaultAsync(e => e.Id == id);
+            return await BbContext.Set<TEntity, Guid>();
         }
 
 
