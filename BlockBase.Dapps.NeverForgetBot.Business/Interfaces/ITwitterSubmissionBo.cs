@@ -10,6 +10,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.Interfaces
 {
     public interface ITwitterSubmissionBo : IBo<TwitterSubmission>
     {
-        Task<OperationResult> FromApiTwitterSubmissionModel(TweetModel modelArray, Guid id);
+
     }
 }
