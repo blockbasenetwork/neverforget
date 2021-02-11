@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlockBase.Dapps.NeverForgetBot.Business.Interfaces
+namespace BlockBase.Dapps.NeverForgetBot.Business.GenericBusiness.Interfaces
 {
     public interface ITwitterCommentBo : IBaseBo<TwitterComment>
     {

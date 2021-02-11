@@ -1,6 +1,6 @@
-﻿using BlockBase.Dapps.NeverForgetBot.Business.Interfaces;
+﻿using BlockBase.Dapps.NeverForgetBot.Business.GenericBusiness.Interfaces;
 using BlockBase.Dapps.NeverForgetBot.Common.Enums;
-using BlockBase.Dapps.NeverForgetBot.Dal.Interfaces;
+using BlockBase.Dapps.NeverForgetBot.Dal;
 using BlockBase.Dapps.NeverForgetBot.Data.Context;
 using BlockBase.Dapps.NeverForgetBot.Data.Entities;
 using BlockBase.Dapps.NeverForgetBot.Services.API;

@@ -1,8 +1,9 @@
-﻿using BlockBase.Dapps.NeverForgetBot.Business.BOs;
-using BlockBase.Dapps.NeverForgetBot.Business.Interfaces;
+﻿using BlockBase.Dapps.NeverForgetBot.Business.GenericBusiness;
+using BlockBase.Dapps.NeverForgetBot.Business.GenericBusiness.Interfaces;
 using BlockBase.Dapps.NeverForgetBot.Business.OperationResults;
-using BlockBase.Dapps.NeverForgetBot.Dal.DAOs;
-using BlockBase.Dapps.NeverForgetBot.Dal.Interfaces;
+using BlockBase.Dapps.NeverForgetBot.Dal;
+using BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess;
+using BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess.Interfaces;
 using BlockBase.Dapps.NeverForgetBot.Services.API;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -44,7 +45,7 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
 
                     services.AddSingleton<IRedditContextBo, RedditContextBo>();
                     services.AddSingleton<IRedditCommentBo, RedditCommentBo>();
-                    services.AddSingleton<IRedditSubmissionBo, RedditSubmissionBo>();
+                    services.AddSingleton<IRedditSubmissionBo, RedditSubmisionBo>();
                     services.AddSingleton<ITwitterContextBo, TwitterContextBo>();
                     services.AddSingleton<ITwitterCommentBo, TwitterCommentBo>();
                     services.AddSingleton<ITwitterSubmissionBo, TwitterSubmissionBo>();

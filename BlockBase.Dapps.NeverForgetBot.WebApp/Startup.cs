@@ -1,7 +1,10 @@
 
-using BlockBase.Dapps.NeverForgetBot.Business.Interfaces;
+using BlockBase.Dapps.NeverForgetBot.Business.GenericBusiness;
+using BlockBase.Dapps.NeverForgetBot.Business.GenericBusiness.Interfaces;
 using BlockBase.Dapps.NeverForgetBot.Business.OperationResults;
-
+using BlockBase.Dapps.NeverForgetBot.Dal;
+using BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess;
+using BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess.Interfaces;
 using BlockBase.Dapps.NeverForgetBot.Services.API;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,20 +30,20 @@ namespace BlockBase.Dapps.NeverForgetBot.WebApp
 
             services.AddTransient<IDbOperationExecutor, DbOperationExecutor>();
 
-            //services.AddSingleton<IRequestTypeDao, RequestTypeDao>();
-            //services.AddSingleton<IRedditContextDao, RedditContextDao>();
-            //services.AddSingleton<IRedditCommentDao, RedditCommentDao>();
-            //services.AddSingleton<IRedditSubmissionDao, RedditSubmissionDao>();
-            //services.AddSingleton<ITwitterContextDao, TwitterContextDao>();
-            //services.AddSingleton<ITwitterCommentDao, TwitterCommentDao>();
-            //services.AddSingleton<ITwitterSubmissionDao, TwitterSubmissionDao>();
+            services.AddSingleton<IRequestTypeDao, RequestTypeDao>();
+            services.AddSingleton<IRedditContextDao, RedditContextDao>();
+            services.AddSingleton<IRedditCommentDao, RedditCommentDao>();
+            services.AddSingleton<IRedditSubmissionDao, RedditSubmissionDao>();
+            services.AddSingleton<ITwitterContextDao, TwitterContextDao>();
+            services.AddSingleton<ITwitterCommentDao, TwitterCommentDao>();
+            services.AddSingleton<ITwitterSubmissionDao, TwitterSubmissionDao>();
 
-            //services.AddSingleton<IRedditContextBo, RedditContextBo>();
-            //services.AddSingleton<IRedditCommentBo, RedditCommentBo>();
-            //services.AddSingleton<IRedditSubmissionBo, RedditSubmissionBo>();
-            //services.AddSingleton<ITwitterContextBo, TwitterContextBo>();
-            //services.AddSingleton<ITwitterCommentBo, TwitterCommentBo>();
-            //services.AddSingleton<ITwitterSubmissionBo, TwitterSubmissionBo>();
+            services.AddSingleton<IRedditContextBo, RedditContextBo>();
+            services.AddSingleton<IRedditCommentBo, RedditCommentBo>();
+            services.AddSingleton<IRedditSubmissionBo, RedditSubmisionBo>();
+            services.AddSingleton<ITwitterContextBo, TwitterContextBo>();
+            services.AddSingleton<ITwitterCommentBo, TwitterCommentBo>();
+            services.AddSingleton<ITwitterSubmissionBo, TwitterSubmissionBo>();
 
             services.AddSingleton<RedditCollector>();
             //services.AddSingleTon<TwitterCollector>();

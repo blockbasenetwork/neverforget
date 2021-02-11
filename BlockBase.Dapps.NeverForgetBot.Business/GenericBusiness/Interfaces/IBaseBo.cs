@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace BlockBase.Dapps.NeverForgetBot.Business.Interfaces
+namespace BlockBase.Dapps.NeverForgetBot.Business.GenericBusiness.Interfaces
 {
     public interface IBaseBo<TEntity> where TEntity : class, IEntity
     {

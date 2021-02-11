@@ -1,4 +1,4 @@
-﻿using BlockBase.Dapps.NeverForgetBot.Business.Interfaces;
+﻿using BlockBase.Dapps.NeverForgetBot.Business.GenericBusiness.Interfaces;
 using BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess.Interfaces;
 using BlockBase.Dapps.NeverForgetBot.Data.Entities;
 using System;
