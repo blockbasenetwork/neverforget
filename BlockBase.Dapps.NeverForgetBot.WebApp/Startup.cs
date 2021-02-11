@@ -40,12 +40,12 @@ namespace BlockBase.Dapps.NeverForgetBot.WebApp
             //services.AddSingleton<ITwitterCommentDao, TwitterCommentDao>();
             //services.AddSingleton<ITwitterSubmissionDao, TwitterSubmissionDao>();
 
-            services.AddSingleton<IRedditContextBo, RedditContextBo>();
-            services.AddSingleton<IRedditCommentBo, RedditCommentBo>();
-            services.AddSingleton<IRedditSubmissionBo, RedditSubmissionBo>();
-            services.AddSingleton<ITwitterContextBo, TwitterContextBo>();
-            services.AddSingleton<ITwitterCommentBo, TwitterCommentBo>();
-            services.AddSingleton<ITwitterSubmissionBo, TwitterSubmissionBo>();
+            //services.AddSingleton<IRedditContextBo, RedditContextBo>();
+            //services.AddSingleton<IRedditCommentBo, RedditCommentBo>();
+            //services.AddSingleton<IRedditSubmissionBo, RedditSubmissionBo>();
+            //services.AddSingleton<ITwitterContextBo, TwitterContextBo>();
+            //services.AddSingleton<ITwitterCommentBo, TwitterCommentBo>();
+            //services.AddSingleton<ITwitterSubmissionBo, TwitterSubmissionBo>();
 
             services.AddSingleton<RedditCollector>();
             //services.AddSingleTon<TwitterCollector>();
