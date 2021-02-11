@@ -19,20 +19,11 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
 
             using (var _context = new NeverForgetBotDbContext())
             {
-                redditContext = _context.RedditComment.Where(rc => rc.RedditContextId == contextId).List(rc => new GeneralContextPoco() 
-                { 
-                    AuthorComment = rc.Author
+                redditContext = _context.RedditComment.Where(rc => rc.RedditContextId == contextId).List(rc => new GeneralContextPoco()
+                {
+                    AuthorComment = rc.Author,
                 });
             }
-
-            
-
-            /*var redditContext = _context.RedditComment.
-                                where comment.RedditContextId == contextId
-                                select new GeneralContextPoco
-                                {
-                                    AuthorComment = comment.c
-                                };*/
 
             return redditContext;
         }
