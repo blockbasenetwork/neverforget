@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace BlockBase.Dapps.NeverForgetBot.Dal.Interfaces
+namespace BlockBase.Dapps.NeverForgetBot.Dal
 {
     public interface IRequestTypeDao
     {

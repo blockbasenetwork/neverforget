@@ -1,11 +1,10 @@
-﻿using BlockBase.Dapps.NeverForgetBot.Dal.Interfaces;
-using BlockBase.Dapps.NeverForgetBot.Data.Context;
+﻿using BlockBase.Dapps.NeverForgetBot.Data.Context;
 using BlockBase.Dapps.NeverForgetBot.Data.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BlockBase.Dapps.NeverForgetBot.Dal.DAOs
+namespace BlockBase.Dapps.NeverForgetBot.Dal
 {
     public class RequestTypeDao : IRequestTypeDao
     {

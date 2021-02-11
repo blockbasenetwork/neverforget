@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.Business.Interfaces
 {
-    public interface IRedditCommentBo : IBo<RedditComment>
+    public interface IRedditCommentBo : IBaseBo<RedditComment>
     {
     }
 }

@@ -1,5 +1,5 @@
 using BlockBase.Dapps.NeverForgetBot.Common.Enums;
-using BlockBase.Dapps.NeverForgetBot.Dal.DAOs;
+using BlockBase.Dapps.NeverForgetBot.Dal;
 using BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess;
 using BlockBase.Dapps.NeverForgetBot.Data.Context;
 using BlockBase.Dapps.NeverForgetBot.Data.Entities;
@@ -39,7 +39,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
 
             var redditContext = new RedditContext { Id = Guid.NewGuid(), CreatedAt = DateTime.UtcNow, RequestTypeId = defaultRequest.Id, RequestType = defaultRequest };
 
-            var redditComment = new RedditComment { Id = Guid.NewGuid(), CommentId = "tk1", Author = "Autor", SubReddit = "Testing", Content = "NeverForgetThis", CommentDate = DateTime.UtcNow, CreatedAt = DateTime.UtcNow, Link = "Zelda", ParentId = "t1_qualquercoisa", ParentSubmissionId = "t3_qualquercoisa", RedditContextId = redditContext.Id};
+            var redditComment = new RedditComment { Id = Guid.NewGuid(), CommentId = "tk1", Author = "Autor", SubReddit = "Testing", Content = "NeverForgetThis", CommentDate = DateTime.UtcNow, CreatedAt = DateTime.UtcNow, Link = "Zelda", ParentId = "t1_qualquercoisa", ParentSubmissionId = "t3_qualquercoisa", RedditContextId = redditContext.Id };
 
 
             redditContextDao.InsertAsync(redditContext).Wait();
@@ -83,9 +83,9 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
 
             var redditComment = new RedditComment { Id = Guid.NewGuid(), CommentId = "tk1", Author = "Autor", SubReddit = "Testing", Content = "NeverForgetThis", CommentDate = DateTime.UtcNow, CreatedAt = DateTime.UtcNow, Link = "Zelda", ParentId = "t1_qualquercoisa", ParentSubmissionId = "t3_qualquercoisa", RedditContextId = redditContext.Id };
             redditCommentDao.InsertAsync(redditComment).Wait();
-            var redditComment2 = new RedditComment { Id = Guid.NewGuid(), CommentId = "tk2", Author = "Autor", SubReddit = "Testing", Content = "NeverForgetThis", CommentDate = DateTime.UtcNow, CreatedAt = DateTime.UtcNow, Link = "Zelda", ParentId = "t1_qualquercoisa", ParentSubmissionId = "t3_qualquercoisa", RedditContextId = redditContext.Id};
+            var redditComment2 = new RedditComment { Id = Guid.NewGuid(), CommentId = "tk2", Author = "Autor", SubReddit = "Testing", Content = "NeverForgetThis", CommentDate = DateTime.UtcNow, CreatedAt = DateTime.UtcNow, Link = "Zelda", ParentId = "t1_qualquercoisa", ParentSubmissionId = "t3_qualquercoisa", RedditContextId = redditContext.Id };
             redditCommentDao.InsertAsync(redditComment2).Wait();
-            var redditComment3 = new RedditComment { Id = Guid.NewGuid(), CommentId = "tk3", Author = "Ator", SubReddit = "Testing", Content = "NeverForgetThis", CommentDate = DateTime.UtcNow, CreatedAt = DateTime.UtcNow, Link = "Zelda", ParentId = "t1_qualquercoisa", ParentSubmissionId = "t3_qualquercoisa", RedditContextId = redditContext.Id};
+            var redditComment3 = new RedditComment { Id = Guid.NewGuid(), CommentId = "tk3", Author = "Ator", SubReddit = "Testing", Content = "NeverForgetThis", CommentDate = DateTime.UtcNow, CreatedAt = DateTime.UtcNow, Link = "Zelda", ParentId = "t1_qualquercoisa", ParentSubmissionId = "t3_qualquercoisa", RedditContextId = redditContext.Id };
             redditCommentDao.InsertAsync(redditComment3).Wait();
 
 
@@ -169,7 +169,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
             redditCommentDao.InsertAsync(redditComment).Wait();
             var redditComment2 = new RedditComment { Id = Guid.NewGuid(), CommentId = "tk2", Author = "Autor", SubReddit = "Testing", Content = "NeverForgetThis", CommentDate = DateTime.UtcNow, CreatedAt = DateTime.UtcNow, Link = "Zelda", ParentId = "t1_qualquercoisa", ParentSubmissionId = "t3_qualquercoisa", RedditContextId = redditContext.Id };
             redditCommentDao.InsertAsync(redditComment2).Wait();
-            var redditComment3 = new RedditComment { Id = Guid.NewGuid(), CommentId = "tk3", Author = "Ator", SubReddit = "Testing", Content = "NeverForgetThis", CommentDate = DateTime.UtcNow, CreatedAt = DateTime.UtcNow, Link = "Zelda", ParentId = "t1_qualquercoisa", ParentSubmissionId = "t3_qualquercoisa", RedditContextId = redditContext.Id};
+            var redditComment3 = new RedditComment { Id = Guid.NewGuid(), CommentId = "tk3", Author = "Ator", SubReddit = "Testing", Content = "NeverForgetThis", CommentDate = DateTime.UtcNow, CreatedAt = DateTime.UtcNow, Link = "Zelda", ParentId = "t1_qualquercoisa", ParentSubmissionId = "t3_qualquercoisa", RedditContextId = redditContext.Id };
             redditCommentDao.InsertAsync(redditComment3).Wait();
 
 
@@ -208,11 +208,11 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
             var redditContext = new RedditContext { Id = Guid.NewGuid(), CreatedAt = DateTime.UtcNow, RequestTypeId = defaultRequest.Id, RequestType = defaultRequest };
             redditContextDao.InsertAsync(redditContext).Wait();
 
-            var redditComment = new RedditComment { Id = Guid.NewGuid(), CommentId = "tk1", Author = "Autor", SubReddit = "Testing", Content = "NeverForgetThis", CommentDate = DateTime.UtcNow, CreatedAt = DateTime.UtcNow, Link = "Zelda", ParentId = "t1_qualquercoisa", ParentSubmissionId = "t3_qualquercoisa", RedditContextId = redditContext.Id};
+            var redditComment = new RedditComment { Id = Guid.NewGuid(), CommentId = "tk1", Author = "Autor", SubReddit = "Testing", Content = "NeverForgetThis", CommentDate = DateTime.UtcNow, CreatedAt = DateTime.UtcNow, Link = "Zelda", ParentId = "t1_qualquercoisa", ParentSubmissionId = "t3_qualquercoisa", RedditContextId = redditContext.Id };
             redditCommentDao.InsertAsync(redditComment).Wait();
-            var redditComment2 = new RedditComment { Id = Guid.NewGuid(), CommentId = "tk2", Author = "Autor", SubReddit = "Testing", Content = "NeverForgetThis", CommentDate = DateTime.UtcNow, CreatedAt = DateTime.UtcNow, Link = "Zelda", ParentId = "t1_qualquercoisa", ParentSubmissionId = "t3_qualquercoisa", RedditContextId = redditContext.Id};
+            var redditComment2 = new RedditComment { Id = Guid.NewGuid(), CommentId = "tk2", Author = "Autor", SubReddit = "Testing", Content = "NeverForgetThis", CommentDate = DateTime.UtcNow, CreatedAt = DateTime.UtcNow, Link = "Zelda", ParentId = "t1_qualquercoisa", ParentSubmissionId = "t3_qualquercoisa", RedditContextId = redditContext.Id };
             redditCommentDao.InsertAsync(redditComment2).Wait();
-            var redditComment3 = new RedditComment { Id = Guid.NewGuid(), CommentId = "tk3", Author = "Ator", SubReddit = "Testing", Content = "NeverForgetThis", CommentDate = DateTime.UtcNow, CreatedAt = DateTime.UtcNow, Link = "Zelda", ParentId = "t1_qualquercoisa", ParentSubmissionId = "t3_qualquercoisa", RedditContextId = redditContext.Id};
+            var redditComment3 = new RedditComment { Id = Guid.NewGuid(), CommentId = "tk3", Author = "Ator", SubReddit = "Testing", Content = "NeverForgetThis", CommentDate = DateTime.UtcNow, CreatedAt = DateTime.UtcNow, Link = "Zelda", ParentId = "t1_qualquercoisa", ParentSubmissionId = "t3_qualquercoisa", RedditContextId = redditContext.Id };
             redditCommentDao.InsertAsync(redditComment3).Wait();
 
 
@@ -228,403 +228,502 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
 
 
         #region Twitter
-        //[TestMethod]
-        //public void TestInsertAndGetTwitter()
-        //{
-        //    using (var context = new NeverForgetBotDbContext())
-        //    {
-        //        var resultDrop = context.DropDatabase().Result;
-        //        var resultCreate = context.CreateDatabase().Result;
-        //    }
+        [TestMethod]
+        public void TestInsertAndGetTwitter()
+        {
+            using (var context = new NeverForgetBotDbContext())
+            {
+                var resultDrop = context.DropDatabase().Result;
+                var resultCreate = context.CreateDatabase().Result;
+            }
 
-        //    var twitterDAO = new TwitterContextDao();
-
-        //    var twitterContext = new TwitterContext
-        //    {
-        //        Id = Guid.NewGuid(),
-        //        TweetId = "tk1",
-        //        TweetText = "@_NeverForgetBot Tweet1",
-        //        TweetDate = DateTime.UtcNow,
-        //        AuthorId = "Au1",
-        //        Author = "Author1",
-        //        InReplyToTweetId = null,
-        //        InReplyToUserId = null,
-        //        InReplyToUser = null,
-        //        CreatedAt = DateTime.UtcNow,
-        //        UpdatedAt = DateTime.UtcNow
-        //    };
-        //    twitterDAO.InsertAsync(twitterContext).Wait();
-
-        //    var resGet = twitterDAO.GetAsync(twitterContext.Id).Result;
-
-        //    Assert.IsTrue(resGet != null);
-        //}
-
-        //[TestMethod]
-        //public void TestGetAllTwitter()
-        //{
-        //    using (var context = new NeverForgetBotDbContext())
-        //    {
-        //        var resultDrop = context.DropDatabase().Result;
-        //        var resultCreate = context.CreateDatabase().Result;
-        //    }
-
-        //    var twitterDAO = new TwitterContextDao();
-
-        //    var twitterContext = new TwitterContext
-        //    {
-        //        Id = Guid.NewGuid(),
-        //        TweetId = "tk1",
-        //        TweetText = "@_NeverForgetBot Tweet1",
-        //        TweetDate = DateTime.UtcNow,
-        //        AuthorId = "Au1",
-        //        Author = "Author1",
-        //        InReplyToTweetId = null,
-        //        InReplyToUserId = null,
-        //        InReplyToUser = null,
-        //        CreatedAt = DateTime.UtcNow,
-        //        UpdatedAt = DateTime.UtcNow
-        //    };
-        //    twitterDAO.InsertAsync(twitterContext).Wait();
-
-        //    var twitterContext2 = new TwitterContext
-        //    {
-        //        Id = Guid.NewGuid(),
-        //        TweetId = "tk2",
-        //        TweetText = "@_NeverForgetBot Tweet2 #comment",
-        //        TweetDate = DateTime.UtcNow,
-        //        AuthorId = "Au2",
-        //        Author = "Author2",
-        //        InReplyToTweetId = twitterContext.TweetId,
-        //        InReplyToUserId = twitterContext.AuthorId,
-        //        InReplyToUser = twitterContext.Author,
-        //        CreatedAt = DateTime.UtcNow,
-        //        UpdatedAt = DateTime.UtcNow
-        //    };
-        //    twitterDAO.InsertAsync(twitterContext2).Wait();
-
-        //    var twitterContext3 = new TwitterContext
-        //    {
-        //        Id = Guid.NewGuid(),
-        //        TweetId = "tk3",
-        //        TweetText = "@_NeverForgetBot Tweet3 #tweet",
-        //        TweetDate = DateTime.UtcNow,
-        //        AuthorId = "Au3",
-        //        Author = "Author3",
-        //        InReplyToTweetId = twitterContext2.TweetId,
-        //        InReplyToUserId = twitterContext2.AuthorId,
-        //        InReplyToUser = twitterContext2.Author,
-        //        CreatedAt = DateTime.UtcNow,
-        //        UpdatedAt = DateTime.UtcNow
-        //    };
-        //    twitterDAO.InsertAsync(twitterContext3).Wait();
-
-        //    var twitterContextList = twitterDAO.GetAllAsync().Result;
-
-        //    Assert.IsTrue(twitterContextList.Count == 3);
-        //}
-
-        //[TestMethod]
-        //public void TestUpdateTwitter()
-        //{
-        //    using (var context = new NeverForgetBotDbContext())
-        //    {
-        //        var resultDrop = context.DropDatabase().Result;
-        //        var resultCreate = context.CreateDatabase().Result;
-        //    }
-
-        //    var twitterDAO = new TwitterContextDao();
-
-        //    var twitterContext = new TwitterContext
-        //    {
-        //        Id = Guid.NewGuid(),
-        //        TweetId = "tk1",
-        //        TweetText = "@_NeverForgetBot Tweet1",
-        //        TweetDate = DateTime.UtcNow,
-        //        AuthorId = "Au1",
-        //        Author = "Author1",
-        //        InReplyToTweetId = null,
-        //        InReplyToUserId = null,
-        //        InReplyToUser = null,
-        //        CreatedAt = DateTime.UtcNow,
-        //        UpdatedAt = DateTime.UtcNow
-        //    };
-        //    twitterDAO.InsertAsync(twitterContext).Wait();
+            var _requestTypeDao = new RequestTypeDao();
+            RequestType defaultRequest = new RequestType { Id = (int)RequestTypeEnum.Default, Name = "Default" };
+            _requestTypeDao.InsertAsync(defaultRequest).Wait();
 
 
-        //    var resGet = twitterDAO.GetAsync(twitterContext.Id).Result;
-        //    resGet.Author = "NewAuthor";
-        //    twitterDAO.UpdateAsync(resGet).Wait();
+            var twitterDAO = new TwitterContextDao();
+            var twitterCommentDao = new TwitterCommentDao();
 
-        //    Assert.IsTrue(resGet.Author == "NewAuthor");
-        //}
+            var twitterContext = new TwitterContext
+            {
+                Id = Guid.NewGuid(),
+                RequestTypeId = 0,
+                RequestType = defaultRequest,
+                CreatedAt = DateTime.UtcNow,
+            };
+            var twitterComment = new TwitterComment
+            {
+                Id = Guid.NewGuid(),
+                CommentId = "tk1",
+                Content = "@_NeverForgetBot Tweet1",
+                CommentDate = DateTime.UtcNow,
+                Author = "Author1",
+                IsDeleted = false,
+                Link = "Link",
+                MediaLink = "Link2",
+                ReplyToId = "fefe",
+                TwitterContextId = twitterContext.Id,
+                CreatedAt = DateTime.UtcNow,
 
-        //[TestMethod]
-        //public void TestDeleteTwitter()
-        //{
-        //    using (var context = new NeverForgetBotDbContext())
-        //    {
-        //        var resultDrop = context.DropDatabase().Result;
-        //        var resultCreate = context.CreateDatabase().Result;
-        //    }
+            };
+            twitterDAO.InsertAsync(twitterContext).Wait();
+            twitterCommentDao.InsertAsync(twitterComment).Wait();
 
-        //    var twitterDAO = new TwitterContextDao();
 
-        //    var twitterContext = new TwitterContext
-        //    {
-        //        Id = Guid.NewGuid(),
-        //        TweetId = "tk1",
-        //        TweetText = "@_NeverForgetBot Tweet1",
-        //        TweetDate = DateTime.UtcNow,
-        //        AuthorId = "Au1",
-        //        Author = "Author1",
-        //        InReplyToTweetId = null,
-        //        InReplyToUserId = null,
-        //        InReplyToUser = null,
-        //        CreatedAt = DateTime.UtcNow,
-        //        UpdatedAt = DateTime.UtcNow
-        //    };
-        //    twitterDAO.InsertAsync(twitterContext).Wait();
+            var resGet = twitterCommentDao.GetAsync(twitterComment.Id).Result;
 
-        //    var twitterContext2 = new TwitterContext
-        //    {
-        //        Id = Guid.NewGuid(),
-        //        TweetId = "tk2",
-        //        TweetText = "@_NeverForgetBot Tweet2 #comment",
-        //        TweetDate = DateTime.UtcNow,
-        //        AuthorId = "Au2",
-        //        Author = "Author2",
-        //        InReplyToTweetId = twitterContext.TweetId,
-        //        InReplyToUserId = twitterContext.AuthorId,
-        //        InReplyToUser = twitterContext.Author,
-        //        CreatedAt = DateTime.UtcNow,
-        //        UpdatedAt = DateTime.UtcNow
-        //    };
-        //    twitterDAO.InsertAsync(twitterContext2).Wait();
+            Assert.IsTrue(resGet != null);
+        }
 
-        //    var twitterContext3 = new TwitterContext
-        //    {
-        //        Id = Guid.NewGuid(),
-        //        TweetId = "tk3",
-        //        TweetText = "@_NeverForgetBot Tweet3 #tweet #test",
-        //        TweetDate = DateTime.UtcNow,
-        //        AuthorId = "Au3",
-        //        Author = "Author3",
-        //        InReplyToTweetId = twitterContext2.TweetId,
-        //        InReplyToUserId = twitterContext2.AuthorId,
-        //        InReplyToUser = twitterContext2.Author,
-        //        CreatedAt = DateTime.UtcNow,
-        //        UpdatedAt = DateTime.UtcNow
-        //    };
-        //    twitterDAO.InsertAsync(twitterContext3).Wait();
+        [TestMethod]
+        public void TestGetAllTwitter()
+        {
+            using (var context = new NeverForgetBotDbContext())
+            {
+                var resultDrop = context.DropDatabase().Result;
+                var resultCreate = context.CreateDatabase().Result;
+            }
 
-        //    twitterDAO.DeleteAsync(twitterContext3).Wait();
+            var _requestTypeDao = new RequestTypeDao();
+            RequestType defaultRequest = new RequestType { Id = (int)RequestTypeEnum.Default, Name = "Default" };
+            _requestTypeDao.InsertAsync(defaultRequest).Wait();
 
-        //    Assert.IsTrue(twitterContext3.IsDeleted == true);
-        //}
 
-        //[TestMethod]
-        //public void TestGetNonDeletedTwitter()
-        //{
-        //    using (var context = new NeverForgetBotDbContext())
-        //    {
-        //        var resultDrop = context.DropDatabase().Result;
-        //        var resultCreate = context.CreateDatabase().Result;
-        //    }
+            var twitterDAO = new TwitterContextDao();
+            var twitterCommentDao = new TwitterCommentDao();
 
-        //    var twitterDAO = new TwitterContextDao();
+            var twitterContext = new TwitterContext
+            {
+                Id = Guid.NewGuid(),
+                RequestTypeId = 0,
+                RequestType = defaultRequest,
+                CreatedAt = DateTime.UtcNow,
+            };
+            var twitterComment = new TwitterComment
+            {
+                Id = Guid.NewGuid(),
+                CommentId = "tk1",
+                Content = "@_NeverForgetBot Tweet1",
+                CommentDate = DateTime.UtcNow,
+                Author = "Author1",
+                IsDeleted = false,
+                Link = "Link",
+                MediaLink = "Link2",
+                ReplyToId = "fefe",
+                TwitterContextId = twitterContext.Id,
+                CreatedAt = DateTime.UtcNow,
 
-        //    var twitterContext = new TwitterContext
-        //    {
-        //        Id = Guid.NewGuid(),
-        //        TweetId = "tk1",
-        //        TweetText = "@_NeverForgetBot Tweet1",
-        //        TweetDate = DateTime.UtcNow,
-        //        AuthorId = "Au1",
-        //        Author = "Author1",
-        //        InReplyToTweetId = null,
-        //        InReplyToUserId = null,
-        //        InReplyToUser = null,
-        //        CreatedAt = DateTime.UtcNow,
-        //        UpdatedAt = DateTime.UtcNow
-        //    };
-        //    twitterDAO.InsertAsync(twitterContext).Wait();
+            };
+            twitterDAO.InsertAsync(twitterContext).Wait();
+            twitterCommentDao.InsertAsync(twitterComment).Wait();
 
-        //    var twitterContext2 = new TwitterContext
-        //    {
-        //        Id = Guid.NewGuid(),
-        //        TweetId = "tk2",
-        //        TweetText = "@_NeverForgetBot Tweet2 #comment",
-        //        TweetDate = DateTime.UtcNow,
-        //        AuthorId = "Au2",
-        //        Author = "Author2",
-        //        InReplyToTweetId = twitterContext.TweetId,
-        //        InReplyToUserId = twitterContext.AuthorId,
-        //        InReplyToUser = twitterContext.Author,
-        //        CreatedAt = DateTime.UtcNow,
-        //        UpdatedAt = DateTime.UtcNow
-        //    };
-        //    twitterDAO.InsertAsync(twitterContext2).Wait();
+            var twitterComment2 = new TwitterComment
+            {
+                Id = Guid.NewGuid(),
+                CommentId = "tk2",
+                Content = "@_NeverForgetBot Tweet2",
+                CommentDate = DateTime.UtcNow,
+                Author = "Author2",
+                IsDeleted = false,
+                Link = "Link",
+                MediaLink = "Link2",
+                ReplyToId = "fefe",
+                TwitterContextId = twitterContext.Id,
+                CreatedAt = DateTime.UtcNow,
+            };
+            twitterCommentDao.InsertAsync(twitterComment2).Wait();
 
-        //    var twitterContext3 = new TwitterContext
-        //    {
-        //        Id = Guid.NewGuid(),
-        //        TweetId = "tk3",
-        //        TweetText = "@_NeverForgetBot Tweet3 #tweet #test",
-        //        TweetDate = DateTime.UtcNow,
-        //        AuthorId = "Au3",
-        //        Author = "Author3",
-        //        InReplyToTweetId = twitterContext2.TweetId,
-        //        InReplyToUserId = twitterContext2.AuthorId,
-        //        InReplyToUser = twitterContext2.Author,
-        //        CreatedAt = DateTime.UtcNow,
-        //        UpdatedAt = DateTime.UtcNow
-        //    };
-        //    twitterDAO.InsertAsync(twitterContext3).Wait();
+            var twitterComment3 = new TwitterComment
+            {
+                Id = Guid.NewGuid(),
+                CommentId = "tk3",
+                Content = "@_NeverForgetBot Tweet3",
+                CommentDate = DateTime.UtcNow,
+                Author = "Author3",
+                IsDeleted = false,
+                Link = "Link",
+                MediaLink = "Link2",
+                ReplyToId = "fefe",
+                TwitterContextId = twitterContext.Id,
+                CreatedAt = DateTime.UtcNow,
+            };
+            twitterCommentDao.InsertAsync(twitterComment3).Wait();
 
-        //    twitterDAO.DeleteAsync(twitterContext3).Wait();
+            var twitterCommentList = twitterCommentDao.GetAllAsync().Result;
 
-        //    var resGetNonDeleted = twitterDAO.GetNonDeletedAsync(twitterContext3.Id).Result;
-        //    var resGetNonDeleted2 = twitterDAO.GetNonDeletedAsync(twitterContext2.Id).Result;
+            Assert.IsTrue(twitterCommentList.Count == 3);
+        }
 
-        //    Assert.IsTrue(resGetNonDeleted == null && resGetNonDeleted2 != null);
-        //}
+        [TestMethod]
+        public void TestUpdateTwitter()
+        {
+            using (var context = new NeverForgetBotDbContext())
+            {
+                var resultDrop = context.DropDatabase().Result;
+                var resultCreate = context.CreateDatabase().Result;
+            }
 
-        //[TestMethod]
-        //public void TestGetAllNonDeletedTwitter()
-        //{
-        //    using (var context = new NeverForgetBotDbContext())
-        //    {
-        //        var resultDrop = context.DropDatabase().Result;
-        //        var resultCreate = context.CreateDatabase().Result;
-        //    }
+            var _requestTypeDao = new RequestTypeDao();
+            RequestType defaultRequest = new RequestType { Id = (int)RequestTypeEnum.Default, Name = "Default" };
+            _requestTypeDao.InsertAsync(defaultRequest).Wait();
 
-        //    var twitterDAO = new TwitterContextDao();
 
-        //    var twitterContext = new TwitterContext
-        //    {
-        //        Id = Guid.NewGuid(),
-        //        TweetId = "tk1",
-        //        TweetText = "@_NeverForgetBot Tweet1",
-        //        TweetDate = DateTime.UtcNow,
-        //        AuthorId = "Au1",
-        //        Author = "Author1",
-        //        InReplyToTweetId = null,
-        //        InReplyToUserId = null,
-        //        InReplyToUser = null,
-        //        CreatedAt = DateTime.UtcNow,
-        //        UpdatedAt = DateTime.UtcNow
-        //    };
-        //    twitterDAO.InsertAsync(twitterContext).Wait();
+            var twitterDAO = new TwitterContextDao();
+            var twitterCommentDao = new TwitterCommentDao();
 
-        //    var twitterContext2 = new TwitterContext
-        //    {
-        //        Id = Guid.NewGuid(),
-        //        TweetId = "tk2",
-        //        TweetText = "@_NeverForgetBot Tweet2 #comment",
-        //        TweetDate = DateTime.UtcNow,
-        //        AuthorId = "Au2",
-        //        Author = "Author2",
-        //        InReplyToTweetId = twitterContext.TweetId,
-        //        InReplyToUserId = twitterContext.AuthorId,
-        //        InReplyToUser = twitterContext.Author,
-        //        CreatedAt = DateTime.UtcNow,
-        //        UpdatedAt = DateTime.UtcNow
-        //    };
-        //    twitterDAO.InsertAsync(twitterContext2).Wait();
+            var twitterContext = new TwitterContext
+            {
+                Id = Guid.NewGuid(),
+                RequestTypeId = 0,
+                RequestType = defaultRequest,
+                CreatedAt = DateTime.UtcNow,
+            };
+            var twitterComment = new TwitterComment
+            {
+                Id = Guid.NewGuid(),
+                CommentId = "tk1",
+                Content = "@_NeverForgetBot Tweet1",
+                CommentDate = DateTime.UtcNow,
+                Author = "Author1",
+                IsDeleted = false,
+                Link = "Link",
+                MediaLink = "Link2",
+                ReplyToId = "fefe",
+                TwitterContextId = twitterContext.Id,
+                CreatedAt = DateTime.UtcNow,
 
-        //    var twitterContext3 = new TwitterContext
-        //    {
-        //        Id = Guid.NewGuid(),
-        //        TweetId = "tk3",
-        //        TweetText = "@_NeverForgetBot Tweet3 #tweet #test",
-        //        TweetDate = DateTime.UtcNow,
-        //        AuthorId = "Au3",
-        //        Author = "Author3",
-        //        InReplyToTweetId = twitterContext2.TweetId,
-        //        InReplyToUserId = twitterContext2.AuthorId,
-        //        InReplyToUser = twitterContext2.Author,
-        //        CreatedAt = DateTime.UtcNow,
-        //        UpdatedAt = DateTime.UtcNow
-        //    };
-        //    twitterDAO.InsertAsync(twitterContext3).Wait();
+            };
+            twitterDAO.InsertAsync(twitterContext).Wait();
+            twitterCommentDao.InsertAsync(twitterComment).Wait();
 
-        //    twitterDAO.DeleteAsync(twitterContext3).Wait();
 
-        //    var twitterContextList = twitterDAO.GetAllAsync().Result;
+            var resGet = twitterCommentDao.GetAsync(twitterComment.Id).Result;
+            resGet.Author = "NewAuthor";
+            twitterCommentDao.UpdateAsync(resGet).Wait();
 
-        //    var twitterContextListNonDeleted = twitterDAO.GetAllNonDeletedAsync().Result;
+            Assert.IsTrue(resGet.Author == "NewAuthor");
+        }
 
-        //    //Assert.IsTrue(twitterContextList.Contains);
-        //    Assert.IsTrue(twitterContextList.Count == 3 && twitterContextListNonDeleted.Count == 2);
-        //}
+        [TestMethod]
+        public void TestDeleteTwitter()
+        {
+            using (var context = new NeverForgetBotDbContext())
+            {
+                var resultDrop = context.DropDatabase().Result;
+                var resultCreate = context.CreateDatabase().Result;
+            }
+            var _requestTypeDao = new RequestTypeDao();
+            RequestType defaultRequest = new RequestType { Id = (int)RequestTypeEnum.Default, Name = "Default" };
+            _requestTypeDao.InsertAsync(defaultRequest).Wait();
 
-        //[TestMethod]
-        //public void TestGetAllDeletedTwitter()
-        //{
-        //    using (var context = new NeverForgetBotDbContext())
-        //    {
-        //        var resultDrop = context.DropDatabase().Result;
-        //        var resultCreate = context.CreateDatabase().Result;
-        //    }
+            var twitterDAO = new TwitterContextDao();
+            var twitterCommentDao = new TwitterCommentDao();
 
-        //    var twitterDAO = new TwitterContextDao();
+            var twitterContext = new TwitterContext
+            {
+                Id = Guid.NewGuid(),
+                RequestTypeId = 0,
+                RequestType = defaultRequest,
+                CreatedAt = DateTime.UtcNow,
+            };
+            var twitterComment = new TwitterComment
+            {
+                Id = Guid.NewGuid(),
+                CommentId = "tk1",
+                Content = "@_NeverForgetBot Tweet1",
+                CommentDate = DateTime.UtcNow,
+                Author = "Author1",
+                IsDeleted = false,
+                Link = "Link",
+                MediaLink = "Link2",
+                ReplyToId = "fefe",
+                TwitterContextId = twitterContext.Id,
+                CreatedAt = DateTime.UtcNow,
 
-        //    var twitterContext = new TwitterContext
-        //    {
-        //        Id = Guid.NewGuid(),
-        //        TweetId = "tk1",
-        //        TweetText = "@_NeverForgetBot Tweet1",
-        //        TweetDate = DateTime.UtcNow,
-        //        AuthorId = "Au1",
-        //        Author = "Author1",
-        //        InReplyToTweetId = null,
-        //        InReplyToUserId = null,
-        //        InReplyToUser = null,
-        //        CreatedAt = DateTime.UtcNow,
-        //        UpdatedAt = DateTime.UtcNow
-        //    };
-        //    twitterDAO.InsertAsync(twitterContext).Wait();
+            };
+            twitterDAO.InsertAsync(twitterContext).Wait();
+            twitterCommentDao.InsertAsync(twitterComment).Wait();
 
-        //    var twitterContext2 = new TwitterContext
-        //    {
-        //        Id = Guid.NewGuid(),
-        //        TweetId = "tk2",
-        //        TweetText = "@_NeverForgetBot Tweet2 #comment",
-        //        TweetDate = DateTime.UtcNow,
-        //        AuthorId = "Au2",
-        //        Author = "Author2",
-        //        InReplyToTweetId = twitterContext.TweetId,
-        //        InReplyToUserId = twitterContext.AuthorId,
-        //        InReplyToUser = twitterContext.Author,
-        //        CreatedAt = DateTime.UtcNow,
-        //        UpdatedAt = DateTime.UtcNow
-        //    };
-        //    twitterDAO.InsertAsync(twitterContext2).Wait();
+            var twitterComment2 = new TwitterComment
+            {
+                Id = Guid.NewGuid(),
+                CommentId = "tk2",
+                Content = "@_NeverForgetBot Tweet2",
+                CommentDate = DateTime.UtcNow,
+                Author = "Author2",
+                IsDeleted = false,
+                Link = "Link",
+                MediaLink = "Link2",
+                ReplyToId = "fefe",
+                TwitterContextId = twitterContext.Id,
+                CreatedAt = DateTime.UtcNow,
+            };
+            twitterCommentDao.InsertAsync(twitterComment2).Wait();
 
-        //    var twitterContext3 = new TwitterContext
-        //    {
-        //        Id = Guid.NewGuid(),
-        //        TweetId = "tk3",
-        //        TweetText = "@_NeverForgetBot Tweet3 #tweet #test",
-        //        TweetDate = DateTime.UtcNow,
-        //        AuthorId = "Au3",
-        //        Author = "Author3",
-        //        InReplyToTweetId = twitterContext2.TweetId,
-        //        InReplyToUserId = twitterContext2.AuthorId,
-        //        InReplyToUser = twitterContext2.Author,
-        //        CreatedAt = DateTime.UtcNow,
-        //        UpdatedAt = DateTime.UtcNow
-        //    };
-        //    twitterDAO.InsertAsync(twitterContext3).Wait();
+            var twitterComment3 = new TwitterComment
+            {
+                Id = Guid.NewGuid(),
+                CommentId = "tk3",
+                Content = "@_NeverForgetBot Tweet3",
+                CommentDate = DateTime.UtcNow,
+                Author = "Author3",
+                IsDeleted = false,
+                Link = "Link",
+                MediaLink = "Link2",
+                ReplyToId = "fefe",
+                TwitterContextId = twitterContext.Id,
+                CreatedAt = DateTime.UtcNow,
+            };
+            twitterCommentDao.InsertAsync(twitterComment3).Wait();
 
-        //    twitterDAO.DeleteAsync(twitterContext3).Wait();
+            twitterCommentDao.DeleteAsync(twitterComment3).Wait();
 
-        //    var twitterContextList = twitterDAO.GetAllAsync().Result;
-        //    var twitterContextListDeleted = twitterDAO.GetAllDeletedAsync().Result;
+            Assert.IsTrue(twitterComment3.IsDeleted == true);
+        }
 
-        //    Assert.IsTrue(twitterContextList.Count == 3 && twitterContextListDeleted.Count == 1);
-        //}
+        [TestMethod]
+        public void TestGetNonDeletedTwitter()
+        {
+            using (var context = new NeverForgetBotDbContext())
+            {
+                var resultDrop = context.DropDatabase().Result;
+                var resultCreate = context.CreateDatabase().Result;
+            }
+
+            var _requestTypeDao = new RequestTypeDao();
+            RequestType defaultRequest = new RequestType { Id = (int)RequestTypeEnum.Default, Name = "Default" };
+            _requestTypeDao.InsertAsync(defaultRequest).Wait();
+
+            var twitterDAO = new TwitterContextDao();
+            var twitterCommentDao = new TwitterCommentDao();
+
+            var twitterContext = new TwitterContext
+            {
+                Id = Guid.NewGuid(),
+                RequestTypeId = 0,
+                RequestType = defaultRequest,
+                CreatedAt = DateTime.UtcNow,
+            };
+            var twitterComment = new TwitterComment
+            {
+                Id = Guid.NewGuid(),
+                CommentId = "tk1",
+                Content = "@_NeverForgetBot Tweet1",
+                CommentDate = DateTime.UtcNow,
+                Author = "Author1",
+                IsDeleted = false,
+                Link = "Link",
+                MediaLink = "Link2",
+                ReplyToId = "fefe",
+                TwitterContextId = twitterContext.Id,
+                CreatedAt = DateTime.UtcNow,
+
+            };
+            twitterDAO.InsertAsync(twitterContext).Wait();
+            twitterCommentDao.InsertAsync(twitterComment).Wait();
+
+            var twitterComment2 = new TwitterComment
+            {
+                Id = Guid.NewGuid(),
+                CommentId = "tk2",
+                Content = "@_NeverForgetBot Tweet2",
+                CommentDate = DateTime.UtcNow,
+                Author = "Author2",
+                IsDeleted = false,
+                Link = "Link",
+                MediaLink = "Link2",
+                ReplyToId = "fefe",
+                TwitterContextId = twitterContext.Id,
+                CreatedAt = DateTime.UtcNow,
+            };
+            twitterCommentDao.InsertAsync(twitterComment2).Wait();
+
+            var twitterComment3 = new TwitterComment
+            {
+                Id = Guid.NewGuid(),
+                CommentId = "tk3",
+                Content = "@_NeverForgetBot Tweet3",
+                CommentDate = DateTime.UtcNow,
+                Author = "Author3",
+                IsDeleted = false,
+                Link = "Link",
+                MediaLink = "Link2",
+                ReplyToId = "fefe",
+                TwitterContextId = twitterContext.Id,
+                CreatedAt = DateTime.UtcNow,
+            };
+            twitterCommentDao.InsertAsync(twitterComment3).Wait();
+
+            twitterCommentDao.DeleteAsync(twitterComment3).Wait();
+
+            var resGetNonDeleted = twitterCommentDao.GetAsync(twitterComment3.Id).Result;
+            var resGetNonDeleted2 = twitterCommentDao.GetAsync(twitterComment2.Id).Result;
+
+            Assert.IsTrue(resGetNonDeleted == null && resGetNonDeleted2 != null);
+        }
+
+        [TestMethod]
+        public void TestGetAllNonDeletedTwitter()
+        {
+            using (var context = new NeverForgetBotDbContext())
+            {
+                var resultDrop = context.DropDatabase().Result;
+                var resultCreate = context.CreateDatabase().Result;
+            }
+
+            var _requestTypeDao = new RequestTypeDao();
+            RequestType defaultRequest = new RequestType { Id = (int)RequestTypeEnum.Default, Name = "Default" };
+            _requestTypeDao.InsertAsync(defaultRequest).Wait();
+
+            var twitterDAO = new TwitterContextDao();
+            var twitterCommentDao = new TwitterCommentDao();
+
+            var twitterContext = new TwitterContext
+            {
+                Id = Guid.NewGuid(),
+                RequestTypeId = 0,
+                RequestType = defaultRequest,
+                CreatedAt = DateTime.UtcNow,
+            };
+            var twitterComment = new TwitterComment
+            {
+                Id = Guid.NewGuid(),
+                CommentId = "tk1",
+                Content = "@_NeverForgetBot Tweet1",
+                CommentDate = DateTime.UtcNow,
+                Author = "Author1",
+                IsDeleted = false,
+                Link = "Link",
+                MediaLink = "Link2",
+                ReplyToId = "fefe",
+                TwitterContextId = twitterContext.Id,
+                CreatedAt = DateTime.UtcNow,
+
+            };
+            twitterDAO.InsertAsync(twitterContext).Wait();
+            twitterCommentDao.InsertAsync(twitterComment).Wait();
+
+            var twitterComment2 = new TwitterComment
+            {
+                Id = Guid.NewGuid(),
+                CommentId = "tk2",
+                Content = "@_NeverForgetBot Tweet2",
+                CommentDate = DateTime.UtcNow,
+                Author = "Author2",
+                IsDeleted = false,
+                Link = "Link",
+                MediaLink = "Link2",
+                ReplyToId = "fefe",
+                TwitterContextId = twitterContext.Id,
+                CreatedAt = DateTime.UtcNow,
+            };
+            twitterCommentDao.InsertAsync(twitterComment2).Wait();
+
+            var twitterComment3 = new TwitterComment
+            {
+                Id = Guid.NewGuid(),
+                CommentId = "tk3",
+                Content = "@_NeverForgetBot Tweet3",
+                CommentDate = DateTime.UtcNow,
+                Author = "Author3",
+                IsDeleted = false,
+                Link = "Link",
+                MediaLink = "Link2",
+                ReplyToId = "fefe",
+                TwitterContextId = twitterContext.Id,
+                CreatedAt = DateTime.UtcNow,
+            };
+            twitterCommentDao.InsertAsync(twitterComment3).Wait();
+
+            twitterCommentDao.DeleteAsync(twitterComment3).Wait();
+
+            var twitterCommentList = twitterCommentDao.GetAllAsync().Result;
+
+            //Assert.IsTrue(twitterContextList.Contains);
+            Assert.IsTrue(twitterCommentList.Count == 2);
+        }
+
+        [TestMethod]
+        public void TestGetAllDeletedTwitter()
+        {
+            using (var context = new NeverForgetBotDbContext())
+            {
+                var resultDrop = context.DropDatabase().Result;
+                var resultCreate = context.CreateDatabase().Result;
+            }
+
+            var _requestTypeDao = new RequestTypeDao();
+            RequestType defaultRequest = new RequestType { Id = (int)RequestTypeEnum.Default, Name = "Default" };
+            _requestTypeDao.InsertAsync(defaultRequest).Wait();
+
+            var twitterDAO = new TwitterContextDao();
+            var twitterCommentDao = new TwitterCommentDao();
+
+            var twitterContext = new TwitterContext
+            {
+                Id = Guid.NewGuid(),
+                RequestTypeId = 0,
+                RequestType = defaultRequest,
+                CreatedAt = DateTime.UtcNow,
+            };
+            var twitterComment = new TwitterComment
+            {
+                Id = Guid.NewGuid(),
+                CommentId = "tk1",
+                Content = "@_NeverForgetBot Tweet1",
+                CommentDate = DateTime.UtcNow,
+                Author = "Author1",
+                IsDeleted = false,
+                Link = "Link",
+                MediaLink = "Link2",
+                ReplyToId = "fefe",
+                TwitterContextId = twitterContext.Id,
+                CreatedAt = DateTime.UtcNow,
+
+            };
+            twitterDAO.InsertAsync(twitterContext).Wait();
+            twitterCommentDao.InsertAsync(twitterComment).Wait();
+
+            var twitterComment2 = new TwitterComment
+            {
+                Id = Guid.NewGuid(),
+                CommentId = "tk2",
+                Content = "@_NeverForgetBot Tweet2",
+                CommentDate = DateTime.UtcNow,
+                Author = "Author2",
+                IsDeleted = false,
+                Link = "Link",
+                MediaLink = "Link2",
+                ReplyToId = "fefe",
+                TwitterContextId = twitterContext.Id,
+                CreatedAt = DateTime.UtcNow,
+            };
+            twitterCommentDao.InsertAsync(twitterComment2).Wait();
+
+            var twitterComment3 = new TwitterComment
+            {
+                Id = Guid.NewGuid(),
+                CommentId = "tk3",
+                Content = "@_NeverForgetBot Tweet1",
+                CommentDate = DateTime.UtcNow,
+                Author = "Author3",
+                IsDeleted = false,
+                Link = "Link",
+                MediaLink = "Link2",
+                ReplyToId = "fefe",
+                TwitterContextId = twitterContext.Id,
+                CreatedAt = DateTime.UtcNow,
+            };
+            twitterCommentDao.InsertAsync(twitterComment3).Wait();
+
+            twitterCommentDao.DeleteAsync(twitterComment3).Wait();
+
+            var twitterCommentList = twitterCommentDao.GetAllAsync().Result;
+            var twitterCommentListDeleted = twitterCommentDao.GetAllDeletedAsync().Result;
+
+            Assert.IsTrue(twitterCommentList.Count == 2 && twitterCommentListDeleted.Count == 1);
+        }
         #endregion
     }
 }

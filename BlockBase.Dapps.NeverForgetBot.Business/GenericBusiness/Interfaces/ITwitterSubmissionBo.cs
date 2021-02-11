@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.Business.Interfaces
 {
-    public interface ITwitterContextBo : IBo<TwitterContext>
+    public interface ITwitterSubmissionBo : IBaseBo<TwitterSubmission>
     {
-        Task<List<OperationResult>> FromApiTwitterModel(TweetModel[] modelArray);
+
     }
 }
