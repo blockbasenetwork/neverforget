@@ -2,6 +2,7 @@
 using BlockBase.Dapps.NeverForgetBot.Data.Pocos;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
 {
@@ -13,19 +14,19 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
         //    _context = context;
         //}
 
-        public GeneralContextPoco GetRedditContext(Guid contextId)
+        public async Task<GeneralContextPoco> GetRedditContext(Guid contextId)
         {
-            var redditContext = new GeneralContextPoco();
+            var redditContextq = new GeneralContextPoco();
 
             using (var _context = new NeverForgetBotDbContext())
             {
-                redditContext = _context.RedditComment.Where(rc => rc.RedditContextId == contextId).List(rc => new GeneralContextPoco()
+                var redditContext = await _context.RedditComment.Where(rc => rc.RedditContextId == contextId).List(rc => new GeneralContextPoco()
                 {
                     AuthorComment = rc.Author,
                 });
             }
 
-            return redditContext;
+            return redditContextq;
         }
     }
 }
