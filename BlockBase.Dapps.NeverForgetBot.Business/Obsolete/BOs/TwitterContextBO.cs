@@ -19,18 +19,14 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.Obsolete.BOs
         private readonly IDbOperationExecutor _opExecutor;
         private readonly ITwitterCommentDao _commentDao;
         private readonly ITwitterSubmissionDao _submissionDao;
-        private readonly ITwitterCommentBo _commentBo;
-        private readonly ITwitterSubmissionBo _submissionBo;
         private readonly TwitterCollector _twitterCollector;
 
-        public TwitterContextBo(ITwitterContextDao dao, IDbOperationExecutor opExecutor, ITwitterCommentDao commentDao, ITwitterSubmissionDao submissionDao, ITwitterCommentBo commentBo, ITwitterSubmissionBo submissionBo, TwitterCollector twitterCollector)
+        public TwitterContextBo(ITwitterContextDao dao, IDbOperationExecutor opExecutor, ITwitterCommentDao commentDao, ITwitterSubmissionDao submissionDao, TwitterCollector twitterCollector)
         {
             _dao = dao;
             _opExecutor = opExecutor;
             _commentDao = commentDao;
             _submissionDao = submissionDao;
-            _commentBo = commentBo;
-            _submissionBo = submissionBo;
             _twitterCollector = twitterCollector;
         }
 

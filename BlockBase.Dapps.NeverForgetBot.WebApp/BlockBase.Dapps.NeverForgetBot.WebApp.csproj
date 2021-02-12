@@ -12,6 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Views\Twitter\" />
+    <Folder Include="Views\Reddit\" />
     <Folder Include="wwwroot\img\" />
   </ItemGroup>
 
