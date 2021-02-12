@@ -5,7 +5,6 @@ using BlockBase.Dapps.NeverForgetBot.Data.Pocos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
@@ -51,7 +50,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
             {
                 var redditContextIds = await _context.RedditContext.Where(ctx => (ctx.IsDeleted == false)).List();
 
-                foreach(var ctx in redditContextIds.Result)
+                foreach (var ctx in redditContextIds.Result)
                 {
                     redditContexts.Add(GetRedditGeneralByContextId(ctx.Id).Result);
                 }
@@ -66,8 +65,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
 
             using (var _context = new NeverForgetBotDbContext())
             {
-                var twitterComments = await _context.TwitterComment.Where(rc => (rc.TwitterContextId == contextId) && (rc.IsDeleted == false)).List();  
-                
+                var twitterComments = await _context.TwitterComment.Where(rc => (rc.TwitterContextId == contextId) && (rc.IsDeleted == false)).List();
+
                 foreach (var comment in twitterComments.Result)
                 {
                     parentId = comment.ReplyToId;
@@ -82,7 +81,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
 
                         return TwitterGeneralPocoFromComment(twitterContext, parentComment);
                     }
-                }                
+                }
 
                 var twitterSubmission = await _context.TwitterSubmission.Where(rs => (rs.TwitterContextId == contextId) && (rs.SubmissionId == parentId) && (rs.IsDeleted == false)).List();
 
@@ -110,11 +109,12 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
 
         private GeneralContextPoco RedditGeneralPocoFromComment(GeneralContextPoco redditContext, RedditComment redditComment)
         {
+            redditContext.ContextId = redditComment.Id;
             redditContext.ContentComment = redditComment.Content;
             redditContext.AuthorComment = redditComment.Author;
             redditContext.LinkComment = redditComment.Link;
             redditContext.SubRedditComment = redditComment.SubReddit;
-            redditContext.CommentDateComment = redditComment.CommentDate;
+            redditContext.DateComment = redditComment.CommentDate;
             redditContext.PostType = PostTypeEnum.Comment;
             redditContext.SourceType = SourceTypeEnum.Reddit;
 
@@ -123,12 +123,14 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
 
         private GeneralContextPoco RedditGeneralPocoFromSubmission(GeneralContextPoco redditContext, RedditSubmission redditSubmission)
         {
+            redditContext.ContextId = redditSubmission.Id;
             redditContext.TitleSubmission = redditSubmission.Title;
             redditContext.ContentSubmission = redditSubmission.Content;
             redditContext.AuthorSubmission = redditSubmission.Author;
             redditContext.MediaLinkSubmission = redditSubmission.MediaLink;
             redditContext.LinkSubmission = redditSubmission.Link;
-            redditContext.SubmissionDateSubmission = redditSubmission.SubmissionDate;
+            redditContext.SubRedditSubmission = redditSubmission.SubReddit;
+            redditContext.DateSubmission = redditSubmission.SubmissionDate;
             redditContext.PostType = PostTypeEnum.Submission;
             redditContext.SourceType = SourceTypeEnum.Reddit;
 
@@ -137,11 +139,12 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
 
         private GeneralContextPoco TwitterGeneralPocoFromComment(GeneralContextPoco twitterContext, TwitterComment twitterComment)
         {
+            twitterContext.ContextId = twitterComment.Id;
             twitterContext.ContentComment = twitterComment.Content;
             twitterContext.AuthorComment = twitterComment.Author;
             twitterContext.MediaLinkComment = twitterComment.MediaLink;
             twitterContext.LinkComment = twitterComment.Link;
-            twitterContext.CommentDateComment = twitterComment.CommentDate;
+            twitterContext.DateComment = twitterComment.CommentDate;
             twitterContext.PostType = PostTypeEnum.Comment;
             twitterContext.SourceType = SourceTypeEnum.Twitter;
 
@@ -150,11 +153,12 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
 
         private GeneralContextPoco TwitterGeneralPocoFromSubmission(GeneralContextPoco twitterContext, TwitterSubmission twitterSubmission)
         {
+            twitterContext.ContextId = twitterSubmission.Id;
             twitterContext.ContentSubmission = twitterSubmission.Content;
             twitterContext.AuthorSubmission = twitterSubmission.Author;
             twitterContext.MediaLinkSubmission = twitterSubmission.MediaLink;
             twitterContext.LinkSubmission = twitterSubmission.Link;
-            twitterContext.SubmissionDateSubmission = twitterSubmission.SubmissionDate;
+            twitterContext.DateSubmission = twitterSubmission.SubmissionDate;
             twitterContext.PostType = PostTypeEnum.Submission;
             twitterContext.SourceType = SourceTypeEnum.Reddit;
 
@@ -162,5 +166,3 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
         }
     }
 }
-
-//dao->where-> .List();

@@ -7,9 +7,9 @@ namespace BlockBase.Dapps.NeverForgetBot.WebApp.Models
     {
         public TwitterContextViewModel()
         {
-            this.DetailsDataPocos = new List<TwitterContextPoco>();
+            this.TwitterContextPocos = new List<TwitterContextPoco>();
         }
 
-        public List<TwitterContextPoco> DetailsDataPocos { get; set; }
+        public List<TwitterContextPoco> TwitterContextPocos { get; set; }
     }
 }

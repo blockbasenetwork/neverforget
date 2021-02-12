@@ -1,9 +1,12 @@
 ﻿using BlockBase.Dapps.NeverForgetBot.Data.Entities;
+using System;
 
 namespace BlockBase.Dapps.NeverForgetBot.Data.Pocos
 {
     public class RedditContextPoco
     {
+        public virtual Guid ContextId { get; set; }
+
         public virtual RedditComment ContentComment { get; set; }
         public virtual RedditComment AuthorComment { get; set; }
         public virtual RedditComment SubredditComment { get; set; }

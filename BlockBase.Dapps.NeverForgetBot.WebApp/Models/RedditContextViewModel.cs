@@ -7,9 +7,9 @@ namespace BlockBase.Dapps.NeverForgetBot.WebApp.Models
     {
         public RedditContextViewModel()
         {
-            this.DetailsDataPocos = new List<RedditContextPoco>();
+            this.RedditContextPocos = new List<RedditContextPoco>();
         }
 
-        public List<RedditContextPoco> DetailsDataPocos { get; set; }
+        public List<RedditContextPoco> RedditContextPocos { get; set; }
     }
 }
