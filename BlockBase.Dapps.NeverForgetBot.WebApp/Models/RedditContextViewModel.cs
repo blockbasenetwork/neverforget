@@ -1,11 +1,15 @@
-﻿using System;
+﻿using BlockBase.Dapps.NeverForgetBot.Data.Pocos;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.WebApp.Models
 {
     public class RedditContextViewModel
     {
+        public RedditContextViewModel()
+        {
+            this.DetailsDataPocos = new List<RedditContextPoco>();
+        }
+
+        public List<RedditContextPoco> DetailsDataPocos { get; set; }
     }
 }
