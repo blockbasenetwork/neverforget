@@ -20,5 +20,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Data.Pocos
         public virtual DateTime SubmissionDateSubmission { get; set; }
 
         public virtual SourceTypeEnum SourceType { get; set; }
+        public virtual PostTypeEnum PostType { get; set; }
     }
 }
