@@ -25,7 +25,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
                 {
                     parentId = comment.ParentId;
 
-
                     var mostRecent = redditComments.Result.OrderByDescending(c => c.CommentDate).FirstOrDefault();
                     var listOrdered = redditComments.Result.OrderByDescending(c => c.CommentDate).ToList();
                     listOrdered.Remove(mostRecent);
@@ -50,54 +49,11 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
 
             using (var _context = new NeverForgetBotDbContext())
             {
-                var redditComments = await _context.RedditComment.Where(rc => (rc.IsDeleted == false)).List();
-                foreach (var comment in redditComments.Result)
+                var redditContextIds = await _context.RedditContext.Where(ctx => (ctx.IsDeleted == false)).List();
+
+                foreach(var ctx in redditContextIds.Result)
                 {
-                    var content = comment.Content;
-                    if (Regex.IsMatch(content, @"(!neverforgetbot+ +post)", RegexOptions.IgnoreCase) ||
-                        comment.Content.ToLower().Contains("!neverforgetbot post") ||
-                        comment.Content.ToLower().Contains("!neverforgetbot thread"))
-                    {
-                        GeneralContextPoco redditContext = new GeneralContextPoco();
-
-                        foreach (var c in redditComments.Result)
-                        {
-                            if (c.CommentId == comment.ParentId)
-                            {
-                                //redditContext.ContentComment = c.Content;
-                                //redditContext.AuthorComment = c.Author;
-                                //redditContext.LinkComment = c.Link;
-                                //redditContext.SubRedditComment = c.SubReddit;
-                                //redditContext.CommentDateComment = c.CommentDate;
-                                //redditContext.PostType = PostTypeEnum.Comment;
-                                //redditContext.SourceType = SourceTypeEnum.Reddit;
-
-                                //redditContexts.Add(redditContext);
-
-                                //redditContext = RedditGeneralPocoFromComment(redditContext, c);
-                                redditContexts.Add(RedditGeneralPocoFromComment(redditContext, c));
-                            }
-                        }
-
-                        if (redditContext.PostType != PostTypeEnum.Comment)
-                        {
-                            var redditSubmission = await _context.RedditSubmission.Where(rs => (rs.SubmissionId == comment.ParentId) && (rs.IsDeleted == false)).List();
-
-                            //redditContext.TitleSubmission = redditSubmission.Result.FirstOrDefault().Title;
-                            //redditContext.ContentSubmission = redditSubmission.Result.FirstOrDefault().Content;
-                            //redditContext.AuthorSubmission = redditSubmission.Result.FirstOrDefault().Author;
-                            //redditContext.MediaLinkSubmission = redditSubmission.Result.FirstOrDefault().MediaLink;
-                            //redditContext.LinkSubmission = redditSubmission.Result.FirstOrDefault().Link;
-                            //redditContext.SubmissionDateSubmission = redditSubmission.Result.FirstOrDefault().SubmissionDate;
-                            //redditContext.PostType = PostTypeEnum.Submission;
-                            //redditContext.SourceType = SourceTypeEnum.Reddit;
-
-                            //redditContexts.Add(redditContext);
-
-                            //redditContext = RedditGeneralPocoFromSubmission(redditContext, redditSubmission.Result.FirstOrDefault());
-                            redditContexts.Add(RedditGeneralPocoFromSubmission(redditContext, redditSubmission.Result.FirstOrDefault()));
-                        }
-                    }
+                    redditContexts.Add(GetRedditGeneralByContextId(ctx.Id).Result);
                 }
             }
             return redditContexts;
@@ -110,27 +66,23 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
 
             using (var _context = new NeverForgetBotDbContext())
             {
-                var twitterComments = await _context.TwitterComment.Where(rc => (rc.TwitterContextId == contextId) && (rc.IsDeleted == false)).List();
-
+                var twitterComments = await _context.TwitterComment.Where(rc => (rc.TwitterContextId == contextId) && (rc.IsDeleted == false)).List();  
+                
                 foreach (var comment in twitterComments.Result)
                 {
                     parentId = comment.ReplyToId;
-                    if (comment.Content.ToLower().Contains("@_neverforgetbot comment") ||
-                        comment.Content.ToLower().Contains("@_neverforgetbot post") ||
-                        comment.Content.ToLower().Contains("@_neverforgetbot thread"))
-                    {
-                        foreach (var c in twitterComments.Result)
-                        {
-                            if (c.CommentId == comment.ReplyToId)
-                            {
-                                twitterContext = TwitterGeneralPocoFromComment(twitterContext, c);
 
-                                return twitterContext;
-                            }
-                        }
-                        parentId = comment.ReplyToId;
+                    var mostRecent = twitterComments.Result.OrderByDescending(c => c.CommentDate).FirstOrDefault();
+                    var listOrdered = twitterComments.Result.OrderByDescending(c => c.CommentDate).ToList();
+                    listOrdered.Remove(mostRecent);
+
+                    if (listOrdered.Count > 0)
+                    {
+                        var parentComment = listOrdered.FirstOrDefault();
+
+                        return TwitterGeneralPocoFromComment(twitterContext, parentComment);
                     }
-                }
+                }                
 
                 var twitterSubmission = await _context.TwitterSubmission.Where(rs => (rs.TwitterContextId == contextId) && (rs.SubmissionId == parentId) && (rs.IsDeleted == false)).List();
 
@@ -146,32 +98,11 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
 
             using (var _context = new NeverForgetBotDbContext())
             {
-                var twitterComents = await _context.TwitterComment.Where(rc => (rc.IsDeleted == false)).List();
-                foreach (var comment in twitterComents.Result)
+                var twitterContextIds = await _context.TwitterContext.Where(ctx => (ctx.IsDeleted == false)).List();
+
+                foreach (var ctx in twitterContextIds.Result)
                 {
-                    if (comment.Content.ToLower().Contains("@_neverforgetbot comment") ||
-                        comment.Content.ToLower().Contains("@_neverforgetbot post") ||
-                        comment.Content.ToLower().Contains("@_neverforgetbot thread"))
-                    {
-                        GeneralContextPoco twitterContext = new GeneralContextPoco();
-
-                        foreach (var c in twitterComents.Result)
-                        {
-                            if (c.ReplyToId == comment.ReplyToId)
-                            {
-                                twitterContext = TwitterGeneralPocoFromComment(twitterContext, c);
-                                twitterContexts.Add(twitterContext);
-                            }
-                        }
-
-                        if (twitterContext.PostType != PostTypeEnum.Comment)
-                        {
-                            var twitterSubmission = await _context.TwitterSubmission.Where(rs => (rs.SubmissionId == comment.ReplyToId) && (rs.IsDeleted == false)).List();
-
-                            twitterContext = TwitterGeneralPocoFromSubmission(twitterContext, twitterSubmission.Result.FirstOrDefault());
-                            twitterContexts.Add(twitterContext);
-                        }
-                    }
+                    twitterContexts.Add(GetTwitterGeneralByContextId(ctx.Id).Result);
                 }
             }
             return twitterContexts;
