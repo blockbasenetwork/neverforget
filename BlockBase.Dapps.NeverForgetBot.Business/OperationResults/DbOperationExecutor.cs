@@ -1,4 +1,4 @@
-﻿using BlockBase.Dapps.NeverForgetBot.Business.GenericBusiness.Interfaces;
+﻿using BlockBase.Dapps.NeverForgetBot.Business.Obsolete.Interfaces;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
@@ -22,12 +22,12 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.OperationResults
                 await func.Invoke();
 
 
-                return new OperationResult() {Success = true};
+                return new OperationResult() { Success = true };
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.ToString());
-                return new OperationResult() { Success = false, Exception = ex};
+                return new OperationResult() { Success = false, Exception = ex };
             }
         }
 

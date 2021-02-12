@@ -1,4 +1,8 @@
-﻿using BlockBase.Dapps.NeverForgetBot.Data.Entities;
+﻿using BlockBase.Dapps.NeverForgetBot.Business.OperationResults;
+using BlockBase.Dapps.NeverForgetBot.Data.Entities;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.Business.Obsolete.Interfaces
 {

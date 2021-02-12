@@ -1,6 +1,5 @@
-
-using BlockBase.Dapps.NeverForgetBot.Business.GenericBusiness;
-using BlockBase.Dapps.NeverForgetBot.Business.GenericBusiness.Interfaces;
+using BlockBase.Dapps.NeverForgetBot.Business.Obsolete.BOs;
+using BlockBase.Dapps.NeverForgetBot.Business.Obsolete.Interfaces;
 using BlockBase.Dapps.NeverForgetBot.Business.OperationResults;
 using BlockBase.Dapps.NeverForgetBot.Dal;
 using BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess;
@@ -40,13 +39,13 @@ namespace BlockBase.Dapps.NeverForgetBot.WebApp
 
             services.AddSingleton<IRedditContextBo, RedditContextBo>();
             services.AddSingleton<IRedditCommentBo, RedditCommentBo>();
-            services.AddSingleton<IRedditSubmissionBo, RedditSubmisionBo>();
+            services.AddSingleton<IRedditSubmissionBo, RedditSubmissionBo>();
             services.AddSingleton<ITwitterContextBo, TwitterContextBo>();
             services.AddSingleton<ITwitterCommentBo, TwitterCommentBo>();
             services.AddSingleton<ITwitterSubmissionBo, TwitterSubmissionBo>();
 
             services.AddSingleton<RedditCollector>();
-            //services.AddSingleTon<TwitterCollector>();
+            services.AddSingleton<TwitterCollector>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

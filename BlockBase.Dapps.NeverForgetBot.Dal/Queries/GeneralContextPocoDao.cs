@@ -5,6 +5,7 @@ using BlockBase.Dapps.NeverForgetBot.Data.Pocos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
@@ -18,64 +19,27 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
 
             using (var _context = new NeverForgetBotDbContext())
             {
-                //var redditCommentsCollection = await _context.RedditComment.Join<RequestType>().Where((rc, rt) => rc.RedditContextId == contextId).List((rc, rt) => new GeneralContextPoco()
-                //var redditCommentsCollection = await _context.RedditComment.Where(rc => rc.RedditContextId == contextId).List(rc => new RedditComment()
-                //{
-                //    ContentComment = rc.Content,
-                //    AuthorComment = rc.Author,
-                //    LinkComment = rc.Link,
-                //    SubRedditComment = rc.SubReddit,
-                //    CommentDateComment = rc.CommentDate
-                //    //SourceType = SourceTypeEnum.Reddit
-                //});
-
-                //var redditCommentsCollection = await _context.RedditComment.Where(rc => rc.RedditContextId == contextId).List();
-
                 var redditComments = await _context.RedditComment.Where(rc => (rc.RedditContextId == contextId) && (rc.IsDeleted == false)).List();
 
                 foreach (var comment in redditComments.Result)
                 {
                     parentId = comment.ParentId;
-                    if (comment.Content.ToLower().Contains("!neverforgetbot comment") ||
-                        comment.Content.ToLower().Contains("!neverforgetbot post") ||
-                        comment.Content.ToLower().Contains("!neverforgetbot thread"))
+
+
+                    var mostRecent = redditComments.Result.OrderByDescending(c => c.CommentDate).FirstOrDefault();
+                    var listOrdered = redditComments.Result.OrderByDescending(c => c.CommentDate).ToList();
+                    listOrdered.Remove(mostRecent);
+
+                    if (listOrdered.Count > 0)
                     {
-                        foreach (var c in redditComments.Result)
-                        {
-                            if (c.CommentId == comment.ParentId)
-                            {
-                                //redditContext.ContentComment = c.Content;
-                                //redditContext.AuthorComment = c.Author;
-                                //redditContext.LinkComment = c.Link;
-                                //redditContext.SubRedditComment = c.SubReddit;
-                                //redditContext.CommentDateComment = c.CommentDate;
-                                //redditContext.PostType = PostTypeEnum.Comment;
-                                //redditContext.SourceType = SourceTypeEnum.Reddit;
+                        var parentComment = listOrdered.FirstOrDefault();
 
-                                //redditContext = RedditGeneralPocoFromComment(redditContext, c);
-
-                                //return redditContext;
-                                return RedditGeneralPocoFromComment(redditContext, c);
-                            }
-                        }
-                        parentId = comment.ParentId;
+                        return RedditGeneralPocoFromComment(redditContext, parentComment);
                     }
                 }
 
                 var redditSubmission = await _context.RedditSubmission.Where(rs => (rs.RedditContextId == contextId) && (rs.SubmissionId == parentId) && (rs.IsDeleted == false)).List();
 
-                //redditContext.TitleSubmission = redditSubmission.Result.FirstOrDefault().Title;
-                //redditContext.ContentSubmission = redditSubmission.Result.FirstOrDefault().Content;
-                //redditContext.AuthorSubmission = redditSubmission.Result.FirstOrDefault().Author;
-                //redditContext.MediaLinkSubmission = redditSubmission.Result.FirstOrDefault().MediaLink;
-                //redditContext.LinkSubmission = redditSubmission.Result.FirstOrDefault().Link;
-                //redditContext.SubmissionDateSubmission = redditSubmission.Result.FirstOrDefault().SubmissionDate;
-                //redditContext.PostType = PostTypeEnum.Submission;
-                //redditContext.SourceType = SourceTypeEnum.Reddit;
-
-                //redditContext = RedditGeneralPocoFromSubmission(redditContext, redditSubmission.Result.FirstOrDefault());
-
-                //return redditContext;
                 return RedditGeneralPocoFromSubmission(redditContext, redditSubmission.Result.FirstOrDefault());
             }
         }
@@ -89,7 +53,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
                 var redditComments = await _context.RedditComment.Where(rc => (rc.IsDeleted == false)).List();
                 foreach (var comment in redditComments.Result)
                 {
-                    if (comment.Content.ToLower().Contains("!neverforgetbot comment") ||
+                    var content = comment.Content;
+                    if (Regex.IsMatch(content, @"(!neverforgetbot+ +post)", RegexOptions.IgnoreCase) ||
                         comment.Content.ToLower().Contains("!neverforgetbot post") ||
                         comment.Content.ToLower().Contains("!neverforgetbot thread"))
                     {

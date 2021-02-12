@@ -169,15 +169,15 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.Obsolete.BOs
 
         private RequestTypeEnum CheckRequestType(string body)
         {
-            if (Regex.IsMatch(body, @"(!neverforgetbot+ +post)"))
+            if (Regex.IsMatch(body, @"(!neverforgetbot+ +post)", RegexOptions.IgnoreCase))
             {
                 return RequestTypeEnum.Post;
             }
-            else if (Regex.IsMatch(body, @"(!neverforgetbot+ +thread)"))
+            else if (Regex.IsMatch(body, @"(!neverforgetbot+ +thread)", RegexOptions.IgnoreCase))
             {
                 return RequestTypeEnum.Thread;
             }
-            else if (Regex.IsMatch(body, @"(!neverforgetbot+ +comment)"))
+            else if (Regex.IsMatch(body, @"(!neverforgetbot+ +comment)", RegexOptions.IgnoreCase))
             {
                 return RequestTypeEnum.Comment;
             }
