@@ -1,4 +1,4 @@
-﻿using BlockBase.Dapps.NeverForgetBot.Business.GenericBusiness.Interfaces;
+﻿using BlockBase.Dapps.NeverForgetBot.Business.Obsolete.Interfaces;
 using BlockBase.Dapps.NeverForgetBot.Common.Enums;
 using BlockBase.Dapps.NeverForgetBot.Dal;
 using BlockBase.Dapps.NeverForgetBot.Data.Context;
@@ -32,7 +32,7 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
             //TwitterCollector twitterCollector
             )
         {
-            _redditContextBo = redditContextBo;
+            _redditContextBo = redditContextBo
             //_redditCommentBo = redditCommentBo;
             //_redditSubmissionBo = redditSubmissionBo;
             //_twitterContextBo = twitterContextBo;

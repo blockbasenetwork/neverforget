@@ -1,17 +1,9 @@
-﻿using BlockBase.Dapps.NeverForgetBot.Business.GenericBusiness;
-using BlockBase.Dapps.NeverForgetBot.Business.GenericBusiness.Interfaces;
-using BlockBase.Dapps.NeverForgetBot.Business.OperationResults;
-using BlockBase.Dapps.NeverForgetBot.Dal;
-using BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess;
-using BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess.Interfaces;
-using BlockBase.Dapps.NeverForgetBot.Services.API;
+﻿using BlockBase.Dapps.NeverForgetBot.Business.Obsolete.BOs;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using System;
 using System.IO;
-using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
 {
@@ -31,28 +23,28 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
             var host = Host.CreateDefaultBuilder()
                 .ConfigureServices((context, services) =>
                 {
-                    services.AddSingleton<App>();
+                    //services.AddScoped<App>();
 
-                    services.AddSingleton<IDbOperationExecutor, DbOperationExecutor>();
+                    //services.AddScoped<IDbOperationExecutor, DbOperationExecutor>();
 
-                    services.AddSingleton<IRequestTypeDao, RequestTypeDao>();
+                    //services.AddScoped<IRequestTypeDao, RequestTypeDao>();
 
-                    services.AddSingleton<IRedditContextDao, RedditContextDao>();
-                    services.AddSingleton<IRedditCommentDao, RedditCommentDao>();
-                    services.AddSingleton<IRedditSubmissionDao, RedditSubmissionDao>();
-                    services.AddSingleton<ITwitterContextDao, TwitterContextDao>();
-                    services.AddSingleton<ITwitterCommentDao, TwitterCommentDao>();
-                    services.AddSingleton<ITwitterSubmissionDao, TwitterSubmissionDao>();
+                    //services.AddScoped<IRedditContextDao, RedditContextDao>();
+                    //services.AddScoped<IRedditCommentDao, RedditCommentDao>();
+                    //services.AddScoped<IRedditSubmissionDao, RedditSubmissionDao>();
+                    //services.AddScoped<ITwitterContextDao, TwitterContextDao>();
+                    //services.AddScoped<ITwitterCommentDao, TwitterCommentDao>();
+                    //services.AddScoped<ITwitterSubmissionDao, TwitterSubmissionDao>();
 
-                    services.AddSingleton<IRedditContextBo, RedditContextBo>();
-                    services.AddSingleton<IRedditCommentBo, RedditCommentBo>();
-                    services.AddSingleton<IRedditSubmissionBo, RedditSubmisionBo>();
-                    services.AddSingleton<ITwitterContextBo, TwitterContextBo>();
-                    services.AddSingleton<ITwitterCommentBo, TwitterCommentBo>();
-                    services.AddSingleton<ITwitterSubmissionBo, TwitterSubmissionBo>();
+                    //services.AddScoped<IRedditContextBo, RedditContextBo>();
+                    //services.AddScoped<IRedditCommentBo, RedditCommentBo>();
+                    //services.AddScoped<IRedditSubmissionBo, RedditSubmisionBo>();
+                    //services.AddScoped<ITwitterContextBo, TwitterContextBo>();
+                    //services.AddScoped<ITwitterCommentBo, TwitterCommentBo>();
+                    //services.AddScoped<ITwitterSubmissionBo, TwitterSubmissionBo>();
 
-                    services.AddSingleton<RedditCollector>();
-                    services.AddSingleton<TwitterCollector>();
+                    //services.AddScoped<RedditCollector>();
+                    //services.AddScoped<TwitterCollector>();
 
 
                 })
@@ -60,8 +52,11 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
                 .Build();
             #endregion
 
-            var app = host.Services.GetService<App>();
-            Task.WaitAll(app.Run());
+            //var app = host.Services.GetService<App>();
+            //Task.WaitAll();
+            var bo = new RedditContextBo();
+            var app = new App();
+            app.Run();
 
         }
 

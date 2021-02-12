@@ -15,4 +15,8 @@
     <ProjectReference Include="..\BlockBase.Dapps.NeverForgetBot.Services\BlockBase.Dapps.NeverForgetBot.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Obsolete\BOs\" />
+  </ItemGroup>
+
 </Project>
