@@ -41,12 +41,32 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
             {
                 var retrievedContextIds = await _context.TwitterContext.Where(ctx => ctx.IsDeleted == false).List();
 
-                foreach (var context  in retrievedContextIds.Result)
+                foreach (var context in retrievedContextIds.Result)
                 {
                     result.Add(GetTwitterContextById(context.Id).Result);
                 }
             }
             return result;
+        }
+
+        public async Task<List<TwitterContextPoco>> GetRecentTwitterContexts()
+        {
+            List<TwitterContextPoco> result = new List<TwitterContextPoco>();
+
+            var retreivedContextIds = await GetAllTwitterContexts();
+
+            List<TwitterContextPoco> sortedList = retreivedContextIds.Sort((ctx1, ctx2) => ctx1.Context.CompareTo(ctx2.Context));
+            //foreach(var context in retreivedContextIds)
+            //{
+            //    //context.Context.CreatedAt()
+            //}
+
+            return result;
+        }
+
+        private List<TwitterContextPoco> Testing(List<TwitterContextPoco> contextList)
+        {
+            return contextList.Sort((c, b) => c.Context.CreatedAt.CompareTo(b.Context.CreatedAt));
         }
     }
 }

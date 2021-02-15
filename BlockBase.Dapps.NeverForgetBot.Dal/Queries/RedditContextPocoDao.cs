@@ -49,5 +49,12 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
             }
             return result;
         }
+
+        public async Task<List<RedditContextPoco>> GetRecentRedditContexts()
+        {
+            List<RedditContextPoco> result = new List<RedditContextPoco>();
+
+            return result;
+        }
     }
 }
