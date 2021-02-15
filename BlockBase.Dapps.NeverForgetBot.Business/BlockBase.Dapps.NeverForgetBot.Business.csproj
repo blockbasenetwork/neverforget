@@ -5,6 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Obsolete\**" />
+    <EmbeddedResource Remove="Obsolete\**" />
+    <None Remove="Obsolete\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="BusinessLayer\BOs\NewFile1.txt" />
+    <None Remove="BusinessLayer\Interfaces\NewFile1.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Serilog" Version="2.10.0" />
   </ItemGroup>
 

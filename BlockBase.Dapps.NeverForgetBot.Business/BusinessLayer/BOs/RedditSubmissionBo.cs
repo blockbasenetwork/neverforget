@@ -1,4 +1,4 @@
-﻿using BlockBase.Dapps.NeverForgetBot.Business.Obsolete.Interfaces;
+﻿using BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.Interfaces;
 using BlockBase.Dapps.NeverForgetBot.Business.OperationResults;
 using BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess.Interfaces;
 using BlockBase.Dapps.NeverForgetBot.Data.Entities;
@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BlockBase.Dapps.NeverForgetBot.Business.Obsolete.BOs
+namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
 {
     public class RedditSubmissionBo : IRedditSubmissionBo
     {

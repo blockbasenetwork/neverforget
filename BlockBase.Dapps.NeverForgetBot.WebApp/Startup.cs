@@ -1,9 +1,10 @@
-using BlockBase.Dapps.NeverForgetBot.Business.Obsolete.BOs;
-using BlockBase.Dapps.NeverForgetBot.Business.Obsolete.Interfaces;
+using BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs;
+using BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.Interfaces;
 using BlockBase.Dapps.NeverForgetBot.Business.OperationResults;
 using BlockBase.Dapps.NeverForgetBot.Dal;
 using BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess;
 using BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess.Interfaces;
+using BlockBase.Dapps.NeverForgetBot.Dal.Queries;
 using BlockBase.Dapps.NeverForgetBot.Services.API;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,7 +28,7 @@ namespace BlockBase.Dapps.NeverForgetBot.WebApp
         {
             services.AddControllersWithViews();
 
-            services.AddTransient<IDbOperationExecutor, DbOperationExecutor>();
+            services.AddSingleton<IDbOperationExecutor, DbOperationExecutor>();
 
             services.AddSingleton<IRequestTypeDao, RequestTypeDao>();
             services.AddSingleton<IRedditContextDao, RedditContextDao>();
@@ -36,6 +37,8 @@ namespace BlockBase.Dapps.NeverForgetBot.WebApp
             services.AddSingleton<ITwitterContextDao, TwitterContextDao>();
             services.AddSingleton<ITwitterCommentDao, TwitterCommentDao>();
             services.AddSingleton<ITwitterSubmissionDao, TwitterSubmissionDao>();
+            services.AddSingleton<IRedditContextPocoDao, RedditContextPocoDao>();
+            services.AddSingleton<ITwitterContextPocoDao, TwitterContextPocoDao>();
 
             services.AddSingleton<IRedditContextBo, RedditContextBo>();
             services.AddSingleton<IRedditCommentBo, RedditCommentBo>();
@@ -43,6 +46,7 @@ namespace BlockBase.Dapps.NeverForgetBot.WebApp
             services.AddSingleton<ITwitterContextBo, TwitterContextBo>();
             services.AddSingleton<ITwitterCommentBo, TwitterCommentBo>();
             services.AddSingleton<ITwitterSubmissionBo, TwitterSubmissionBo>();
+            services.AddSingleton<IGeneralContextBo, GeneralContextBo>();
 
             services.AddSingleton<RedditCollector>();
             services.AddSingleton<TwitterCollector>();

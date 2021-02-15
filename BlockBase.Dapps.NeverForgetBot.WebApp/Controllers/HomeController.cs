@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using BlockBase.Dapps.NeverForgetBot.WebApp.Models;
 using BlockBase.Dapps.NeverForgetBot.Data.Pocos;
+using BlockBase.Dapps.NeverForgetBot.Business.Pocos;
 
 namespace BlockBase.Dapps.NeverForgetBot.WebApp.Controllers
 {

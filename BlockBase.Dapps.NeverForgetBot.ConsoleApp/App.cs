@@ -1,4 +1,4 @@
-﻿using BlockBase.Dapps.NeverForgetBot.Business.Obsolete.Interfaces;
+﻿using BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.Interfaces;
 using BlockBase.Dapps.NeverForgetBot.Common.Enums;
 using BlockBase.Dapps.NeverForgetBot.Dal;
 using BlockBase.Dapps.NeverForgetBot.Data.Context;

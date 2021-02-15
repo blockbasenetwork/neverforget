@@ -12,68 +12,49 @@ namespace BlockBase.Dapps.NeverForgetBot.WebApp.Models
         public PostTypeEnum PostType { get; set; }
         public string Content { get; set; }
         public string Author { get; set; }
-        public string? MediaLink { get; set; }
-        public string Link { get; set; }
-        public string? SubReddit { get; set; }
         public string? Title { get; set; }
         public DateTime Date { get; set; }
 
-        public GeneralContextViewModel()
-        {
-            this.GeneralContextPocos = new List<GeneralContextPoco>();
-        }
 
-        public List<GeneralContextPoco> GeneralContextPocos { get; set; }
+        //public static GeneralContextViewModel FromData(GeneralContextPoco generalContext)
+        //{
+        //    GeneralContextViewModel gcvm = new GeneralContextViewModel();
 
-        public static GeneralContextViewModel FromData(GeneralContextPoco generalContext)
-        {
-            GeneralContextViewModel poco = new GeneralContextViewModel();
+        //    gcvm.Id = generalContext.ContextId;
+        //    gcvm.SourceType = generalContext.SourceType;
+        //    gcvm.PostType = generalContext.PostType;
 
-            poco.Id = generalContext.ContextId;
-            poco.SourceType = generalContext.SourceType;
-            poco.PostType = generalContext.PostType;
-
-            if (poco.SourceType.Equals(SourceTypeEnum.Reddit))
-            {
-                if (poco.PostType.Equals(PostTypeEnum.Comment))
-                {
-                    poco.Content = generalContext.ContentComment;
-                    poco.Author = generalContext.AuthorComment;
-                    poco.Link = generalContext.LinkComment;
-                    poco.SubReddit = generalContext.SubRedditComment;
-                    poco.Date = generalContext.DateComment;
-                }
-                else if (poco.PostType.Equals(PostTypeEnum.Submission))
-                {
-                    poco.Content = generalContext.ContentSubmission;
-                    poco.Content = generalContext.AuthorSubmission;
-                    poco.Link = generalContext.LinkSubmission;
-                    poco.MediaLink = generalContext.MediaLinkSubmission;
-                    poco.SubReddit = generalContext.SubRedditSubmission;
-                    poco.Date = generalContext.DateSubmission;
-                }
-            }
-            else if (poco.SourceType.Equals(SourceTypeEnum.Twitter))
-            {
-                if (poco.PostType.Equals(PostTypeEnum.Comment))
-                {
-                    poco.Content = generalContext.ContentComment;
-                    poco.Author = generalContext.AuthorComment;
-                    poco.MediaLink = generalContext.MediaLinkComment;
-                    poco.Link = generalContext.LinkComment;
-                    poco.Date = generalContext.DateComment;
-                }
-                else if (poco.PostType.Equals(PostTypeEnum.Submission))
-                {
-                    poco.Content = generalContext.ContentSubmission;
-                    poco.Content = generalContext.AuthorSubmission;
-                    poco.Link = generalContext.LinkSubmission;
-                    poco.MediaLink = generalContext.MediaLinkSubmission;
-                    poco.Date = generalContext.DateSubmission;
-                }
-            }
-
-            return poco;
-        }
+        //    if (gcvm.SourceType.Equals(SourceTypeEnum.Reddit))
+        //    {
+        //        if (gcvm.PostType.Equals(PostTypeEnum.Comment))
+        //        {
+        //            gcvm.Content = generalContext.ContentComment;
+        //            gcvm.Author = generalContext.AuthorComment;
+        //            gcvm.Date = generalContext.DateComment;
+        //        }
+        //        else if (gcvm.PostType.Equals(PostTypeEnum.Submission))
+        //        {
+        //            gcvm.Content = generalContext.ContentSubmission;
+        //            gcvm.Author = generalContext.AuthorSubmission;
+        //            gcvm.Date = generalContext.DateSubmission;
+        //        }
+        //    }
+        //    else if (gcvm.SourceType.Equals(SourceTypeEnum.Twitter))
+        //    {
+        //        if (gcvm.PostType.Equals(PostTypeEnum.Comment))
+        //        {
+        //            gcvm.Content = generalContext.ContentComment;
+        //            gcvm.Author = generalContext.AuthorComment;
+        //            gcvm.Date = generalContext.DateComment;
+        //        }
+        //        else if (gcvm.PostType.Equals(PostTypeEnum.Submission))
+        //        {
+        //            gcvm.Content = generalContext.ContentSubmission;
+        //            gcvm.Author = generalContext.AuthorSubmission;
+        //            gcvm.Date = generalContext.DateSubmission;
+        //        }
+        //    }
+        //    return gcvm;
+        //}
     }
 }

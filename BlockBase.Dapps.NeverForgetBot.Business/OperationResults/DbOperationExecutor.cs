@@ -1,4 +1,4 @@
-﻿using BlockBase.Dapps.NeverForgetBot.Business.Obsolete.Interfaces;
+﻿using BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.Interfaces;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;

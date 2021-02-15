@@ -1,9 +1,10 @@
-﻿using BlockBase.Dapps.NeverForgetBot.Business.Obsolete.BOs;
-using BlockBase.Dapps.NeverForgetBot.Business.Obsolete.Interfaces;
+﻿using BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs;
+using BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.Interfaces;
 using BlockBase.Dapps.NeverForgetBot.Business.OperationResults;
 using BlockBase.Dapps.NeverForgetBot.Dal;
 using BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess;
 using BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess.Interfaces;
+using BlockBase.Dapps.NeverForgetBot.Dal.Queries;
 using BlockBase.Dapps.NeverForgetBot.Services.API;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,28 +32,31 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
             var host = Host.CreateDefaultBuilder()
                 .ConfigureServices((context, services) =>
                 {
-                    services.AddScoped<App>();
+                    services.AddSingleton<App>();
 
-                    services.AddScoped<IDbOperationExecutor, DbOperationExecutor>();
+                    services.AddSingleton<IDbOperationExecutor, DbOperationExecutor>();
 
-                    services.AddScoped<IRequestTypeDao, RequestTypeDao>();
+                    services.AddSingleton<IRequestTypeDao, RequestTypeDao>();
 
-                    services.AddScoped<IRedditContextDao, RedditContextDao>();
-                    services.AddScoped<IRedditCommentDao, RedditCommentDao>();
-                    services.AddScoped<IRedditSubmissionDao, RedditSubmissionDao>();
-                    services.AddScoped<ITwitterContextDao, TwitterContextDao>();
-                    services.AddScoped<ITwitterCommentDao, TwitterCommentDao>();
-                    services.AddScoped<ITwitterSubmissionDao, TwitterSubmissionDao>();
+                    services.AddSingleton<IRedditContextDao, RedditContextDao>();
+                    services.AddSingleton<IRedditCommentDao, RedditCommentDao>();
+                    services.AddSingleton<IRedditSubmissionDao, RedditSubmissionDao>();
+                    services.AddSingleton<ITwitterContextDao, TwitterContextDao>();
+                    services.AddSingleton<ITwitterCommentDao, TwitterCommentDao>();
+                    services.AddSingleton<ITwitterSubmissionDao, TwitterSubmissionDao>();
+                    services.AddSingleton<IRedditContextPocoDao, RedditContextPocoDao>();
+                    services.AddSingleton<ITwitterContextPocoDao, TwitterContextPocoDao>();
 
-                    services.AddScoped<IRedditContextBo, RedditContextBo>();
-                    services.AddScoped<IRedditCommentBo, RedditCommentBo>();
-                    services.AddScoped<IRedditSubmissionBo, RedditSubmissionBo>();
-                    services.AddScoped<ITwitterContextBo, TwitterContextBo>();
-                    services.AddScoped<ITwitterCommentBo, TwitterCommentBo>();
-                    services.AddScoped<ITwitterSubmissionBo, TwitterSubmissionBo>();
+                    services.AddSingleton<IRedditContextBo, RedditContextBo>();
+                    services.AddSingleton<IRedditCommentBo, RedditCommentBo>();
+                    services.AddSingleton<IRedditSubmissionBo, RedditSubmissionBo>();
+                    services.AddSingleton<ITwitterContextBo, TwitterContextBo>();
+                    services.AddSingleton<ITwitterCommentBo, TwitterCommentBo>();
+                    services.AddSingleton<ITwitterSubmissionBo, TwitterSubmissionBo>();
+                    services.AddSingleton<IGeneralContextBo, GeneralContextBo>();
 
-                    services.AddScoped<RedditCollector>();
-                    services.AddScoped<TwitterCollector>();
+                    services.AddSingleton<RedditCollector>();
+                    services.AddSingleton<TwitterCollector>();
 
 
                 })

@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Obsolete\**" />
+    <EmbeddedResource Remove="Obsolete\**" />
+    <None Remove="Obsolete\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="GenericDataAccess\Class1.cs" />
     <Compile Remove="GenericDataAccess\Class2.cs" />
     <Compile Remove="GenericDataAccess\Class3.cs" />
@@ -20,6 +26,12 @@
     <Compile Remove="GenericDataAccess\Interfaces\IRedditSubmission.cs" />
     <Compile Remove="GenericDataAccess\RedditComentDao.cs" />
     <Compile Remove="GenericDataAccess\SubmissionDao.cs" />
+    <Compile Remove="Queries\Class1.cs" />
+    <Compile Remove="Queries\Class2.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Queries\NewFile1.txt" />
   </ItemGroup>
 
   <ItemGroup>

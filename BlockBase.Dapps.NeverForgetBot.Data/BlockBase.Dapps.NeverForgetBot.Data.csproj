@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Pocos\Class1.cs" />
+    <Compile Remove="Pocos\RedditJoinResults.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BlockBase.BBLinq\BlockBase.BBLinq.csproj" />
     <ProjectReference Include="..\BlockBase.Dapps.NeverForgetBot.Common\BlockBase.Dapps.NeverForgetBot.Common.csproj" />
   </ItemGroup>
