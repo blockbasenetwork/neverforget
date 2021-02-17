@@ -1,6 +1,7 @@
 ﻿using BlockBase.Dapps.NeverForgetBot.Common;
 using BlockBase.Dapps.NeverForgetBot.Data.Entities;
 using System;
+using System.Globalization;
 using System.Text.RegularExpressions;
 
 namespace BlockBase.Dapps.NeverForgetBot.Services.API.Models
@@ -34,7 +35,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API.Models
                 SubReddit = SubReddit,
                 MediaLink = Url,
                 Link = Full_Link,    
-                CreatedAt = DateTime.UtcNow,
+                CreatedAt = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture),
             };
         }
     }

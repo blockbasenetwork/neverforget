@@ -30,7 +30,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API.Models
                 MediaLink = Entities.Media[0].media_url,
                 Link = $"http://www.twitter.com/{User.Screen_name}/status/{Id}",
                 CommentDate = Created_at,
-                CreatedAt = DateTime.UtcNow,
+                //CreatedAt = DateTime.UtcNow,
             };
         }
 
@@ -46,7 +46,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API.Models
                 MediaLink = Entities.Media[0].media_url,
                 Link = $"http://www.twitter.com/{User.Screen_name}/status/{Id}",
                 SubmissionDate = Created_at,
-                CreatedAt = DateTime.UtcNow,
+                //CreatedAt = DateTime.UtcNow,
             };
         }
     }
