@@ -55,6 +55,7 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
                     services.AddSingleton<ITwitterSubmissionBo, TwitterSubmissionBo>();
                     services.AddSingleton<IGeneralContextBo, GeneralContextBo>();
 
+
                     services.AddSingleton<RedditCollector>();
                     services.AddSingleton<TwitterCollector>();
 

@@ -1,12 +1,12 @@
-﻿using BlockBase.Dapps.NeverForgetBot.Common.Enums;
+﻿using BlockBase.Dapps.NeverForgetBot.Data.Pocos;
 using System;
+using System.Linq;
 
 namespace BlockBase.Dapps.NeverForgetBot.WebApp.Models
 {
     public class RedditDetailViewModel
     {
         public Guid Id { get; set; }
-        public PostTypeEnum PostType { get; set; }
         public string Content { get; set; }
         public string Author { get; set; }
         public string Subreddit { get; set; }
@@ -14,36 +14,42 @@ namespace BlockBase.Dapps.NeverForgetBot.WebApp.Models
         public string MediaLink { get; set; }
         public string? Title { get; set; }
         public DateTime Date { get; set; }
+        public int RequestTypeId { get; set; }
 
+        public static RedditDetailViewModel FromData(RedditContextPoco redditContext)
+        {
+            RedditDetailViewModel rcvm = new RedditDetailViewModel();
 
-        //public static RedditDetailViewModel FromData(RedditContextPoco redditContext)
-        //{
-        //    RedditDetailViewModel rcvm = new RedditDetailViewModel();
+            rcvm.Id = redditContext.Context.Id;
+            rcvm.RequestTypeId = redditContext.Context.RequestTypeId;
 
-        //    rcvm.Id = redditContext.ContextId;
-        //    rcvm.PostType = redditContext.PostType;
+            redditContext.Comments.OrderByDescending(c => c.CommentDate).ToList();
+            redditContext.Comments.RemoveAt(0);
 
-        //    if (rcvm.PostType.Equals(PostTypeEnum.Comment))
-        //    {
-        //        rcvm.Content = redditContext.ContentComment;
-        //        rcvm.Author = redditContext.AuthorComment;
-        //        rcvm.Date = redditContext.CommentDate;
-        //        rcvm.Subreddit = redditContext.SubredditComment;
-        //        rcvm.Link = redditContext.LinkComment;
-        //    }
-        //    else if (rcvm.PostType.Equals(PostTypeEnum.Submission))
-        //    {
-        //        rcvm.Content = redditContext.ContentSubmission;
-        //        rcvm.Author = redditContext.AuthorSubmission;
-        //        rcvm.Date = redditContext.SubmissionDate;
-        //        rcvm.Subreddit = redditContext.SubredditSubmission;
-        //        rcvm.Title = redditContext.TitleSubmission;
-        //        rcvm.Link = redditContext.LinkComment;
-        //        rcvm.MediaLink = redditContext.MediaLinkSubmission;
+            if (redditContext.Comments.Count == 0)
+            {
+                rcvm.Author = redditContext.Submission.Author;
+                rcvm.Content = redditContext.Submission.Content;
+                rcvm.Id = redditContext.Context.Id;
+                rcvm.Date = redditContext.Submission.SubmissionDate;
+                rcvm.Subreddit = redditContext.Submission.SubReddit;
+                rcvm.Title = redditContext.Submission.Title;
+                rcvm.Link = redditContext.Submission.Link;
+                rcvm.MediaLink = redditContext.Submission.MediaLink;
 
-        //    }
-        //    return rcvm;
-        //}
+            }
+            else
+            {
+                rcvm.Author = redditContext.Comments[0].Author;
+                rcvm.Content = redditContext.Comments[0].Content;
+                rcvm.Id = redditContext.Context.Id;
+                rcvm.Date = redditContext.Comments[0].CommentDate;
+                rcvm.Subreddit = redditContext.Comments[0].SubReddit;
+                rcvm.Link = redditContext.Comments[0].Link;
+
+            }
+            return rcvm;
+        }
 
     }
 }
