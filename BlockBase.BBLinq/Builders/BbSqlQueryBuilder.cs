@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq.Expressions;
 using BlockBase.BBLinq.Dictionaries;
 using BlockBase.BBLinq.ExtensionMethods;
@@ -667,6 +668,11 @@ namespace BlockBase.BBLinq.Builders
             if (value.IsNumber())
             {
                 return value.ToString();
+            }
+
+            if (value is DateTime)
+            {
+                return $"{Dictionary.LeftTextWrapper}{((DateTime)value).ToString(CultureInfo.InvariantCulture)}{Dictionary.RightTextWrapper}";
             }
             return $"{Dictionary.LeftTextWrapper}{value}{Dictionary.RightTextWrapper}";
         }
