@@ -3,6 +3,7 @@ using BlockBase.Dapps.NeverForgetBot.Data.Entities;
 using BlockBase.Dapps.NeverForgetBot.Data.Pocos;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
@@ -53,20 +54,13 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
         {
             List<TwitterContextPoco> result = new List<TwitterContextPoco>();
 
-            var retreivedContextIds = await GetAllTwitterContexts();
+            var retrievedContextIds = await GetAllTwitterContexts();
 
-            List<TwitterContextPoco> sortedList = retreivedContextIds.Sort((ctx1, ctx2) => ctx1.Context.CompareTo(ctx2.Context));
-            //foreach(var context in retreivedContextIds)
-            //{
-            //    //context.Context.CreatedAt()
-            //}
+            List<TwitterContextPoco> orderedList = retrievedContextIds.OrderByDescending(c => c.Context.CreatedAt).ToList();
+
+            result.AddRange(orderedList.Take(10));
 
             return result;
-        }
-
-        private List<TwitterContextPoco> Testing(List<TwitterContextPoco> contextList)
-        {
-            return contextList.Sort((c, b) => c.Context.CreatedAt.CompareTo(b.Context.CreatedAt));
         }
     }
 }
