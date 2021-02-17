@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -165,6 +166,10 @@ namespace BlockBase.BBLinq.Parsers
                 if(currentType == typeof(Guid))
                 {
                     args.Add(Guid.Parse(values[i]));
+                }
+                else if (currentType == typeof(DateTime))
+                {
+                    args.Add(DateTime.Parse(values[i], CultureInfo.InvariantCulture));
                 }
                 else
                 {
