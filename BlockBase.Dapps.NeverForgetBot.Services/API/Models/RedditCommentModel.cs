@@ -34,7 +34,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API.Models
                 ParentSubmissionId = Link_Id,
                 SubReddit = SubReddit,
                 Link = Permalink,
-                CreatedAt = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture)
+                CreatedAt = DateTime.UtcNow
             };
         }
     }

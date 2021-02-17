@@ -4,7 +4,6 @@ using BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess.Interfaces;
 using BlockBase.Dapps.NeverForgetBot.Data.Entities;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -27,7 +26,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
         {
             return await _opExecutor.ExecuteOperation(async () =>
             {
-                redditComment.CreatedAt = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
+                redditComment.CreatedAt = DateTime.UtcNow;
                 await _dao.InsertAsync(redditComment);
             });
         }
@@ -50,7 +49,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
             return await _opExecutor.ExecuteOperation(async () =>
             {
                 redditComment.IsDeleted = true;
-                redditComment.DeletedAt = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
+                redditComment.DeletedAt = DateTime.UtcNow;
                 var commentDelete = await _dao.GetAsync(redditComment.Id);
                 await _dao.DeleteAsync(commentDelete);
             });

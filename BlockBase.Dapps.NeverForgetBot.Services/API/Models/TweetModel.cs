@@ -27,7 +27,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API.Models
                 ReplyToId = In_reply_to_status_id_str,
                 Content = Full_text,
                 Author = User.Screen_name,
-                MediaLink = Entities.Media[0].media_url,
+                //MediaLink = Entities.Media[0].media_url,
                 Link = $"http://www.twitter.com/{User.Screen_name}/status/{Id}",
                 CommentDate = Created_at,
                 //CreatedAt = DateTime.UtcNow,
