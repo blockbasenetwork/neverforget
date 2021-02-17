@@ -5,6 +5,7 @@ using BlockBase.Dapps.NeverForgetBot.Data.Entities;
 using BlockBase.Dapps.NeverForgetBot.Services.API.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -22,14 +23,14 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
         }
 
         #region Create
-        public async Task<OperationResult> InsertAsync(TwitterSubmission twitterSubmission)
-        {
-            return await _opExecutor.ExecuteOperation(async () =>
-            {
-                twitterSubmission.CreatedAt = DateTime.UtcNow;
-                await _dao.InsertAsync(twitterSubmission);
-            });
-        }
+        //public async Task<OperationResult> InsertAsync(TwitterSubmission twitterSubmission)
+        //{
+        //    return await _opExecutor.ExecuteOperation(async () =>
+        //    {
+        //        twitterSubmission.CreatedAt = DateTime.UtcNow.t;
+        //        await _dao.InsertAsync(twitterSubmission);
+        //    });
+        //}
         #endregion
 
         #region Read
@@ -49,7 +50,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
             return await _opExecutor.ExecuteOperation(async () =>
             {
                 twitterSubmission.IsDeleted = true;
-                twitterSubmission.DeletedAt = DateTime.UtcNow;
+                twitterSubmission.DeletedAt = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
                 var submissionDelete = await _dao.GetAsync(twitterSubmission.Id);
                 await _dao.DeleteAsync(submissionDelete);
             });

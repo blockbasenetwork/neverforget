@@ -2,9 +2,9 @@
 using BlockBase.Dapps.NeverForgetBot.Business.OperationResults;
 using BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess.Interfaces;
 using BlockBase.Dapps.NeverForgetBot.Data.Entities;
-using BlockBase.Dapps.NeverForgetBot.Services.API.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -27,7 +27,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
         {
             return await _opExecutor.ExecuteOperation(async () =>
             {
-                redditComment.CreatedAt = DateTime.UtcNow;
+                redditComment.CreatedAt = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
                 await _dao.InsertAsync(redditComment);
             });
         }
@@ -50,7 +50,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
             return await _opExecutor.ExecuteOperation(async () =>
             {
                 redditComment.IsDeleted = true;
-                redditComment.DeletedAt = DateTime.UtcNow;
+                redditComment.DeletedAt = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
                 var commentDelete = await _dao.GetAsync(redditComment.Id);
                 await _dao.DeleteAsync(commentDelete);
             });
