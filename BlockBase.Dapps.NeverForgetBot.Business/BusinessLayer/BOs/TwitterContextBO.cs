@@ -2,7 +2,9 @@
 using BlockBase.Dapps.NeverForgetBot.Business.OperationResults;
 using BlockBase.Dapps.NeverForgetBot.Common.Enums;
 using BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess.Interfaces;
+using BlockBase.Dapps.NeverForgetBot.Dal.Queries;
 using BlockBase.Dapps.NeverForgetBot.Data.Entities;
+using BlockBase.Dapps.NeverForgetBot.Data.Pocos;
 using BlockBase.Dapps.NeverForgetBot.Services.API;
 using BlockBase.Dapps.NeverForgetBot.Services.API.Models;
 using System;
@@ -19,14 +21,16 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
         private readonly IDbOperationExecutor _opExecutor;
         private readonly ITwitterCommentDao _commentDao;
         private readonly ITwitterSubmissionDao _submissionDao;
+        private readonly ITwitterContextPocoDao _pocoDao;
         private readonly TwitterCollector _twitterCollector;
 
-        public TwitterContextBo(ITwitterContextDao dao, IDbOperationExecutor opExecutor, ITwitterCommentDao commentDao, ITwitterSubmissionDao submissionDao, TwitterCollector twitterCollector)
+        public TwitterContextBo(ITwitterContextDao dao, IDbOperationExecutor opExecutor, ITwitterCommentDao commentDao, ITwitterSubmissionDao submissionDao, ITwitterContextPocoDao pocoDao, TwitterCollector twitterCollector)
         {
             _dao = dao;
             _opExecutor = opExecutor;
             _commentDao = commentDao;
             _submissionDao = submissionDao;
+            _pocoDao = pocoDao;
             _twitterCollector = twitterCollector;
         }
 
@@ -298,6 +302,16 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                 return result;
             });
         }
+
+
+        public async Task<OperationResult<TwitterContextPoco>> GetPocoAsync(Guid id)
+        {
+            return await _opExecutor.ExecuteOperation<TwitterContextPoco>(async () =>
+            {
+                var result = await _pocoDao.GetTwitterContextById(id);
+                return result;
+            });
+        }
         #endregion
 
         #region Delete
@@ -319,6 +333,25 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
             return await _opExecutor.ExecuteOperation<List<TwitterContext>>(async () =>
             {
                 var result = await _dao.GetAllAsync();
+                return result.Select(context => context).ToList();
+            });
+        }
+
+
+        public async Task<OperationResult<List<TwitterContextPoco>>> GetAllPocoAsync()
+        {
+            return await _opExecutor.ExecuteOperation<List<TwitterContextPoco>>(async () =>
+            {
+                var result = await _pocoDao.GetAllTwitterContexts();
+                return result.Select(context => context).ToList();
+            });
+        }
+
+        public async Task<OperationResult<List<TwitterContextPoco>>> GetRecents()
+        {
+            return await _opExecutor.ExecuteOperation<List<TwitterContextPoco>>(async () =>
+            {
+                var result = await _pocoDao.GetRecentTwitterContexts();
                 return result.Select(context => context).ToList();
             });
         }

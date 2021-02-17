@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Error404";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+    <title>@ViewData["Title"] - BlockBase.Dapps.NeverForgetBot.WebApp</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/css/site.css" />
+</head>
+<body class="Error-body">
+    <div class="center">
+        <div class="error-template">
+            <h1 class="error-base"> @ViewBag.ErrorTitle </h1>
+            <div class="error-details">
+                @ViewBag.ErrorMessage
+            </div>
+            <div class="error-actions">
+                <a asp-action="Index" asp-controller="Home" class="btn btn-secondary bottom-button hidden-print">
+                    <span class="btn-secondary-text">button</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>

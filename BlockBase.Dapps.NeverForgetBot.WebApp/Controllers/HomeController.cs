@@ -1,49 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.Interfaces;
+using BlockBase.Dapps.NeverForgetBot.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using BlockBase.Dapps.NeverForgetBot.WebApp.Models;
-using BlockBase.Dapps.NeverForgetBot.Data.Pocos;
-using BlockBase.Dapps.NeverForgetBot.Business.Pocos;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.WebApp.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly GeneralContextPoco _generalContextPoco;
+        private readonly IGeneralContextBo _generalContextBo;
 
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IGeneralContextBo generalContextBo)
         {
             _logger = logger;
-            this._generalContextPoco = new GeneralContextPoco();
+            _generalContextBo = generalContextBo;
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        public async Task<IActionResult> Index()
         {
-
-            return View();
+            var listOp = await _generalContextBo.GetRecentCalls();
+            if (!listOp.Success) return View("Error", new ErrorViewModel() { RequestId = listOp.Exception.Message });
+            var list = new List<GeneralContextViewModel>();
+            foreach (var item in listOp.Result)
+            {
+                list.Add(GeneralContextViewModel.FromData(item));
+            }
+            return View(list);
         }
 
-        //public IActionResult Privacy()
-        //{
-        //    return View();
-        //}
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult Error(string message)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var viewModel = new ErrorViewModel
+            {
+                Message = message,
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            };
+            return View(viewModel);
         }
-
-        //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        //public IActionResult Error(string message)
-        //{
-        //    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier, Message = message });
-        //}
     }
 }

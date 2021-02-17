@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BlockBase.Dapps.NeverForgetBot.WebApp.Controllers
 {
-    public class RedditController : Controller
+    public class RedditContextsController : Controller
     {
         private readonly RedditContextPoco _redditContextPoco;
 
-        public RedditController(RedditContextPoco redditContextPoco)
+        public RedditContextsController(RedditContextPoco redditContextPoco)
         {
             _redditContextPoco = redditContextPoco;
         }

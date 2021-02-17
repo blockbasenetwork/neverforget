@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BlockBase.Dapps.NeverForgetBot.WebApp.Controllers
 {
-    public class TwitterController : Controller
+    public class TwitterContextsController : Controller
     {
         private readonly TwitterContextPoco _twitterContextPoco;
 
-        public TwitterController(TwitterContextPoco twitterContextPoco)
+        public TwitterContextsController(TwitterContextPoco twitterContextPoco)
         {
             _twitterContextPoco = twitterContextPoco;
         }

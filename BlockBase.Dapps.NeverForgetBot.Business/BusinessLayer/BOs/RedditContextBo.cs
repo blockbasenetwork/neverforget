@@ -2,7 +2,9 @@
 using BlockBase.Dapps.NeverForgetBot.Business.OperationResults;
 using BlockBase.Dapps.NeverForgetBot.Common.Enums;
 using BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess.Interfaces;
+using BlockBase.Dapps.NeverForgetBot.Dal.Queries;
 using BlockBase.Dapps.NeverForgetBot.Data.Entities;
+using BlockBase.Dapps.NeverForgetBot.Data.Pocos;
 using BlockBase.Dapps.NeverForgetBot.Services.API;
 using BlockBase.Dapps.NeverForgetBot.Services.API.Models;
 using System;
@@ -19,14 +21,16 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
         private readonly IDbOperationExecutor _opExecutor;
         private readonly IRedditCommentDao _commentDao;
         private readonly IRedditSubmissionDao _submissionDao;
+        private readonly IRedditContextPocoDao _pocoDao;
         private readonly RedditCollector _redditCollector;
 
-        public RedditContextBo(IRedditContextDao dao, IDbOperationExecutor opExecutor, IRedditSubmissionDao submissionDao, IRedditCommentDao commentDao, RedditCollector redditCollector)
+        public RedditContextBo(IRedditContextDao dao, IDbOperationExecutor opExecutor, IRedditSubmissionDao submissionDao, IRedditCommentDao commentDao, IRedditContextPocoDao pocoDao, RedditCollector redditCollector)
         {
             _dao = dao;
             _opExecutor = opExecutor;
             _submissionDao = submissionDao;
             _commentDao = commentDao;
+            _pocoDao = pocoDao;
             _redditCollector = redditCollector;
         }
 
@@ -205,6 +209,16 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                 return result;
             });
         }
+
+
+        public async Task<OperationResult<RedditContextPoco>> GetPocoAsync(Guid id)
+        {
+            return await _opExecutor.ExecuteOperation<RedditContextPoco>(async () =>
+            {
+                var result = await _pocoDao.GetRedditContextById(id);
+                return result;
+            });
+        }
         #endregion
 
         #region Delete
@@ -226,6 +240,25 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
             return await _opExecutor.ExecuteOperation<List<RedditContext>>(async () =>
             {
                 var result = await _dao.GetAllAsync();
+                return result.Select(context => context).ToList();
+            });
+        }
+
+
+        public async Task<OperationResult<List<RedditContextPoco>>> GetAllPocoAsync()
+        {
+            return await _opExecutor.ExecuteOperation<List<RedditContextPoco>>(async () =>
+            {
+                var result = await _pocoDao.GetAllRedditContexts();
+                return result.Select(context => context).ToList();
+            });
+        }
+
+        public async Task<OperationResult<List<RedditContextPoco>>> GetRecents()
+        {
+            return await _opExecutor.ExecuteOperation<List<RedditContextPoco>>(async () =>
+            {
+                var result = await _pocoDao.GetRecentRedditContexts();
                 return result.Select(context => context).ToList();
             });
         }

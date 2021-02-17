@@ -3,6 +3,7 @@ using BlockBase.Dapps.NeverForgetBot.Data.Entities;
 using BlockBase.Dapps.NeverForgetBot.Data.Pocos;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
@@ -53,6 +54,12 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
         public async Task<List<RedditContextPoco>> GetRecentRedditContexts()
         {
             List<RedditContextPoco> result = new List<RedditContextPoco>();
+
+            var retrievedContextIds = await GetAllRedditContexts();
+
+            List<RedditContextPoco> orderedList = retrievedContextIds.OrderByDescending(c => c.Context.CreatedAt).ToList();
+
+            result.AddRange(orderedList.Take(10));
 
             return result;
         }

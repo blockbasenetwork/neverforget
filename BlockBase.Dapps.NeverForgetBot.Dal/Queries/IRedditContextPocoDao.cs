@@ -10,6 +10,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
     {
         Task<RedditContextPoco> GetRedditContextById(Guid contextId);
         Task<List<RedditContextPoco>> GetAllRedditContexts();
-        Task<List<TwitterContextPoco>> GetRecentRedditContexts();
+        Task<List<RedditContextPoco>> GetRecentRedditContexts();
     }
 }

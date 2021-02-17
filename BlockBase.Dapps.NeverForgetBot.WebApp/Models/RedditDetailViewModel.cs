@@ -1,16 +1,19 @@
-﻿namespace BlockBase.Dapps.NeverForgetBot.WebApp.Models
+﻿using BlockBase.Dapps.NeverForgetBot.Common.Enums;
+using System;
+
+namespace BlockBase.Dapps.NeverForgetBot.WebApp.Models
 {
     public class RedditDetailViewModel
     {
-        //public Guid Id { get; set; }
-        //public PostTypeEnum PostType { get; set; }
-        //public string Content { get; set; }
-        //public string Author { get; set; }
-        //public string Subreddit { get; set; }
-        //public string Link { get; set; }
-        //public string MediaLink { get; set; }
-        //public string? Title { get; set; }
-        //public DateTime Date { get; set; }
+        public Guid Id { get; set; }
+        public PostTypeEnum PostType { get; set; }
+        public string Content { get; set; }
+        public string Author { get; set; }
+        public string Subreddit { get; set; }
+        public string Link { get; set; }
+        public string MediaLink { get; set; }
+        public string? Title { get; set; }
+        public DateTime Date { get; set; }
 
 
         //public static RedditDetailViewModel FromData(RedditContextPoco redditContext)
