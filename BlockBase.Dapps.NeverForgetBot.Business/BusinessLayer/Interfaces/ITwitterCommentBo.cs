@@ -8,7 +8,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.Interfaces
 {
     public interface ITwitterCommentBo
     {
-        //Task<OperationResult> InsertAsync(TwitterComment entity);
+        Task<OperationResult> InsertAsync(TwitterComment entity);
         Task<OperationResult<TwitterComment>> GetAsync(Guid id);
         Task<OperationResult> DeleteAsync(TwitterComment entity);
         Task<OperationResult<List<TwitterComment>>> GetAllAsync();

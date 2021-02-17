@@ -9,7 +9,6 @@ using BlockBase.Dapps.NeverForgetBot.Services.API;
 using BlockBase.Dapps.NeverForgetBot.Services.API.Models;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -49,7 +48,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                         var contextModel = new RedditContext()
                         {
                             Id = Guid.NewGuid(),
-                            CreatedAt = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture)
+                            CreatedAt = DateTime.UtcNow,
+                            RequestTypeId = (int)CheckRequestType(modelArray[i].Body)
                         };
                         var requestType = CheckRequestType(modelArray[i].Body);
                         await _dao.InsertAsync(contextModel);
@@ -195,7 +195,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
         {
             return await _opExecutor.ExecuteOperation(async () =>
             {
-                redditContext.CreatedAt = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
+                redditContext.CreatedAt = DateTime.UtcNow;
                 await _dao.InsertAsync(redditContext);
             });
         }
@@ -228,7 +228,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
             return await _opExecutor.ExecuteOperation(async () =>
             {
                 redditContext.IsDeleted = true;
-                redditContext.DeletedAt = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
+                redditContext.DeletedAt = DateTime.UtcNow;
                 var contextDelete = await _dao.GetAsync(redditContext.Id);
                 await _dao.DeleteAsync(contextDelete);
             });

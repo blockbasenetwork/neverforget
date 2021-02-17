@@ -4,7 +4,6 @@ using BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess.Interfaces;
 using BlockBase.Dapps.NeverForgetBot.Data.Entities;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -22,14 +21,14 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
         }
 
         #region Create
-        //public async Task<OperationResult> InsertAsync(TwitterComment twitterComment)
-        //{
-        //    return await _opExecutor.ExecuteOperation(async () =>
-        //    {
-        //        twitterComment.CreatedAt = DateTime.UtcNow;
-        //        await _dao.InsertAsync(twitterComment);
-        //    });
-        //}
+        public async Task<OperationResult> InsertAsync(TwitterComment twitterComment)
+        {
+            return await _opExecutor.ExecuteOperation(async () =>
+            {
+                twitterComment.CreatedAt = DateTime.UtcNow;
+                await _dao.InsertAsync(twitterComment);
+            });
+        }
         #endregion
 
         #region Read
@@ -49,7 +48,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
             return await _opExecutor.ExecuteOperation(async () =>
             {
                 twitterComment.IsDeleted = true;
-                twitterComment.DeletedAt = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
+                twitterComment.DeletedAt = DateTime.UtcNow;
                 var commentDelete = await _dao.GetAsync(twitterComment.Id);
                 await _dao.DeleteAsync(commentDelete);
             });

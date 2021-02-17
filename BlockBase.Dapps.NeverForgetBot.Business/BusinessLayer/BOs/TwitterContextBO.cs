@@ -9,7 +9,6 @@ using BlockBase.Dapps.NeverForgetBot.Services.API;
 using BlockBase.Dapps.NeverForgetBot.Services.API.Models;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -48,7 +47,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                         var contextModel = new TwitterContext()
                         {
                             Id = Guid.NewGuid(),
-                            CreatedAt = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture)
+                            CreatedAt = DateTime.UtcNow
                         };
                         await _dao.InsertAsync(contextModel);
 
@@ -288,7 +287,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
         {
             return await _opExecutor.ExecuteOperation(async () =>
             {
-                twitterContext.CreatedAt = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
+                twitterContext.CreatedAt = DateTime.UtcNow;
                 await _dao.InsertAsync(twitterContext);
             });
         }
@@ -321,7 +320,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
             return await _opExecutor.ExecuteOperation(async () =>
             {
                 twitterContext.IsDeleted = true;
-                twitterContext.DeletedAt = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
+                twitterContext.DeletedAt = DateTime.UtcNow;
                 var contextDelete = await _dao.GetAsync(twitterContext.Id);
                 await _dao.DeleteAsync(contextDelete);
             });
