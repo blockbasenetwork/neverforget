@@ -1,7 +1,5 @@
 ﻿using BlockBase.Dapps.NeverForgetBot.Common.Enums;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BlockBase.Dapps.NeverForgetBot.Business.Pocos
 {
@@ -18,6 +16,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.Pocos
         public virtual DateTime Date { get; set; }
 
         public virtual SourceTypeEnum SourceType { get; set; }
-        public virtual PostTypeEnum PostType { get; set; }
+        public virtual int RequestTypeId { get; set; }
+
     }
 }
