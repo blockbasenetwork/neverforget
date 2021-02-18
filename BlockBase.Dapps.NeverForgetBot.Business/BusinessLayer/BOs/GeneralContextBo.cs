@@ -32,7 +32,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
 
                 for (int i = 0; i < recentReddits.Count; i++)
                 {
-                    if (recentReddits[i].Context.RequestTypeId.Equals(RequestTypeEnum.Post))
+                    if (recentReddits[i].Context.RequestTypeId == (int)RequestTypeEnum.Post)
                     {
                         var redditToGeneral = new GeneralContextPoco()
                         {
@@ -93,7 +93,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
 
                 for (int i = 0; i < recentTweets.Count; i++)
                 {
-                    if (recentTweets[i].Context.RequestTypeId.Equals(RequestTypeEnum.Post))
+                    if (recentTweets[i].Context.RequestTypeId == (int)RequestTypeEnum.Post)
                     {
                         var tweetToGeneral = new GeneralContextPoco()
                         {
@@ -108,7 +108,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                         };
                         result.Add(tweetToGeneral);
                     }
-                    else if (recentTweets[i].Context.RequestTypeId.Equals(RequestTypeEnum.Comment))
+                    else if (recentTweets[i].Context.RequestTypeId == (int)RequestTypeEnum.Default || recentTweets[i].Context.RequestTypeId == (int)RequestTypeEnum.Comment)
                     {
                         recentTweets[i].Comments.OrderByDescending(c => c.CommentDate).ToList();
                         recentTweets[i].Comments.RemoveAt(0);
