@@ -37,7 +37,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
             var redditContextDao = new RedditContextDao();
             var redditCommentDao = new RedditCommentDao();
 
-            var redditContext = new RedditContext { Id = Guid.NewGuid(), CreatedAt = DateTime.UtcNow, RequestTypeId = defaultRequest.Id, RequestType = defaultRequest };
+            var redditContext = new RedditContext { Id = Guid.NewGuid(), CreatedAt = DateTime.UtcNow, RequestTypeId = defaultRequest.Id };
 
             var redditComment = new RedditComment { Id = Guid.NewGuid(), CommentId = "tk1", Author = "Autor", SubReddit = "Testing", Content = "NeverForgetThis", CommentDate = DateTime.UtcNow, CreatedAt = DateTime.UtcNow, Link = "Zelda", ParentId = "t1_qualquercoisa", ParentSubmissionId = "t3_qualquercoisa", RedditContextId = redditContext.Id };
 
@@ -78,7 +78,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
             var redditContextDao = new RedditContextDao();
             var redditCommentDao = new RedditCommentDao();
 
-            var redditContext = new RedditContext { Id = Guid.NewGuid(), CreatedAt = DateTime.UtcNow, RequestTypeId = defaultRequest.Id, RequestType = defaultRequest };
+            var redditContext = new RedditContext { Id = Guid.NewGuid(), CreatedAt = DateTime.UtcNow, RequestTypeId = defaultRequest.Id };
             redditContextDao.InsertAsync(redditContext).Wait();
 
             var redditComment = new RedditComment { Id = Guid.NewGuid(), CommentId = "tk1", Author = "Autor", SubReddit = "Testing", Content = "NeverForgetThis", CommentDate = DateTime.UtcNow, CreatedAt = DateTime.UtcNow, Link = "Zelda", ParentId = "t1_qualquercoisa", ParentSubmissionId = "t3_qualquercoisa", RedditContextId = redditContext.Id };
@@ -119,7 +119,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
             var redditContextDao = new RedditContextDao();
             var redditCommentDao = new RedditCommentDao();
 
-            var redditContext = new RedditContext { Id = Guid.NewGuid(), CreatedAt = DateTime.UtcNow, RequestTypeId = defaultRequest.Id, RequestType = defaultRequest };
+            var redditContext = new RedditContext { Id = Guid.NewGuid(), CreatedAt = DateTime.UtcNow, RequestTypeId = defaultRequest.Id };
 
             var redditComment = new RedditComment { Id = Guid.NewGuid(), CommentId = "tk1", Author = "Autor", SubReddit = "Testing", Content = "NeverForgetThis", CommentDate = DateTime.UtcNow, CreatedAt = DateTime.UtcNow, Link = "Zelda", ParentId = "t1_qualquercoisa", ParentSubmissionId = "t3_qualquercoisa", RedditContextId = redditContext.Id };
 
@@ -162,7 +162,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
             var redditContextDao = new RedditContextDao();
             var redditCommentDao = new RedditCommentDao();
 
-            var redditContext = new RedditContext { Id = Guid.NewGuid(), CreatedAt = DateTime.UtcNow, RequestTypeId = defaultRequest.Id, RequestType = defaultRequest };
+            var redditContext = new RedditContext { Id = Guid.NewGuid(), CreatedAt = DateTime.UtcNow, RequestTypeId = defaultRequest.Id };
             redditContextDao.InsertAsync(redditContext).Wait();
 
             var redditComment = new RedditComment { Id = Guid.NewGuid(), CommentId = "tk1", Author = "Autor", SubReddit = "Testing", Content = "NeverForgetThis", CommentDate = DateTime.UtcNow, CreatedAt = DateTime.UtcNow, Link = "Zelda", ParentId = "t1_qualquercoisa", ParentSubmissionId = "t3_qualquercoisa", RedditContextId = redditContext.Id };
@@ -205,7 +205,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
             var redditContextDao = new RedditContextDao();
             var redditCommentDao = new RedditCommentDao();
 
-            var redditContext = new RedditContext { Id = Guid.NewGuid(), CreatedAt = DateTime.UtcNow, RequestTypeId = defaultRequest.Id, RequestType = defaultRequest };
+            var redditContext = new RedditContext { Id = Guid.NewGuid(), CreatedAt = DateTime.UtcNow, RequestTypeId = defaultRequest.Id };
             redditContextDao.InsertAsync(redditContext).Wait();
 
             var redditComment = new RedditComment { Id = Guid.NewGuid(), CommentId = "tk1", Author = "Autor", SubReddit = "Testing", Content = "NeverForgetThis", CommentDate = DateTime.UtcNow, CreatedAt = DateTime.UtcNow, Link = "Zelda", ParentId = "t1_qualquercoisa", ParentSubmissionId = "t3_qualquercoisa", RedditContextId = redditContext.Id };
@@ -249,7 +249,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
             {
                 Id = Guid.NewGuid(),
                 RequestTypeId = 0,
-                RequestType = defaultRequest,
                 CreatedAt = DateTime.UtcNow,
             };
             var twitterComment = new TwitterComment
@@ -297,7 +296,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
             {
                 Id = Guid.NewGuid(),
                 RequestTypeId = 0,
-                RequestType = defaultRequest,
                 CreatedAt = DateTime.UtcNow,
             };
             var twitterComment = new TwitterComment
@@ -376,7 +374,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
             {
                 Id = Guid.NewGuid(),
                 RequestTypeId = 0,
-                RequestType = defaultRequest,
                 CreatedAt = DateTime.UtcNow,
             };
             var twitterComment = new TwitterComment
@@ -424,7 +421,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
             {
                 Id = Guid.NewGuid(),
                 RequestTypeId = 0,
-                RequestType = defaultRequest,
                 CreatedAt = DateTime.UtcNow,
             };
             var twitterComment = new TwitterComment
@@ -502,7 +498,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
             {
                 Id = Guid.NewGuid(),
                 RequestTypeId = 0,
-                RequestType = defaultRequest,
                 CreatedAt = DateTime.UtcNow,
             };
             var twitterComment = new TwitterComment
@@ -583,7 +578,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
             {
                 Id = Guid.NewGuid(),
                 RequestTypeId = 0,
-                RequestType = defaultRequest,
                 CreatedAt = DateTime.UtcNow,
             };
             var twitterComment = new TwitterComment
@@ -664,7 +658,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
             {
                 Id = Guid.NewGuid(),
                 RequestTypeId = 0,
-                RequestType = defaultRequest,
                 CreatedAt = DateTime.UtcNow,
             };
             var twitterComment = new TwitterComment
