@@ -1,0 +1,57 @@
+﻿@using BlockBase.Dapps.NeverForgetBot.WebApp.Models
+@model IEnumerable<RedditContextViewModel>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <table id="usersList" class="table table-striped display nowrap" style="width:100%">
+                <thead class="userHeader" style="text-align:center">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Content)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Author)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Title)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Date)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Subreddit)
+                        </th>
+                        <th>
+                            Details
+                        </th>
+                </thead>
+                <tbody id="myTableSearch" style="text-align:center">
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Content)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Author)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Subreddit)
+                        </td>
+                        <td>
+                            <a class="link-details" asp-action="Details" asp-route-id="@item.Id">More</a>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

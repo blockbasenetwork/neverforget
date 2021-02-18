@@ -1,0 +1,60 @@
+﻿@using BlockBase.Dapps.NeverForgetBot.WebApp.Models
+@model RedditContextViewModel
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <table id="usersList" class="table table-striped display nowrap">
+                <thead class="userHeader">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Content)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Author)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Title)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Date)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Subreddit)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Link)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.MediaLink)
+                        </th>
+                </thead>
+                <tbody id="myTableSearch" style="text-align:center">
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => modelItem.Content)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => modelItem.Author)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => modelItem.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => modelItem.Date)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => modelItem.Subreddit)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => modelItem.Link)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => modelItem.MediaLink)
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

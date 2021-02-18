@@ -63,7 +63,7 @@ namespace BlockBase.Dapps.NeverForgetBot.WebApp
             {
                 app.UseHsts();
             }
-            app.UseExceptionHandler("/Error/500");
+            //app.UseExceptionHandler("/Error/500");
             app.UseStatusCodePagesWithReExecute("/Error/{0}");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
