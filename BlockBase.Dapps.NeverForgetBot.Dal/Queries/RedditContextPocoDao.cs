@@ -8,31 +8,32 @@ using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
 {
+
+    public class A
+    {
+        public Guid Id { get; set; }
+    }
     public class RedditContextPocoDao : IRedditContextPocoDao
     {
         public async Task<RedditContextPoco> GetRedditContextById(Guid contextId)
         {
+            
             RedditContextPoco result = new RedditContextPoco();
             using (var _context = new NeverForgetBotDbContext())
             {
                 var retrievedContext = await _context.RedditContext.Join<RedditComment>().Join<RedditSubmission>()
                                                                     .Where((rCtx, rCom, rSub) => rCtx.Id == contextId && rCtx.IsDeleted == false)
-                                                                    .List((rCtx, rCom, rSub) => new RedditJoinResult()
-                                                                    {
-                                                                        Context = rCtx,
-                                                                        Comment = rCom,
-                                                                        Submission = rSub
-                                                                    });
+                                                                    .List((rCtx, rCom, rSub) => new A(){Id =rCtx.Id});
 
-                result.Context = retrievedContext.Result.GetEnumerator().Current.Context;
-                result.Submission = retrievedContext.Result.GetEnumerator().Current.Submission;
+                //result.Context = retrievedContext.Result.GetEnumerator().Current.Context;
+                //result.Submission = retrievedContext.Result.GetEnumerator().Current.Submission;
 
-                foreach (var context in retrievedContext.Result)
-                {
-                    result.Comments.Add(context.Comment);
-                }
+                //foreach (var context in retrievedContext.Result)
+                //{
+                //    result.Comments.Add(context.Comment);
+                //}
 
-                return result;
+                return null;
             }
         }
 

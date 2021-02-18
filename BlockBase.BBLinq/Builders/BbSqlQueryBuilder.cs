@@ -614,9 +614,13 @@ namespace BlockBase.BBLinq.Builders
                             break;
                         }
                     case BinaryExpression binaryExpression:
-                        ParseQuery(type, binaryExpression.Left)
+                        var left = (binaryExpression.Left as MemberExpression);
+                        var right = (binaryExpression.Right as MemberExpression);
+                        var leftType = left == null ? type : left.Expression.Type;
+                        var rightType = right == null ? type : right.Expression.Type;
+                        ParseQuery(leftType, binaryExpression.Left)
                             .WhiteSpace().Append(ParseOperator(binaryExpression.NodeType))
-                            .WhiteSpace().ParseQuery(type, binaryExpression.Right);
+                            .WhiteSpace().ParseQuery(rightType, binaryExpression.Right);
                         break;
                     case ConstantExpression constantExpression:
                         return Append(WrapValue(constantExpression.Value));

@@ -1,8 +1,9 @@
-using BlockBase.Dapps.NeverForgetBot.Business.Obsolete.BOs;
+using BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs;
 using BlockBase.Dapps.NeverForgetBot.Business.OperationResults;
 using BlockBase.Dapps.NeverForgetBot.Common.Enums;
 using BlockBase.Dapps.NeverForgetBot.Dal;
 using BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess;
+using BlockBase.Dapps.NeverForgetBot.Dal.Queries;
 using BlockBase.Dapps.NeverForgetBot.Data.Context;
 using BlockBase.Dapps.NeverForgetBot.Data.Entities;
 using BlockBase.Dapps.NeverForgetBot.Services.API;
@@ -34,12 +35,13 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
             var redditCommentDAO = new RedditCommentDao();
             var redditSubmissionDAO = new RedditSubmissionDao();
             var redditCollector = new RedditCollector();
+            var redditPoco = new RedditContextPocoDao();
             var mockLogger = new Mock<ILogger<DbOperationExecutor>>();
             var opExecutor = new DbOperationExecutor(mockLogger.Object);
-            var redditContextBO = new RedditContextBo(redditContextDAO, opExecutor, redditSubmissionDAO, redditCommentDAO, redditCollector );
+            var redditContextBO = new RedditContextBo(redditContextDAO, opExecutor, redditSubmissionDAO, redditCommentDAO, redditPoco, redditCollector );
             var redditCommentBO = new RedditCommentBo(redditCommentDAO, opExecutor);
 
-            var redditContext = new RedditContext { Id = Guid.NewGuid(), CreatedAt = DateTime.UtcNow, RequestTypeId = defaultRequest.Id, RequestType = defaultRequest };
+            var redditContext = new RedditContext { Id = Guid.NewGuid(), CreatedAt = DateTime.UtcNow, RequestTypeId = defaultRequest.Id };
             redditContextBO.InsertAsync(redditContext).Wait();
 
             var redditComment = new RedditComment { Id = Guid.NewGuid(), CommentId = "tk1", Author = "Autor", SubReddit = "Testing", Content = "NeverForgetThis", CommentDate = DateTime.UtcNow, CreatedAt = DateTime.UtcNow, Link = "Zelda", ParentId = "t1_qualquercoisa", ParentSubmissionId = "t3_qualquercoisa", RedditContextId = redditContext.Id };
@@ -66,12 +68,13 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
             var redditCommentDAO = new RedditCommentDao();
             var redditSubmissionDAO = new RedditSubmissionDao();
             var redditCollector = new RedditCollector();
+            var redditPoco = new RedditContextPocoDao();
             var mockLogger = new Mock<ILogger<DbOperationExecutor>>();
             var opExecutor = new DbOperationExecutor(mockLogger.Object);
-            var redditContextBO = new RedditContextBo(redditContextDAO, opExecutor, redditSubmissionDAO, redditCommentDAO, redditCollector);
+            var redditContextBO = new RedditContextBo(redditContextDAO, opExecutor, redditSubmissionDAO, redditCommentDAO, redditPoco, redditCollector);
             var redditCommentBO = new RedditCommentBo(redditCommentDAO, opExecutor);
 
-            var redditContext = new RedditContext { Id = Guid.NewGuid(), CreatedAt = DateTime.UtcNow, RequestTypeId = defaultRequest.Id, RequestType = defaultRequest };
+            var redditContext = new RedditContext { Id = Guid.NewGuid(), CreatedAt = DateTime.UtcNow, RequestTypeId = defaultRequest.Id };
             redditContextBO.InsertAsync(redditContext).Wait();
 
             var redditComment = new RedditComment { Id = Guid.NewGuid(), CommentId = "tk1", Author = "Autor", SubReddit = "Testing", Content = "NeverForgetThis", CommentDate = DateTime.UtcNow, CreatedAt = DateTime.UtcNow, Link = "Zelda", ParentId = "t1_qualquercoisa", ParentSubmissionId = "t3_qualquercoisa", RedditContextId = redditContext.Id };
@@ -106,12 +109,13 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
             var redditCommentDAO = new RedditCommentDao();
             var redditSubmissionDAO = new RedditSubmissionDao();
             var redditCollector = new RedditCollector();
+            var redditPoco = new RedditContextPocoDao();
             var mockLogger = new Mock<ILogger<DbOperationExecutor>>();
             var opExecutor = new DbOperationExecutor(mockLogger.Object);
-            var redditContextBO = new RedditContextBo(redditContextDAO, opExecutor, redditSubmissionDAO, redditCommentDAO, redditCollector);
+            var redditContextBO = new RedditContextBo(redditContextDAO, opExecutor, redditSubmissionDAO, redditCommentDAO, redditPoco, redditCollector);
             var redditCommentBO = new RedditCommentBo(redditCommentDAO, opExecutor);
 
-            var redditContext = new RedditContext { Id = Guid.NewGuid(), CreatedAt = DateTime.UtcNow, RequestTypeId = defaultRequest.Id, RequestType = defaultRequest };
+            var redditContext = new RedditContext { Id = Guid.NewGuid(), CreatedAt = DateTime.UtcNow, RequestTypeId = defaultRequest.Id };
             redditContextBO.InsertAsync(redditContext).Wait();
 
             var redditComment = new RedditComment { Id = Guid.NewGuid(), CommentId = "tk1", Author = "Autor", SubReddit = "Testing", Content = "NeverForgetThis", CommentDate = DateTime.UtcNow, CreatedAt = DateTime.UtcNow, Link = "Zelda", ParentId = "t1_qualquercoisa", ParentSubmissionId = "t3_qualquercoisa", RedditContextId = redditContext.Id };
@@ -145,18 +149,18 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
 
             var twitterContextDAO = new TwitterContextDao();
             var twitterCommentDAO = new TwitterCommentDao();
-            var twitterSubmissionDao = new TwitterSubmissionDao();
+            var twitterSubmissionDAO = new TwitterSubmissionDao();
             var twitterCollector = new TwitterCollector();
+            var twitterPoco = new TwitterContextPocoDao();
             var mockLogger = new Mock<ILogger<DbOperationExecutor>>();
             var opExecutor = new DbOperationExecutor(mockLogger.Object);
-            var twitterContextBO = new TwitterContextBo(twitterContextDAO, opExecutor, twitterCommentDAO, twitterSubmissionDao, twitterCollector);
+            var twitterContextBO = new TwitterContextBo(twitterContextDAO, opExecutor, twitterCommentDAO, twitterSubmissionDAO, twitterPoco, twitterCollector);
             var twitterCommentBO = new TwitterCommentBo(twitterCommentDAO, opExecutor);
 
             var twitterContext = new TwitterContext
             {
                 Id = Guid.NewGuid(),
                 RequestTypeId = 0,
-                RequestType = defaultRequest,
                 CreatedAt = DateTime.UtcNow,
             };
             twitterContextBO.InsertAsync(twitterContext).Wait();
@@ -200,18 +204,18 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
 
             var twitterContextDAO = new TwitterContextDao();
             var twitterCommentDAO = new TwitterCommentDao();
-            var twitterSubmissionDao = new TwitterSubmissionDao();
+            var twitterSubmissionDAO = new TwitterSubmissionDao();
             var twitterCollector = new TwitterCollector();
+            var twitterPoco = new TwitterContextPocoDao();
             var mockLogger = new Mock<ILogger<DbOperationExecutor>>();
             var opExecutor = new DbOperationExecutor(mockLogger.Object);
-            var twitterContextBO = new TwitterContextBo(twitterContextDAO, opExecutor, twitterCommentDAO, twitterSubmissionDao, twitterCollector);
+            var twitterContextBO = new TwitterContextBo(twitterContextDAO, opExecutor, twitterCommentDAO, twitterSubmissionDAO, twitterPoco, twitterCollector);
             var twitterCommentBO = new TwitterCommentBo(twitterCommentDAO, opExecutor);
 
             var twitterContext = new TwitterContext
             {
                 Id = Guid.NewGuid(),
                 RequestTypeId = 0,
-                RequestType = defaultRequest,
                 CreatedAt = DateTime.UtcNow,
             };
             twitterContextBO.InsertAsync(twitterContext).Wait();
@@ -285,18 +289,18 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
 
             var twitterContextDAO = new TwitterContextDao();
             var twitterCommentDAO = new TwitterCommentDao();
-            var twitterSubmissionDao = new TwitterSubmissionDao();
+            var twitterSubmissionDAO = new TwitterSubmissionDao();
             var twitterCollector = new TwitterCollector();
+            var twitterPoco = new TwitterContextPocoDao();
             var mockLogger = new Mock<ILogger<DbOperationExecutor>>();
             var opExecutor = new DbOperationExecutor(mockLogger.Object);
-            var twitterContextBO = new TwitterContextBo(twitterContextDAO, opExecutor, twitterCommentDAO, twitterSubmissionDao, twitterCollector);
+            var twitterContextBO = new TwitterContextBo(twitterContextDAO, opExecutor, twitterCommentDAO, twitterSubmissionDAO, twitterPoco, twitterCollector);
             var twitterCommentBO = new TwitterCommentBo(twitterCommentDAO, opExecutor);
 
             var twitterContext = new TwitterContext
             {
                 Id = Guid.NewGuid(),
                 RequestTypeId = 0,
-                RequestType = defaultRequest,
                 CreatedAt = DateTime.UtcNow,
             };
             twitterContextBO.InsertAsync(twitterContext).Wait();
