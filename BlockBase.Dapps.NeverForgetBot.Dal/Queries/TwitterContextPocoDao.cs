@@ -17,20 +17,19 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
             {
                 var retrievedContext = await _context.TwitterContext.Join<TwitterComment>().Join<TwitterSubmission>()
                                                                     .Where((tCtx, tCom, tSub) => tCtx.Id == contextId && tCtx.IsDeleted == false)
-                                                                    .List((tCtx, tCom, tSub) => new TwitterJoinResult()
+                                                                    .List((tCtx, tCom, tSub) => new TwitterContextPoco()
                                                                     {
                                                                         Context = tCtx,
-                                                                        Comment = tCom,
                                                                         Submission = tSub
                                                                     });
 
                 result.Context = retrievedContext.Result.GetEnumerator().Current.Context;
                 result.Submission = retrievedContext.Result.GetEnumerator().Current.Submission;
 
-                foreach (var context in retrievedContext.Result)
-                {
-                    result.Comments.Add(context.Comment);
-                }
+                //foreach (var context in retrievedContext.Result)
+                //{
+                //    result.Comments.Add(context.Comment);
+                //}
             }
             return result;
         }

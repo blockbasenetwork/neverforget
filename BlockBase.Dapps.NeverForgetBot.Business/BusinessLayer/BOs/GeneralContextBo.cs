@@ -106,7 +106,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                         };
                         result.Add(redditToGeneral);
                     }
-                    else if (recentReddits[i].Context.RequestTypeId.Equals(RequestTypeEnum.Comment))
+                    else if (recentReddits[i].Context.RequestTypeId == (int)RequestTypeEnum.Default || recentReddits[i].Context.RequestTypeId == (int)RequestTypeEnum.Comment)
                     {
                         recentReddits[i].Comments.OrderByDescending(c => c.CommentDate).ToList();
                         recentReddits[i].Comments.RemoveAt(0);

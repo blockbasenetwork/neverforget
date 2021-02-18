@@ -17,6 +17,5 @@ namespace BlockBase.Dapps.NeverForgetBot.Data.Entities
 
         [ForeignKey(Name = "RequestTypes")]
         public int RequestTypeId { get; set; }
-        //public virtual RequestType RequestType { get; set; }
     }
 }

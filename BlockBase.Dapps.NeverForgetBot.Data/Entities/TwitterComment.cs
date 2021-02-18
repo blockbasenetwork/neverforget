@@ -21,6 +21,5 @@ namespace BlockBase.Dapps.NeverForgetBot.Data.Entities
 
         [ForeignKey(Name = "TwitterContexts")]
         public Guid TwitterContextId { get; set; }
-        public virtual TwitterContext TwitterContext { get; set; }
     }
 }
