@@ -1,7 +1,7 @@
 ﻿using BlockBase.Dapps.NeverForgetBot.Common.Enums;
 using System;
 
-namespace BlockBase.Dapps.NeverForgetBot.Business.Pocos
+namespace BlockBase.Dapps.NeverForgetBot.Data.Pocos
 {
     public class GeneralContextPoco
     {
@@ -17,6 +17,5 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.Pocos
 
         public virtual SourceTypeEnum SourceType { get; set; }
         public virtual int RequestTypeId { get; set; }
-
     }
 }

@@ -1,8 +1,8 @@
 ﻿using BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.Interfaces;
 using BlockBase.Dapps.NeverForgetBot.Business.OperationResults;
-using BlockBase.Dapps.NeverForgetBot.Business.Pocos;
 using BlockBase.Dapps.NeverForgetBot.Common.Enums;
 using BlockBase.Dapps.NeverForgetBot.Dal.Queries;
+using BlockBase.Dapps.NeverForgetBot.Data.Pocos;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

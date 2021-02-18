@@ -1,5 +1,5 @@
-﻿using BlockBase.Dapps.NeverForgetBot.Business.Pocos;
-using BlockBase.Dapps.NeverForgetBot.Common.Enums;
+﻿using BlockBase.Dapps.NeverForgetBot.Common.Enums;
+using BlockBase.Dapps.NeverForgetBot.Data.Pocos;
 using System;
 
 namespace BlockBase.Dapps.NeverForgetBot.WebApp.Models

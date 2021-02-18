@@ -1,8 +1,5 @@
 ﻿using BlockBase.Dapps.NeverForgetBot.Business.OperationResults;
-using BlockBase.Dapps.NeverForgetBot.Business.Pocos;
-using BlockBase.Dapps.NeverForgetBot.Data.Entities;
-using BlockBase.Dapps.NeverForgetBot.Services.API.Models;
-using System;
+using BlockBase.Dapps.NeverForgetBot.Data.Pocos;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
