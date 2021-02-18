@@ -19,36 +19,9 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
                                                                     .Where((rCtx, rCom, rSub) => rCtx.Id == contextId && rCtx.IsDeleted == false)
                                                                     .List((rCtx, rCom, rSub) => new RedditJoinResult()
                                                                     {
-                                                                        Context = new RedditContext()
-                                                                        {
-                                                                            Id = rCtx.Id,
-                                                                            RequestTypeId = rCtx.RequestTypeId
-                                                                        },
-                                                                        Comment = new RedditComment()
-                                                                        {
-                                                                            Id = rCom.Id,
-                                                                            CommentId = rCom.CommentId,
-                                                                            ParentId = rCom.ParentId,
-                                                                            ParentSubmissionId = rCom.ParentSubmissionId,
-                                                                            Content = rCom.Content,
-                                                                            CommentDate = rCom.CommentDate,
-                                                                            Author = rCom.Author,
-                                                                            SubReddit = rCom.SubReddit,
-                                                                            Link = rCom.Link,
-                                                                            RedditContextId = rCom.RedditContextId
-                                                                        },
-                                                                        Submission = new RedditSubmission()
-                                                                        {
-                                                                            Id = rSub.Id,
-                                                                            SubmissionId = rSub.SubmissionId,
-                                                                            Content = rSub.Content,
-                                                                            SubmissionDate = rSub.SubmissionDate,
-                                                                            Author = rSub.Author,
-                                                                            SubReddit = rSub.SubReddit,
-                                                                            Link = rSub.Link,
-                                                                            MediaLink = rSub.MediaLink,
-                                                                            RedditContextId = rSub.RedditContextId
-                                                                        }
+                                                                        Context = rCtx,
+                                                                        Comment = rCom,
+                                                                        Submission = rSub
                                                                     });
 
                 result.Context = retrievedContext.Result.GetEnumerator().Current.Context;
