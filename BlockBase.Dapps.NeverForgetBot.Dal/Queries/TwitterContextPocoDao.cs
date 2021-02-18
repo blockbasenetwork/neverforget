@@ -12,26 +12,31 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
     {
         public async Task<TwitterContextPoco> GetTwitterContextById(Guid contextId)
         {
+
             TwitterContextPoco result = new TwitterContextPoco();
             using (var _context = new NeverForgetBotDbContext())
             {
-                var retrievedContext = await _context.TwitterContext.Join<TwitterComment>().Join<TwitterSubmission>()
-                                                                    .Where((tCtx, tCom, tSub) => tCtx.Id == contextId && tCtx.IsDeleted == false)
-                                                                    .List((tCtx, tCom, tSub) => new TwitterContextPoco()
-                                                                    {
-                                                                        Context = tCtx,
-                                                                        Submission = tSub
-                                                                    });
+                var retrievedContext = await _context.TwitterContext.Where((tCtx) => (tCtx.Id == contextId) && (tCtx.IsDeleted == false)).List();
 
-                result.Context = retrievedContext.Result.GetEnumerator().Current.Context;
-                result.Submission = retrievedContext.Result.GetEnumerator().Current.Submission;
-
-                //foreach (var context in retrievedContext.Result)
-                //{
-                //    result.Comments.Add(context.Comment);
-                //}
+                if (retrievedContext.Result.Count() != 0)
+                {
+                    var retrievedComments = await _context.TwitterComment.Where((tCom) => (tCom.TwitterContextId == contextId)).List();
+                    var retrievedSubmission = await _context.TwitterSubmission.Where((tSub) => (tSub.TwitterContextId == contextId)).List();
+                    foreach (var item in retrievedContext.Result)
+                    {
+                        result.Context = item;
+                    }
+                    foreach (var item in retrievedSubmission.Result)
+                    {
+                        result.Submission = item;
+                    }
+                    foreach (var item in retrievedComments.Result)
+                    {
+                        result.Comments.Add(item);
+                    }
+                }
+                return result;
             }
-            return result;
         }
 
         public async Task<List<TwitterContextPoco>> GetAllTwitterContexts()
