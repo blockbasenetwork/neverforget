@@ -45,13 +45,13 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                     if (!_commentDao.GetAllAsync().Result.Any(c => c.CommentId == commentArray[i].Id))
                     {
                         #region Create Context
+                        var requestType = CheckRequestType(modelArray[i].Body);
                         var contextModel = new RedditContext()
                         {
                             Id = Guid.NewGuid(),
                             CreatedAt = DateTime.UtcNow,
-                            RequestTypeId = (int)CheckRequestType(modelArray[i].Body)
+                            RequestTypeId = (int)requestType
                         };
-                        var requestType = CheckRequestType(modelArray[i].Body);
                         await _dao.InsertAsync(contextModel);
                         #endregion
 
