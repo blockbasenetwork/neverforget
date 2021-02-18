@@ -47,14 +47,16 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                         var contextModel = new TwitterContext()
                         {
                             Id = Guid.NewGuid(),
-                            CreatedAt = DateTime.UtcNow
+                            CreatedAt = DateTime.UtcNow,
+                            RequestTypeId = (int)CheckRequestType(model.Full_text)
                         };
                         await _dao.InsertAsync(contextModel);
 
                         var requestType = CheckRequestType(model.Full_text);
+
                         if (requestType == RequestTypeEnum.Comment || requestType == RequestTypeEnum.Default)
                         {
-                            TwitterComment comment = model.ToComment();
+                            var comment = model.ToComment(model);
                             comment.TwitterContextId = contextModel.Id;
                             await _commentDao.InsertAsync(comment);
 
@@ -62,7 +64,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                             {
                                 var tweetParent = await _twitterCollector.GetTweet(model.In_reply_to_status_id_str);
 
-                                TwitterComment parent = tweetParent.ToComment();
+                                TwitterComment parent = tweetParent.ToComment(model);
                                 parent.TwitterContextId = contextModel.Id;
                                 await _commentDao.InsertAsync(parent);
                             }
@@ -77,7 +79,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                         }
                         else if (requestType == RequestTypeEnum.Post)
                         {
-                            TwitterComment comment = model.ToComment();
+                            TwitterComment comment = model.ToComment(model);
                             comment.TwitterContextId = contextModel.Id;
                             await _commentDao.InsertAsync(comment);
 
