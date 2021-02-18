@@ -30,63 +30,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                 var recentReddits = await _redditDao.GetRecentRedditContexts();
                 var recentTweets = await _twitterDao.GetRecentTwitterContexts();
 
-                for (int i = 0; i < recentTweets.Count; i++)
-                {
-                    if (recentTweets[i].Context.RequestTypeId.Equals(RequestTypeEnum.Post))
-                    {
-                        var tweetToGeneral = new GeneralContextPoco()
-                        {
-                            Author = recentTweets[i].Submission.Author,
-                            Content = recentTweets[i].Submission.Content,
-                            ContextId = recentTweets[i].Context.Id,
-                            Date = recentTweets[i].Submission.SubmissionDate,
-                            Link = recentTweets[i].Submission.Link,
-                            MediaLink = recentTweets[i].Submission.MediaLink,
-                            RequestTypeId = (int)RequestTypeEnum.Post,
-                            SourceType = SourceTypeEnum.Twitter,
-                        };
-                        result.Add(tweetToGeneral);
-                    }
-                    else if (recentTweets[i].Context.RequestTypeId.Equals(RequestTypeEnum.Comment))
-                    {
-                        recentTweets[i].Comments.OrderByDescending(c => c.CommentDate).ToList();
-                        recentTweets[i].Comments.RemoveAt(0);
-
-                        if (recentTweets[i].Comments.Count == 0)
-                        {
-                            var tweetToGeneral = new GeneralContextPoco()
-                            {
-                                Author = recentTweets[i].Submission.Author,
-                                Content = recentTweets[i].Submission.Content,
-                                ContextId = recentTweets[i].Context.Id,
-                                Date = recentTweets[i].Submission.SubmissionDate,
-                                Link = recentTweets[i].Submission.Link,
-                                MediaLink = recentTweets[i].Submission.MediaLink,
-                                RequestTypeId = (int)RequestTypeEnum.Post,
-                                SourceType = SourceTypeEnum.Twitter,
-                            };
-
-                            result.Add(tweetToGeneral);
-                        }
-                        else
-                        {
-                            var tweetToGeneral = new GeneralContextPoco()
-                            {
-                                Author = recentTweets[i].Comments[0].Author,
-                                Content = recentTweets[i].Comments[0].Content,
-                                ContextId = recentTweets[i].Context.Id,
-                                Date = recentTweets[i].Comments[0].CommentDate,
-                                Link = recentTweets[i].Comments[0].Link,
-                                MediaLink = recentTweets[i].Comments[0].MediaLink,
-                                RequestTypeId = (int)RequestTypeEnum.Comment,
-                                SourceType = SourceTypeEnum.Twitter,
-                            };
-
-                            result.Add(tweetToGeneral);
-                        }
-                    }
-                }
-
                 for (int i = 0; i < recentReddits.Count; i++)
                 {
                     if (recentReddits[i].Context.RequestTypeId.Equals(RequestTypeEnum.Post))
@@ -144,6 +87,63 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                             };
 
                             result.Add(redditToGeneral);
+                        }
+                    }
+                }
+
+                for (int i = 0; i < recentTweets.Count; i++)
+                {
+                    if (recentTweets[i].Context.RequestTypeId.Equals(RequestTypeEnum.Post))
+                    {
+                        var tweetToGeneral = new GeneralContextPoco()
+                        {
+                            Author = recentTweets[i].Submission.Author,
+                            Content = recentTweets[i].Submission.Content,
+                            ContextId = recentTweets[i].Context.Id,
+                            Date = recentTweets[i].Submission.SubmissionDate,
+                            Link = recentTweets[i].Submission.Link,
+                            MediaLink = recentTweets[i].Submission.MediaLink,
+                            RequestTypeId = (int)RequestTypeEnum.Post,
+                            SourceType = SourceTypeEnum.Twitter,
+                        };
+                        result.Add(tweetToGeneral);
+                    }
+                    else if (recentTweets[i].Context.RequestTypeId.Equals(RequestTypeEnum.Comment))
+                    {
+                        recentTweets[i].Comments.OrderByDescending(c => c.CommentDate).ToList();
+                        recentTweets[i].Comments.RemoveAt(0);
+
+                        if (recentTweets[i].Comments.Count == 0)
+                        {
+                            var tweetToGeneral = new GeneralContextPoco()
+                            {
+                                Author = recentTweets[i].Submission.Author,
+                                Content = recentTweets[i].Submission.Content,
+                                ContextId = recentTweets[i].Context.Id,
+                                Date = recentTweets[i].Submission.SubmissionDate,
+                                Link = recentTweets[i].Submission.Link,
+                                MediaLink = recentTweets[i].Submission.MediaLink,
+                                RequestTypeId = (int)RequestTypeEnum.Post,
+                                SourceType = SourceTypeEnum.Twitter,
+                            };
+
+                            result.Add(tweetToGeneral);
+                        }
+                        else
+                        {
+                            var tweetToGeneral = new GeneralContextPoco()
+                            {
+                                Author = recentTweets[i].Comments[0].Author,
+                                Content = recentTweets[i].Comments[0].Content,
+                                ContextId = recentTweets[i].Context.Id,
+                                Date = recentTweets[i].Comments[0].CommentDate,
+                                Link = recentTweets[i].Comments[0].Link,
+                                MediaLink = recentTweets[i].Comments[0].MediaLink,
+                                RequestTypeId = (int)RequestTypeEnum.Comment,
+                                SourceType = SourceTypeEnum.Twitter,
+                            };
+
+                            result.Add(tweetToGeneral);
                         }
                     }
                 }

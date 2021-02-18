@@ -22,28 +22,14 @@ namespace BlockBase.Dapps.NeverForgetBot.WebApp.Models
             gcvm.SourceType = generalContext.SourceType;
             gcvm.RequestTypeId = generalContext.RequestTypeId;
 
-            if (gcvm.SourceType.Equals(SourceTypeEnum.Reddit))
+            gcvm.Content = generalContext.Content;
+            gcvm.Author = generalContext.Author;
+            gcvm.Date = generalContext.Date;
+            if (gcvm.SourceType.Equals(SourceTypeEnum.Reddit) && gcvm.RequestTypeId == (int)RequestTypeEnum.Post)
             {
-                if (gcvm.RequestTypeId.Equals(RequestTypeEnum.Comment))
-                {
-                    gcvm.Content = generalContext.Content;
-                    gcvm.Author = generalContext.Author;
-                    gcvm.Date = generalContext.Date;
-                }
-                else if (gcvm.RequestTypeId.Equals(RequestTypeEnum.Post))
-                {
-                    gcvm.Content = generalContext.Content;
-                    gcvm.Author = generalContext.Author;
-                    gcvm.Date = generalContext.Date;
-                    gcvm.Title = generalContext.Title;
-                }
+                gcvm.Title = generalContext.Title;
             }
-            else if (gcvm.SourceType.Equals(SourceTypeEnum.Twitter))
-            {
-                gcvm.Content = generalContext.Content;
-                gcvm.Author = generalContext.Author;
-                gcvm.Date = generalContext.Date;
-            }
+
             return gcvm;
         }
     }

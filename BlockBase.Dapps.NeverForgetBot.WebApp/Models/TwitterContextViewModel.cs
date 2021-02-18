@@ -12,9 +12,9 @@ namespace BlockBase.Dapps.NeverForgetBot.WebApp.Models
         public string Content { get; set; }
         public string Author { get; set; }
         public DateTime Date { get; set; }
+        public string Link { get; set; }
+        public string MediaLink { get; set; }
         public int RequestTypeId { get; set; }
-
-
 
         public static TwitterContextViewModel FromData(TwitterContextPoco twitterContext)
         {

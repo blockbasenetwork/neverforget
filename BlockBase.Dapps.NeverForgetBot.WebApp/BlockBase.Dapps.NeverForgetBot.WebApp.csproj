@@ -12,10 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\TwitterDetail\" />
-    <Folder Include="Views\RedditDetail\" />
-    <Folder Include="Views\TwitterContext\" />
-    <Folder Include="Views\RedditContext\" />
     <Folder Include="wwwroot\img\" />
   </ItemGroup>
 

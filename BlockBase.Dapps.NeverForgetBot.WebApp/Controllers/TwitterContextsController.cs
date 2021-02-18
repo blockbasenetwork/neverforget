@@ -1,20 +1,31 @@
-﻿using BlockBase.Dapps.NeverForgetBot.Data.Pocos;
+﻿using BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.Interfaces;
+using BlockBase.Dapps.NeverForgetBot.Data.Pocos;
+using BlockBase.Dapps.NeverForgetBot.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.WebApp.Controllers
 {
     public class TwitterContextsController : Controller
     {
-        private readonly TwitterContextPoco _twitterContextPoco;
+        private readonly ITwitterContextBo _twitterContextBo;
 
-        public TwitterContextsController(TwitterContextPoco twitterContextPoco)
+        public TwitterContextsController(ITwitterContextBo twitterContextBo)
         {
-            _twitterContextPoco = twitterContextPoco;
+            _twitterContextBo = twitterContextBo;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var listOp = await _twitterContextBo.GetAllPocoAsync();
+            if (!listOp.Success) return View("Error", new ErrorViewModel() { RequestId = listOp.Exception.Message });
+            var list = new List<TwitterContextViewModel>();
+            foreach (var item in listOp.Result)
+            {
+                list.Add(TwitterContextViewModel.FromData(item));
+            }
+            return View(list);
         }
     }
 }

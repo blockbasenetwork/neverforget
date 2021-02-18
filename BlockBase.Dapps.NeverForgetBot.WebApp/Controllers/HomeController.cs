@@ -35,6 +35,7 @@ namespace BlockBase.Dapps.NeverForgetBot.WebApp.Controllers
 
         public IActionResult Error(string message)
         {
+            _logger.LogError(message);
             var viewModel = new ErrorViewModel
             {
                 Message = message,
