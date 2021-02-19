@@ -28,8 +28,8 @@ namespace BlockBase.Dapps.NeverForgetBot.WebApp.Controllers
             }
             return View(list);
         }
-        
-        [HttpGet("{id}")]
+
+        [HttpGet("RedditContexts/Details/{id}")]
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null) return NotFound();

@@ -29,26 +29,26 @@
                 <tbody id="myTableSearch" style="text-align:center">
                     @foreach (var item in Model)
                     {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Content)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Author)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Title)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Date)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Subreddit)
-                        </td>
-                        <td>
-                            <a class="link-details" asp-action="Details" asp-route-id="@item.Id">More</a>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Content)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Author)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Date)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Subreddit)
+                            </td>
+                            <td>
+                                <a class="link-details" asp-controller="RedditContexts" asp-action="Details" asp-route-id="@item.Id">More</a>
+                            </td>
+                        </tr>
                     }
                 </tbody>
             </table>

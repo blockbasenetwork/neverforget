@@ -1,10 +1,8 @@
 ﻿using BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.Interfaces;
-using BlockBase.Dapps.NeverForgetBot.Data.Pocos;
 using BlockBase.Dapps.NeverForgetBot.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.WebApp.Controllers
@@ -49,13 +47,13 @@ namespace BlockBase.Dapps.NeverForgetBot.WebApp.Controllers
         //    return View(listOp);
         //}
 
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> Details(Guid id)
-        //{
-        //    var resultOp = await _twitterContextBo.GetPocoAsync(id);
-        //    if (!resultOp.Success) return View("Error", new ErrorViewModel() { RequestId = resultOp.Exception.Message });
+        [HttpGet("TwitterContexts/Details/{id}")]
+        public async Task<IActionResult> Details(Guid id)
+        {
+            var resultOp = await _twitterContextBo.GetPocoAsync(id);
+            if (!resultOp.Success) return View("Error", new ErrorViewModel() { RequestId = resultOp.Exception.Message });
 
-        //    return View(TwitterDetailsViewModel.FromData(resultOp.Result));
-        //}
+            return View(TwitterDetailsViewModel.FromData(resultOp.Result));
+        }
     }
 }
