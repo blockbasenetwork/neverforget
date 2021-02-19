@@ -13,27 +13,32 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <img src="~/img/Logo.png" />
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">NeverForgetBot</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="RedditContexts" asp-action="Index">Reddit</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="TwitterContexts" asp-action="Index">Twitter</a>
-                        </li>
-                    </ul>
+                <div class="row">
+                    <img src="~/img/Logo.png" class="logo" />
+                </div>
+                <div class="row">
+                    <h3>Never Forget Bot</h3>
+                </div>
+                <div class="row">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">NeverForgetBot</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="RedditContexts" asp-action="Index">Reddit</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="TwitterContexts" asp-action="Index">Twitter</a>
+                            </li>
+                        </ul>
+                    </div>
+
                 </div>
             </div>
         </nav>
@@ -47,9 +52,9 @@
     <footer class="border-top footer text-muted">
         <div class="container">
             <div class="col">
-                &copy; 2021 - NeverForgetBot - <a asp-area="" asp-controller="Home" asp-action="Privacy">About</a>
+                &copy; 2021 - NeverForgetBot
             </div>
-            <div>
+            <div class="col">
                 <a href="https://www.reddit.com/user/NeverForget-Bot"><i class="icon fab fa-twitter"></i></a>
                 <a href="https://twitter.com/_NeverForgetBot"><i class="icon fab fa-reddit-alien "></i></a>
             </div>

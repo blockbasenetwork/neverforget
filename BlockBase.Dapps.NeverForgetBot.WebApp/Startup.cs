@@ -28,6 +28,7 @@ namespace BlockBase.Dapps.NeverForgetBot.WebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddRazorPages();
 
             services.AddSingleton<IDbOperationExecutor, DbOperationExecutor>();
 
