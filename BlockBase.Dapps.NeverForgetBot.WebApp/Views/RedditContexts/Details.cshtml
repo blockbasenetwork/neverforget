@@ -4,8 +4,8 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
-            <table id="usersList" class="table table-striped display nowrap">
-                <thead class="userHeader">
+            <table class="table table-striped display nowrap">
+                <thead class="userHeader" style="text-align:center">
                     <tr>
                         <th>
                             @Html.DisplayNameFor(model => model.Content)
@@ -29,7 +29,7 @@
                             @Html.DisplayNameFor(model => model.MediaLink)
                         </th>
                 </thead>
-                <tbody id="myTableSearch" style="text-align:center">
+                <tbody style="text-align:center">
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => modelItem.Content)
@@ -47,10 +47,10 @@
                             @Html.DisplayFor(modelItem => modelItem.Subreddit)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => modelItem.Link)
+                            <a href="@Html.DisplayFor(modelItem => modelItem.Link)">Source</a>
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => modelItem.MediaLink)
+                            <img src="@Html.DisplayFor(modelItem => modelItem.MediaLink)">
                         </td>
                     </tr>
                 </tbody>

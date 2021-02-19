@@ -6,12 +6,15 @@
     <title>@ViewData["Title"] - BlockBase.Dapps.NeverForgetBot.WebApp</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" />
+    <link rel="icon" href="~/img/Logo.png" type="image/gif" sizes="16x16">
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BlockBase.Dapps.NeverForgetBot.WebApp</a>
+                <img src="~/img/Logo.png" />
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">NeverForgetBot</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -23,6 +26,12 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="RedditContexts" asp-action="Index">Reddit</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="TwitterContexts" asp-action="Index">Twitter</a>
                         </li>
                     </ul>
                 </div>
@@ -37,12 +46,19 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2021 - BlockBase.Dapps.NeverForgetBot.WebApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="col">
+                &copy; 2021 - NeverForgetBot - <a asp-area="" asp-controller="Home" asp-action="Privacy">About</a>
+            </div>
+            <div>
+                <a href="https://www.reddit.com/user/NeverForget-Bot"><i class="icon fab fa-twitter"></i></a>
+                <a href="https://twitter.com/_NeverForgetBot"><i class="icon fab fa-reddit-alien "></i></a>
+            </div>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/font-awesome/js/all.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>
