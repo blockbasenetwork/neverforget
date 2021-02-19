@@ -48,10 +48,12 @@ namespace BlockBase.Dapps.NeverForgetBot.WebApp.Controllers
         //}
 
         [HttpGet("TwitterContexts/Details/{id}")]
-        public async Task<IActionResult> Details(Guid id)
+        public async Task<IActionResult> Details(Guid? id)
         {
-            var resultOp = await _twitterContextBo.GetPocoAsync(id);
+            if (id == null) return NotFound();
+            var resultOp = await _twitterContextBo.GetPocoAsync((Guid)id);
             if (!resultOp.Success) return View("Error", new ErrorViewModel() { RequestId = resultOp.Exception.Message });
+            if (resultOp.Result == null) return NotFound();
 
             return View(TwitterDetailsViewModel.FromData(resultOp.Result));
         }

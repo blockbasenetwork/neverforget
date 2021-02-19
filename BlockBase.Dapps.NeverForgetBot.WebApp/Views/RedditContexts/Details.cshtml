@@ -1,60 +1,223 @@
-﻿@using BlockBase.Dapps.NeverForgetBot.WebApp.Models
-@model RedditContextViewModel
+﻿@*@using BlockBase.Dapps.NeverForgetBot.WebApp.Models
+    @model RedditContextViewModel
 
-<div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            <table class="table table-striped display nowrap">
-                <thead class="userHeader" style="text-align:center">
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Content)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Author)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Title)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Date)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Subreddit)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Link)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.MediaLink)
-                        </th>
-                </thead>
-                <tbody style="text-align:center">
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => modelItem.Content)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => modelItem.Author)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => modelItem.Title)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => modelItem.Date)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => modelItem.Subreddit)
-                        </td>
-                        <td>
-                            <a href="@Html.DisplayFor(modelItem => modelItem.Link)">Source</a>
-                        </td>
-                        <td>
-                            <img src="@Html.DisplayFor(modelItem => modelItem.MediaLink)">
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <table class="table table-striped display nowrap">
+                    <thead class="userHeader" style="text-align:center">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Content)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Author)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Title)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Date)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Subreddit)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Link)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.MediaLink)
+                            </th>
+                    </thead>
+                    <tbody style="text-align:center">
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => modelItem.Content)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => modelItem.Author)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => modelItem.Title)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => modelItem.Date)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => modelItem.Subreddit)
+                            </td>
+                            <td>
+                                <a href="@Html.DisplayFor(modelItem => modelItem.Link)">Source</a>
+                            </td>
+                            <td>
+                                <img src="@Html.DisplayFor(modelItem => modelItem.MediaLink)">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
+    </div>*@
+
+@using BlockBase.Dapps.NeverForgetBot.WebApp.Models
+@model RedditDetailsViewModel
+
+<div class="card">
+    <div class="card-header">
+        <h2 class="float-left">
+            Never Forget Bot
+        </h2>
+    </div>
+
+
+    <div class="card-body">
+        @if (Model.Submission != null)
+        {
+            <h5>SUBMISSION</h5>
+
+            <div class="ml-5 mr-5">
+                <dl class="row">
+                    <dt class="col-2">
+                        @Html.DisplayNameFor(model => model.Submission.Id)
+                    </dt>
+                    <dd class="col-10">
+                        @Html.DisplayFor(model => model.Submission.Id)
+                    </dd>
+                </dl>
+
+                <dl class="row">
+                    <dt class="col-2">
+                        @Html.DisplayNameFor(model => model.Submission.Title)
+                    </dt>
+                    <dd class="col-10">
+                        @Html.DisplayFor(model => model.Submission.Title)
+                    </dd>
+                </dl>
+
+                <dl class="row">
+                    <dt class="col-2">
+                        @Html.DisplayNameFor(model => model.Submission.Subreddit)
+                    </dt>
+                    <dd class="col-10">
+                        @Html.DisplayFor(model => model.Submission.Subreddit)
+                    </dd>
+                </dl>
+
+                <dl class="row">
+                    <dt class="col-2">
+                        @Html.DisplayNameFor(model => model.Submission.Content)
+                    </dt>
+                    <dd class="col-10">
+                        @Html.DisplayFor(model => model.Submission.Content)
+                    </dd>
+                </dl>
+
+                <dl class="row">
+                    <dt class="col-2">
+                        @Html.DisplayNameFor(model => model.Submission.Author)
+                    </dt>
+                    <dd class="col-10">
+                        @Html.DisplayFor(model => model.Submission.Author)
+                    </dd>
+                </dl>
+
+                <dl class="row">
+                    <dt class="col-2">
+                        @Html.DisplayNameFor(model => model.Submission.Date)
+                    </dt>
+                    <dd class="col-10">
+                        @Html.DisplayFor(model => model.Submission.Date)
+                    </dd>
+                </dl>
+
+                <dl class="row">
+                    <dt class="col-2">
+                        @Html.DisplayNameFor(model => model.Submission.Link)
+                    </dt>
+                    <dd class="col-10">
+                        @Html.DisplayFor(model => model.Submission.Link)
+                    </dd>
+                </dl>
+
+                @if (Model.Submission.MediaLink != null)
+                {
+                    <dl class="row">
+                        <dt class="col-2">
+                            @Html.DisplayNameFor(model => model.Submission.MediaLink)
+                        </dt>
+                        <dd class="col-10">
+                            @Html.DisplayFor(model => model.Submission.MediaLink)
+                        </dd>
+                    </dl>
+                }
+            </div>
+        }
+
+        <hr>
+        <hr>
+
+        @foreach (var item in Model.Comments)
+        {
+            <h5>COMMENT</h5>
+
+            <div class="ml-5 mr-5">
+                <dl class="row">
+                    <dt class="col-2">
+                        @Html.DisplayNameFor(x => item.Id)
+                    </dt>
+                    <dd class="col-10">
+                        @Html.DisplayFor(x => item.Id)
+                    </dd>
+                </dl>
+
+                <dl class="row">
+                    <dt class="col-2">
+                        @Html.DisplayNameFor(x => item.Subreddit)
+                    </dt>
+                    <dd class="col-10">
+                        @Html.DisplayFor(x => item.Subreddit)
+                    </dd>
+                </dl>
+
+                <dl class="row">
+                    <dt class="col-2">
+                        @Html.DisplayNameFor(x => item.Content)
+                    </dt>
+                    <dd class="col-10">
+                        @Html.DisplayFor(x => item.Content)
+                    </dd>
+                </dl>
+
+                <dl class="row">
+                    <dt class="col-2">
+                        @Html.DisplayNameFor(x => item.Author)
+                    </dt>
+                    <dd class="col-10">
+                        @Html.DisplayFor(x => item.Author)
+                    </dd>
+                </dl>
+
+                <dl class="row">
+                    <dt class="col-2">
+                        @Html.DisplayNameFor(x => item.Date)
+                    </dt>
+                    <dd class="col-10">
+                        @Html.DisplayFor(x => item.Date)
+                    </dd>
+                </dl>
+
+                <dl class="row">
+                    <dt class="col-2">
+                        @Html.DisplayNameFor(x => item.Link)
+                    </dt>
+                    <dd class="col-10">
+                        @Html.DisplayFor(x => item.Link)
+                    </dd>
+                </dl>
+            </div>
+
+            <hr>
+        }
+
     </div>
 </div>
