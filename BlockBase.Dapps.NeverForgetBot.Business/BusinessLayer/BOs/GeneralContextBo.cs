@@ -82,7 +82,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                                 Date = recentReddits[i].Comments[0].CommentDate,
                                 Link = recentReddits[i].Comments[0].Link,
                                 RequestTypeId = (int)RequestTypeEnum.Comment,
-                                SourceType = SourceTypeEnum.Twitter,
+                                SourceType = SourceTypeEnum.Reddit,
                                 SubReddit = recentReddits[i].Comments[0].SubReddit,
                             };
 

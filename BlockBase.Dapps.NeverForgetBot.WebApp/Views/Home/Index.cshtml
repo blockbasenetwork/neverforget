@@ -12,20 +12,16 @@
 
                     @if (item.SourceType == SourceTypeEnum.Reddit)
                     {
-                        <img src="~/img/Reddit_logo.jpg" class="socialMediaLogo" />
+                        <img src="~/img/Reddit_logo.jpg" class="socialMediaLogo" width="50" height="60" />
                     }
-                    @if (item.SourceType == SourceTypeEnum.Twitter)
+                    else if (item.SourceType == SourceTypeEnum.Twitter)
                     {
                         <img src="~/img/Twitter_logo.png" class="socialMediaLogo" />
                     }
                     <div class="card-body">
                         <div class="card-content home">@Html.DisplayFor(modelItem => item.Content)</div>
                     </div>
-
-
-
                 </div>
-
             </div>
 
 
