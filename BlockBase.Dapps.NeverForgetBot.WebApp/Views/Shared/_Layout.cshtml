@@ -11,46 +11,50 @@
     <link rel="stylesheet" type="text/css" href="~/css/site.css" />
 </head>
 <body>
-    @*<div class="banner">*@
-    <header class="banner">
-        <div class="container">
-            <div class="row">
-                <div class="col center">
-                    <p class="fixed-top"></p>
-                    <a asp-area="" asp-controller="Home" asp-action="Index">
-                        <img src="~/img/Logo.png" class="logo" />
-                    </a>
-                </div>
+
+    <div class="container logoBackground">
+        <div class="row">
+            <div class="col center">
+                <p class="fixed-top"></p>
+                <a asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/img/Logo.png" class="logo" />
+                </a>
             </div>
         </div>
-    </header>
-    <div class="sticky-top center banner">
-        <a asp-area="" asp-controller="Home" asp-action="Index">
-            <h3 class="name center sticky-top">Never Forget Bot</h3>
-        </a>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow">
-            <div class="container">
-                <div class="row center">
-                    <button class="navbar-toggler center mt-1" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="RedditContexts" asp-action="Index">Reddit</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="TwitterContexts" asp-action="Index">Twitter</a>
-                            </li>
-                        </ul>
-                    </div>
-
-                </div>
-            </div>
-        </nav>
     </div>
-    @*</div>*@
+
+    <header class="sticky-top banner">
+        <div>
+            <a asp-area="" asp-controller="Home" asp-action="Index">
+                <h3 class="name center sticky-top">Never Forget Bot</h3>
+            </a>
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow">
+                <div class="container">
+                    <div class="row center">
+                        <button class="navbar-toggler center mt-1" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                            <ul class="navbar-nav flex-grow-1">
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="RedditContexts" asp-action="Index">Reddit</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="TwitterContexts" asp-action="Index">Twitter</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+
+
+
+
 
     <div class="container mainBody">
         <main role="main" class="pb-3">
