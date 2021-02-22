@@ -84,10 +84,13 @@ body {*/
 }
 
 .banner {
-    /*background-color: #D9B908;*/
-    background: transparent url('../img/Wavy.png') 0% 0% no-repeat padding-box;
+    background-color: @oldGold;
+    background: transparent url('../img/WaterPattern.jpg') 0% 0% no-repeat padding-box;
+    opacity: 1;
 
     p {
+        background-color: @oldGold;
+        background: transparent url('../img/WaterPattern.jpg') 0% 0% no-repeat padding-box;
         height: 0.5px;
     }
 }
@@ -113,8 +116,21 @@ body {*/
     box-shadow: @darkPurple;
 }
 
+@media screen {
+    @media(min-width:@desktop-min-width){
+        .navbar-toggler {
+            position: fixed;
+
+        }
+    }
+}
+
 .icon {
     color: @darkPurple;
+}
+
+.body {
+    background: transparent url('../img/WaterPattern.jpg') 0% 0% no-repeat padding-box;
 }
 
 .mainBody {
