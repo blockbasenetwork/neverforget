@@ -33,11 +33,11 @@ namespace BlockBase.Dapps.NeverForgetBot.WebApp.Controllers
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null) return NotFound();
-            var op = await _redditContextBo.GetPocoAsync((Guid)id);
-            if (!op.Success) return View("Error", new ErrorViewModel() { RequestId = op.Exception.Message });
-            if (op.Result == null) return NotFound();
-            var rcVm = RedditContextViewModel.FromData(op.Result);
-            return View(rcVm);
+            var resultOp = await _redditContextBo.GetPocoAsync((Guid)id);
+            if (!resultOp.Success) return View("Error", new ErrorViewModel() { RequestId = resultOp.Exception.Message });
+            if (resultOp.Result == null) return NotFound();
+
+            return View(RedditDetailsViewModel.FromData(resultOp.Result));
         }
     }
 }
