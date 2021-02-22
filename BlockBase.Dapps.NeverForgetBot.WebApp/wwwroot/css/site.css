@@ -97,13 +97,16 @@ body {*/
   color: #270216;
 }
 .mainBody {
-  background-color: aqua;
-  width: 100%;
+  background-color: rgba(39, 2, 22, 0.1);
+  max-width: 100%;
 }
 /*-------------------------------------------------*/
 /* Home
 -------------------------------------------------- */
 .socialMediaLogo {
   width: 50px;
+}
+.socialMediaLogo .logoImg {
+  background-color: transparent;
 }
 /*-------------------------------------------------*/
