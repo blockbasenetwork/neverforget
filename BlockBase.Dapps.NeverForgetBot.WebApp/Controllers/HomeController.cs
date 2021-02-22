@@ -23,14 +23,14 @@ namespace BlockBase.Dapps.NeverForgetBot.WebApp.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var listOp = await _generalContextBo.GetRecentCalls();
-            if (!listOp.Success) return View("Error", new ErrorViewModel() { RequestId = listOp.Exception.Message });
-            var list = new List<GeneralContextViewModel>();
-            foreach (var item in listOp.Result)
-            {
-                list.Add(GeneralContextViewModel.FromData(item));
-            }
-            return View(list);
+            //var listOp = await _generalContextBo.GetRecentCalls();
+            //if (!listOp.Success) return View("Error", new ErrorViewModel() { RequestId = listOp.Exception.Message });
+            //var list = new List<GeneralContextViewModel>();
+            //foreach (var item in listOp.Result)
+            //{
+            //    list.Add(GeneralContextViewModel.FromData(item));
+            //}
+            return View();
         }
 
         public IActionResult Error(string message)
