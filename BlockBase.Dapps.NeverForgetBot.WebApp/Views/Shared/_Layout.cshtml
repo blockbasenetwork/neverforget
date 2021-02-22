@@ -11,21 +11,27 @@
     <link rel="stylesheet" type="text/css" href="~/css/site.css" />
 </head>
 <body>
-    <header class="sticky-top">
+    @*<div class="banner">*@
+    <header class="banner">
         <div class="container">
             <div class="row">
                 <div class="col center">
+                    <p class="fixed-top"></p>
                     <a asp-area="" asp-controller="Home" asp-action="Index">
                         <img src="~/img/Logo.png" class="logo" />
-                        <h3 class="name">Never Forget Bot</h3>
                     </a>
                 </div>
             </div>
         </div>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow">
+    </header>
+    <div class="sticky-top center banner">
+        <a asp-area="" asp-controller="Home" asp-action="Index">
+            <h3 class="name center sticky-top">Never Forget Bot</h3>
+        </a>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow">
             <div class="container">
                 <div class="row center">
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    <button class="navbar-toggler center mt-1" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -43,7 +49,9 @@
                 </div>
             </div>
         </nav>
-    </header>
+    </div>
+    @*</div>*@
+
     <div class="container mainBody">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -54,12 +62,12 @@
         <div class="container">
             <div class="col">
                 &copy; 2021 - NeverForgetBot
-                <a href="https://www.reddit.com/user/NeverForget-Bot"><i class="icon fab fa-twitter"></i></a>
                 <a href="https://twitter.com/_NeverForgetBot"><i class="icon fab fa-reddit-alien "></i></a>
+                <a href="https://www.reddit.com/user/NeverForget-Bot"><i class="icon fab fa-twitter"></i></a>
             </div>
             @*<div class="col">
-                    <a href="https://www.reddit.com/user/NeverForget-Bot"><i class="icon fab fa-twitter"></i></a>
                     <a href="https://twitter.com/_NeverForgetBot"><i class="icon fab fa-reddit-alien "></i></a>
+                    <a href="https://www.reddit.com/user/NeverForget-Bot"><i class="icon fab fa-twitter"></i></a>
                 </div>*@
         </div>
     </footer>

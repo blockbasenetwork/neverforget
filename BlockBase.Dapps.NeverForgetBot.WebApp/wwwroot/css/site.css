@@ -73,16 +73,21 @@ body {*/
 -------------------------------------------------- */
 .logo {
   padding-top: 10px;
-  width: 100px;
+  max-width: 100px;
+}
+.banner {
+  /*background-color: #D9B908;*/
+  background: transparent url('../img/Wavy.png') 0% 0% no-repeat padding-box;
+}
+.banner p {
+  height: 0.5px;
 }
 .name,
 .name:link,
 .name:visited,
 .name:hover,
 .name:active {
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
+  margin-bottom: -10px;
   color: black;
   text-decoration: none !important;
 }
@@ -91,7 +96,14 @@ body {*/
   margin-left: auto;
   margin-right: auto;
   text-align: center;
+  color: black;
   text-decoration: none !important;
+}
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler-icon:focus {
+  outline-color: #270216;
+  box-shadow: #270216;
 }
 .icon {
   color: #270216;
