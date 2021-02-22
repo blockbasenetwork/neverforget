@@ -7,9 +7,9 @@
 
     @foreach (var item in Model)
     {
-        <div class="row">
-            <div class="col- socialMediaLogo" style="padding: 0">
-                <div class="card">
+        <div class="row" style="margin-bottom: 20px">
+            <div class="col- socialMediaLogo" style="padding: 0; display:flex; align-items:center; border:none">
+                <div class="card" style="border:none">
                     @if (item.SourceType == SourceTypeEnum.Reddit)
                     {
                         <img src="~/img/Reddit_logo.jpg" />
@@ -22,14 +22,14 @@
             </div>
 
             <div class="col-md content">
-                <div class="card-body">
-                    <h5 class="card-title title">@Html.DisplayFor(modelItem => item.Title)</h5>
+                <div class="card-body" style="border:solid">
+                    <h5 class="card-title title" style="display:block; text-align:left">@Html.DisplayFor(modelItem => item.Title)</h5>
                     <div class="card-text content">@Html.DisplayFor(modelItem => item.Content)</div>
-                    <b class="card-text foot">@Html.DisplayFor(modelItem => item.Author)</b>
+                    <b class="card-text foot" style="display:block; text-align:right">@Html.DisplayFor(modelItem => item.Author)</b>
                 </div>
             </div>
 
-            <div class="col- creationDate">
+            <div class="col- creationDate" style="display:flex; align-items:center">
                 <div class="card-body">
                     @{
                         var dateToString = item.Date.ToString("yyyy/MM/dd");
