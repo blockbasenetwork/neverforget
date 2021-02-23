@@ -10,18 +10,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
     <title>@ViewData["Title"] - BlockBase.Dapps.NeverForgetBot.WebApp</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="icon" href="~/img/Logo.png" type="image/gif" sizes="16x16">
     <link rel="stylesheet" type="text/css" href="~/css/site.css" />
 </head>
-<body class="Error-body">
-    <div class="center">
-        <div class="error-template">
-            <h1 class="error-base"> @ViewBag.ErrorTitle </h1>
-            <div class="error-details">
+<body class="errorBody">
+    <div class="container center pt-1">
+        <img src="~/img/Logo.png" class="errorLogo" />
+        <div class="errorMessage">
+            <h1 class="errorBase"> @ViewBag.ErrorTitle </h1>
+            <div class="errorDetails">
                 @ViewBag.ErrorMessage
             </div>
-            <div class="error-actions">
-                <a asp-action="Index" asp-controller="Home" class="btn btn-secondary bottom-button hidden-print">
-                    <span class="btn-secondary-text">button</span>
+            <div class="errorActions">
+                <a asp-action="Index" asp-controller="Home" class="btn bg-transparent hidden-print">
+                    <span class="btn bg-transparent errorMessage">Go back</span>
                 </a>
             </div>
         </div>
