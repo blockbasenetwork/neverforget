@@ -25,6 +25,8 @@ namespace BlockBase.Dapps.NeverForgetBot.WebApp.Controllers
             //{
             //    list.Add(TwitterContextViewModel.FromData(item));
             //}
+            string logoUrl = Url.Content("~/img/twitterRobot.png");
+            ViewData["Logo"] = logoUrl;
             return View();
         }
 

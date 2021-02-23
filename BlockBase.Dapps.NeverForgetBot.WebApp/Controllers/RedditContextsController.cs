@@ -25,6 +25,8 @@ namespace BlockBase.Dapps.NeverForgetBot.WebApp.Controllers
             //{
             //    list.Add(RedditContextViewModel.FromData(item));
             //}
+            string logoUrl = Url.Content("~/img/redditRobot.png");
+            ViewData["Logo"] = logoUrl;
             return View();
         }
 

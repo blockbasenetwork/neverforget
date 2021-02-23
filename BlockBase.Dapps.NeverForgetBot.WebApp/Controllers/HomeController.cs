@@ -2,7 +2,6 @@
 using BlockBase.Dapps.NeverForgetBot.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
@@ -30,6 +29,8 @@ namespace BlockBase.Dapps.NeverForgetBot.WebApp.Controllers
             //{
             //    list.Add(GeneralContextViewModel.FromData(item));
             //}
+            string logoUrl = Url.Content("~/img/Logo.png");
+            ViewData["Logo"] = logoUrl;
             return View();
         }
 
