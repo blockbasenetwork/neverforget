@@ -1,57 +1,88 @@
 ﻿@using BlockBase.Dapps.NeverForgetBot.WebApp.Models
 @model IEnumerable<RedditContextViewModel>
 
-<div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            <table id="usersList" class="table table-striped display nowrap" style="width:100%">
-                <thead class="userHeader" style="text-align:center">
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Content)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Author)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Title)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Date)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Subreddit)
-                        </th>
-                        <th>
-                            Details
-                        </th>
-                </thead>
-                <tbody id="myTableSearch" style="text-align:center">
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Content)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Author)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Title)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Date)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Subreddit)
-                            </td>
-                            <td>
-                                <a class="link-details" asp-controller="RedditContexts" asp-action="Details" asp-route-id="@item.Id">More</a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+<div class="container redditContext" style="max-width:1000px">
+
+    <div class="row" style="margin-bottom: 20px; padding-top:20px">
+
+
+
+        <div class="col-md content">
+            <div class="card-body contextBody" style="border:solid;border-color:rgb(255, 86, 0); background-color:rgba(255, 86, 0, 0.3)">
+                <h6 class="card-title title" style="display:block; text-align:left; text-decoration:underline">r/Subreddit</h6>
+                <h5 class="card-title title" style="display:block; text-align:left">Era uma vez</h5>
+
+                <div class="card-text content">Lorem ipsumn vr  vr vijenuyb ridmapocapmnv vrieuvunimv iuvuncm0wmv uirncwimvjns inyuvnmiodv dioopsnbonui oivuntiudo</div>
+                <b class="card-text foot" style="display:block; text-align:right">Carlos</b>
+            </div>
+        </div>
+
+        <div class="col- creationDate" style="display:flex; align-items:center">
+            <div class="card-body">
+                <div class="card-content home">2021/02/23 <i class="fas fa-calendar-alt"></i></div>
+            </div>
+        </div>
+
+        <div class="col- detailsLogo" style="padding: 0; display:flex; align-items:center; border:none">
+            <div class="card detailsImg" style="border:none">
+                <img src="~/img/searchRobot.png" />
+            </div>
         </div>
     </div>
+
+
+
+    <div class="row" style="margin-bottom: 20px; padding-top:20px">
+
+
+
+        <div class="col-md content">
+            <div class="card-body contextBody" style="border:solid;border-color:rgb(255, 86, 0); background-color:rgba(255, 86, 0, 0.3)">
+                <h6 class="card-title title" style="display:block; text-align:left; text-decoration:underline">r/Subreddit</h6>
+
+                <div class="card-text content">Lorem ipsumn vr  vr vijenuyb ridmapocapmnv vrieuvunimv iuvuncm0wmv uirncwimvjns inyuvnmiodv dioopsnbonui oivuntiudo</div>
+                <b class="card-text foot" style="display:block; text-align:right">Carlos</b>
+            </div>
+        </div>
+
+        <div class="col- creationDate" style="display:flex; align-items:center">
+            <div class="card-body">
+                <div class="card-content home">2021/02/23 <i class="fas fa-calendar-alt"></i></div>
+            </div>
+        </div>
+
+        <div class="col- detailsLogo" style="padding: 0; display:flex; align-items:center; border:none">
+            <div class="card detailsImg" style="border:none">
+                <img src="~/img/searchRobot.png" />
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="margin-bottom: 20px; padding-top:20px">
+
+
+
+        <div class="col-md content">
+            <div class="card-body contextBody" style="border:solid;border-color:rgb(255, 86, 0); background-color:rgba(255, 86, 0, 0.3)">
+                <h6 class="card-title title" style="display:block; text-align:left; text-decoration:underline">r/Subreddit</h6>
+
+                <h5 class="card-title title" style="display:block; text-align:left">Era uma vez</h5>
+                <div class="card-text content">Lorem ipsumn vr  vr vijenuyb ridmapocapmnv vrieuvunimv iuvuncm0wmv uirncwimvjns inyuvnmiodv dioopsnbonui oivuntiudo</div>
+                <b class="card-text foot" style="display:block; text-align:right">Carlos</b>
+            </div>
+        </div>
+
+        <div class="col- creationDate" style="display:flex; align-items:center">
+            <div class="card-body">
+                <div class="card-content home">2021/02/23 <i class="fas fa-calendar-alt"></i></div>
+            </div>
+        </div>
+
+        <div class="col- detailsLogo" style="padding: 0; display:flex; align-items:center; border:none">
+            <div class="card detailsImg" style="border:none">
+                <img src="~/img/searchRobot.png" />
+            </div>
+        </div>
+    </div>
+
 </div>

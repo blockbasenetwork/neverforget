@@ -1,67 +1,115 @@
-﻿@using BlockBase.Dapps.NeverForgetBot.WebApp.Models
-@model IEnumerable<TwitterContextViewModel>
+﻿<div class="container" style="max-width:1000px">
 
+    <div class="row" style="margin-bottom: 20px; padding-top:20px">
+        <div class="col- socialMediaLogo" style="padding: 0; display:flex; align-items:center; border:none">
+            <div class="card logoImg" style="border:none">
+                <a asp-controller="TwitterContexts" asp-action="Details">
+                    <i class="fal fa-info-circle fa-3x" style="color: #1DA1F2;"></i>
+                </a>
+            </div>
+        </div>
 
-<div class="container">
-    <div class="row">
-        <div class="col-lg-12">
+        <div class="col-md content">
+            <div class="card-body" style="border:solid;border-color:rgb(29,161,242); background-color:rgba(29,161,242, 0.3)">
+                <div class="card-text content">Isto é um conteúdo. Contém várias contigências contidas</div>
+                <b class="card-text foot" style="display:block; text-align:right">Fernando Pessoa</b>
+            </div>
+        </div>
 
-            <table id="usersList" class="table table-striped display nowrap" style="width:100%">
-                <thead class="userHeader" style="text-align:center">
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Id)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Date)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Author)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Content)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Link)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.MediaLink)
-                        </th>
-
-                </thead>
-
-                <tbody>
-                    @foreach (var context in Model)
-                    {
-                        <tr>
-                            <td>
-
-
-                                <a asp-controller="TwitterContexts" asp-action="Details" asp-route-id="@context.Id">Expand</a>
-                            </td>
-                            <td>
-                                @Html.DisplayFor(tc => context.Id)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(tc => context.Date)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(tc => context.Author)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(tc => context.Content)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(tc => context.Link)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(tc => context.MediaLink)
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-
+        <div class="col- creationDate" style="display:flex; align-items:center">
+            <div class="card-body">
+                <div class="card-content home">22/02/21 <i class="fas fa-calendar-alt"></i></div>
+            </div>
         </div>
     </div>
+
+    <div class="row" style="margin-bottom: 20px; padding-top:20px">
+        <div class="col- socialMediaLogo" style="padding: 0; display:flex; align-items:center; border:none">
+            <div class="card logoImg" style="border:none">
+                <i class="fal fa-info-circle fa-3x" style="color: #1DA1F2;"></i>
+            </div>
+        </div>
+
+        <div class="col-md content">
+            <div class="card-body" style="border:solid;border-color:rgb(29,161,242); background-color:rgba(29,161,242, 0.3)">
+                <div class="card-text content">Isto é um conteúdo. Contém várias contigências contidas</div>
+                <b class="card-text foot" style="display:block; text-align:right">Fernando Pessoa</b>
+            </div>
+        </div>
+
+        <div class="col- creationDate" style="display:flex; align-items:center">
+            <div class="card-body">
+                <div class="card-content home">22/02/21 <i class="fas fa-calendar-alt"></i></div>
+            </div>
+        </div>
+    </div>
+
 </div>
+
+
+
+@* @using BlockBase.Dapps.NeverForgetBot.WebApp.Models
+    @model IEnumerable<TwitterContextViewModel>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+
+                <table id="usersList" class="table table-striped display nowrap" style="width:100%">
+                    <thead class="userHeader" style="text-align:center">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Id)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Date)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Author)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Content)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Link)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.MediaLink)
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var context in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <a asp-controller="TwitterContexts" asp-action="Details" asp-route-id="@context.Id">Expand</a>
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(tc => context.Id)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(tc => context.Date)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(tc => context.Author)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(tc => context.Content)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(tc => context.Link)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(tc => context.MediaLink)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div> *@
