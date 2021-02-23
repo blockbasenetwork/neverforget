@@ -12,22 +12,16 @@
 </head>
 <body>
 
-    <div class="container logoBackground">
-        <div class="row">
-            <div class="col center">
-                <p class="fixed-top"></p>
-                <a asp-area="" asp-controller="Home" asp-action="Index">
-                    <img src="~/img/Logo.png" class="logo" />
-                </a>
-            </div>
-        </div>
-    </div>
+    @await Html.PartialAsync("_LogoPartial")
 
     <header class="sticky-top banner">
         <div>
-            <a asp-area="" asp-controller="Home" asp-action="Index" class="center">
-                <h3 class="name center">Never Forget Bot</h3>
-            </a>
+            <div class="neverForgetHome">
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="center">
+                    <h3 class="name center">Never Forget Bot</h3>
+                </a>
+            </div>
+
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow">
                 <div class="container">
                     <div class="row center">
