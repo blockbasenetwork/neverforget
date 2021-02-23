@@ -143,6 +143,16 @@ body {*/
     }
 }
 
+@media print {
+    .hidden-print {
+        display: none !important;
+    }
+
+    .print-black {
+        color: #000 !important;
+    }
+}
+
 .icon {
     color: @darkPurple;
 }
@@ -151,6 +161,35 @@ body {*/
 .mainBody {
     background-color: rgba(39, 2, 22, 0.1);
     max-width: 100%;
+}
+
+.errorBody {
+    background-image: linear-gradient(rgba(255, 86, 0, .90), rgba(29,161,242, .90) 75%), url('../img/WaterPattern.jpg');
+    background-attachment: fixed;
+}
+
+.errorLogo {
+    float:left;
+}
+
+.errorMessage {
+    float: right;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    padding: 5px;
+    color: white;
+    text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+}
+
+.errorMessage::after {
+    position: absolute;
+    content: '';
+    border: 20px solid transparent;
+    border-right-color: black;
+    border-left: 0;
+    left: -20px;
+    top: 50%;
+    margin-top: -20px;
 }
 /*-------------------------------------------------*/
 
