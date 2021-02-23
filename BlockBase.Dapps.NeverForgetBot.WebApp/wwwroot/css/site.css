@@ -152,6 +152,10 @@ body {*/
 .detailsLogo {
   width: 100px;
 }
-.detailsLogo .detailsImg {
+.detailsLogo .detailsImg,
+.detailsLogo a {
   background-color: transparent;
+  border: none;
+  display: flex;
+  flex-direction: column;
 }

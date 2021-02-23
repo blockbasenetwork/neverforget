@@ -1,14 +1,9 @@
-﻿<div class="container" style="max-width:1000px">
+﻿@using BlockBase.Dapps.NeverForgetBot.WebApp.Models
+@model IEnumerable<TwitterContextViewModel>
+
+<div class="container" style="max-width:1000px">
 
     <div class="row" style="margin-bottom: 20px; padding-top:20px">
-        <div class="col- socialMediaLogo" style="padding: 0; display:flex; align-items:center; border:none">
-            <div class="card logoImg" style="border:none">
-                <a asp-controller="TwitterContexts" asp-action="Details">
-                    <i class="fal fa-info-circle fa-3x" style="color: #1DA1F2;"></i>
-                </a>
-            </div>
-        </div>
-
         <div class="col-md content">
             <div class="card-body" style="border:solid;border-color:rgb(29,161,242); background-color:rgba(29,161,242, 0.3)">
                 <div class="card-text content">Isto é um conteúdo. Contém várias contigências contidas</div>
@@ -19,17 +14,19 @@
         <div class="col- creationDate" style="display:flex; align-items:center">
             <div class="card-body">
                 <div class="card-content home">22/02/21 <i class="fas fa-calendar-alt"></i></div>
+            </div>
+        </div>
+
+        <div class="col- detailsLogo" style="padding: 0; display:flex; align-items:center; border:none">
+            <div class="card detailsImg">
+                <a class="" asp-controller="TwitterContexts" asp-action="Details">
+                    <img src="~/img/searchRobot.png" />
+                </a>
             </div>
         </div>
     </div>
 
     <div class="row" style="margin-bottom: 20px; padding-top:20px">
-        <div class="col- socialMediaLogo" style="padding: 0; display:flex; align-items:center; border:none">
-            <div class="card logoImg" style="border:none">
-                <i class="fal fa-info-circle fa-3x" style="color: #1DA1F2;"></i>
-            </div>
-        </div>
-
         <div class="col-md content">
             <div class="card-body" style="border:solid;border-color:rgb(29,161,242); background-color:rgba(29,161,242, 0.3)">
                 <div class="card-text content">Isto é um conteúdo. Contém várias contigências contidas</div>
@@ -40,6 +37,14 @@
         <div class="col- creationDate" style="display:flex; align-items:center">
             <div class="card-body">
                 <div class="card-content home">22/02/21 <i class="fas fa-calendar-alt"></i></div>
+            </div>
+        </div>
+
+        <div class="col- detailsLogo" style="padding: 0; display:flex; align-items:center; border:none">
+            <div class="card detailsImg">
+                <a class="card"  asp-controller="TwitterContexts" asp-action="Details">
+                    <img src="~/img/searchRobot.png" />
+                </a>
             </div>
         </div>
     </div>

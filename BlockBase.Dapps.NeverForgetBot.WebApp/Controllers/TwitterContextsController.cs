@@ -28,33 +28,21 @@ namespace BlockBase.Dapps.NeverForgetBot.WebApp.Controllers
             return View();
         }
 
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> Details(Guid id)
+        //[HttpGet("TwitterContexts/Details/{id}")]
+        //public async Task<IActionResult> Details(Guid? id)
         //{
-        //    var listOp = await _twitterContextBo.GetPocoAsync(id);
-        //    if (!listOp.Success) return View("Error", new ErrorViewModel() { RequestId = listOp.Exception.Message });
+        //    if (id == null) return NotFound();
+        //    var resultOp = await _twitterContextBo.GetPocoAsync((Guid)id);
+        //    if (!resultOp.Success) return View("Error", new ErrorViewModel() { RequestId = resultOp.Exception.Message });
+        //    if (resultOp.Result == null) return NotFound();
 
-        //    var list = new List<TwitterContextViewModel>();
-        //    listOp.Result.Comments.OrderByDescending(c => c.CommentDate).ToList();
-
-        //    foreach (var item in listOp.Result.Comments)
-        //    {
-        //        list.Add(TwitterContextViewModel.FromData(item));
-        //    }
-
-
-        //    return View(listOp);
+        //    return View(TwitterDetailsViewModel.FromData(resultOp.Result));
         //}
 
-        [HttpGet("TwitterContexts/Details/{id}")]
-        public async Task<IActionResult> Details(Guid? id)
+        [HttpGet("TwitterContexts/Details")]
+        public async Task<IActionResult> Details()
         {
-            if (id == null) return NotFound();
-            var resultOp = await _twitterContextBo.GetPocoAsync((Guid)id);
-            if (!resultOp.Success) return View("Error", new ErrorViewModel() { RequestId = resultOp.Exception.Message });
-            if (resultOp.Result == null) return NotFound();
-
-            return View(TwitterDetailsViewModel.FromData(resultOp.Result));
+            return View();
         }
     }
 }
