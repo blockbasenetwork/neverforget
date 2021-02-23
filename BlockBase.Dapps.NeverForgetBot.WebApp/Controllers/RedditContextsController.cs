@@ -2,7 +2,6 @@
 using BlockBase.Dapps.NeverForgetBot.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.WebApp.Controllers
@@ -19,14 +18,14 @@ namespace BlockBase.Dapps.NeverForgetBot.WebApp.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var listOp = await _redditContextBo.GetAllPocoAsync();
-            if (!listOp.Success) return View("Error", new ErrorViewModel() { RequestId = listOp.Exception.Message });
-            var list = new List<RedditContextViewModel>();
-            foreach (var item in listOp.Result)
-            {
-                list.Add(RedditContextViewModel.FromData(item));
-            }
-            return View(list);
+            //var listOp = await _redditContextBo.GetAllPocoAsync();
+            //if (!listOp.Success) return View("Error", new ErrorViewModel() { RequestId = listOp.Exception.Message });
+            //var list = new List<RedditContextViewModel>();
+            //foreach (var item in listOp.Result)
+            //{
+            //    list.Add(RedditContextViewModel.FromData(item));
+            //}
+            return View();
         }
 
         [HttpGet("RedditContexts/Details/{id}")]

@@ -72,7 +72,7 @@ body {*/
 /* Layout
 -------------------------------------------------- */
 .logoBackground {
-  background-image: linear-gradient(rgba(255, 86, 0, 0.92), rgba(29, 161, 242, 0.95) 90%), url('../img/WaterPattern.jpg');
+  background-image: linear-gradient(rgba(255, 86, 0, 0.9), rgba(29, 161, 242, 0.9) 80%), url('../img/WaterPattern.jpg');
   max-width: 100%;
 }
 .logoBackground .logo {
@@ -82,7 +82,7 @@ body {*/
 }
 .banner {
   padding-top: 5px;
-  background: linear-gradient(rgba(29, 161, 242, 0.95), rgba(255, 86, 0, 0.92) 130%), url('../img/WaterPattern.jpg') 0% 2240px;
+  background: linear-gradient(rgba(29, 161, 242, 0.9), rgba(255, 86, 0, 0.9) 130%), url('../img/WaterPattern.jpg') 0% 2240px;
   max-width: 100%;
 }
 .name,
