@@ -129,7 +129,8 @@ body {*/
     background: currentColor !important;
     opacity: 0.5 !important;
   }
-  .errorMessage {
+  .errorMessage,
+  .errorLogo {
     margin-left: auto;
     margin-right: auto;
   }
@@ -154,28 +155,20 @@ body {*/
   background-attachment: fixed;
 }
 .errorLogo {
-  display: flex;
-  max-width: 10%;
+  float: left;
+  display: block;
+  max-height: 50%;
 }
 .errorMessage {
-  height: 100%;
-  text-align: center;
+  float: right;
+  display: inline-block;
+  margin-bottom: auto;
   background: rgba(0, 0, 0, 0.2);
   border-radius: 50%;
   padding: 5px;
   color: white;
   text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
 }
-/*.errorMessage::after {
-    position: absolute;
-    content: '';
-    border: 20px solid transparent;
-    border-right-color: black;
-    border-left: 0;
-    left: -20px;
-    top: 50%;
-    margin-top: -20px;
-}*/
 /*-------------------------------------------------*/
 /* Home
 -------------------------------------------------- */
