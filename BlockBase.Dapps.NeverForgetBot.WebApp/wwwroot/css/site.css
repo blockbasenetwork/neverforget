@@ -139,7 +139,7 @@ body {*/
   }
 }
 .icon {
-  color: #270216;
+  color: black;
 }
 .mainBody {
   background-color: rgba(39, 2, 22, 0.1);
@@ -187,7 +187,7 @@ body {*/
   margin: 0;
 }
 /*-------------------------------------------------*/
-/*Reddit
+/*Social Media Context Index
 ---------------------------------------------------*/
 .detailsLogo {
   width: 100px;
@@ -199,3 +199,9 @@ body {*/
   display: flex;
   flex-direction: column;
 }
+table.dataTable,
+table.dataTable th,
+table.dataTable td {
+  background-color: rgba(39, 2, 22, 0.1) !important;
+}
+/*-------------------------------------------------*/

@@ -4,5 +4,6 @@
         ordering: false,
         info: true,
         lengthChange: false,
+        stripeClasses: [],
     });
 });
