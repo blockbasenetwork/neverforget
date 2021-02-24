@@ -129,6 +129,11 @@ body {*/
     background: currentColor !important;
     opacity: 0.5 !important;
   }
+  .errorPage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 }
 @media print {
   .hidden-print {
@@ -149,26 +154,23 @@ body {*/
   background-image: linear-gradient(rgba(255, 86, 0, 0.9), rgba(29, 161, 242, 0.9) 75%), url('../img/WaterPattern.jpg');
   background-attachment: fixed;
 }
-.errorLogo {
-  float: left;
-}
 .errorMessage {
-  float: right;
+  text-align: center;
   background: rgba(0, 0, 0, 0.2);
   border-radius: 50%;
   padding: 5px;
   color: white;
   text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
 }
-.errorMessage::after {
-  position: absolute;
-  content: '';
-  border: 20px solid transparent;
-  border-right-color: black;
-  border-left: 0;
-  left: -20px;
-  top: 50%;
-  margin-top: -20px;
+.vertical-center {
+  min-height: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+.backButton {
+  color: #D9B908;
+  text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
 }
 /*-------------------------------------------------*/
 /* Home
@@ -203,5 +205,35 @@ table.dataTable,
 table.dataTable th,
 table.dataTable td {
   background-color: rgba(39, 2, 22, 0.1) !important;
+  border-top: none !important;
+}
+table.dataTable tr:hover,
+table.dataTable th tr:hover,
+table.dataTable td tr:hover {
+  background-color: white !important;
+}
+.mySearchForm {
+  padding-top: 10px;
+}
+#myTable_filter input:focus::-webkit-input-placeholder {
+  visibility: hidden;
+  /*hide placeholder on focus*/
+}
+#myTable_filter input {
+  width: 250px;
+  height: 40px;
+  border: 1px solid;
+  text-indent: 10px;
+  border-radius: 4px;
+  text-align: left;
+  font-size: 11px;
+  color: #FF5700;
+  font-family: sans-serif;
+  background-color: rgba(39, 2, 22, 0.1);
+  padding: 0 3px;
+}
+#myTable_filter input:focus {
+  border: 1px solid;
+  border-radius: 3px;
 }
 /*-------------------------------------------------*/
