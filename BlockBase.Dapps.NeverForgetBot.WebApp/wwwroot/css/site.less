@@ -229,7 +229,37 @@ body {*/
 
 table.dataTable, table.dataTable th, table.dataTable td {
     background-color: rgba(39, 2, 22, 0.1) !important;
+    border-top: none !important;
+
+    tr:hover{
+        background-color: white !important;
+    }
 }
 
+.mySearchForm{
+    padding-top:10px;
 
+}
+
+#myTable_filter input:focus::-webkit-input-placeholder {
+    visibility: hidden; /*hide placeholder on focus*/
+}
+#myTable_filter input {
+    width: 250px;
+    height: 40px;
+    border: 1px solid;
+    text-indent: 10px;
+    border-radius: 4px;
+    text-align: left;
+    font-size: 11px;
+    color: @orangePantone;
+    font-family: sans-serif;
+    background-color: rgba(39, 2, 22, 0.1);
+    padding: 0 3px;
+
+    &:focus {
+        border: 1px solid;
+        border-radius: 3px;
+    }
+}
 /*-------------------------------------------------*/
