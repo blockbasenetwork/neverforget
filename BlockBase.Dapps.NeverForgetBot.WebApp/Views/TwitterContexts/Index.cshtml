@@ -1,54 +1,69 @@
 ﻿@using BlockBase.Dapps.NeverForgetBot.WebApp.Models
 @model IEnumerable<TwitterContextViewModel>
 
-<div class="container" style="max-width:1000px">
+<div class="container twitterContext" style="max-width:1000px">
+    <div class="row">
+        <table class="table homeTable display no-wrap" id="example" style="width:100%; table-layout: fixed;">
+            <thead style="display:none">
+                <tr><th></th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="row" style="margin-bottom: 20px; padding-top:20px">
+                            <div class="col-md contentContext">
+                                <div class="card-body" style="border:solid;border-color:rgb(29,161,242); background-color:rgba(29,161,242, 0.3)">
+                                    <div class="card-text content">Lorem ipsumn vr  vr vijenuyb ridmapocapmnv</div>
+                                    <b class="card-text foot" style="display:block; text-align:right">Fernando Pessoa</b>
+                                </div>
+                            </div>
 
-    <div class="row" style="margin-bottom: 20px; padding-top:20px">
-        <div class="col-md content">
-            <div class="card-body" style="border:solid;border-color:rgb(29,161,242); background-color:rgba(29,161,242, 0.3)">
-                <div class="card-text content">Isto é um conteúdo. Contém várias contigências contidas</div>
-                <b class="card-text foot" style="display:block; text-align:right">Fernando Pessoa</b>
-            </div>
-        </div>
+                            <div class="col- creationDate" style="display:flex; align-items:center">
+                                <div class="card-body">
+                                    <div class="card-content home">22/02/21 <i class="fas fa-calendar-alt"></i></div>
+                                </div>
+                            </div>
 
-        <div class="col- creationDate" style="display:flex; align-items:center">
-            <div class="card-body">
-                <div class="card-content home">22/02/21 <i class="fas fa-calendar-alt"></i></div>
-            </div>
-        </div>
+                            <div class="col- detailsLogo" style="padding: 0; display:flex; align-items:center; border:none">
+                                <div class="card detailsImg">
+                                    <a asp-controller="TwitterContexts" asp-action="Details">
+                                        <img src="~/img/searchRobot.png" />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
 
-        <div class="col- detailsLogo" style="padding: 0; display:flex; align-items:center; border:none">
-            <div class="card detailsImg">
-                <a asp-controller="TwitterContexts" asp-action="Details">
-                    <img src="~/img/searchRobot.png" />
-                </a>
-            </div>
-        </div>
+                <tr>
+                    <td>
+                        <div class="row" style="margin-bottom: 20px; padding-top:20px">
+                            <div class="col-md contentContext">
+                                <div class="card-body" style="border:solid;border-color:rgb(29,161,242); background-color:rgba(29,161,242, 0.3)">
+                                    <div class="card-text content">Isto é um conteúdo. Contém várias contigências contidas</div>
+                                    <b class="card-text foot" style="display:block; text-align:right">Fernando Pessoa</b>
+                                </div>
+                            </div>
+
+                            <div class="col- creationDate" style="display:flex; align-items:center">
+                                <div class="card-body">
+                                    <div class="card-content home">22/02/21 <i class="fas fa-calendar-alt"></i></div>
+                                </div>
+                            </div>
+
+                            <div class="col- detailsLogo" style="padding: 0; display:flex; align-items:center; border:none">
+                                <div class="card detailsImg">
+                                    <a asp-controller="TwitterContexts" asp-action="Details">
+                                        <img src="~/img/searchRobot.png" />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-
-    <div class="row" style="margin-bottom: 20px; padding-top:20px">
-        <div class="col-md content">
-            <div class="card-body" style="border:solid;border-color:rgb(29,161,242); background-color:rgba(29,161,242, 0.3)">
-                <div class="card-text content">Isto é um conteúdo. Contém várias contigências contidas</div>
-                <b class="card-text foot" style="display:block; text-align:right">Fernando Pessoa</b>
-            </div>
-        </div>
-
-        <div class="col- creationDate" style="display:flex; align-items:center">
-            <div class="card-body">
-                <div class="card-content home">22/02/21 <i class="fas fa-calendar-alt"></i></div>
-            </div>
-        </div>
-
-        <div class="col- detailsLogo" style="padding: 0; display:flex; align-items:center; border:none">
-            <div class="card detailsImg">
-                <a asp-controller="TwitterContexts" asp-action="Details">
-                    <img src="~/img/searchRobot.png" />
-                </a>
-            </div>
-        </div>
-    </div>
-
 </div>
 
 

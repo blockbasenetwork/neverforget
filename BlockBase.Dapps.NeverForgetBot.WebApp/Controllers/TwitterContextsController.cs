@@ -44,6 +44,8 @@ namespace BlockBase.Dapps.NeverForgetBot.WebApp.Controllers
         [HttpGet("TwitterContexts/Details")]
         public async Task<IActionResult> Details()
         {
+            string logoUrl = Url.Content("~/img/twitterRobot.png");
+            ViewData["Logo"] = logoUrl;
             return View();
         }
     }

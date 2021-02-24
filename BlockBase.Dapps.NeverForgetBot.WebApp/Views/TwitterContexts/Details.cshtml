@@ -1,4 +1,7 @@
-﻿<div class="container homeContext" style="max-width:1000px">
+﻿@using BlockBase.Dapps.NeverForgetBot.WebApp.Models
+@model IEnumerable<TwitterDetailsViewModel>
+
+<div class="container twitterDetailsContext" style="max-width:1000px">
 
     <div class="row" style="margin-bottom: 20px; padding-top:20px">
         <div class="col-md content">
@@ -15,8 +18,8 @@
         </div>
     </div>
 
-    <div class="row" style="margin-bottom: 20px; padding-top:20px">
-        <div class="col-md content">
+    <div class="row justify-content-end" style="margin-bottom: 20px; padding-top:20px">
+        <div class="col-md content" style="max-width: 70%;">
             <div class="card-body" style="border:solid;border-color:rgb(29,161,242); background-color:rgba(29,161,242, 0.3)">
                 <div class="card-text content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum non nunc rhoncus, tempus ipsum vitae, luctus urna.</div>
                 <b class="card-text foot" style="display:block; text-align:right">Tweeter 2</b>
@@ -30,8 +33,8 @@
         </div>
     </div>
 
-    <div class="row" style="margin-bottom: 20px; padding-top:20px">
-        <div class="col-md content">
+    <div class="row justify-content-end" style="margin-bottom: 20px; padding-top:20px">
+        <div class="col-md content" style="max-width: 70%">
             <div class="card-body" style="border:solid;border-color:rgb(29,161,242); background-color:rgba(29,161,242, 0.3)">
                 <div class="card-text content">_NeverForgetBot thread</div>
                 <b class="card-text foot" style="display:block; text-align:right">Tweeter 3</b>
@@ -48,150 +51,166 @@
 </div>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @* @using BlockBase.Dapps.NeverForgetBot.WebApp.Models
-@model TwitterDetailsViewModel
+    @model TwitterDetailsViewModel
 
-<div class="card">
-    <div class="card-header">
-        <h2 class="float-left">
-            Never Forget Bot
-        </h2>
-    </div>
+    <div class="card">
+        <div class="card-header">
+            <h2 class="float-left">
+                Never Forget Bot
+            </h2>
+        </div>
 
 
-    <div class="card-body">
-        @if (Model.Submission != null)
-        {
-            <h5>SUBMISSION</h5>
+        <div class="card-body">
+            @if (Model.Submission != null)
+            {
+                <h5>SUBMISSION</h5>
 
-            <div class="ml-5 mr-5">
-                <dl class="row">
-                    <dt class="col-2">
-                        @Html.DisplayNameFor(model => model.Submission.Id)
-                    </dt>
-                    <dd class="col-10">
-                        @Html.DisplayFor(model => model.Submission.Id)
-                    </dd>
-                </dl>
-
-                <dl class="row">
-                    <dt class="col-2">
-                        @Html.DisplayNameFor(model => model.Submission.Content)
-                    </dt>
-                    <dd class="col-10">
-                        @Html.DisplayFor(model => model.Submission.Content)
-                    </dd>
-                </dl>
-
-                <dl class="row">
-                    <dt class="col-2">
-                        @Html.DisplayNameFor(model => model.Submission.Author)
-                    </dt>
-                    <dd class="col-10">
-                        @Html.DisplayFor(model => model.Submission.Author)
-                    </dd>
-                </dl>
-
-                <dl class="row">
-                    <dt class="col-2">
-                        @Html.DisplayNameFor(model => model.Submission.Date)
-                    </dt>
-                    <dd class="col-10">
-                        @Html.DisplayFor(model => model.Submission.Date)
-                    </dd>
-                </dl>
-
-                <dl class="row">
-                    <dt class="col-2">
-                        @Html.DisplayNameFor(model => model.Submission.Link)
-                    </dt>
-                    <dd class="col-10">
-                        @Html.DisplayFor(model => model.Submission.Link)
-                    </dd>
-                </dl>
-
-                @if (Model.Submission.MediaLink != null)
-                {
+                <div class="ml-5 mr-5">
                     <dl class="row">
                         <dt class="col-2">
-                            @Html.DisplayNameFor(model => model.Submission.MediaLink)
+                            @Html.DisplayNameFor(model => model.Submission.Id)
                         </dt>
                         <dd class="col-10">
-                            @Html.DisplayFor(model => model.Submission.MediaLink)
+                            @Html.DisplayFor(model => model.Submission.Id)
                         </dd>
                     </dl>
-                }
-            </div>
-        }
 
-        <hr>
-        <hr>
-
-        @foreach (var item in Model.Comments)
-        {
-            <h5>COMMENT</h5>
-
-            <div class="ml-5 mr-5">
-                <dl class="row">
-                    <dt class="col-2">
-                        @Html.DisplayNameFor(x => item.Id)
-                    </dt>
-                    <dd class="col-10">
-                        @Html.DisplayFor(x => item.Id)
-                    </dd>
-                </dl>
-
-                <dl class="row">
-                    <dt class="col-2">
-                        @Html.DisplayNameFor(x => item.Content)
-                    </dt>
-                    <dd class="col-10">
-                        @Html.DisplayFor(x => item.Content)
-                    </dd>
-                </dl>
-
-                <dl class="row">
-                    <dt class="col-2">
-                        @Html.DisplayNameFor(x => item.Author)
-                    </dt>
-                    <dd class="col-10">
-                        @Html.DisplayFor(x => item.Author)
-                    </dd>
-                </dl>
-
-                <dl class="row">
-                    <dt class="col-2">
-                        @Html.DisplayNameFor(x => item.Date)
-                    </dt>
-                    <dd class="col-10">
-                        @Html.DisplayFor(x => item.Date)
-                    </dd>
-                </dl>
-
-                <dl class="row">
-                    <dt class="col-2">
-                        @Html.DisplayNameFor(x => item.Link)
-                    </dt>
-                    <dd class="col-10">
-                        @Html.DisplayFor(x => item.Link)
-                    </dd>
-                </dl>
-
-                @if (item.MediaLink != null)
-                {
                     <dl class="row">
                         <dt class="col-2">
-                            @Html.DisplayNameFor(x => item.MediaLink)
+                            @Html.DisplayNameFor(model => model.Submission.Content)
                         </dt>
                         <dd class="col-10">
-                            @Html.DisplayFor(x => item.MediaLink)
+                            @Html.DisplayFor(model => model.Submission.Content)
                         </dd>
                     </dl>
-                }
-            </div>
+
+                    <dl class="row">
+                        <dt class="col-2">
+                            @Html.DisplayNameFor(model => model.Submission.Author)
+                        </dt>
+                        <dd class="col-10">
+                            @Html.DisplayFor(model => model.Submission.Author)
+                        </dd>
+                    </dl>
+
+                    <dl class="row">
+                        <dt class="col-2">
+                            @Html.DisplayNameFor(model => model.Submission.Date)
+                        </dt>
+                        <dd class="col-10">
+                            @Html.DisplayFor(model => model.Submission.Date)
+                        </dd>
+                    </dl>
+
+                    <dl class="row">
+                        <dt class="col-2">
+                            @Html.DisplayNameFor(model => model.Submission.Link)
+                        </dt>
+                        <dd class="col-10">
+                            @Html.DisplayFor(model => model.Submission.Link)
+                        </dd>
+                    </dl>
+
+                    @if (Model.Submission.MediaLink != null)
+                    {
+                        <dl class="row">
+                            <dt class="col-2">
+                                @Html.DisplayNameFor(model => model.Submission.MediaLink)
+                            </dt>
+                            <dd class="col-10">
+                                @Html.DisplayFor(model => model.Submission.MediaLink)
+                            </dd>
+                        </dl>
+                    }
+                </div>
+            }
 
             <hr>
-        }
+            <hr>
 
-    </div>
-</div> *@
+            @foreach (var item in Model.Comments)
+            {
+                <h5>COMMENT</h5>
+
+                <div class="ml-5 mr-5">
+                    <dl class="row">
+                        <dt class="col-2">
+                            @Html.DisplayNameFor(x => item.Id)
+                        </dt>
+                        <dd class="col-10">
+                            @Html.DisplayFor(x => item.Id)
+                        </dd>
+                    </dl>
+
+                    <dl class="row">
+                        <dt class="col-2">
+                            @Html.DisplayNameFor(x => item.Content)
+                        </dt>
+                        <dd class="col-10">
+                            @Html.DisplayFor(x => item.Content)
+                        </dd>
+                    </dl>
+
+                    <dl class="row">
+                        <dt class="col-2">
+                            @Html.DisplayNameFor(x => item.Author)
+                        </dt>
+                        <dd class="col-10">
+                            @Html.DisplayFor(x => item.Author)
+                        </dd>
+                    </dl>
+
+                    <dl class="row">
+                        <dt class="col-2">
+                            @Html.DisplayNameFor(x => item.Date)
+                        </dt>
+                        <dd class="col-10">
+                            @Html.DisplayFor(x => item.Date)
+                        </dd>
+                    </dl>
+
+                    <dl class="row">
+                        <dt class="col-2">
+                            @Html.DisplayNameFor(x => item.Link)
+                        </dt>
+                        <dd class="col-10">
+                            @Html.DisplayFor(x => item.Link)
+                        </dd>
+                    </dl>
+
+                    @if (item.MediaLink != null)
+                    {
+                        <dl class="row">
+                            <dt class="col-2">
+                                @Html.DisplayNameFor(x => item.MediaLink)
+                            </dt>
+                            <dd class="col-10">
+                                @Html.DisplayFor(x => item.MediaLink)
+                            </dd>
+                        </dl>
+                    }
+                </div>
+
+                <hr>
+            }
+
+        </div>
+    </div> *@
