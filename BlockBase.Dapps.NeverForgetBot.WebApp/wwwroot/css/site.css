@@ -129,10 +129,10 @@ body {*/
     background: currentColor !important;
     opacity: 0.5 !important;
   }
-  .errorMessage,
-  .errorLogo {
-    margin-left: auto;
-    margin-right: auto;
+  .errorPage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 }
 @media print {
@@ -154,19 +154,22 @@ body {*/
   background-image: linear-gradient(rgba(255, 86, 0, 0.9), rgba(29, 161, 242, 0.9) 75%), url('../img/WaterPattern.jpg');
   background-attachment: fixed;
 }
-.errorLogo {
-  float: left;
-  display: block;
-  max-height: 50%;
-}
 .errorMessage {
-  float: right;
-  display: inline-block;
-  margin-bottom: auto;
+  text-align: center;
   background: rgba(0, 0, 0, 0.2);
   border-radius: 50%;
   padding: 5px;
   color: white;
+  text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+}
+.vertical-center {
+  min-height: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+.backButton {
+  color: #D9B908;
   text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
 }
 /*-------------------------------------------------*/

@@ -13,24 +13,24 @@
     <link rel="icon" href="~/img/Logo.png" type="image/gif" sizes="16x16">
     <link rel="stylesheet" type="text/css" href="~/css/site.css" />
 </head>
-<body class="container errorBody center">
-    <div class="row pt-2">
-        <img src="~/img/bugRobbot.png" class="errorLogo pt-3 pb-2 pr-2 pl-2 col-md" />
-        <div class="errorMessage pt-5 pb-5 pr-5 pl-5 col-">
+
+
+<body class="errorBody">
+
+    <div class="container vertical-center errorPage">
+        <img src="~/img/bugRobbot.png" style="max-width:50%; height:50%" />
+        <div class="errorMessage">
             <h1 class="errorBase"> @ViewBag.ErrorTitle </h1>
             <div class="errorDetails">
                 @ViewBag.ErrorMessage
             </div>
             <div class="errorActions">
                 <a asp-action="Index" asp-controller="Home" class="btn bg-transparent hidden-print">
-                    <span class="btn bg-transparent errorMessage">Go back</span>
+                    <span class="btn bg-transparent backButton">Go back</span>
                 </a>
             </div>
         </div>
     </div>
-
-
-
 
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
