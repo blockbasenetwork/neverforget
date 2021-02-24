@@ -140,8 +140,19 @@ body {*/
             background: currentColor !important;
             opacity: 0.5 !important;
         }
+
+        .errorMessage, .errorLogo {
+            margin-left: auto;
+            margin-right: auto;
+        }
     }
-}
+
+    @media(min-width:@desktop-min-width) {
+        .errorLogo {
+            max-height: 50%;
+            max-width: 50%;
+        }
+    }
 
 @media print {
     .hidden-print {
@@ -170,10 +181,14 @@ body {*/
 
 .errorLogo {
     float:left;
+    display: block;
+    max-width: 50%;
 }
 
 .errorMessage {
     float: right;
+    display:inline-block;
+    margin-bottom: auto;
     background: rgba(0, 0, 0, 0.2);
     border-radius: 50%;
     padding: 5px;
@@ -181,16 +196,7 @@ body {*/
     text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
 }
 
-.errorMessage::after {
-    position: absolute;
-    content: '';
-    border: 20px solid transparent;
-    border-right-color: black;
-    border-left: 0;
-    left: -20px;
-    top: 50%;
-    margin-top: -20px;
-}
+
 /*-------------------------------------------------*/
 
 /* Home
