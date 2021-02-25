@@ -3,7 +3,7 @@
 
 <div class="container twitterDetailsContext" style="max-width:1000px">
 
-    <div class="row" style="margin-bottom: 20px; padding-top:20px">
+    @*<div class="row" style="margin-bottom: 20px; padding-top:20px">
         <div class="col-md content">
             <div class="card-body" style="border:solid;border-color:rgb(29,161,242); background-color:rgba(29,161,242, 0.3)">
                 <div class="card-text content">Isto é um conteúdo. Contém várias contigências contidas</div>
@@ -109,32 +109,35 @@
 
             </div>
         </div>
-    </div>
+    </div>*@
 
 
 
     @*-- second option --*@
 
-    @*<div class="row" style="margin-bottom: 20px; padding-top:20px">
+    <div class="row" style="margin-bottom: 20px; padding-top:20px">
         <div class="col-md content">
+
             <div class="card-body" style="border:solid;border-color:rgb(29,161,242); background-color:rgba(29,161,242, 0.3)">
                 <div class="card-text content">Isto é um conteúdo. Contém várias contigências contidas</div>
                 <hr>
                 <div style="display:flex; flex-direction:row">
-                    <div class="col-6 card-body">
-                        <div class="card-content home" style="text-align: left">
-                            <a target="_blank" href="https://twitter.com/_NeverForgetDev/status/1358831194704654341"><i class="far fa-eye"></i></a>
-
-                            <a target="_blank" href="https://help.twitter.com/content/dam/help-twitter/brand/logo.png"><i class="far fa-photo-video"></i></a>
+                    <div class="col-4 card-body">
+                        <div class="card-content home">
+                            <a target="_blank" data-toggle="tooltip" data-placement="top" title="Redirect to tweet" href="https://twitter.com/_NeverForgetDev/status/1358831194704654341"><i class="far fa-eye"></i></a>
+                            <a target="_blank" data-toggle="tooltip" data-placement="top" title="View media" href="https://help.twitter.com/content/dam/help-twitter/brand/logo.png"><i class="far fa-photo-video"></i></a>
                         </div>
                     </div>
-
-                    <div class="col-6 card-body">
-                        <div class="card-content home">
-                            <b class="card-text foot" style="display:block; text-align:right">@Html.Raw("@Tweeter1")</b>
+                    <div class="col-4 card-body">
+                        <div class="card-content home" style="text-align:right">
+                            <b class="card-text foot" style="display:block">@Html.Raw("@Tweeter1")</b>
                         </div>
+                    </div>
+                    <div class="col-4 card-body center">
+                        <div class="card-content home">22/02/21 <i class="fas fa-calendar-alt"></i></div>
                     </div>
                 </div>
+
                 <br>
 
                 <div style="display:flex; flex-direction:row" class="pt-2">
@@ -142,23 +145,20 @@
                         <div class="card-text content">Lorem ipsum dolor sit amet dasda sda dasd ashda sgdasgdgha gda hgdahk ghas ghasdgah gash ghkag hasg hagdhk gakhdg hkgah gasdhk adkhag skhdgagda ctetur adipiscing elit. Vestibulum non nunc rhoncus, tempus ipsum vitae, luctus urna.</div>
                         <hr>
                         <div style="display:flex; flex-direction:row">
-                            <div class="col-6 card-body">
+                            <div class="col-6 card-body pl-0">
                                 <div class="card-content home" style="text-align: left">
-                                    <a target="_blank" href="https://twitter.com/_NeverForgetDev/status/1358831194704654341"><i class="far fa-eye"></i></a>
-
-                                    <a target="_blank" href="https://help.twitter.com/content/dam/help-twitter/brand/logo.png"><i class="far fa-photo-video"></i></a>
+                                    <a target="_blank" data-toggle="tooltip" data-placement="top" title="Redirect to tweet" href="https://twitter.com/_NeverForgetDev/status/1358831194704654341"><i class="far fa-eye"></i></a>
+                                    <a target="_blank" data-toggle="tooltip" data-placement="top" title="View media" href="https://help.twitter.com/content/dam/help-twitter/brand/logo.png"><i class="far fa-photo-video"></i></a>
                                 </div>
                             </div>
-
-                            <div class="col-6 card-body">
-                                <div class="card-content home">
-                                    <b class="card-text foot" style="display:block; text-align:right">@Html.Raw("@Tweeter2")</b>
+                            <div class="col-6 card-body pr-0">
+                                <div class="card-content home" style="text-align:right; padding-right:0">
+                                    <b class="card-text foot" style="display:block">@Html.Raw("@Tweeter2")</b>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="col- creationDate pl-5" style="display:flex; align-items:center">
+                    <div class="col-4 creationDate center" style="display:flex; align-items:center">
                         <div class="card-body">
                             <div class="card-content home">22/02/21 <i class="fas fa-calendar-alt"></i></div>
                         </div>
@@ -167,26 +167,23 @@
 
                 <div style="display:flex; flex-direction:row" class="pt-2">
                     <div class="card-body" style="border:solid;border-color:rgb(29,161,242); background-color:rgba(29,161,242, 0.3);max-width:70%">
-                        <div class="card-text content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum non nunc rhoncus, tempus ipsum vitae, luctus urna.</div>
+                        <div class="card-text content">Lorem ipsum dolor sit amet dasda sda dasd ashda sgdasgdgha gda hgdahk ghas ghasdgah gash ghkag hasg hagdhk gakhdg hkgah gasdhk adkhag skhdgagda ctetur adipiscing elit. Vestibulum non nunc rhoncus, tempus ipsum vitae, luctus urna.</div>
                         <hr>
                         <div style="display:flex; flex-direction:row">
-                            <div class="col-6 card-body">
+                            <div class="col-6 card-body pl-0">
                                 <div class="card-content home" style="text-align: left">
-                                    <a target="_blank" href="https://twitter.com/_NeverForgetDev/status/1358831194704654341"><i class="far fa-eye"></i></a>
-
-                                    <a target="_blank" href="https://help.twitter.com/content/dam/help-twitter/brand/logo.png"><i class="far fa-photo-video"></i></a>
+                                    <a target="_blank" data-toggle="tooltip" data-placement="top" title="Redirect to tweet" href="https://twitter.com/_NeverForgetDev/status/1358831194704654341"><i class="far fa-eye"></i></a>
+                                    <a target="_blank" data-toggle="tooltip" data-placement="top" title="View media" href="https://help.twitter.com/content/dam/help-twitter/brand/logo.png"><i class="far fa-photo-video"></i></a>
                                 </div>
                             </div>
-
-                            <div class="col-6 card-body">
-                                <div class="card-content home">
-                                    <b class="card-text foot" style="display:block; text-align:right">@Html.Raw("@Tweeter2")</b>
+                            <div class="col-6 card-body pr-0">
+                                <div class="card-content home" style="text-align:right; padding-right:0">
+                                    <b class="card-text foot" style="display:block">@Html.Raw("@Tweeter3")</b>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="col- creationDate  pl-5" style="display:flex; align-items:center">
+                    <div class="col-4 creationDate center" style="display:flex; align-items:center">
                         <div class="card-body">
                             <div class="card-content home">22/02/21 <i class="fas fa-calendar-alt"></i></div>
                         </div>
@@ -195,43 +192,35 @@
 
                 <div style="display:flex; flex-direction:row" class="pt-2">
                     <div class="card-body" style="border:solid;border-color:rgb(29,161,242); background-color:rgba(29,161,242, 0.3);max-width:70%">
-                        <div class="card-text content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum non nunc rhoncus, tempus ipsum vitae, luctus urna.</div>
+                        <div class="card-text content">Lorem ipsum dolor sit amet dasda sda dasd ashda sgdasgdgha gda hgdahk ghas ghasdgah gash ghkag hasg hagdhk gakhdg hkgah gasdhk adkhag skhdgagda ctetur adipiscing elit. Vestibulum non nunc rhoncus, tempus ipsum vitae, luctus urna.</div>
                         <hr>
                         <div style="display:flex; flex-direction:row">
-                            <div class="col-6 card-body">
+                            <div class="col-6 card-body pl-0">
                                 <div class="card-content home" style="text-align: left">
-                                    <a target="_blank" href="https://twitter.com/_NeverForgetDev/status/1358831194704654341"><i class="far fa-eye"></i></a>
-
-                                    <a target="_blank" href="https://help.twitter.com/content/dam/help-twitter/brand/logo.png"><i class="far fa-photo-video"></i></a>
+                                    <a target="_blank" data-toggle="tooltip" data-placement="top" title="Redirect to tweet" href="https://twitter.com/_NeverForgetDev/status/1358831194704654341"><i class="far fa-eye"></i></a>
+                                    <a target="_blank" data-toggle="tooltip" data-placement="top" title="View media" href="https://help.twitter.com/content/dam/help-twitter/brand/logo.png"><i class="far fa-photo-video"></i></a>
                                 </div>
                             </div>
-
-                            <div class="col-6 card-body">
-                                <div class="card-content home">
-                                    <b class="card-text foot" style="display:block; text-align:right">@Html.Raw("@Tweeter2")</b>
+                            <div class="col-6 card-body pr-0">
+                                <div class="card-content home" style="text-align:right; padding-right:0">
+                                    <b class="card-text foot" style="display:block">@Html.Raw("@Tweeter4")</b>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="col- creationDate  pl-5" style="display:flex; align-items:center">
+                    <div class="col-4 creationDate center" style="display:flex; align-items:center">
                         <div class="card-body">
                             <div class="card-content home">22/02/21 <i class="fas fa-calendar-alt"></i></div>
                         </div>
                     </div>
                 </div>
-
             </div>
-        </div>
 
-        <div class="col- creationDate" style="display:flex; align-items:center">
-            <div class="card-body">
-                <div class="card-content home">22/02/21 <i class="fas fa-calendar-alt"></i></div>
-            </div>
         </div>
-    </div>*@
-
+    </div>
 </div>
+
+
 
 
 

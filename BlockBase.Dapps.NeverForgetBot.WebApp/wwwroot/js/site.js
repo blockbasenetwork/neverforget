@@ -26,4 +26,7 @@
             searchPlaceholder: "Search..."
         }
     });
+
+    $('[data-toggle="tooltip"]').tooltip();
+    
 });

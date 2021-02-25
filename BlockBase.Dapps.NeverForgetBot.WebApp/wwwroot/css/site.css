@@ -258,3 +258,7 @@ table.dataTable td tr:hover {
   border-radius: 3px;
 }
 /*-------------------------------------------------*/
+.tooltip-inner {
+  white-space: nowrap;
+  max-width: none;
+}
