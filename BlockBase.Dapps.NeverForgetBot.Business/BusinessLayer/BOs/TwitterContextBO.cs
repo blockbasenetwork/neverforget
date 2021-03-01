@@ -38,64 +38,64 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
         {
             List<OperationResult> opResults = new List<OperationResult>();
 
-            foreach (var model in modelArray)
+            var commentsToAdd = await _dao.GetUniqueComments(modelArray);
+
+            foreach (var model in commentsToAdd)
             {
                 var result = await _opExecutor.ExecuteOperation(async () =>
-                {
-                    if (!_commentDao.GetAllAsync().Result.Any(c => c.CommentId == model.Id))
+                {                    
+                    var contextModel = new TwitterContext()
                     {
-                        var contextModel = new TwitterContext()
-                        {
-                            Id = Guid.NewGuid(),
-                            CreatedAt = DateTime.UtcNow,
-                            RequestTypeId = (int)CheckRequestType(model.Full_text)
-                        };
+                        Id = Guid.NewGuid(),
+                        CreatedAt = DateTime.UtcNow,
+                        RequestTypeId = (int)CheckRequestType(model.Full_text)
+                    };
+
+                    var requestType = CheckRequestType(model.Full_text);
+
+                    if (requestType == RequestTypeEnum.Comment || requestType == RequestTypeEnum.Default)
+                    {
+                        var comment = model.ToComment(model);
+                        comment.TwitterContextId = contextModel.Id;
                         await _dao.InsertAsync(contextModel);
+                        await _commentDao.InsertAsync(comment);
 
-                        var requestType = CheckRequestType(model.Full_text);
-
-                        if (requestType == RequestTypeEnum.Comment || requestType == RequestTypeEnum.Default)
+                        if (model.In_reply_to_status_id_str != null)
                         {
-                            var comment = model.ToComment(model);
-                            comment.TwitterContextId = contextModel.Id;
-                            await _commentDao.InsertAsync(comment);
+                            var tweetParent = await _twitterCollector.GetTweet(model.In_reply_to_status_id_str);
 
-                            if (model.In_reply_to_status_id_str != null)
-                            {
-                                var tweetParent = await _twitterCollector.GetTweet(model.In_reply_to_status_id_str);
-
-                                TwitterComment parent = tweetParent.ToComment(model);
-                                parent.TwitterContextId = contextModel.Id;
-                                await _commentDao.InsertAsync(parent);
-                            }
-                            else
-                            {
-                                var tweetParent = await _twitterCollector.GetTweet(model.In_reply_to_status_id_str);
-
-                                TwitterSubmission submission = tweetParent.ToSubmission();
-                                submission.TwitterContextId = contextModel.Id;
-                                await _submissionDao.InsertAsync(submission);
-                            }
+                            TwitterComment parent = tweetParent.ToComment(model);
+                            parent.TwitterContextId = contextModel.Id;
+                            await _commentDao.InsertAsync(parent);
                         }
-                        else if (requestType == RequestTypeEnum.Post)
+                        else
                         {
-                            TwitterComment comment = model.ToComment(model);
-                            comment.TwitterContextId = contextModel.Id;
-                            await _commentDao.InsertAsync(comment);
+                            var tweetParent = await _twitterCollector.GetTweet(model.In_reply_to_status_id_str);
 
-                            TwitterSubmission submission = await GetSubmissionFrom(model, contextModel.Id);
+                            TwitterSubmission submission = tweetParent.ToSubmission();
+                            submission.TwitterContextId = contextModel.Id;
                             await _submissionDao.InsertAsync(submission);
                         }
-                        /*else if (requestType == RequestTypeEnum.Thread)
-                        {
-                            //await _commentBo.FromApiTwitterCommentModel(model, contextModel.Id);
-                            TwitterComment comment = model.ToComment();
-                            comment.TwitterContextId = contextModel.Id;
-                            await _commentDao.InsertAsync(comment);
-
-                            await GetAndInsertAllParentComment(model, contextModel.Id);
-                        }*/
                     }
+                    else if (requestType == RequestTypeEnum.Post)
+                    {
+                        TwitterComment comment = model.ToComment(model);
+                        comment.TwitterContextId = contextModel.Id;
+                        await _dao.InsertAsync(contextModel);
+                        await _commentDao.InsertAsync(comment);
+
+                        TwitterSubmission submission = await GetSubmissionFrom(model, contextModel.Id);
+                        await _submissionDao.InsertAsync(submission);
+                    }
+                    /*else if (requestType == RequestTypeEnum.Thread)
+                    {
+                        //await _commentBo.FromApiTwitterCommentModel(model, contextModel.Id);
+                        TwitterComment comment = model.ToComment();
+                        comment.TwitterContextId = contextModel.Id;
+                        await _commentDao.InsertAsync(comment);
+
+                        await GetAndInsertAllParentComment(model, contextModel.Id);
+                    }*/                    
                 });
                 opResults.Add(result);
             }
