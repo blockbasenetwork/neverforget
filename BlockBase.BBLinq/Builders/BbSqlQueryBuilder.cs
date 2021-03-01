@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq.Expressions;
+using System.Reflection;
 using BlockBase.BBLinq.Dictionaries;
 using BlockBase.BBLinq.ExtensionMethods;
 using BlockBase.BBLinq.Pocos;
@@ -610,6 +611,20 @@ namespace BlockBase.BBLinq.Builders
                             {
                                 var tableField = ParsePropertyAccess(type, memberExpression);
                                 FieldOnTable(tableField.Table, tableField.Field);
+                            }
+                            else
+                            {
+                                var property = memberExpression.Member;
+                                var innerExpression = memberExpression.Expression;
+                                if (innerExpression is MemberExpression innerMember)
+                                {
+                                    var constantExpression = innerMember.Expression;
+                                    var constantResult = (constantExpression as ConstantExpression).Value;
+                                    var constantProperty = constantResult.GetType().GetFields()[0];
+                                    var constantValue = constantProperty.GetValue(constantResult);
+                                    var value = (property as PropertyInfo).GetValue(constantValue);
+                                    return Append(WrapValue(value));
+                                }
                             }
                             break;
                         }

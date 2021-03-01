@@ -10,6 +10,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlockBase.Dapps.NeverForgetBot.Business", "BlockBase.Dapps.NeverForgetBot.Business\BlockBase.Dapps.NeverForgetBot.Business.csproj", "{672062BA-2D77-4654-AE44-BF725C2445BD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlockBase.Dapps.NeverForgetBot.Dal", "BlockBase.Dapps.NeverForgetBot.Dal\BlockBase.Dapps.NeverForgetBot.Dal.csproj", "{1D0E314D-B374-4D73-AA25-D094F9EB66E6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1AA97E4E-3E36-41D9-9072-7DF911DFC27C} = {1AA97E4E-3E36-41D9-9072-7DF911DFC27C}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlockBase.Dapps.NeverForgetBot.Data", "BlockBase.Dapps.NeverForgetBot.Data\BlockBase.Dapps.NeverForgetBot.Data.csproj", "{ECDF8F4F-F2F4-4450-80C2-A5F3CA1EF880}"
 EndProject
@@ -19,7 +22,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlockBase.Dapps.NeverForget
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlockBase.Dapps.NeverForgetBot.Tests", "BlockBase.Dapps.NeverForgetBot.Tests\BlockBase.Dapps.NeverForgetBot.Tests.csproj", "{FD7AF997-04F2-42F0-85A4-3019B86CADAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlockBase.Dapps.NeverForgetBot.Common", "BlockBase.Dapps.NeverForgetBot.Common\BlockBase.Dapps.NeverForgetBot.Common.csproj", "{4F0F2E57-368A-4A64-B11B-CF1D9ED074C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlockBase.Dapps.NeverForgetBot.Common", "BlockBase.Dapps.NeverForgetBot.Common\BlockBase.Dapps.NeverForgetBot.Common.csproj", "{4F0F2E57-368A-4A64-B11B-CF1D9ED074C5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
