@@ -60,8 +60,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                             comment.TwitterContextId = contextModel.Id;
                             await _commentDao.InsertAsync(comment);
 
-                            string url = "https://www.neverforgetbot.com/twittercontexts/details/";
-                            await _twitterCollector.PublishUrl(url, Convert.ToInt64(comment.CommentId));
+                            //string url = "https://www.neverforgetbot.com/twittercontexts/details/";
+                            //await _twitterCollector.PublishUrl(url, Convert.ToInt64(comment.CommentId));
 
                             if (model.In_reply_to_status_id_str != null)
                             {

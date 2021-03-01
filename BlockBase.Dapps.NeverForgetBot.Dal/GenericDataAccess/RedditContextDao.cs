@@ -17,8 +17,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess
             {
                 foreach (var comment in commentArray)
                 {
-
-                    var result = await _context.RedditComment.Where(c => c.CommentId == comment.Id).List();
+                    var idTest = comment.Id;
+                    var result = await _context.RedditComment.Where(c => c.CommentId == idTest).List();
 
                     if (result.Result == null)
                     {

@@ -2,7 +2,6 @@
 using Newtonsoft.Json;
 using System.Threading.Tasks;
 using Tweetinvi.Exceptions;
-using Tweetinvi.Parameters;
 
 namespace BlockBase.Dapps.NeverForgetBot.Services.API
 {
@@ -135,17 +134,17 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API
         }
 
 
-        public async Task PublishUrl(string url, long contextId)
-        {
-            var tweet = await TwitterApi.Client.Tweets.GetTweetAsync(contextId);
-            var reply = await TwitterApi.Client.Tweets.PublishTweetAsync(new PublishTweetParameters("@" + tweet.CreatedBy + " Never Forget " + url)
-            {
-                InReplyToTweet = tweet
-            });
+        //public async Task PublishUrl(string url, long contextId)
+        //{
+        //    var tweet = await TwitterApi.Client.Tweets.GetTweetAsync(contextId);
+        //    var reply = await TwitterApi.Client.Tweets.PublishTweetAsync(new PublishTweetParameters("@" + tweet.CreatedBy + " Never Forget " + url)
+        //    {
+        //        InReplyToTweet = tweet
+        //    });
 
-            // remove the same way as you would delete a tweet
-            //await TwitterApi.Client.Tweets.DestroyTweetAsync(reply);
-        }
+        //    // remove the same way as you would delete a tweet
+        //    //await TwitterApi.Client.Tweets.DestroyTweetAsync(reply);
+        //}
 
 
     }
