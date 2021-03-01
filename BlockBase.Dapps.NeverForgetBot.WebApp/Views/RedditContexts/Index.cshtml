@@ -5,12 +5,13 @@
 
     <div class="row">
         <table class="table homeTable display no-wrap" id="myTable" style="width:100%; table-layout: fixed;">
-            @foreach (var item in Model)
-            {
-                <thead style="display:none">
-                    <tr><th></th></tr>
-                </thead>
-                <tbody>
+
+            <thead style="display:none">
+                <tr><th></th></tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
                     <tr>
                         <td>
                             <div class="row" style="margin-bottom: 20px; padding-top:20px">
@@ -42,8 +43,8 @@
                             </div>
                         </td>
                     </tr>
-                </tbody>
-            }
+                }
+            </tbody>
         </table>
     </div>
 </div>

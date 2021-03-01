@@ -30,7 +30,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                 var recentReddits = await _redditDao.GetRecentRedditContexts();
                 var recentTweets = await _twitterDao.GetRecentTwitterContexts();
 
-                for (int i = 0; i < recentReddits.Count; i++)
+                for (int i = 0; i < (recentReddits.Count); i++)
                 {
                     if (recentReddits[i].Context.RequestTypeId == (int)RequestTypeEnum.Post)
                     {
@@ -52,7 +52,13 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                     else if (recentReddits[i].Context.RequestTypeId == (int)RequestTypeEnum.Default || recentReddits[i].Context.RequestTypeId == (int)RequestTypeEnum.Comment)
                     {
                         recentReddits[i].Comments.OrderByDescending(c => c.CommentDate).ToList();
-                        recentReddits[i].Comments.RemoveAt(0);
+                        for (int j = 0; j < recentReddits[j].Comments.Count; j++)
+                        {
+                            if (recentReddits[j].Comments.Count != 0)
+                            {
+                                recentReddits[j].Comments.RemoveAt(0);
+                            }
+                        }
 
                         if (recentReddits[i].Comments.Count == 0)
                         {

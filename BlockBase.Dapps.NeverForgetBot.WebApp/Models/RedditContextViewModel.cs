@@ -1,5 +1,4 @@
-﻿using BlockBase.Dapps.NeverForgetBot.Common.Enums;
-using BlockBase.Dapps.NeverForgetBot.Data.Pocos;
+﻿using BlockBase.Dapps.NeverForgetBot.Data.Pocos;
 using System;
 using System.Linq;
 
@@ -25,7 +24,11 @@ namespace BlockBase.Dapps.NeverForgetBot.WebApp.Models
             rcvm.RequestTypeId = redditContext.Context.RequestTypeId;
 
             redditContext.Comments.OrderByDescending(c => c.CommentDate).ToList();
-            redditContext.Comments.RemoveAt(0);
+
+            if (redditContext.Comments.Count > 0 && redditContext.Submission != null)
+            {
+                redditContext.Comments.RemoveAt(0);
+            }
 
             if (redditContext.Comments.Count == 0)
             {

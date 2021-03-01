@@ -112,32 +112,54 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
         {
             var cleanId = Regex.Replace(comment.ParentId, @"^(\bt1_\B)", " ");
             var commentArray = await _redditCollector.RedditParentCommentInfo(cleanId);
-            var parentToData = commentArray.FirstOrDefault().ToData();
-            parentToData.RedditContextId = id;
-            parentToData.Link = Regex.Replace(parentToData.Link, @"^(/)", "https://www.reddit.com/");
-            return parentToData;
+            if (commentArray.Length != 0)
+            {
+                var parentToData = commentArray.FirstOrDefault().ToData();
+                parentToData.RedditContextId = id;
+                parentToData.Link = Regex.Replace(parentToData.Link, @"^(/)", "https://www.reddit.com/");
+                return parentToData;
+            }
+            else
+            {
+                return new RedditComment();
+            }
+
         }
 
         private async Task<RedditSubmission> GetDefaultSubmissions(RedditComment comment, Guid id)
         {
             var cleanId = Regex.Replace(comment.ParentId, @"^(\bt3_\B)", " ");
             var submissionArray = await _redditCollector.RedditSubmissionInfo(cleanId);
-            var parentToData = submissionArray.FirstOrDefault().ToData();
-            parentToData.RedditContextId = id;
-            var permalink = Regex.Replace(parentToData.Link, @"^(\bhttps://www.reddit.com\B)", " ");
-            if (permalink == parentToData.MediaLink) parentToData.MediaLink = " ";
-            return parentToData;
+            if (submissionArray.Length != 0)
+            {
+                var parentToData = submissionArray.FirstOrDefault().ToData();
+                parentToData.RedditContextId = id;
+                var permalink = Regex.Replace(parentToData.Link, @"^(\bhttps://www.reddit.com\B)", " ");
+                if (permalink == parentToData.MediaLink) parentToData.MediaLink = " ";
+                return parentToData;
+            }
+            else
+            {
+                return new RedditSubmission();
+            }
         }
 
         private async Task<RedditSubmission> GetSubmission(RedditComment comment, Guid id)
         {
             var cleanId = Regex.Replace(comment.ParentSubmissionId, @"^(\bt3_\B)", " ");
             var submissionArray = await _redditCollector.RedditSubmissionInfo(cleanId);
-            var submissionToData = submissionArray.FirstOrDefault().ToData();
-            submissionToData.RedditContextId = id;
-            var permalink = Regex.Replace(submissionToData.Link, @"^(\bhttps://www.reddit.com\B)", " ");
-            if (permalink == submissionToData.MediaLink) submissionToData.MediaLink = " ";
-            return submissionToData;
+            if (submissionArray.Length != 0)
+            {
+                var submissionToData = submissionArray.FirstOrDefault().ToData();
+                submissionToData.RedditContextId = id;
+                var permalink = Regex.Replace(submissionToData.Link, @"^(\bhttps://www.reddit.com\B)", " ");
+                if (permalink == submissionToData.MediaLink) submissionToData.MediaLink = " ";
+                return submissionToData;
+            }
+            else
+            {
+                return new RedditSubmission();
+            }
         }
 
         #region To be implemented

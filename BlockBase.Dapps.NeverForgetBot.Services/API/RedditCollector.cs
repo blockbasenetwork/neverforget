@@ -9,7 +9,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API
     {
         public async Task<RedditContextModel[]> RedditContextInfo()
         {
-            string url = "https://api.pushshift.io/reddit/comment/search/?q=!neverforgetbot";
+            string url = "https://api.pushshift.io/reddit/comment/search/?q=!never";
 
             var result = await FetchDataFromReddit<RedditContextResultModel>(url);
             return result.Data;
@@ -17,7 +17,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API
 
         public async Task<RedditCommentModel[]> RedditCommentInfo()
         {
-            string url = "https://api.pushshift.io/reddit/comment/search/?q=!neverforgetbot";
+            string url = "https://api.pushshift.io/reddit/comment/search/?q=!never";
 
             var result = await FetchDataFromReddit<RedditCommentResultModel>(url);
             return result.Data;
