@@ -148,7 +148,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                     }
                 }
 
-                result = result.OrderBy(c => c.Date).Take(10).ToList();
+                result = result.OrderByDescending(c => c.Date).Take(10).ToList();
 
                 return result;
             });

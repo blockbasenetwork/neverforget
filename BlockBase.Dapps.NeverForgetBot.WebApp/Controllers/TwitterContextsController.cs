@@ -1,7 +1,7 @@
 ﻿using BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.Interfaces;
 using BlockBase.Dapps.NeverForgetBot.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
-using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.WebApp.Controllers
@@ -18,16 +18,16 @@ namespace BlockBase.Dapps.NeverForgetBot.WebApp.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            //var listOp = await _twitterContextBo.GetAllPocoAsync();
-            //if (!listOp.Success) return View("Error", new ErrorViewModel() { RequestId = listOp.Exception.Message });
-            //var list = new List<TwitterContextViewModel>();
-            //foreach (var item in listOp.Result)
-            //{
-            //    list.Add(TwitterContextViewModel.FromData(item));
-            //}
+            var listOp = await _twitterContextBo.GetAllPocoAsync();
+            if (!listOp.Success) return View("Error", new ErrorViewModel() { RequestId = listOp.Exception.Message });
+            var list = new List<TwitterContextViewModel>();
+            foreach (var item in listOp.Result)
+            {
+                list.Add(TwitterContextViewModel.FromData(item));
+            }
             string logoUrl = Url.Content("~/img/twitterRobot.png");
             ViewData["Logo"] = logoUrl;
-            return View();
+            return View(list);
         }
 
         //[HttpGet("TwitterContexts/Details/{id}")]

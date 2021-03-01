@@ -1,10 +1,10 @@
-﻿using System;
+﻿using BlockBase.BBLinq.Builders;
+using BlockBase.BBLinq.ExtensionMethods;
+using BlockBase.BBLinq.Pocos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using BlockBase.BBLinq.Builders;
-using BlockBase.BBLinq.ExtensionMethods;
-using BlockBase.BBLinq.Pocos;
 
 namespace BlockBase.BBLinq.Queries
 {
@@ -102,7 +102,7 @@ namespace BlockBase.BBLinq.Queries
             QueryBuilder.WhiteSpace().From(tableName);
             if (!Joins.IsNullOrEmpty())
             {
-                var list = new List<Type>(){Origin};
+                var list = new List<Type>() { Origin };
                 foreach (var join in Joins)
                 {
                     var parameter = join.Parameters;
@@ -113,7 +113,7 @@ namespace BlockBase.BBLinq.Queries
                         list.Add(parameter[0].Type);
                         joinTableName = parameter[0].Type.GetTableName();
                     }
-                    else if(!list.Contains(parameter[1].Type))
+                    else if (!list.Contains(parameter[1].Type))
                     {
                         list.Add(parameter[1].Type);
                         joinTableName = parameter[1].Type.GetTableName();
