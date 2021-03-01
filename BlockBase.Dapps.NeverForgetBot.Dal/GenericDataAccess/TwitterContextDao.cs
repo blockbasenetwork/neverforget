@@ -21,7 +21,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess
                 {
                     var result = await _context.TwitterComment.Where((tCom) => (tCom.CommentId == tweet.Id)).List();
 
-                    if (result.Result == null)
+                    if (result.Result.Count() == 0)
                     {
                         resultList.Add(tweet);
                     }
