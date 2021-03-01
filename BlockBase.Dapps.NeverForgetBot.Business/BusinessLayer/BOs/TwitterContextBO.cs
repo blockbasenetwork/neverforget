@@ -60,6 +60,9 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                             comment.TwitterContextId = contextModel.Id;
                             await _commentDao.InsertAsync(comment);
 
+                            string url = "https://www.neverforgetbot.com/twittercontexts/details/";
+                            await _twitterCollector.PublishUrl(url, Convert.ToInt64(comment.CommentId));
+
                             if (model.In_reply_to_status_id_str != null)
                             {
                                 var tweetParent = await _twitterCollector.GetTweet(model.In_reply_to_status_id_str);
@@ -86,6 +89,13 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                             TwitterSubmission submission = await GetSubmissionFrom(model, contextModel.Id);
                             await _submissionDao.InsertAsync(submission);
                         }
+
+
+
+
+
+
+
                         /*else if (requestType == RequestTypeEnum.Thread)
                         {
                             //await _commentBo.FromApiTwitterCommentModel(model, contextModel.Id);
