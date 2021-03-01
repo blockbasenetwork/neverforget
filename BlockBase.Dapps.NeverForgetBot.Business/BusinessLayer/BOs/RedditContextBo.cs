@@ -38,69 +38,71 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
         {
             List<OperationResult> result = new List<OperationResult>();
 
-            for (int i = 0; i < modelArray.Length; i++)
+            var commentsToAdd = await _dao.GetUniqueComments(commentArray);
+
+            for (int i = 0; i < commentsToAdd.Count; i++)
             {
                 var opResult = await _opExecutor.ExecuteOperation(async () =>
                 {
-                    if (!_commentDao.GetAllAsync().Result.Any(c => c.CommentId == commentArray[i].Id))
+                    //if (!_commentDao.GetAllAsync().Result.Any(c => c.CommentId == commentArray[i].Id))
+                    //{
+                    #region Create Context
+                    var contextModel = new RedditContext()
                     {
-                        #region Create Context
-                        var contextModel = new RedditContext()
-                        {
-                            Id = Guid.NewGuid(),
-                            CreatedAt = DateTime.UtcNow,
-                            RequestTypeId = (int)CheckRequestType(modelArray[i].Body)
-                        };
-                        var requestType = CheckRequestType(modelArray[i].Body);
-                        await _dao.InsertAsync(contextModel);
-                        #endregion
+                        Id = Guid.NewGuid(),
+                        CreatedAt = DateTime.UtcNow,
+                        RequestTypeId = (int)CheckRequestType(modelArray[i].Body)
+                    };
+                    var requestType = CheckRequestType(modelArray[i].Body);
+                    await _dao.InsertAsync(contextModel);
+                    #endregion
 
-                        #region Get comment with full link
-                        var comment = commentArray[i].ToData();
-                        comment.RedditContextId = contextModel.Id;
-                        if (comment.Link != null)
+                    #region Get comment with full link
+                    var comment = commentArray[i].ToData();
+                    comment.RedditContextId = contextModel.Id;
+                    if (comment.Link != null)
+                    {
+                        comment.Link = Regex.Replace(comment.Link, @"^(/)", "https://www.reddit.com/");
+                    }
+                    else
+                    {
+                        comment.Link = await GetLink(comment);
+                    }
+                    #endregion
+
+                    #region Request Type conditions
+                    if (requestType == RequestTypeEnum.Comment || requestType == RequestTypeEnum.Default)
+                    {
+                        var isParent = CheckParentId(comment.ParentId);
+                        if (isParent)
                         {
-                            comment.Link = Regex.Replace(comment.Link, @"^(/)", "https://www.reddit.com/");
+                            var parentComment = await GetDefaultComments(comment, contextModel.Id);
+                            await _commentDao.InsertAsync(comment);
+                            await _commentDao.InsertAsync(parentComment);
                         }
                         else
                         {
-                            comment.Link = await GetLink(comment);
-                        }
-                        #endregion
-
-                        #region Request Type conditions
-                        if (requestType == RequestTypeEnum.Comment || requestType == RequestTypeEnum.Default)
-                        {
-                            var isParent = CheckParentId(comment.ParentId);
-                            if (isParent)
-                            {
-                                var parentComment = await GetDefaultComments(comment, contextModel.Id);
-                                await _commentDao.InsertAsync(comment);
-                                await _commentDao.InsertAsync(parentComment);
-                            }
-                            else
-                            {
-                                var parentSubmission = await GetDefaultSubmissions(comment, contextModel.Id);
-                                await _commentDao.InsertAsync(comment);
-                                await _submissionDao.InsertAsync(parentSubmission);
-                            }
-                        }
-                        else if (requestType == RequestTypeEnum.Post)
-                        {
-                            var submission = await GetSubmission(comment, contextModel.Id);
+                            var parentSubmission = await GetDefaultSubmissions(comment, contextModel.Id);
                             await _commentDao.InsertAsync(comment);
-                            await _submissionDao.InsertAsync(submission);
+                            await _submissionDao.InsertAsync(parentSubmission);
                         }
-                        #endregion
-
-                        #region To be implemented
-                        //else if (requestType == RequestTypeEnum.Thread)
-                        //{
-                        //    await _commentBo.FromApiRedditCommentModel(commentArray[i], contextModel.Id);
-                        //    await GetAndInsertAllParentComment(commentArray[i], contextModel.Id);
-                        //}
-                        #endregion
                     }
+                    else if (requestType == RequestTypeEnum.Post)
+                    {
+                        var submission = await GetSubmission(comment, contextModel.Id);
+                        await _commentDao.InsertAsync(comment);
+                        await _submissionDao.InsertAsync(submission);
+                    }
+                    #endregion
+
+                    #region To be implemented
+                    //else if (requestType == RequestTypeEnum.Thread)
+                    //{
+                    //    await _commentBo.FromApiRedditCommentModel(commentArray[i], contextModel.Id);
+                    //    await GetAndInsertAllParentComment(commentArray[i], contextModel.Id);
+                    //}
+                    #endregion
+                    //}
                 });
                 result.Add(opResult);
             }
