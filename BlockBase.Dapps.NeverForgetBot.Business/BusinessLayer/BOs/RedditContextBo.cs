@@ -44,8 +44,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
             {
                 var opResult = await _opExecutor.ExecuteOperation(async () =>
                 {
-                    //if (!_commentDao.GetAllAsync().Result.Any(c => c.CommentId == commentArray[i].Id))
-                    //{
                     #region Create Context
                     var contextModel = new RedditContext()
                     {
@@ -102,7 +100,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                     //    await GetAndInsertAllParentComment(commentArray[i], contextModel.Id);
                     //}
                     #endregion
-                    //}
                 });
                 result.Add(opResult);
             }
