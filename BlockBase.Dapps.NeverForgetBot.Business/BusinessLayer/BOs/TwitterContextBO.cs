@@ -60,9 +60,12 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                         await _dao.InsertAsync(contextModel);
                         await _commentDao.InsertAsync(comment);
 
-                        if (model.In_reply_to_status_id_str != null)
-                        {
-                            var tweetParent = await _twitterCollector.GetTweet(model.In_reply_to_status_id_str);
+                            string url = "https://www.neverforgetbot.com/twittercontexts/details/";
+                            await _twitterCollector.PublishUrl(url, Convert.ToInt64(comment.CommentId));
+
+                            if (model.In_reply_to_status_id_str != null)
+                            {
+                                var tweetParent = await _twitterCollector.GetTweet(model.In_reply_to_status_id_str);
 
                             TwitterComment parent = tweetParent.ToComment(model);
                             parent.TwitterContextId = contextModel.Id;
