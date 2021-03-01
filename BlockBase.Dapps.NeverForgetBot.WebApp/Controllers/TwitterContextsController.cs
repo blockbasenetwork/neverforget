@@ -1,6 +1,7 @@
 ﻿using BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.Interfaces;
 using BlockBase.Dapps.NeverForgetBot.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -30,23 +31,17 @@ namespace BlockBase.Dapps.NeverForgetBot.WebApp.Controllers
             return View(list);
         }
 
-        //[HttpGet("TwitterContexts/Details/{id}")]
-        //public async Task<IActionResult> Details(Guid? id)
-        //{
-        //    if (id == null) return NotFound();
-        //    var resultOp = await _twitterContextBo.GetPocoAsync((Guid)id);
-        //    if (!resultOp.Success) return View("Error", new ErrorViewModel() { RequestId = resultOp.Exception.Message });
-        //    if (resultOp.Result == null) return NotFound();
-
-        //    return View(TwitterDetailsViewModel.FromData(resultOp.Result));
-        //}
-
-        [HttpGet("TwitterContexts/Details")]
-        public async Task<IActionResult> Details()
+        [HttpGet("TwitterContexts/Details/{id}")]
+        public async Task<IActionResult> Details(Guid? id)
         {
+            if (id == null) return NotFound();
+            var resultOp = await _twitterContextBo.GetPocoAsync((Guid)id);
+            if (!resultOp.Success) return View("Error", new ErrorViewModel() { RequestId = resultOp.Exception.Message });
+            if (resultOp.Result == null) return NotFound();
+
             string logoUrl = Url.Content("~/img/twitterRobot.png");
             ViewData["Logo"] = logoUrl;
-            return View();
+            return View(TwitterDetailsViewModel.FromData(resultOp.Result));
         }
     }
 }
