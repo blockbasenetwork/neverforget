@@ -82,24 +82,15 @@ body {*/
   text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
 }
 .banner {
-  padding-top: 5px;
   background: linear-gradient(rgba(29, 161, 242, 0.9), rgba(255, 86, 0, 0.9) 125%), url('../img/WaterPattern.jpg') 0% 2240px;
 }
-.banner .neverForgetHome {
+.banner .neverForgetHome,
+.banner .neverForgetHome a {
   display: block;
   width: 220px;
-  margin: 0 auto 0 auto;
-}
-.banner .neverForgetHome .name,
-.banner .neverForgetHome .name:link,
-.banner .neverForgetHome .name:visited,
-.banner .neverForgetHome .name:hover,
-.banner .neverForgetHome .name:active,
-.banner .neverForgetHome h3 {
-  margin-bottom: 0;
   color: white;
-  text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
   text-decoration: none !important;
+  text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
 }
 .center,
 .center a {
@@ -150,17 +141,12 @@ body {*/
   background-color: rgba(39, 2, 22, 0.1);
   max-width: 100%;
 }
+/*-------------------------------------------------*/
+/* Error
+-------------------------------------------------- */
 .errorBody {
   background-image: linear-gradient(rgba(255, 86, 0, 0.9), rgba(29, 161, 242, 0.9) 75%), url('../img/WaterPattern.jpg');
   background-attachment: fixed;
-}
-.errorMessage {
-  text-align: center;
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 50%;
-  padding: 5px;
-  color: white;
-  text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
 }
 .vertical-center {
   min-height: 100%;
@@ -168,18 +154,49 @@ body {*/
   display: flex;
   align-items: center;
 }
+.errorLogo {
+  max-width: 50%;
+  height: 50%;
+}
+.errorMessage {
+  text-align: center;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 5px;
+  color: white;
+  text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+}
 .backButton {
   color: #D9B908;
-  text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
 }
 /*-------------------------------------------------*/
 /* Home
 -------------------------------------------------- */
 .socialMediaLogo {
   width: 50px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  border: none;
 }
 .socialMediaLogo .logoImg {
   background-color: transparent;
+  border: none;
+}
+.borderReddit {
+  border: solid;
+  border-color: #ff5600;
+  background-color: rgba(255, 86, 0, 0.3);
+}
+.borderReddit a {
+  color: black;
+}
+.borderTwitter {
+  border: solid;
+  border-color: #1da1f2;
+  background-color: rgba(29, 161, 242, 0.3);
+}
+.homeContext {
+  max-width: 1000px;
 }
 .homeTable {
   border-collapse: collapse;
@@ -188,11 +205,23 @@ body {*/
 }
 .homeTable td {
   vertical-align: middle;
-  margin: 0;
+}
+.homeTable td .row {
+  margin-bottom: 20px;
+  padding-top: 20px;
+}
+.homeTable thead {
+  display: none;
 }
 /*-------------------------------------------------*/
 /*Social Media Context Index
 ---------------------------------------------------*/
+.redditContext,
+.twitterContext,
+.redditDetailsContext,
+.twitterDetailsContext {
+  max-width: 1000px;
+}
 .detailsLogo {
   width: 100px;
 }
@@ -260,7 +289,17 @@ table.dataTable td tr:hover {
   border-radius: 3px;
 }
 /*-------------------------------------------------*/
+/*Social Media Context Details
+---------------------------------------------------*/
 .tooltip-inner {
   white-space: nowrap;
   max-width: none;
 }
+.rowDetails {
+  margin-bottom: 20px;
+  padding-top: 20px;
+}
+.cardDetails {
+  max-width: 90%;
+}
+/*-------------------------------------------------*/

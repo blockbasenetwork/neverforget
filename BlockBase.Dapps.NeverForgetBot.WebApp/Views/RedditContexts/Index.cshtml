@@ -1,12 +1,11 @@
 ﻿@using BlockBase.Dapps.NeverForgetBot.WebApp.Models
 @model IEnumerable<RedditContextViewModel>
 
-<div class="container redditContext" style="max-width:1000px">
-
+<div class="container redditContext">
     <div class="row">
-        <table class="table homeTable display no-wrap" id="myTable">
+        <table class="table display no-wrap homeTable" id="myTable">
 
-            <thead style="display:none">
+            <thead class="d-none">
                 <tr><th></th></tr>
             </thead>
             <tbody>
@@ -14,17 +13,17 @@
                 {
                     <tr>
                         <td>
-                            <div class="row" style="margin-bottom: 20px; padding-top:20px">
+                            <div class="row">
                                 <div class="col-md contentContext">
-                                    <div class="card-body" style="border:solid;border-color:rgb(255, 86, 0); background-color:rgba(255, 86, 0, 0.3)">
-                                        <h6 class="card-title title" style="display:block; text-align:left; text-decoration:underline">r/@Html.DisplayFor(modelItem => item.Subreddit)</h6>
-                                        <h5 class="card-title title" style="display:block; text-align:left">@Html.DisplayFor(modelItem => item.Title)</h5>
-                                        <div class="card-text content">@Html.DisplayFor(modelItem => item.Content)</div>
-                                        <b class="card-text foot" style="display:block; text-align:right">@Html.DisplayFor(modelItem => item.Author)</b>
+                                    <div class="card-body borderReddit">
+                                        <h6 class="card-title d-block title text-left"><u>r/@Html.DisplayFor(modelItem => item.Subreddit)</u></h6>
+                                        <h5 class="card-title d-block text-left">@Html.DisplayFor(modelItem => item.Title)</h5>
+                                        <div class="card-text d-block text-left">@Html.DisplayFor(modelItem => item.Content)</div>
+                                        <b class="card-text d-block text-right">@Html.DisplayFor(modelItem => item.Author)</b>
                                     </div>
                                 </div>
 
-                                <div class="col- creationDate" style="display:flex; align-items:center">
+                                <div class="col- d-flex align-items-center">
                                     <div class="card-body">
                                         @{
                                             var dateToString = item.Date.ToString("yyyy/MM/dd");
@@ -33,8 +32,8 @@
                                     </div>
                                 </div>
 
-                                <div class="col- detailsLogo" style="padding: 0; display:flex; align-items:center; border:none">
-                                    <div class="card detailsImg" style="border:none">
+                                <div class="col- p-0 d-flex border-0 align-items-center detailsLogo">
+                                    <div class="card border-0 detailsImg">
                                         <a asp-controller="RedditContexts" asp-action="Details" asp-route-id="@item.Id">
                                             <img src="~/img/searchRobot.png" />
                                         </a>

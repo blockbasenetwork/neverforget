@@ -63,8 +63,8 @@ button.accept-policy {
 }
 
 body {*/
-    /* Margin bottom by footer height */
-    /*margin-bottom: 60px;
+/* Margin bottom by footer height */
+/*margin-bottom: 60px;
 }
 
 .footer {
@@ -76,11 +76,13 @@ body {*/
 /*}*/
 
 
+
 /* Layout
 -------------------------------------------------- */
 .logoBackground {
     background-image: linear-gradient(rgba(255, 86, 0, .90), rgba(29,161,242, .90) 75%), url('../img/WaterPattern.jpg');
     max-width: 100%;
+
     .logo {
         padding-top: 10px;
         padding-bottom: 10px;
@@ -91,24 +93,18 @@ body {*/
 
 
 .banner {
-    padding-top: 5px;
     background: linear-gradient(rgba(29,161,242, .90), rgba(255, 86, 0, .90) 125%), url('../img/WaterPattern.jpg') 0% 2240px;
 
-    .neverForgetHome {
+    .neverForgetHome, .neverForgetHome a {
         display: block;
         width: 220px;
-        margin: 0 auto 0 auto;
-
-        .name, .name:link, .name:visited, .name:hover, .name:active, h3 {
-            margin-bottom: 0;
-            color: white;
-            text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
-            text-decoration: none !important;
-        }
+        color: white;
+        text-decoration: none !important;
+        text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
     }
 }
 
-.center , .center a {
+.center, .center a {
     margin-left: auto;
     margin-right: auto;
     text-align: center;
@@ -125,7 +121,7 @@ body {*/
             left: 10px;
             background: currentColor;
             opacity: 0.5;
-            height : 25px;
+            height: 25px;
         }
 
         .navbar-toggler-icon {
@@ -144,12 +140,11 @@ body {*/
         .errorPage {
             display: flex;
             flex-direction: column;
-            justify-content:center;
+            justify-content: center;
         }
     }
 
     @media(min-width:@desktop-min-width) {
-      
     }
 }
 
@@ -172,60 +167,107 @@ body {*/
     max-width: 100%;
 }
 
+/*-------------------------------------------------*/
 
+
+/* Error
+-------------------------------------------------- */
 
 .errorBody {
     background-image: linear-gradient(rgba(255, 86, 0, .90), rgba(29,161,242, .90) 75%), url('../img/WaterPattern.jpg');
     background-attachment: fixed;
 }
 
-.errorMessage {
-    text-align:center;
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 50%;
-    padding:5px;
-    color: white;
-    text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
-}
-
 .vertical-center {
-    min-height: 100%; 
-    min-height: 100vh; 
+    min-height: 100%;
+    min-height: 100vh;
     display: flex;
     align-items: center;
 }
 
-.backButton {
-    color: @oldGold;
+.errorLogo {
+    max-width: 50%;
+    height: 50%;
+}
+
+.errorMessage {
+    text-align: center;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 5px;
+    color: white;
     text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
 }
 
+.backButton {
+    color: @oldGold;
+}
+
 /*-------------------------------------------------*/
+
 
 /* Home
 -------------------------------------------------- */
 .socialMediaLogo {
     width: 50px;
-    .logoImg{
-        background-color:transparent;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    border: none;
+
+    .logoImg {
+        background-color: transparent;
+        border: none;
     }
+}
+
+.borderReddit {
+    border: solid;
+    border-color: rgb(255, 86, 0);
+    background-color: rgba(255, 86, 0, 0.3);
+
+    a{
+        color: black;
+    }
+}
+
+.borderTwitter {
+    border: solid;
+    border-color: rgb(29,161,242);
+    background-color: rgba(29,161,242, 0.3)
+}
+
+.homeContext {
+    max-width: 1000px;
 }
 
 .homeTable {
     border-collapse: collapse;
     width: 100%;
     table-layout: fixed;
-
+    
     td {
         vertical-align: middle;
-        margin: 0;
+
+        .row {
+            margin-bottom: 20px;
+            padding-top: 20px;
+        }
+    }
+
+    thead{
+        display:none;
     }
 }
 
 /*-------------------------------------------------*/
 
+
 /*Social Media Context Index
 ---------------------------------------------------*/
+.redditContext, .twitterContext, .redditDetailsContext, .twitterDetailsContext {
+    max-width: 1000px;
+}
+
 .detailsLogo {
     width: 100px;
 
@@ -242,19 +284,19 @@ table.dataTable, table.dataTable th, table.dataTable td {
     background-color: rgba(39, 2, 22, 0.1) !important;
     border-top: none !important;
 
-    tr:hover{
+    tr:hover {
         background-color: white !important;
     }
 }
 
-.mySearchForm{
-    padding-top:10px;
-
+.mySearchForm {
+    padding-top: 10px;
 }
 
 #myTable_filter input:focus::-webkit-input-placeholder {
     visibility: hidden; /*hide placeholder on focus*/
 }
+
 #myTable_filter input {
     width: 250px;
     height: 40px;
@@ -277,6 +319,7 @@ table.dataTable, table.dataTable th, table.dataTable td {
 #twitterTable_filter input:focus::-webkit-input-placeholder {
     visibility: hidden; /*hide placeholder on focus*/
 }
+
 #twitterTable_filter input {
     width: 250px;
     height: 40px;
@@ -295,9 +338,27 @@ table.dataTable, table.dataTable th, table.dataTable td {
         border-radius: 3px;
     }
 }
+
+
 /*-------------------------------------------------*/
 
+/*Social Media Context Details
+---------------------------------------------------*/
 .tooltip-inner {
     white-space: nowrap;
     max-width: none;
 }
+
+
+.rowDetails {
+    margin-bottom: 20px;
+    padding-top: 20px;
+}
+
+.cardDetails {
+    max-width: 90%;
+}
+
+/*-------------------------------------------------*/
+
+

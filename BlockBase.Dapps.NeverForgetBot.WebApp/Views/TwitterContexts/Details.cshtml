@@ -1,110 +1,101 @@
 ﻿@using BlockBase.Dapps.NeverForgetBot.WebApp.Models
 @model TwitterDetailsViewModel
 
-<div class="container twitterDetailsContext" style="max-width:1000px">
-
-    <div class="row" style="margin-bottom: 20px; padding-top:20px">
-            <div class="col-md content">
-                <div class="card-body" style="border:solid;border-color:rgb(29,161,242); background-color:rgba(29,161,242, 0.3)">
-
-                    @if (Model.Submission != null)
-                    {
-                        var dateToString = Model.Submission.Date.ToString("yyyy/MM/dd");
-
-                        <div class="card-text content">@Html.DisplayFor(item => Model.Submission.Content)</div>
-                        <hr>
-                        <div style="display:flex; flex-direction:row">
-                            <div class="col-2 card-body">
-                                <div class="card-content home">
-                                    <b class="card-text foot" style="display:block; text-align:center">@Html.DisplayFor(item => Model.Submission.Author)</b>
-                                </div>
-                            </div>
-
-                            <div class="col-2 card-body">
-                                <div class="card-content home" style="text-align:center">@Html.DisplayFor(item => dateToString) <i class="fas fa-calendar-alt"></i></div>
-                            </div>
-
-                            <div class="col-2 card-body">
-                                <div class="card-content home" style="text-align: center">
-                                    <a target="_blank" href="@Model.Submission.Link"><i class="far fa-eye"></i></a>
-
-                                    @if (Model.Submission.MediaLink != null)
-                                    {
-                                        <a target="_blank" href="@Model.Submission.MediaLink"><i class="far fa-photo-video"></i></a>
-                                    }
-                                </div>
+<div class="container redditDetailsContext">
+    <div class="row rowDetails">
+        <div class="col-md content">
+            <div class="card-body borderTwitter">
+                @if (Model.Submission != null)
+                {
+                    var dateToString = Model.Submission.Date.ToString("yyyy/MM/dd");
+                    <div class="card-text">@Html.DisplayFor(item => Model.Submission.Content)</div>
+                    <hr>
+                    <div class="d-flex flex-row">
+                        <div class="col-3 card-body">
+                            <div class="card-content">
+                                <b class="card-text d-block text-center foot">@Html.DisplayFor(item => Model.Submission.Author)</b>
                             </div>
                         </div>
-                    }
-                    else
-                    {
-                        var dateToString = Model.Comments[0].Date.ToString("yyyy/MM/dd");
 
-                        <div class="card-text content">@Html.DisplayFor(item => Model.Comments[0].Content)</div>
-                        <hr>
-                        <div style="display:flex; flex-direction:row">
-                            <div class="col-3 card-body">
-                                <div class="card-content home">
-                                    <b class="card-text foot">@Html.DisplayFor(item => Model.Comments[0].Author)</b>
-                                </div>
-                            </div>
+                        <div class="col-3 card-body">
+                            <div class="card-content text-center">@Html.DisplayFor(item => dateToString) <i class="fas fa-calendar-alt"></i></div>
+                        </div>
 
-                            <div class="col-3 card-body">
-                                <div class="card-content home">@Html.DisplayFor(item => dateToString) <i class="fas fa-calendar-alt"></i></div>
-                            </div>
+                        <div class="col-3 card-body">
+                            <div class="card-content text-center">
+                                <a target="_blank" href="@Model.Submission.Link" data-toggle="tooltip" data-placement="top" title="Redirect to Tweet"><i class="far fa-eye"></i></a>
 
-                            <div class="col-3 card-body">
-                                <div class="card-content home">
-                                    <a target="_blank" href="@Model.Comments[0].Link"><i class="far fa-eye"></i></a>
-
-                                    @if (Model.Comments[0].MediaLink != null)
-                                    {
-                                        <a target="_blank" href="@Model.Comments[0].MediaLink"><i class="far fa-photo-video"></i></a>
-                                    }
-                                </div>
+                                @if (Model.Submission.MediaLink != null)
+                                {
+                                    <a target="_blank" href="@Model.Submission.MediaLink" data-toggle="tooltip" data-placement="top" title="Show media"><i class="far fa-photo-video"></i></a>
+                                }
                             </div>
                         </div>
-                        Model.Comments.RemoveAt(0);
-                    }
+                    </div>
+                }
+                else
+                {
+                    var dateToString = Model.Comments[0].Date.ToString("yyyy/MM/dd");
+                    <div class="card-text content">@Html.DisplayFor(item => Model.Comments[0].Content)</div>
+                    <hr>
+                    <div class="d-flex flex-row">
+                        <div class="col-3 card-body">
+                            <div class="card-content">
+                                <b class="card-text text-right">@Html.DisplayFor(item => Model.Comments[0].Author)</b>
+                            </div>
+                        </div>
 
-                    <br>
+                        <div class="col-3 card-body">
+                            <div class="card-content">@Html.DisplayFor(item => dateToString) <i class="fas fa-calendar-alt"></i></div>
+                        </div>
 
-                    @foreach (var item in Model.Comments)
-                    {
-                        var dateToString = item.Date.ToString("yyyy/MM/dd");
+                        <div class="col-3 card-body">
+                            <div class="card-content">
+                                <a target="_blank" href="@Model.Comments[0].Link" data-toggle="tooltip" data-placement="top" title="Redirect to Tweet"><i class="far fa-eye"></i></a>
+                                @if (Model.Comments[0].MediaLink != null)
+                                {
+                                    <a target="_blank" href="@Model.Comments[0].MediaLink" data-toggle="tooltip" data-placement="top" title="Show media"><i class="far fa-photo-video"></i></a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    Model.Comments.RemoveAt(0);
+                }
 
-                        <div style="display:flex; flex-direction:row; justify-content: center;" class="pt-2">
-                            <div class="card-body" style="border:solid;border-color:rgb(29,161,242); background-color:rgba(29,161,242, 0.3);max-width:90%">
-                                <div class="card-text content">@Html.DisplayFor(modelItem => item.Content)</div>
-                                <hr>
-                                <div style="display:flex; flex-direction:row">
-                                    <div class="col-3 card-body">
-                                        <div class="card-content home">
-                                            <b class="card-text foot">@Html.DisplayFor(modelItem => item.Author)</b>
-                                        </div>
+                <br>
+
+                @foreach (var item in Model.Comments)
+                {
+                    var dateToString = item.Date.ToString("yyyy/MM/dd");
+                    <div class="pt-2 d-flex flex-row justify-content-center">
+                        <div class="card-body borderTwitter cardDetails">
+                            <div class="card-text text-left">@Html.DisplayFor(modelItem => item.Content)</div>
+                            <hr>
+                            <div class="d-flex flex-row">
+                                <div class="col-3 card-body">
+                                    <div class="card-content">
+                                        <b class="card-text text-right">@Html.DisplayFor(modelItem => item.Author)</b>
                                     </div>
+                                </div>
 
-                                    <div class="col-3 card-body">
-                                        <div class="card-content home">@Html.DisplayFor(modelItem => dateToString) <i class="fas fa-calendar-alt"></i></div>
-                                    </div>
+                                <div class="col-3 card-body">
+                                    <div class="card-content">@Html.DisplayFor(modelItem => dateToString) <i class="fas fa-calendar-alt"></i></div>
+                                </div>
 
-                                    <div class="col-3 card-body">
-                                        <div class="card-content home">
-                                            <a target="_blank" href="@item.Link"><i class="far fa-eye"></i></a>
-
-                                            @if (item.MediaLink != null)
-                                            {
-                                                <a target="_blank" href="@item.MediaLink"><i class="far fa-photo-video"></i></a>
-                                            }
-                                        </div>
+                                <div class="col-3 card-body">
+                                    <div class="card-content">
+                                        <a target="_blank" href="@item.Link" data-toggle="tooltip" data-placement="top" title="Redirect to Tweet"><i class="far fa-eye"></i></a>
+                                        @if (item.MediaLink != null)
+                                        {
+                                            <a target="_blank" href="@item.MediaLink" data-toggle="tooltip" data-placement="top" title="Show media"><i class="far fa-photo-video"></i></a>
+                                        }
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    }
-
-                </div>
+                    </div>
+                }
             </div>
         </div>
-
+    </div>
 </div>

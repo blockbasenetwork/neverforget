@@ -18,13 +18,13 @@
 <body class="errorBody">
 
     <div class="container vertical-center errorPage">
-        <img src="~/img/bugRobbot.png" style="max-width:50%; height:50%" />
-        <div class="errorMessage">
+        <img src="~/img/bugRobbot.png" class="errorLogo" />
+        <div class="errorMessage rounded-circle">
             <h1 class="errorBase"> @ViewBag.ErrorTitle </h1>
-            <div class="errorDetails">
+            <div>
                 @ViewBag.ErrorMessage
             </div>
-            <div class="errorActions">
+            <div>
                 <a asp-action="Index" asp-controller="Home" class="btn bg-transparent hidden-print">
                     <span class="btn bg-transparent backButton">Home</span>
                 </a>
