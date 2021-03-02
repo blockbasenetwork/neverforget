@@ -295,28 +295,6 @@ table.dataTable td tr:hover {
   white-space: nowrap;
   max-width: none;
 }
-.tooltip {
-  position: relative;
-  display: inline-block;
-  border-bottom: 1px dotted black;
-}
-.tooltip .tooltiptext {
-  /*visibility: hidden;*/
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-  position: absolute;
-  z-index: 1;
-  width: 120px;
-  bottom: 100%;
-  left: 50%;
-  margin-left: -60px;
-}
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-}
 .rowDetails {
   margin-bottom: 20px;
   padding-top: 20px;
