@@ -4,12 +4,13 @@
 <div class="container redditContext">
     <div class="row">
         <table class="table display no-wrap homeTable" id="myTable">
-            @foreach (var item in Model)
-            {
-                <thead>
-                    <tr><th></th></tr>
-                </thead>
-                <tbody>
+
+            <thead class="d-none">
+                <tr><th></th></tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
                     <tr>
                         <td>
                             <div class="row">
@@ -41,8 +42,8 @@
                             </div>
                         </td>
                     </tr>
-                </tbody>
-            }
+                }
+            </tbody>
         </table>
     </div>
 </div>

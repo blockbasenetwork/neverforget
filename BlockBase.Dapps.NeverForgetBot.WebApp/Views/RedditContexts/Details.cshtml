@@ -40,7 +40,7 @@
                 else
                 {
                     var dateToString = Model.Comments[0].Date.ToString("yyyy/MM/dd");
-                    <a href="https://www.reddit.com/r/@Model.Comments[0]..Subreddit/">
+                    <a href="https://www.reddit.com/r/@Model.Comments[0].Subreddit/">
                         <h6 class="card-title d-block"><u>r/@Html.DisplayFor(item => Model.Comments[0].Subreddit)</u></h6>
                     </a>
                     <div class="card-text content">@Html.DisplayFor(item => Model.Comments[0].Content)</div>
