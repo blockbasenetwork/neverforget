@@ -183,6 +183,8 @@ body {*/
 }
 .homeTable {
   border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed;
 }
 .homeTable td {
   vertical-align: middle;
