@@ -25,7 +25,7 @@ namespace BlockBase.Dapps.NeverForgetBot.WebApp.Models
 
             redditContext.Comments.OrderByDescending(c => c.CommentDate).ToList();
 
-            if (redditContext.Comments.Count > 0 && redditContext.Submission != null)
+            if ((redditContext.Comments.Count > 0 && redditContext.Submission != null) || (redditContext.Comments.Count > 1 && redditContext.Submission == null))
             {
                 redditContext.Comments.RemoveAt(0);
             }

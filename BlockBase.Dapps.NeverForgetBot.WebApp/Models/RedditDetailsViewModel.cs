@@ -1,5 +1,4 @@
-﻿using BlockBase.Dapps.NeverForgetBot.Common.Enums;
-using BlockBase.Dapps.NeverForgetBot.Data.Pocos;
+﻿using BlockBase.Dapps.NeverForgetBot.Data.Pocos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +25,7 @@ namespace BlockBase.Dapps.NeverForgetBot.WebApp.Models
             detailView.Id = context.Context.Id;
             detailView.RequestTypeId = context.Context.RequestTypeId;
 
-            context.Comments.OrderByDescending(c => c.CommentDate).ToList();
+            context.Comments = context.Comments.OrderBy(c => c.CommentDate).ToList();
 
             foreach (var comment in context.Comments)
             {
