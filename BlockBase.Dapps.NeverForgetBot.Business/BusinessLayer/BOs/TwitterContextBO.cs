@@ -36,6 +36,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
 
         public async Task<List<OperationResult>> FromApiTwitterModel(TweetModel[] modelArray)
         {
+            string url = "https://www.neverforgetbot.com/twittercontexts/details/";
+
             List<OperationResult> opResults = new List<OperationResult>();
 
             var commentsToAdd = await _dao.GetUniqueComments(modelArray);
@@ -43,7 +45,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
             foreach (var model in commentsToAdd)
             {
                 var result = await _opExecutor.ExecuteOperation(async () =>
-                {                    
+                {
                     var contextModel = new TwitterContext()
                     {
                         Id = Guid.NewGuid(),
@@ -60,12 +62,11 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                         await _dao.InsertAsync(contextModel);
                         await _commentDao.InsertAsync(comment);
 
-                            //string url = "https://www.neverforgetbot.com/twittercontexts/details/";
-                            //await _twitterCollector.PublishUrl(url, Convert.ToInt64(comment.CommentId));
+                        //await _twitterCollector.PublishUrl(url, Convert.ToInt64(comment.CommentId));
 
-                            if (model.In_reply_to_status_id_str != null)
-                            {
-                                var tweetParent = await _twitterCollector.GetTweet(model.In_reply_to_status_id_str);
+                        if (model.In_reply_to_status_id_str != null)
+                        {
+                            var tweetParent = await _twitterCollector.GetTweet(model.In_reply_to_status_id_str);
 
                             TwitterComment parent = tweetParent.ToComment(model);
                             parent.TwitterContextId = contextModel.Id;
@@ -98,7 +99,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                         await _commentDao.InsertAsync(comment);
 
                         await GetAndInsertAllParentComment(model, contextModel.Id);
-                    }*/                    
+                    }*/
                 });
                 opResults.Add(result);
             }

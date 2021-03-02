@@ -12,8 +12,5 @@ namespace BlockBase.Dapps.NeverForgetBot.Data.Entities
 
         public virtual ICollection<RedditContext> RedditContexts { get; set; }
         public virtual ICollection<TwitterContext> TwitterContexts { get; set; }
-
-
-
     }
 }

@@ -52,12 +52,9 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                     else if (recentReddits[i].Context.RequestTypeId == (int)RequestTypeEnum.Default || recentReddits[i].Context.RequestTypeId == (int)RequestTypeEnum.Comment)
                     {
                         recentReddits[i].Comments.OrderByDescending(c => c.CommentDate).ToList();
-                        for (int j = 0; j < recentReddits[j].Comments.Count; j++)
+                        if (recentReddits[i].Comments.Count > 0 && recentReddits[i].Submission != null)
                         {
-                            if (recentReddits[j].Comments.Count != 0)
-                            {
-                                recentReddits[j].Comments.RemoveAt(0);
-                            }
+                            recentReddits[i].Comments.RemoveAt(0);
                         }
 
                         if (recentReddits[i].Comments.Count == 0)
