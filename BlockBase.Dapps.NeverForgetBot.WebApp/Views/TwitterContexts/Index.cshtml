@@ -1,36 +1,36 @@
 ﻿@using BlockBase.Dapps.NeverForgetBot.WebApp.Models
 @model IEnumerable<TwitterContextViewModel>
 
-<div class="container twitterContext" style="max-width:1000px">
+<div class="container twitterContext">
     <div class="row">
-        <table class="table homeTable display no-wrap" id="twitterTable" style="width:100%; table-layout: fixed">
+        <table class="table display no-wrap homeTable" id="twitterTable">
             @foreach (var item in Model)
             {
-                <thead style="display:none">
+                <thead>
                     <tr><th></th></tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>
-                            <div class="row" style="margin-bottom: 20px; padding-top:20px">
+                            <div class="row">
                                 <div class="col-md contentContext">
-                                    <div class="card-body" style="border:solid;border-color:rgb(29,161,242); background-color:rgba(29,161,242, 0.3)">
-                                        <div class="card-text content">@Html.DisplayFor(modelItem => item.Content)</div>
-                                        <b class="card-text foot" style="display:block; text-align:right">@Html.DisplayFor(modelItem => item.Author)</b>
+                                    <div class="card-body borderTwitter">
+                                        <div class="card-text d-block  text-left">@Html.DisplayFor(modelItem => item.Content)</div>
+                                        <b class="card-text d-block text-right">@Html.DisplayFor(modelItem => item.Author)</b>
                                     </div>
                                 </div>
 
-                                <div class="col- creationDate" style="display:flex; align-items:center">
+                                <div class="col- d-flex align-items-center">
                                     <div class="card-body">
                                         @{
                                             var dateToString = item.Date.ToString("yyyy/MM/dd");
                                         }
-                                        <div class="card-content home">@Html.DisplayFor(modelItem => dateToString) <i class="fas fa-calendar-alt"></i></div>
+                                        <div class="card-content">@Html.DisplayFor(modelItem => dateToString) <i class="fas fa-calendar-alt"></i></div>
                                     </div>
                                 </div>
 
-                                <div class="col- detailsLogo" style="padding: 0; display:flex; align-items:center; border:none">
-                                    <div class="card detailsImg">
+                                <div class="col-  p-0 d-flex border-0 align-items-center detailsLogo">
+                                    <div class="card border-0 detailsImg">
                                         <a asp-controller="TwitterContexts" asp-action="Details" asp-route-id="@item.Id">
                                             <img src="~/img/searchRobot.png" />
                                         </a>

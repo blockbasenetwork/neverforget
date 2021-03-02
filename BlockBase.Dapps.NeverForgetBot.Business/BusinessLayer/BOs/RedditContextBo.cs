@@ -135,7 +135,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                 var parentToData = submissionArray.FirstOrDefault().ToData();
                 parentToData.RedditContextId = id;
                 var permalink = Regex.Replace(parentToData.Link, @"^(\bhttps://www.reddit.com\B)", " ");
-                if (permalink == parentToData.MediaLink) parentToData.MediaLink = " ";
+                if (permalink == parentToData.MediaLink) parentToData.MediaLink = null;
                 return parentToData;
             }
             else
@@ -153,7 +153,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                 var submissionToData = submissionArray.FirstOrDefault().ToData();
                 submissionToData.RedditContextId = id;
                 var permalink = Regex.Replace(submissionToData.Link, @"^(\bhttps://www.reddit.com\B)", " ");
-                if (permalink == submissionToData.MediaLink) submissionToData.MediaLink = " ";
+                if (permalink == submissionToData.MediaLink) submissionToData.MediaLink = null;
                 return submissionToData;
             }
             else
