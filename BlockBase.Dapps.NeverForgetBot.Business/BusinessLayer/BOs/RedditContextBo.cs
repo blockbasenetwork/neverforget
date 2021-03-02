@@ -114,7 +114,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
             var commentArray = await _redditCollector.RedditParentCommentInfo(cleanId);
             if (commentArray.Length != 0)
             {
-                var parentToData = commentArray.FirstOrDefault().ToData();
+                var parentToData = commentArray.First().ToData();
                 parentToData.RedditContextId = id;
                 parentToData.Link = Regex.Replace(parentToData.Link, @"^(/)", "https://www.reddit.com/");
                 return parentToData;
@@ -132,7 +132,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
             var submissionArray = await _redditCollector.RedditSubmissionInfo(cleanId);
             if (submissionArray.Length != 0)
             {
-                var parentToData = submissionArray.FirstOrDefault().ToData();
+                var parentToData = submissionArray.First().ToData();
                 parentToData.RedditContextId = id;
                 var permalink = Regex.Replace(parentToData.Link, @"^(\bhttps://www.reddit.com\B)", " ");
                 if (permalink == parentToData.MediaLink) parentToData.MediaLink = " ";
@@ -150,7 +150,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
             var submissionArray = await _redditCollector.RedditSubmissionInfo(cleanId);
             if (submissionArray.Length != 0)
             {
-                var submissionToData = submissionArray.FirstOrDefault().ToData();
+                var submissionToData = submissionArray.First().ToData();
                 submissionToData.RedditContextId = id;
                 var permalink = Regex.Replace(submissionToData.Link, @"^(\bhttps://www.reddit.com\B)", " ");
                 if (permalink == submissionToData.MediaLink) submissionToData.MediaLink = " ";
@@ -182,7 +182,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
             var cleanId = Regex.Replace(comment.ParentSubmissionId, @"^(\bt3_\B)", " ");
             var commentId = comment.CommentId;
             var submissionArray = await _redditCollector.RedditSubmissionInfo(cleanId);
-            var sumbissionLink = submissionArray.FirstOrDefault().ToData().Link;
+            var sumbissionLink = submissionArray.First().ToData().Link;
             return Regex.Replace(sumbissionLink, @"$(/)", $"/{commentId}");
         }
 
