@@ -39,6 +39,8 @@ namespace BlockBase.Dapps.NeverForgetBot.WebApp.Controllers
             if (!resultOp.Success) return View("Error", new ErrorViewModel() { RequestId = resultOp.Exception.Message });
             if (resultOp.Result == null) return NotFound();
 
+            string logoUrl = Url.Content("~/img/redditRobot.png");
+            ViewData["Logo"] = logoUrl;
             return View(RedditDetailsViewModel.FromData(resultOp.Result));
         }
     }

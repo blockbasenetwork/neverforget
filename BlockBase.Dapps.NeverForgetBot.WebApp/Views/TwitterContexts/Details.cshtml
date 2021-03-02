@@ -16,7 +16,7 @@
                         <div style="display:flex; flex-direction:row">
                             <div class="col-2 card-body">
                                 <div class="card-content home">
-                                    <b class="card-text foot" style="display:block; text-align:center">>@Html.DisplayFor(item => Model.Submission.Author)</b>
+                                    <b class="card-text foot" style="display:block; text-align:center">@Html.DisplayFor(item => Model.Submission.Author)</b>
                                 </div>
                             </div>
 
@@ -64,9 +64,9 @@
                                 </div>
                             </div>
                         </div>
+                        Model.Comments.RemoveAt(0);
                     }
 
-                    @{ Model.Comments.RemoveAt(0); }
                     <br>
 
                     @foreach (var item in Model.Comments)
@@ -91,7 +91,7 @@
                                     <div class="col-3 card-body">
                                         <div class="card-content home">
                                             <a target="_blank" href="@item.Link"><i class="far fa-eye"></i></a>
-                                            
+
                                             @if (item.MediaLink != null)
                                             {
                                                 <a target="_blank" href="@item.MediaLink"><i class="far fa-photo-video"></i></a>
