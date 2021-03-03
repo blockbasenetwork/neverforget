@@ -17,7 +17,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API.Models
         public string? In_reply_to_screen_name { get; set; }
 
 
-        public TwitterComment ToComment(TweetModel ola)
+        public TwitterComment ToComment()
         {
             return new TwitterComment()
             {

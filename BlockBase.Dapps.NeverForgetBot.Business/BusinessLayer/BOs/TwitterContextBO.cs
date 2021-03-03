@@ -60,42 +60,64 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                     #region Request Type conditions
                     if (requestType == RequestTypeEnum.Comment || requestType == RequestTypeEnum.Default)
                     {
-                        var comment = model.ToComment(model);
-                        comment.TwitterContextId = contextModel.Id;
-                        await _dao.InsertAsync(contextModel);
-                        await _commentDao.InsertAsync(comment);
-
-                        //await _twitterCollector.PublishUrl(url, Convert.ToInt64(comment.CommentId));
-
                         if (model.In_reply_to_status_id_str != null)
                         {
                             var tweetParent = await _twitterCollector.GetTweet(model.In_reply_to_status_id_str);
+                            if (tweetParent.Id == null)
+                            {
+                                await _twitterCollector.ReplyWithError(model.Id);
+                            }
+                            else
+                            {
+                                await _dao.InsertAsync(contextModel);
 
-                            TwitterComment parent = tweetParent.ToComment(model);
-                            parent.TwitterContextId = contextModel.Id;
-                            await _commentDao.InsertAsync(parent);
+                                var comment = model.ToComment();
+                                comment.TwitterContextId = contextModel.Id;
+                                await _commentDao.InsertAsync(comment);
+
+                                TwitterComment parent = tweetParent.ToComment();
+                                parent.TwitterContextId = contextModel.Id;
+                                await _commentDao.InsertAsync(parent);
+                            }
                         }
                         else
                         {
-                            var tweetParent = await _twitterCollector.GetTweet(model.In_reply_to_status_id_str);
-
-                            TwitterSubmission submission = tweetParent.ToSubmission();
+                            var submission = model.ToSubmission();
                             submission.TwitterContextId = contextModel.Id;
+
+                            await _dao.InsertAsync(contextModel);
                             await _submissionDao.InsertAsync(submission);
                         }
                     }
                     else if (requestType == RequestTypeEnum.Post)
                     {
-                        TwitterComment comment = model.ToComment(model);
-                        comment.TwitterContextId = contextModel.Id;
-                        await _dao.InsertAsync(contextModel);
-                        await _commentDao.InsertAsync(comment);
+                        if (model.In_reply_to_status_id_str != null)
+                        {
+                            var submission = await GetSubmissionFrom(model, contextModel.Id);
+                            
+                            if(submission != null)
+                            {
+                                await _dao.InsertAsync(contextModel);
 
-                        TwitterSubmission submission = await GetSubmissionFrom(model, contextModel.Id);
-                        await _submissionDao.InsertAsync(submission);
+                                TwitterComment comment = model.ToComment();
+                                comment.TwitterContextId = contextModel.Id;
+                                
+                                await _commentDao.InsertAsync(comment);
+                                await _submissionDao.InsertAsync(submission);
+                            }
+                            else
+                            {
+                                await _twitterCollector.ReplyWithError(model.Id);
+                            }
+                        }
+                        else
+                        {
+                            await _dao.InsertAsync(contextModel);
+                            await _submissionDao.InsertAsync(model.ToSubmission());
+                        }
                     }
                     #endregion
-                    
+
                     #region To be implemented
                     /*else if (requestType == RequestTypeEnum.Thread)
                     {
@@ -108,6 +130,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                     }*/
                     #endregion
                 });
+
                 opResults.Add(result);
             }
 
@@ -124,6 +147,12 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                 {
                     tweet = await _twitterCollector.GetTweet(tweet.In_reply_to_status_id_str);
                 } while (tweet.In_reply_to_status_id_str != null);
+
+            }
+
+            if(tweet.Id == null)
+            {
+                return null;
             }
 
             TwitterSubmission submission = tweet.ToSubmission();

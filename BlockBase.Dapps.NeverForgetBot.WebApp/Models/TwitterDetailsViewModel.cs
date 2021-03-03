@@ -64,6 +64,8 @@ namespace BlockBase.Dapps.NeverForgetBot.WebApp.Models
                 detailView.Submission = null;
             }
 
+            detailView.Comments = detailView.Comments.OrderBy(c => c.Date).ToList();
+
             return detailView;
         }
     }

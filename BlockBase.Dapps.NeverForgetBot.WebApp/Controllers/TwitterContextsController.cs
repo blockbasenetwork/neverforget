@@ -3,6 +3,7 @@ using BlockBase.Dapps.NeverForgetBot.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.WebApp.Controllers
@@ -26,6 +27,9 @@ namespace BlockBase.Dapps.NeverForgetBot.WebApp.Controllers
             {
                 list.Add(TwitterContextViewModel.FromData(item));
             }
+
+            list.OrderByDescending(i => i.Date);
+
             string logoUrl = Url.Content("~/img/twitterRobot.png");
             ViewData["Logo"] = logoUrl;
             return View(list);
