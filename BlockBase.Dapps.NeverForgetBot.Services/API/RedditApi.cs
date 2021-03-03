@@ -9,7 +9,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API
     {
         public static void AuthenticateClient()
         {
-            var reddit = new RedditClient("z_FR2DzDnW3EEw", "YourBotUserRefreshToken");
+            var reddit = new RedditClient("app id", "YourBotUserRefreshToken");
 
             List<Post> posts = reddit.Subreddit("MySub").Search(new SearchGetSearchInput("Bernie Sanders"));  // Search r/MySub
             if (posts.Count == 0)
