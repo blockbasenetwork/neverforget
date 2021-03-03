@@ -17,4 +17,29 @@
     <ProjectReference Include="..\BlockBase.Dapps.NeverForgetBot.Data\BlockBase.Dapps.NeverForgetBot.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Resources\RedditTokens.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>RedditTokens.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\TwitterTokens.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TwitterTokens.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\RedditTokens.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>RedditTokens.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\TwitterTokens.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>TwitterTokens.Designer.cs</LastGenOutput>
+      <CustomToolNamespace></CustomToolNamespace>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>
