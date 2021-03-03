@@ -108,6 +108,21 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
             return result;
         }
 
+        //public async Task<List<RedditContextPoco>> GetAllRedditContexts()
+        //{
+        //    List<RedditContextPoco> result = new List<RedditContextPoco>();
+        //    using (var _context = new NeverForgetBotDbContext())
+        //    {
+        //        var retrievedContextIds = await _context.RedditContext.Where(ctx => ctx.IsDeleted == false).List(c => c.Id);
+
+        //        foreach (var id in retrievedContextIds.Result)
+        //        {
+        //            result.Add(GetRedditContextById(id).Result);
+        //        }
+        //    }
+        //    return result;
+        //}
+
         public async Task<List<RedditContextPoco>> GetRecentRedditContexts()
         {
             List<RedditContextPoco> result = new List<RedditContextPoco>();

@@ -13,7 +13,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Common
 
         public static string CleanComment(string body)
         {
-            var unquotedString = Regex.Replace(body, @"\b'\b", "''");
+            var unquotedString = Regex.Replace(body, @"\'", "''");
             return unquotedString;
         }
     }
