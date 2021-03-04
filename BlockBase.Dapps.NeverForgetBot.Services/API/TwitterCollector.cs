@@ -155,25 +155,33 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API
             {
                 if(e.StatusCode == 403)
                 {
-                    Console.WriteLine("ola");
+                    Console.WriteLine("");
                 }
                 throw e;
             }
         }
 
-        //public async Task PublishUrl(string url, string contextId)
-        //{
+        public async Task PublishUrl(string url, string contextId)
+        {
+            try
+            {
+                var tweet = await TwitterApi.Client.Tweets.GetTweetAsync(long.Parse(contextId));
+                var reply = await TwitterApi.Client.Tweets.PublishTweetAsync(new PublishTweetParameters("@" + tweet.CreatedBy + " Never Forget " + url)
+                {
+                    InReplyToTweet = tweet
+                });
 
-        //    var tweet = await TwitterApi.Client.Tweets.GetTweetAsync(long.Parse(contextId));
-        //    var reply = await TwitterApi.Client.Tweets.PublishTweetAsync(new PublishTweetParameters("@" + tweet.CreatedBy + " Never Forget " + url)
-        //    {
-        //        InReplyToTweet = tweet
-        //    });
-
-        //    // remove the same way as you would delete a tweet
-        //    //await TwitterApi.Client.Tweets.DestroyTweetAsync(reply);
-        //}
-
-
+                // remove the same way as you would delete a tweet
+                //await TwitterApi.Client.Tweets.DestroyTweetAsync(reply);
+            }
+            catch (TwitterException e)
+            {
+                if(e.StatusCode == 403)
+                {
+                    Console.WriteLine("ola");
+                }
+                throw e;
+            }
+        }
     }
 }

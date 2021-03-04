@@ -29,5 +29,34 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess
             }
             return resultList;
         }
+
+        public async Task<bool> IsContextPresent(Guid contextId)
+        {
+            using (var _context = new NeverForgetBotDbContext())
+            {
+                var result = await _context.TwitterContext.Where((tCom) => (tCom.Id == contextId)).List();
+
+                if (result.Result != null)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public async Task<bool> IsCommentOrSubmissionPresent(Guid contextId)
+        {
+            using (var _context = new NeverForgetBotDbContext())
+            {
+                var resultComment = await _context.TwitterComment.Where((tCom) => (tCom.TwitterContextId == contextId)).List();
+                var resultSubmission = await _context.TwitterComment.Where((tCom) => (tCom.TwitterContextId == contextId)).List();
+                
+                if (resultComment.Result != null || resultSubmission.Result != null)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

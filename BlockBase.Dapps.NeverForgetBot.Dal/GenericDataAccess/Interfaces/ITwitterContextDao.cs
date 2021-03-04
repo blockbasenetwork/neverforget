@@ -9,5 +9,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess.Interfaces
     public interface ITwitterContextDao : IBaseAuditDao<TwitterContext, Guid>
     {
         Task<List<TweetModel>> GetUniqueComments(TweetModel[] tweetList);
+        Task<bool> IsContextPresent(Guid contextId);
+        Task<bool> IsCommentOrSubmissionPresent(Guid contextId);
     }
 }

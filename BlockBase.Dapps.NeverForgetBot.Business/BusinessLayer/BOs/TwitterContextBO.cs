@@ -24,6 +24,9 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
         private readonly ITwitterContextPocoDao _pocoDao;
         private readonly TwitterCollector _twitterCollector;
 
+        string url = "https://www.neverforgetbot.com/twittercontexts/details/";
+        string contextIdToPublish = string.Empty;
+
         public TwitterContextBo(ITwitterContextDao dao, IDbOperationExecutor opExecutor, ITwitterCommentDao commentDao, ITwitterSubmissionDao submissionDao, ITwitterContextPocoDao pocoDao, TwitterCollector twitterCollector)
         {
             _dao = dao;
@@ -36,8 +39,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
 
         public async Task<List<OperationResult>> FromApiTwitterModel(TweetModel[] modelArray)
         {
-            string url = "https://www.neverforgetbot.com/twittercontexts/details/";
-
             List<OperationResult> opResults = new List<OperationResult>();
 
             var commentsToAdd = await _dao.GetUniqueComments(modelArray);
@@ -54,6 +55,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                         RequestTypeId = (int)CheckRequestType(model.Full_text)
                     };
                     #endregion
+
+                    contextIdToPublish = contextModel.Id.ToString();
 
                     var requestType = CheckRequestType(model.Full_text);
 
@@ -104,6 +107,11 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                                 
                                 await _commentDao.InsertAsync(comment);
                                 await _submissionDao.InsertAsync(submission);
+
+                                if(await _dao.IsContextPresent(contextModel.Id) && await _dao.IsCommentOrSubmissionPresent(contextModel.Id))
+                                {
+                                    await _twitterCollector.PublishUrl(url + $"{contextIdToPublish}", model.Id);
+                                }
                             }
                             else
                             {
@@ -114,6 +122,11 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                         {
                             await _dao.InsertAsync(contextModel);
                             await _submissionDao.InsertAsync(model.ToSubmission());
+
+                            if (await _dao.IsContextPresent(contextModel.Id) && await _dao.IsCommentOrSubmissionPresent(contextModel.Id))
+                            {
+                                await _twitterCollector.PublishUrl(url + $"{contextIdToPublish}", model.Id);
+                            }
                         }
                     }
                     #endregion
@@ -133,7 +146,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
 
                 opResults.Add(result);
             }
-
             return opResults;
         }
 
