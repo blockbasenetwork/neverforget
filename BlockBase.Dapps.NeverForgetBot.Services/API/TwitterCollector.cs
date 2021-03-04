@@ -9,49 +9,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API
 {
     public class TwitterCollector
     {
-        /*
-        public async Task<TweetModel> GetTweet(string id)
-        {
-            try
-            {
-                var result = await TwitterApi.Client.Tweets.GetTweetAsync(long.Parse(id));
-                TweetModel tweet = JsonConvert.DeserializeObject<TweetModel>(TwitterApi.Client.Json.Serialize(result));
-
-                return tweet;
-            }
-            catch (TwitterException e)
-            {
-                throw e;
-            }
-        }
-
-        public async Task<TweetModel[]> GetMentions()
-        {
-            try
-            {
-                List<TweetModel> mentionList = new List<TweetModel>();
-
-                var result = await TwitterApi.Client.Timelines.GetMentionsTimelineAsync();
-                //string jsonResult = TwitterApi.Client.Json.Serialize(result);
-
-                mentionList = JsonConvert.DeserializeObject<List<TweetModel>>(TwitterApi.Client.Json.Serialize(result));
-
-                
-                //foreach (var mention in result)
-                //{
-                //    mentionList = JsonConvert.DeserializeObject<List<TweetModel>>(JsonConvert.SerializeObject(mention)));
-                //}
-                
-
-                return mentionList.ToArray();
-            }
-            catch (TwitterException e)
-            {
-                throw e;
-            }
-        }*/
-
-
         public async Task<TweetModel> GetTweet(string id)
         {
             try
@@ -65,7 +22,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API
             }
             catch (TwitterException e)
             {
-                if(e.StatusCode == 404)
+                if (e.StatusCode == 404)
                 {
                     return new TweetModel();
                 }
@@ -146,14 +103,14 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API
             try
             {
                 var tweet = await TwitterApi.Client.Tweets.GetTweetAsync(long.Parse(contextId));
-                var reply = await TwitterApi.Client.Tweets.PublishTweetAsync(new PublishTweetParameters("@" + tweet.CreatedBy + " - There is a deleted tweet in the thread. Call me in another tweet.")
+                var reply = await TwitterApi.Client.Tweets.PublishTweetAsync(new PublishTweetParameters($"@{tweet.CreatedBy} - There is a deleted tweet in the thread. Call me in another tweet.")
                 {
                     InReplyToTweet = tweet
                 });
             }
-            catch(TwitterException e)
+            catch (TwitterException e)
             {
-                if(e.StatusCode == 403)
+                if (e.StatusCode == 403)
                 {
                     Console.WriteLine("");
                 }
@@ -166,7 +123,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API
             try
             {
                 var tweet = await TwitterApi.Client.Tweets.GetTweetAsync(long.Parse(contextId));
-                var reply = await TwitterApi.Client.Tweets.PublishTweetAsync(new PublishTweetParameters("@" + tweet.CreatedBy + " - There is a deleted tweet in the thread. Call me in another tweet.")
+                var reply = await TwitterApi.Client.Tweets.PublishTweetAsync(new PublishTweetParameters($"@{tweet.CreatedBy} - There is nothing above to save. Call me in another tweet.")
                 {
                     InReplyToTweet = tweet
                 });
@@ -196,7 +153,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API
             }
             catch (TwitterException e)
             {
-                if(e.StatusCode == 403)
+                if (e.StatusCode == 403)
                 {
                     Console.WriteLine("ola");
                 }

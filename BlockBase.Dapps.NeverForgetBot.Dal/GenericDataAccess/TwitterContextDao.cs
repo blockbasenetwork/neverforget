@@ -19,9 +19,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess
                 foreach (var tweet in tweetList)
                 {
                     var resultComment = await _context.TwitterComment.Where((tCom) => (tCom.CommentId == tweet.Id)).List();
-                    var resultSubmission = await _context.TwitterSubmission.Where((tSub) => (tSub.SubmissionId == tweet.Id)).List();
 
-                    if (resultComment.Result.Count() == 0 && resultSubmission.Result.Count() == 0)
+                    if (resultComment.Result.Count() == 0)
                     {
                         resultList.Add(tweet);
                     }
