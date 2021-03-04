@@ -4,7 +4,7 @@
     {
         Default = 0,
         Comment = 1,
-        Thread = 2,
+        //Thread = 2,
         Post = 3
     }
 }

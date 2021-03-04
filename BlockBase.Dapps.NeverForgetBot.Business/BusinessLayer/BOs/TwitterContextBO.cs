@@ -24,7 +24,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
         private readonly ITwitterContextPocoDao _pocoDao;
         private readonly TwitterCollector _twitterCollector;
 
-        string url = "https://www.neverforgetbot.com/twittercontexts/details/";
+        string url = "https://localhost:44371/twittercontexts/details/";
         string contextIdToPublish = string.Empty;
 
         public TwitterContextBo(ITwitterContextDao dao, IDbOperationExecutor opExecutor, ITwitterCommentDao commentDao, ITwitterSubmissionDao submissionDao, ITwitterContextPocoDao pocoDao, TwitterCollector twitterCollector)
@@ -54,11 +54,9 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                         CreatedAt = DateTime.UtcNow,
                         RequestTypeId = (int)CheckRequestType(model.Full_text)
                     };
-                    #endregion
-
-                    contextIdToPublish = contextModel.Id.ToString();
-
                     var requestType = CheckRequestType(model.Full_text);
+                    contextIdToPublish = contextModel.Id.ToString();
+                    #endregion
 
                     #region Request Type conditions
                     if (requestType == RequestTypeEnum.Comment || requestType == RequestTypeEnum.Default)
@@ -66,49 +64,66 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                         if (model.In_reply_to_status_id_str != null)
                         {
                             var tweetParent = await _twitterCollector.GetTweet(model.In_reply_to_status_id_str);
-                            if (tweetParent.Id == null)
+                            if (tweetParent.Id != null)
                             {
-                                await _twitterCollector.ReplyWithError(model.Id);
+                                if (tweetParent.In_reply_to_status_id_str != null)
+                                {
+                                    var comment = model.ToComment();
+                                    comment.TwitterContextId = contextModel.Id;
+                                    TwitterSubmission parent = tweetParent.ToSubmission();
+                                    parent.TwitterContextId = contextModel.Id;
+                                    await _dao.InsertAsync(contextModel);
+                                    await _commentDao.InsertAsync(comment);
+                                    await _submissionDao.InsertAsync(parent);
+
+                                    if (await _dao.IsContextPresent(contextModel.Id) && await _dao.IsSubmissionPresent(contextModel.Id))
+                                    {
+                                        await _twitterCollector.PublishUrl(url + $"{contextIdToPublish}", model.Id);
+                                    }
+                                }
+                                else
+                                {
+                                    var comment = model.ToComment();
+                                    comment.TwitterContextId = contextModel.Id;
+                                    TwitterComment parent = tweetParent.ToComment();
+                                    parent.TwitterContextId = contextModel.Id;
+                                    await _dao.InsertAsync(contextModel);
+                                    await _commentDao.InsertAsync(comment);
+                                    await _commentDao.InsertAsync(parent);
+
+                                    if (await _dao.IsContextPresent(contextModel.Id) && await _dao.IsCommentPresent(contextModel.Id))
+                                    {
+                                        await _twitterCollector.PublishUrl(url + $"{contextIdToPublish}", model.Id);
+                                    }
+                                }
                             }
                             else
                             {
-                                await _dao.InsertAsync(contextModel);
-
-                                var comment = model.ToComment();
-                                comment.TwitterContextId = contextModel.Id;
-                                await _commentDao.InsertAsync(comment);
-
-                                TwitterComment parent = tweetParent.ToComment();
-                                parent.TwitterContextId = contextModel.Id;
-                                await _commentDao.InsertAsync(parent);
+                                await _twitterCollector.ReplyWithError(model.Id);
                             }
                         }
                         else
                         {
-                            var submission = model.ToSubmission();
-                            submission.TwitterContextId = contextModel.Id;
-
-                            await _dao.InsertAsync(contextModel);
-                            await _submissionDao.InsertAsync(submission);
+                            await _twitterCollector.ReplyWithError(model.Id);
                         }
                     }
+
                     else if (requestType == RequestTypeEnum.Post)
                     {
                         if (model.In_reply_to_status_id_str != null)
                         {
                             var submission = await GetSubmissionFrom(model, contextModel.Id);
-                            
-                            if(submission != null)
-                            {
-                                await _dao.InsertAsync(contextModel);
 
+                            if (submission != null)
+                            {
                                 TwitterComment comment = model.ToComment();
                                 comment.TwitterContextId = contextModel.Id;
-                                
+
+                                await _dao.InsertAsync(contextModel);
                                 await _commentDao.InsertAsync(comment);
                                 await _submissionDao.InsertAsync(submission);
 
-                                if(await _dao.IsContextPresent(contextModel.Id) && await _dao.IsCommentOrSubmissionPresent(contextModel.Id))
+                                if (await _dao.IsContextPresent(contextModel.Id) && await _dao.IsSubmissionPresent(contextModel.Id))
                                 {
                                     await _twitterCollector.PublishUrl(url + $"{contextIdToPublish}", model.Id);
                                 }
@@ -120,13 +135,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                         }
                         else
                         {
-                            await _dao.InsertAsync(contextModel);
-                            await _submissionDao.InsertAsync(model.ToSubmission());
-
-                            if (await _dao.IsContextPresent(contextModel.Id) && await _dao.IsCommentOrSubmissionPresent(contextModel.Id))
-                            {
-                                await _twitterCollector.PublishUrl(url + $"{contextIdToPublish}", model.Id);
-                            }
+                            await _twitterCollector.ReplyWithError(model.Id);
                         }
                     }
                     #endregion
@@ -162,7 +171,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
 
             }
 
-            if(tweet.Id == null)
+            if (tweet.Id == null)
             {
                 return null;
             }
@@ -179,10 +188,10 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
             {
                 return RequestTypeEnum.Post;
             }
-            else if (Regex.IsMatch(body, @"(@_neverforgetbot+ +thread)", RegexOptions.IgnoreCase))
-            {
-                return RequestTypeEnum.Thread;
-            }
+            //else if (Regex.IsMatch(body, @"(@_neverforgetbot+ +thread)", RegexOptions.IgnoreCase))
+            //{
+            //    return RequestTypeEnum.Thread;
+            //}
             else if (Regex.IsMatch(body, @"(@_neverforgetbot+ +comment)", RegexOptions.IgnoreCase))
             {
                 return RequestTypeEnum.Comment;

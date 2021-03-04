@@ -161,6 +161,26 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API
             }
         }
 
+        public async Task ReplyWithUnable(string contextId)
+        {
+            try
+            {
+                var tweet = await TwitterApi.Client.Tweets.GetTweetAsync(long.Parse(contextId));
+                var reply = await TwitterApi.Client.Tweets.PublishTweetAsync(new PublishTweetParameters("@" + tweet.CreatedBy + " - There is a deleted tweet in the thread. Call me in another tweet.")
+                {
+                    InReplyToTweet = tweet
+                });
+            }
+            catch (TwitterException e)
+            {
+                if (e.StatusCode == 403)
+                {
+                    Console.WriteLine("");
+                }
+                throw e;
+            }
+        }
+
         public async Task PublishUrl(string url, string contextId)
         {
             try

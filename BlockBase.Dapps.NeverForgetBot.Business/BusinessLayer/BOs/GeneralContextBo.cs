@@ -114,7 +114,10 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                     else if (recentTweets[i].Context.RequestTypeId == (int)RequestTypeEnum.Default || recentTweets[i].Context.RequestTypeId == (int)RequestTypeEnum.Comment)
                     {
                         recentTweets[i].Comments.OrderByDescending(c => c.CommentDate).ToList();
-                        recentTweets[i].Comments.RemoveAt(0);
+                        if (recentTweets[i].Comments.Count > 0 && recentTweets[i].Submission != null)
+                        {
+                            recentTweets[i].Comments.RemoveAt(0);
+                        }
 
                         if (recentTweets[i].Comments.Count == 0)
                         {

@@ -10,6 +10,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess.Interfaces
     {
         Task<List<TweetModel>> GetUniqueComments(TweetModel[] tweetList);
         Task<bool> IsContextPresent(Guid contextId);
-        Task<bool> IsCommentOrSubmissionPresent(Guid contextId);
+        Task<bool> IsCommentPresent(Guid contextId);
+        Task<bool> IsSubmissionPresent(Guid contextId);
     }
 }

@@ -5,7 +5,6 @@ using BlockBase.Dapps.NeverForgetBot.Services.API.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess
@@ -19,9 +18,10 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess
             {
                 foreach (var tweet in tweetList)
                 {
-                    var result = await _context.TwitterComment.Where((tCom) => (tCom.CommentId == tweet.Id)).List();
+                    var resultComment = await _context.TwitterComment.Where((tCom) => (tCom.CommentId == tweet.Id)).List();
+                    var resultSubmission = await _context.TwitterSubmission.Where((tSub) => (tSub.SubmissionId == tweet.Id)).List();
 
-                    if (result.Result.Count() == 0)
+                    if (resultComment.Result.Count() == 0 && resultSubmission.Result.Count() == 0)
                     {
                         resultList.Add(tweet);
                     }
@@ -34,7 +34,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess
         {
             using (var _context = new NeverForgetBotDbContext())
             {
-                var result = await _context.TwitterContext.Where((tCom) => (tCom.Id == contextId)).List();
+                var result = await _context.TwitterContext.Where((tCtx) => (tCtx.Id == contextId)).List();
 
                 if (result.Result != null)
                 {
@@ -44,14 +44,27 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess
             return false;
         }
 
-        public async Task<bool> IsCommentOrSubmissionPresent(Guid contextId)
+        public async Task<bool> IsCommentPresent(Guid contextId)
         {
             using (var _context = new NeverForgetBotDbContext())
             {
                 var resultComment = await _context.TwitterComment.Where((tCom) => (tCom.TwitterContextId == contextId)).List();
-                var resultSubmission = await _context.TwitterComment.Where((tCom) => (tCom.TwitterContextId == contextId)).List();
-                
-                if (resultComment.Result != null || resultSubmission.Result != null)
+
+                if (resultComment.Result != null)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public async Task<bool> IsSubmissionPresent(Guid contextId)
+        {
+            using (var _context = new NeverForgetBotDbContext())
+            {
+                var resultSubmission = await _context.TwitterSubmission.Where((tSub) => (tSub.TwitterContextId == contextId)).List();
+
+                if (resultSubmission.Result != null)
                 {
                     return true;
                 }

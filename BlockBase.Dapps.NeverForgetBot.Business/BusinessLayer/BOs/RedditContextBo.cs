@@ -199,10 +199,10 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
             {
                 return RequestTypeEnum.Post;
             }
-            else if (Regex.IsMatch(body, @"(!neverforgetbot+ +thread)", RegexOptions.IgnoreCase))
-            {
-                return RequestTypeEnum.Thread;
-            }
+            //else if (Regex.IsMatch(body, @"(!neverforgetbot+ +thread)", RegexOptions.IgnoreCase))
+            //{
+            //    return RequestTypeEnum.Thread;
+            //}
             else if (Regex.IsMatch(body, @"(!neverforgetbot+ +comment)", RegexOptions.IgnoreCase))
             {
                 return RequestTypeEnum.Comment;
