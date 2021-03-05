@@ -1,6 +1,4 @@
 ﻿using BlockBase.Dapps.NeverForgetBot.Services.API.Models;
-using BlockBase.Dapps.NeverForgetBot.Services.API;
-using System;
 using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.Services.API
@@ -11,7 +9,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API
         {
             string url = "https://api.pushshift.io/reddit/comment/search/?q=never";
 
-            var result = await FetchDataFromReddit<RedditContextResultModel>(url);
+            var result = await ApiHelper.FetchDataFromReddit<RedditContextResultModel>(url);
             return result.Data;
         }
 
@@ -19,7 +17,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API
         {
             string url = "https://api.pushshift.io/reddit/comment/search/?q=never";
 
-            var result = await FetchDataFromReddit<RedditCommentResultModel>(url);
+            var result = await ApiHelper.FetchDataFromReddit<RedditCommentResultModel>(url);
             return result.Data;
         }
 
@@ -27,7 +25,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API
         {
             string url = "https://api.pushshift.io/reddit/comment/search/?ids=" + id;
 
-            var result = await FetchDataFromReddit<RedditCommentResultModel>(url);
+            var result = await ApiHelper.FetchDataFromReddit<RedditCommentResultModel>(url);
             return result.Data;
         }
 
@@ -35,10 +33,10 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API
         {
             string url = "https://api.pushshift.io/reddit/submission/search/?ids=" + id;
 
-            var result = await FetchDataFromReddit<RedditSubmissionResultModel>(url);
+            var result = await ApiHelper.FetchDataFromReddit<RedditSubmissionResultModel>(url);
             return result.Data;
         }
 
-        
+
     }
 }

@@ -16,7 +16,23 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API
             ApiClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        public async Task<T> FetchDataFromReddit<T>(string url)
+        public static async Task<T> FetchDataFromReddit<T>(string url)
+        {
+            using (HttpResponseMessage response = await ApiClient.GetAsync(url))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsAsync<T>();
+                    return result;
+                }
+                else
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
+            }
+        }
+
+        public static async Task<T> FetchDataFromReddit<T>(string url, FormUrlEncodedContent content)
         {
             using (HttpResponseMessage response = await ApiClient.GetAsync(url))
             {

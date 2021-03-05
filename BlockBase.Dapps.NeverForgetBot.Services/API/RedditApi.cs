@@ -2,7 +2,6 @@
 using Reddit;
 using Reddit.Controllers;
 using Reddit.Inputs.Search;
-using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -12,13 +11,11 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API
 {
     public class RedditApi
     {
-        public static string refresh_token = GetRefreshToken();
-
         public static void AuthenticateClient()
         {
             //string refreshToken = AuthorizeUser();
 
-            var reddit = new RedditClient(Resources.RedditTokens.APP_ID, refresh_token);
+            var reddit = new RedditClient(Resources.RedditTokens.APP_ID, GetRefreshToken().Result);
 
             List<Post> posts = reddit.Subreddit("MySub").Search(new SearchGetSearchInput("Bernie Sanders"));  // Search r/MySub
             if (posts.Count == 0)
@@ -27,13 +24,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API
             }
         }
 
-        public async Task<string> GetRefreshToken()
-        {
-            var result = await GetAccessTokens();
-            return result.;
-        }
-
-        public static async Task<RedditAccessTokenModel[]> GetAccessTokens()
+        public static async Task<string> GetRefreshToken()
         {
             var urlRT = "https://www.reddit.com/api/v1/access_token";
             var parameters = new Dictionary<string, string> { { "grant_type", "client_credentials" }, { "duration", "permanent" } };
@@ -42,20 +33,9 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API
             ApiHelper.ApiClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Username", Resources.RedditTokens.APP_ID);
             ApiHelper.ApiClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Password", Resources.RedditTokens.SECRET);
 
-
-            using (HttpResponseMessage response = await ApiHelper.ApiClient.PatchAsync(urlRT, encodedContent))
-            {
-                if (response.IsSuccessStatusCode)
-                {
-                    var result = await response.Content.ReadAsAsync<RedditAccessTokenModel[]>();
-
-                    return result;
-                }
-                else
-                {
-                    throw new Exception(response.ReasonPhrase);
-                }
-            }
+            var retrievedToken = await ApiHelper.FetchDataFromReddit<RedditAccessTokenModel>(urlRT, encodedContent);
+            var result = retrievedToken.refresh_token;
+            return result;
         }
 
         //public static string AuthorizeUser()
