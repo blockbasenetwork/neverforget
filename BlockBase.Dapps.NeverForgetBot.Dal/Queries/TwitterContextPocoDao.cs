@@ -39,27 +39,12 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
             }
         }
 
-        //public async Task<List<TwitterContextPoco>> GetAllTwitterContexts()
-        //{
-        //    List<TwitterContextPoco> result = new List<TwitterContextPoco>();
-        //    using (var _context = new NeverForgetBotDbContext())
-        //    {
-        //        var retrievedContextIds = await _context.TwitterContext.Where(ctx => ctx.IsDeleted == false).List((ctx) => ctx.Id);
-
-        //        foreach (var context in retrievedContextIds.Result)
-        //        {
-        //            result.Add(GetTwitterContextById(context).Result);
-        //        }
-        //    }
-        //    return result;
-        //}
-
         public async Task<List<TwitterContextPoco>> GetAllTwitterContexts()
         {
             List<TwitterContextPoco> result = new List<TwitterContextPoco>();
             using (var _context = new NeverForgetBotDbContext())
             {
-                var retrievedContextIds = await _context.TwitterContext.Where(ctx => ctx.IsDeleted == false).List();
+                var retrievedContextIds = await _context.TwitterContext.Where(ctx => ctx.IsDeleted == false).List((ctx) => new TwitterContext(){Id = ctx.Id});
 
                 foreach (var context in retrievedContextIds.Result)
                 {
@@ -68,6 +53,21 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
             }
             return result;
         }
+
+        //public async Task<List<TwitterContextPoco>> GetAllTwitterContexts()
+        //{
+        //    List<TwitterContextPoco> result = new List<TwitterContextPoco>();
+        //    using (var _context = new NeverForgetBotDbContext())
+        //    {
+        //        var retrievedContextIds = await _context.TwitterContext.Where(ctx => ctx.IsDeleted == false).List();
+
+        //        foreach (var context in retrievedContextIds.Result)
+        //        {
+        //            result.Add(GetTwitterContextById(context.Id).Result);
+        //        }
+        //    }
+        //    return result;
+        //}
 
         public async Task<List<TwitterContextPoco>> GetRecentTwitterContexts()
         {
