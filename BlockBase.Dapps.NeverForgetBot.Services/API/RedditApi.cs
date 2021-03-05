@@ -2,9 +2,11 @@
 using Reddit;
 using Reddit.Controllers;
 using Reddit.Inputs.Search;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.Services.API
@@ -13,9 +15,10 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API
     {
         public static void AuthenticateClient()
         {
-            //string refreshToken = AuthorizeUser();
+            var user_agent = "Never Forget Bot v1.0 by /u/NeverForget-Bot";
+            var rToken = GetRefreshToken().Result;
 
-            var reddit = new RedditClient(Resources.RedditTokens.APP_ID, GetRefreshToken().Result);
+            var reddit = new RedditClient(Resources.RedditTokens.APP_ID, rToken.refresh_token, Resources.RedditTokens.SECRET, rToken.access_token, user_agent);
 
             List<Post> posts = reddit.Subreddit("MySub").Search(new SearchGetSearchInput("Bernie Sanders"));  // Search r/MySub
             if (posts.Count == 0)
@@ -24,18 +27,26 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API
             }
         }
 
-        public static async Task<string> GetRefreshToken()
+        public static async Task<RedditAccessTokenModel> GetRefreshToken()
         {
             var urlRT = "https://www.reddit.com/api/v1/access_token";
-            var parameters = new Dictionary<string, string> { { "grant_type", "client_credentials" }, { "duration", "permanent" } };
-            var encodedContent = new FormUrlEncodedContent(parameters);
+            var tokens = new List<string>();
+            ApiHelper.InitializeRedditClient();
 
-            ApiHelper.ApiClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Username", Resources.RedditTokens.APP_ID);
-            ApiHelper.ApiClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Password", Resources.RedditTokens.SECRET);
+            var values = new List<KeyValuePair<string, string>>();
+            values.Add(new KeyValuePair<string, string>("grant_type", "client_credentials"));
+            values.Add(new KeyValuePair<string, string>("duration", "permanent"));
+            var content = new FormUrlEncodedContent(values);
 
-            var retrievedToken = await ApiHelper.FetchDataFromReddit<RedditAccessTokenModel>(urlRT, encodedContent);
-            var result = retrievedToken.refresh_token;
-            return result;
+            var authenticationString = $"{Resources.RedditTokens.APP_ID}:{Resources.RedditTokens.SECRET}";
+            var base64EncodedAuthenticationString = Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(authenticationString));
+
+            var requestMessage = new HttpRequestMessage(HttpMethod.Post, urlRT);
+            requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Basic", base64EncodedAuthenticationString);
+            requestMessage.Content = content;
+
+            var retrievedToken = await ApiHelper.FetchDataFromReddit<RedditAccessTokenModel>(requestMessage);
+            return retrievedToken;
         }
 
         //public static string AuthorizeUser()
