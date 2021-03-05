@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Http;
 using System.Text.RegularExpressions;
 
 namespace BlockBase.Dapps.NeverForgetBot.Common

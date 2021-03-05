@@ -1,6 +1,6 @@
 ﻿using BlockBase.Dapps.NeverForgetBot.Services.API.Models;
+using BlockBase.Dapps.NeverForgetBot.Services.API;
 using System;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.Services.API
@@ -39,20 +39,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API
             return result.Data;
         }
 
-        public async Task<T> FetchDataFromReddit<T>(string url)
-        {
-            using (HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(url))
-            {
-                if (response.IsSuccessStatusCode)
-                {
-                    var result = await response.Content.ReadAsAsync<T>();
-                    return result;
-                }
-                else
-                {
-                    throw new Exception(response.ReasonPhrase);
-                }
-            }
-        }
+        
     }
 }
