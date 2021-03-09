@@ -70,11 +70,29 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to a4KguMvy27__0w.
+        /// </summary>
+        public static string APP_ID_script {
+            get {
+                return ResourceManager.GetString("APP_ID_script", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to B4zij4E3RceAdV_maxlHzuUW3lC9kg.
         /// </summary>
         public static string SECRET {
             get {
                 return ResourceManager.GetString("SECRET", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1y8ER7jIOM-WwJSKGBdk8YdiamlMCw.
+        /// </summary>
+        public static string SECRET_script {
+            get {
+                return ResourceManager.GetString("SECRET_script", resourceCulture);
             }
         }
     }

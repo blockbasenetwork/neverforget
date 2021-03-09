@@ -31,27 +31,5 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API
                 }
             }
         }
-
-        public static void InitializeRedditClient()
-        {
-            ApiClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Username", Resources.RedditTokens.APP_ID);
-            ApiClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Password", Resources.RedditTokens.SECRET);
-        }
-
-        public static async Task<T> FetchDataFromReddit<T>(HttpRequestMessage message)
-        {
-            using (HttpResponseMessage response = await ApiClient.SendAsync(message))
-            {
-                if (response.IsSuccessStatusCode)
-                {
-                    var result = await response.Content.ReadAsAsync<T>();
-                    return result;
-                }
-                else
-                {
-                    throw new Exception(response.ReasonPhrase);
-                }
-            }
-        }
     }
 }

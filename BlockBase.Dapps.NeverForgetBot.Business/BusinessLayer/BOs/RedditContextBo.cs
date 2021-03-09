@@ -23,8 +23,9 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
         private readonly IRedditSubmissionDao _submissionDao;
         private readonly IRedditContextPocoDao _pocoDao;
         private readonly RedditCollector _redditCollector;
+        //private RedditSharp.RefreshTokenWebAgentPool agentPool;
 
-        public RedditContextBo(IRedditContextDao dao, IDbOperationExecutor opExecutor, IRedditSubmissionDao submissionDao, IRedditCommentDao commentDao, IRedditContextPocoDao pocoDao, RedditCollector redditCollector)
+        public RedditContextBo(IRedditContextDao dao, IDbOperationExecutor opExecutor, IRedditSubmissionDao submissionDao, IRedditCommentDao commentDao, IRedditContextPocoDao pocoDao, RedditCollector redditCollector/*, RedditSharp.RefreshTokenWebAgentPool webagentPool*/)
         {
             _dao = dao;
             _opExecutor = opExecutor;
@@ -32,6 +33,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
             _commentDao = commentDao;
             _pocoDao = pocoDao;
             _redditCollector = redditCollector;
+            //agentPool = webagentPool;
         }
 
         public async Task<List<OperationResult>> FromApiRedditModel(RedditContextModel[] modelArray, RedditCommentModel[] commentArray)
@@ -100,6 +102,18 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                     //    await GetAndInsertAllParentComment(commentArray[i], contextModel.Id);
                     //}
                     #endregion
+
+                    //var webAgent = await agentPool.GetOrCreateWebAgentAsync("NeverForget-Bot", (uname, uagent, rlimit) =>
+                    //{
+                    //    string refreshToken = RedditApi.GetRefreshToken().Result.refresh_token;
+                    //    uname = "NeverForget-Bot";
+                    //    uagent = "NeverForgetBot1.0";
+                    //    rlimit = RedditSharp.RateLimitMode.Burst;
+                    //    return Task.FromResult<RedditSharp.RefreshTokenPoolEntry>(new RedditSharp.RefreshTokenPoolEntry(uname, refreshToken, rlimit, uagent));
+                    //});
+
+                    //var reddit = new RedditSharp.Reddit(webAgent, true);
+                    //var subreddit =  reddit.GetSubredditAsync(commentsToAdd[i].SubReddit);
                 });
                 result.Add(opResult);
             }

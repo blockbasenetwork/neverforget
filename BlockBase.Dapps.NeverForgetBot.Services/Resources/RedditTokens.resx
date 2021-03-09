@@ -120,7 +120,13 @@
   <data name="APP_ID" xml:space="preserve">
     <value>z_FR2DzDnW3EEw</value>
   </data>
+  <data name="APP_ID_script" xml:space="preserve">
+    <value>a4KguMvy27__0w</value>
+  </data>
   <data name="SECRET" xml:space="preserve">
     <value>B4zij4E3RceAdV_maxlHzuUW3lC9kg</value>
+  </data>
+  <data name="SECRET_script" xml:space="preserve">
+    <value>1y8ER7jIOM-WwJSKGBdk8YdiamlMCw</value>
   </data>
 </root>
