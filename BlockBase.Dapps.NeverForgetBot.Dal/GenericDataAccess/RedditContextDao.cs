@@ -28,5 +28,48 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess
             }
             return resultList;
         }
+
+
+        public async Task<bool> IsContextPresent(Guid contextId)
+        {
+            using (var _context = new NeverForgetBotDbContext())
+            {
+                var result = await _context.RedditContext.Where((rCtx) => (rCtx.Id == contextId)).List();
+
+                if (result.Result != null)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public async Task<bool> IsCommentPresent(Guid contextId)
+        {
+            using (var _context = new NeverForgetBotDbContext())
+            {
+                var resultComment = await _context.RedditComment.Where((rCom) => (rCom.RedditContextId == contextId)).List();
+
+                if (resultComment.Result != null)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public async Task<bool> IsSubmissionPresent(Guid contextId)
+        {
+            using (var _context = new NeverForgetBotDbContext())
+            {
+                var resultSubmission = await _context.RedditSubmission.Where((rSub) => (rSub.RedditContextId == contextId)).List();
+
+                if (resultSubmission.Result != null)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

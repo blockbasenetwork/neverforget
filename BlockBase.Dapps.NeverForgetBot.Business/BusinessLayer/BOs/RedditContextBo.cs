@@ -23,9 +23,11 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
         private readonly IRedditSubmissionDao _submissionDao;
         private readonly IRedditContextPocoDao _pocoDao;
         private readonly RedditCollector _redditCollector;
-        //private RedditSharp.RefreshTokenWebAgentPool agentPool;
 
-        public RedditContextBo(IRedditContextDao dao, IDbOperationExecutor opExecutor, IRedditSubmissionDao submissionDao, IRedditCommentDao commentDao, IRedditContextPocoDao pocoDao, RedditCollector redditCollector/*, RedditSharp.RefreshTokenWebAgentPool webagentPool*/)
+        string url = "https://localhost:44371/redditcontexts/details/";
+        string contextIdToPublish = string.Empty;
+
+        public RedditContextBo(IRedditContextDao dao, IDbOperationExecutor opExecutor, IRedditSubmissionDao submissionDao, IRedditCommentDao commentDao, IRedditContextPocoDao pocoDao, RedditCollector redditCollector)
         {
             _dao = dao;
             _opExecutor = opExecutor;
@@ -33,7 +35,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
             _commentDao = commentDao;
             _pocoDao = pocoDao;
             _redditCollector = redditCollector;
-            //agentPool = webagentPool;
         }
 
         public async Task<List<OperationResult>> FromApiRedditModel(RedditContextModel[] modelArray, RedditCommentModel[] commentArray)
@@ -55,6 +56,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                     };
                     var requestType = CheckRequestType(modelArray[i].Body);
                     await _dao.InsertAsync(contextModel);
+                    contextIdToPublish = contextModel.Id.ToString();
                     #endregion
 
                     #region Get comment with full link
@@ -77,14 +79,26 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                         if (isParent)
                         {
                             var parentComment = await GetDefaultComments(comment, contextModel.Id);
+                            var submission = await GetSubmission(comment, contextModel.Id);
                             await _commentDao.InsertAsync(comment);
                             await _commentDao.InsertAsync(parentComment);
+
+                            if (await _dao.IsContextPresent(contextModel.Id) && await _dao.IsSubmissionPresent(contextModel.Id))
+                            {
+                                _redditCollector.PublishUrl($"{url}{contextIdToPublish}", commentsToAdd[i].SubReddit, submission, comment);
+                            }
                         }
                         else
                         {
                             var parentSubmission = await GetDefaultSubmissions(comment, contextModel.Id);
+                            var submission = await GetSubmission(comment, contextModel.Id);
                             await _commentDao.InsertAsync(comment);
                             await _submissionDao.InsertAsync(parentSubmission);
+
+                            if (await _dao.IsContextPresent(contextModel.Id) && await _dao.IsSubmissionPresent(contextModel.Id))
+                            {
+                                _redditCollector.PublishUrl($"{url}{contextIdToPublish}", commentsToAdd[i].SubReddit, submission, comment);
+                            }
                         }
                     }
                     else if (requestType == RequestTypeEnum.Post)
@@ -92,6 +106,11 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                         var submission = await GetSubmission(comment, contextModel.Id);
                         await _commentDao.InsertAsync(comment);
                         await _submissionDao.InsertAsync(submission);
+
+                        if (await _dao.IsContextPresent(contextModel.Id) && await _dao.IsSubmissionPresent(contextModel.Id))
+                        {
+                            _redditCollector.PublishUrl($"{url}{contextIdToPublish}", commentsToAdd[i].SubReddit, submission, comment);
+                        }
                     }
                     #endregion
 
@@ -103,17 +122,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                     //}
                     #endregion
 
-                    //var webAgent = await agentPool.GetOrCreateWebAgentAsync("NeverForget-Bot", (uname, uagent, rlimit) =>
-                    //{
-                    //    string refreshToken = RedditApi.GetRefreshToken().Result.refresh_token;
-                    //    uname = "NeverForget-Bot";
-                    //    uagent = "NeverForgetBot1.0";
-                    //    rlimit = RedditSharp.RateLimitMode.Burst;
-                    //    return Task.FromResult<RedditSharp.RefreshTokenPoolEntry>(new RedditSharp.RefreshTokenPoolEntry(uname, refreshToken, rlimit, uagent));
-                    //});
-
-                    //var reddit = new RedditSharp.Reddit(webAgent, true);
-                    //var subreddit =  reddit.GetSubredditAsync(commentsToAdd[i].SubReddit);
                 });
                 result.Add(opResult);
             }

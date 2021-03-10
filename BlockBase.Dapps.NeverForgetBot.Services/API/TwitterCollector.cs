@@ -143,13 +143,10 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API
             try
             {
                 var tweet = await TwitterApi.Client.Tweets.GetTweetAsync(long.Parse(contextId));
-                var reply = await TwitterApi.Client.Tweets.PublishTweetAsync(new PublishTweetParameters("@" + tweet.CreatedBy + " Never Forget " + url)
+                var reply = await TwitterApi.Client.Tweets.PublishTweetAsync(new PublishTweetParameters($"@{ tweet.CreatedBy } Never Forget { url }")
                 {
                     InReplyToTweet = tweet
                 });
-
-                // remove the same way as you would delete a tweet
-                //await TwitterApi.Client.Tweets.DestroyTweetAsync(reply);
             }
             catch (TwitterException e)
             {

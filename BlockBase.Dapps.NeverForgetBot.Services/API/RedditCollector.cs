@@ -1,4 +1,5 @@
-﻿using BlockBase.Dapps.NeverForgetBot.Services.API.Models;
+﻿using BlockBase.Dapps.NeverForgetBot.Data.Entities;
+using BlockBase.Dapps.NeverForgetBot.Services.API.Models;
 using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.Services.API
@@ -7,7 +8,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API
     {
         public async Task<RedditContextModel[]> RedditContextInfo()
         {
-            string url = "https://api.pushshift.io/reddit/comment/search/?q=never";
+            string url = "https://api.pushshift.io/reddit/comment/search/?q=%21neverforget";
 
             var result = await ApiHelper.FetchDataFromReddit<RedditContextResultModel>(url);
             return result.Data;
@@ -15,7 +16,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API
 
         public async Task<RedditCommentModel[]> RedditCommentInfo()
         {
-            string url = "https://api.pushshift.io/reddit/comment/search/?q=never";
+            string url = "https://api.pushshift.io/reddit/comment/search/?q=%21neverforget";
 
             var result = await ApiHelper.FetchDataFromReddit<RedditCommentResultModel>(url);
             return result.Data;
@@ -37,6 +38,12 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API
             return result.Data;
         }
 
-
+        public void PublishUrl(string url, string subreddit, RedditSubmission submission, RedditComment comment)
+        {
+            var sub = RedditApi.Client.Subreddit(subreddit);
+            var post = sub.SelfPost(submission.Title, submission.Content).Submit();
+            var com = post.Reply(comment.Content);
+            com.Reply($"@{ comment.Author } Never Forget { url } ");
+        }
     }
 }

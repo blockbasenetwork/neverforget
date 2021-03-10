@@ -2,38 +2,53 @@
 using Newtonsoft.Json;
 using Reddit;
 using Reddit.AuthTokenRetriever;
+using RestSharp;
 using System;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace BlockBase.Dapps.NeverForgetBot.Services.API
 {
     public class RedditApi
     {
+        public static RedditClient Client { get; set; }
+
         public static void AuthenticateClient()
         {
-            var rToken = GetTokens();
-            rToken.access_token = "776561914738" + rToken.access_token;
-            rToken.refresh_token = "776561914738" + rToken.refresh_token;
+            var rTokens = GetTokens();
+            var prefix = Regex.Match(rTokens.access_token, @"^.*?(?=-)");
+            var refreshToken = prefix + GetRefreshToken();
 
-            var user_agent = "NeverForgetBot1.0";
 
-            var reddit = new RedditClient(Resources.RedditTokens.APP_ID_script, rToken.refresh_token, Resources.RedditTokens.SECRET_script, rToken.access_token, user_agent);
-            Console.WriteLine("Username: " + reddit.Account.Me.Name);
-            Console.WriteLine("Cake Day: " + reddit.Account.Me.Created.ToString("D"));
-
-            //List<Post> posts = reddit.Subreddit("MySub").Search(new SearchGetSearchInput("Bernie Sanders"));  // Search r/MySub
-            //if (posts.Count == 0)
-            //{
-            //    posts = reddit.Subreddit("all").Search(new SearchGetSearchInput("Bernie Sanders"));  // Search r/all
-            //}
+            Client = new RedditClient(Resources.RedditTokens.APP_ID, refreshToken, Resources.RedditTokens.SECRET, rTokens.access_token, Resources.RedditTokens.USER_AGENT);
         }
+
 
         public static RedditAccessTokenModel GetTokens()
         {
-            String encoded = Convert.ToBase64String(Encoding.GetEncoding("ISO-8859-1").GetBytes(Resources.RedditTokens.APP_ID_script + ":" + Resources.RedditTokens.SECRET_script));
+            var encoded = Convert.ToBase64String(Encoding.GetEncoding("ISO-8859-1").GetBytes(Resources.RedditTokens.APP_ID + ":" + Resources.RedditTokens.SECRET));
+            var client = new RestClient("https://www.reddit.com/api/v1/access_token");
+            var request = new RestRequest(Method.POST);
+            request.AddHeader("Authorization", $"Basic {encoded}");
+            request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
+            request.AddHeader("User-Agent", Resources.RedditTokens.USER_AGENT);
+            request.AddParameter("grant_type", "password");
+            request.AddParameter("username", Resources.RedditTokens.USERNAME);
+            request.AddParameter("password", Resources.RedditTokens.PASSWORD);
+
+            var response = client.Execute(request);
+            var responseString = response.Content;
+            var result = JsonConvert.DeserializeObject<RedditAccessTokenModel>(responseString);
+
+            return result;
+        }
+
+        public static string GetRefreshToken()
+        {
+            String encoded = Convert.ToBase64String(Encoding.GetEncoding("ISO-8859-1").GetBytes(Resources.RedditTokens.APP_ID + ":" + Resources.RedditTokens.SECRET));
 
             var request = (HttpWebRequest)WebRequest.Create("https://www.reddit.com/api/v1/access_token?grant_type=client_credentials&duration=permanent");
 
@@ -44,12 +59,12 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API
             var result = JsonConvert.DeserializeObject<RedditAccessTokenModel>(responseString);
 
 
-            return result;
+            return result.refresh_token;
         }
 
         public static string AuthorizeUser()
         {
-            AuthTokenRetrieverLib authTokenRetrieverLib = new AuthTokenRetrieverLib(Resources.RedditTokens.APP_ID_script, Resources.RedditTokens.SECRET_script, 8080);
+            AuthTokenRetrieverLib authTokenRetrieverLib = new AuthTokenRetrieverLib(Resources.RedditTokens.APP_ID, Resources.RedditTokens.SECRET, 8080);
 
             authTokenRetrieverLib.AwaitCallback();
 

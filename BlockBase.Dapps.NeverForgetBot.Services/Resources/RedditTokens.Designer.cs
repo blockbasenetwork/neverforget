@@ -61,7 +61,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to z_FR2DzDnW3EEw.
+        ///   Looks up a localized string similar to a4KguMvy27__0w.
         /// </summary>
         public static string APP_ID {
             get {
@@ -70,16 +70,16 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to a4KguMvy27__0w.
+        ///   Looks up a localized string similar to x+&amp;cX5MM6qCjB+s.
         /// </summary>
-        public static string APP_ID_script {
+        public static string PASSWORD {
             get {
-                return ResourceManager.GetString("APP_ID_script", resourceCulture);
+                return ResourceManager.GetString("PASSWORD", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to B4zij4E3RceAdV_maxlHzuUW3lC9kg.
+        ///   Looks up a localized string similar to 1y8ER7jIOM-WwJSKGBdk8YdiamlMCw.
         /// </summary>
         public static string SECRET {
             get {
@@ -88,11 +88,20 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 1y8ER7jIOM-WwJSKGBdk8YdiamlMCw.
+        ///   Looks up a localized string similar to NeverForgetBot1.0.
         /// </summary>
-        public static string SECRET_script {
+        public static string USER_AGENT {
             get {
-                return ResourceManager.GetString("SECRET_script", resourceCulture);
+                return ResourceManager.GetString("USER_AGENT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NeverForget-Bot.
+        /// </summary>
+        public static string USERNAME {
+            get {
+                return ResourceManager.GetString("USERNAME", resourceCulture);
             }
         }
     }

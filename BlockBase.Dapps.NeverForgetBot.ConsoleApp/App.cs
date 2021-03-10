@@ -61,7 +61,7 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
             //#endregion
 
 
-            //TwitterApi.AuthenticateClient();
+            TwitterApi.AuthenticateClient();
 
             //var mentions = await _twitterCollector.GetMentions();
 

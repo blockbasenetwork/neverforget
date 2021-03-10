@@ -118,15 +118,18 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="APP_ID" xml:space="preserve">
-    <value>z_FR2DzDnW3EEw</value>
-  </data>
-  <data name="APP_ID_script" xml:space="preserve">
     <value>a4KguMvy27__0w</value>
   </data>
-  <data name="SECRET" xml:space="preserve">
-    <value>B4zij4E3RceAdV_maxlHzuUW3lC9kg</value>
+  <data name="PASSWORD" xml:space="preserve">
+    <value>x+&amp;cX5MM6qCjB+s</value>
   </data>
-  <data name="SECRET_script" xml:space="preserve">
+  <data name="SECRET" xml:space="preserve">
     <value>1y8ER7jIOM-WwJSKGBdk8YdiamlMCw</value>
+  </data>
+  <data name="USERNAME" xml:space="preserve">
+    <value>NeverForget-Bot</value>
+  </data>
+  <data name="USER_AGENT" xml:space="preserve">
+    <value>NeverForgetBot1.0</value>
   </data>
 </root>
