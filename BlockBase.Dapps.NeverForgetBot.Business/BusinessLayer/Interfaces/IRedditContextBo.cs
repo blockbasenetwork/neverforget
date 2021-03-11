@@ -10,7 +10,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.Interfaces
 {
     public interface IRedditContextBo
     {
-        Task<List<OperationResult>> FromApiRedditModel(RedditContextModel[] modelArray, RedditCommentModel[] commentArray);
+        Task<List<OperationResult>> FromApiRedditModel(RedditCommentModel[] commentArray);
         Task<OperationResult> InsertAsync(RedditContext entity);
         Task<OperationResult<RedditContext>> GetAsync(Guid id);
         Task<OperationResult> DeleteAsync(RedditContext entity);

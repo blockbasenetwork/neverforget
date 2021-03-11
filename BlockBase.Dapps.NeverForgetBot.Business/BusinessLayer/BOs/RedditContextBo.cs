@@ -37,7 +37,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
             _redditCollector = redditCollector;
         }
 
-        public async Task<List<OperationResult>> FromApiRedditModel(RedditContextModel[] modelArray, RedditCommentModel[] commentArray)
+        public async Task<List<OperationResult>> FromApiRedditModel(RedditCommentModel[] commentArray)
         {
             List<OperationResult> result = new List<OperationResult>();
 
@@ -53,15 +53,15 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                     {
                         Id = Guid.NewGuid(),
                         CreatedAt = DateTime.UtcNow,
-                        RequestTypeId = (int)CheckRequestType(modelArray[i].Body)
+                        RequestTypeId = (int)CheckRequestType(commentsToAdd[i].Body)
                     };
-                    var requestType = CheckRequestType(modelArray[i].Body);
+                    var requestType = CheckRequestType(commentsToAdd[i].Body);
                     await _dao.InsertAsync(contextModel);
                     contextIdToPublish = contextModel.Id.ToString();
                     #endregion
 
                     #region Get comment with full link
-                    var comment = commentArray[i].ToData();
+                    var comment = commentsToAdd[i].ToData();
                     comment.RedditContextId = contextModel.Id;
                     if (comment.Link != null)
                     {
@@ -86,7 +86,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
 
                             if (await _dao.IsContextPresent(contextModel.Id) && await _dao.IsSubmissionPresent(contextModel.Id))
                             {
-                                _redditCollector.PublishUrl($"{url}{contextIdToPublish}", comment);
+                                //_redditCollector.PublishUrl($"{url}{contextIdToPublish}", comment);
                             }
                         }
                         else
@@ -98,7 +98,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
 
                             if (await _dao.IsContextPresent(contextModel.Id) && await _dao.IsSubmissionPresent(contextModel.Id))
                             {
-                                _redditCollector.PublishUrl($"{url}{contextIdToPublish}", comment);
+                                //_redditCollector.PublishUrl($"{url}{contextIdToPublish}", comment);
                             }
                         }
                     }
@@ -110,7 +110,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
 
                         if (await _dao.IsContextPresent(contextModel.Id) && await _dao.IsSubmissionPresent(contextModel.Id))
                         {
-                            _redditCollector.PublishUrl($"{url}{contextIdToPublish}", comment);
+                            //_redditCollector.PublishUrl($"{url}{contextIdToPublish}", comment);
                         }
                     }
                     #endregion
@@ -218,15 +218,15 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
 
         private RequestTypeEnum CheckRequestType(string body)
         {
-            if (Regex.IsMatch(body, @"(\s!\s*never\s*forget+ +post)", RegexOptions.IgnoreCase))
+            if (Regex.IsMatch(body, @"(\B!neverforget\s+post)", RegexOptions.IgnoreCase))
             {
                 return RequestTypeEnum.Post;
             }
-            //else if (Regex.IsMatch(body, @"(!neverforgetbot+ +thread)", RegexOptions.IgnoreCase))
+            //else if (Regex.IsMatch(body, @"(\B!neverforget\s+thread)", RegexOptions.IgnoreCase))
             //{
             //    return RequestTypeEnum.Thread;
             //}
-            else if (Regex.IsMatch(body, @"(\s!\s*never\s*forget+ +comment)", RegexOptions.IgnoreCase))
+            else if (Regex.IsMatch(body, @"(\B!neverforget\s+comment)", RegexOptions.IgnoreCase))
             {
                 return RequestTypeEnum.Comment;
             }
@@ -238,7 +238,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
             List<RedditCommentModel> comments = new List<RedditCommentModel>();
             foreach (var comment in commentArray)
             {
-                if (Regex.IsMatch(comment.Body, @"(\s!\s*never\s*forget)", RegexOptions.IgnoreCase))
+                if (Regex.IsMatch(comment.Body, @"(\B!neverforget)", RegexOptions.IgnoreCase))
                 {
                     comments.Add(comment);
                 }

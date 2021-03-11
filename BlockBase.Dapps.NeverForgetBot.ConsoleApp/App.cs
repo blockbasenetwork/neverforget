@@ -64,23 +64,21 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
             //#endregion
 
 
-            //TwitterApi.AuthenticateClient();
+            TwitterApi.AuthenticateClient();
 
-            //var mentions = await _twitterCollector.GetMentions();
+            var mentions = await _twitterCollector.GetMentions();
 
-            //await _twitterContextBo.FromApiTwitterModel(mentions);
+            await _twitterContextBo.FromApiTwitterModel(mentions);
+
 
             ApiHelper.InitializeClient();
 
             //RedditApi.AuthorizeUser();
             RedditApi.AuthenticateClient();
 
-
-
-            var content = _redditCollector.RedditContextInfo().Result;
             var comment = _redditCollector.RedditCommentInfo().Result;
 
-            await _redditContextBo.FromApiRedditModel(content, comment);
+            await _redditContextBo.FromApiRedditModel(comment);
         }
     }
 }
