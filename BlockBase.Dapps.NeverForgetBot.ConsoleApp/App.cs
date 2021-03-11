@@ -1,5 +1,8 @@
 ﻿using BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.Interfaces;
+using BlockBase.Dapps.NeverForgetBot.Common.Enums;
 using BlockBase.Dapps.NeverForgetBot.Dal;
+using BlockBase.Dapps.NeverForgetBot.Data.Context;
+using BlockBase.Dapps.NeverForgetBot.Data.Entities;
 using BlockBase.Dapps.NeverForgetBot.Services.API;
 using System.Threading.Tasks;
 
@@ -61,23 +64,23 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
             //#endregion
 
 
-            TwitterApi.AuthenticateClient();
+            //TwitterApi.AuthenticateClient();
 
             //var mentions = await _twitterCollector.GetMentions();
 
             //await _twitterContextBo.FromApiTwitterModel(mentions);
 
-            //ApiHelper.InitializeClient();
+            ApiHelper.InitializeClient();
 
             //RedditApi.AuthorizeUser();
             RedditApi.AuthenticateClient();
 
 
 
-            //var content = _redditCollector.RedditContextInfo().Result;
-            //var comment = _redditCollector.RedditCommentInfo().Result;
+            var content = _redditCollector.RedditContextInfo().Result;
+            var comment = _redditCollector.RedditCommentInfo().Result;
 
-            //await _redditContextBo.FromApiRedditModel(content, comment);
+            await _redditContextBo.FromApiRedditModel(content, comment);
         }
     }
 }

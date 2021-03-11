@@ -85,7 +85,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
 
                             if (await _dao.IsContextPresent(contextModel.Id) && await _dao.IsSubmissionPresent(contextModel.Id))
                             {
-                                _redditCollector.PublishUrl($"{url}{contextIdToPublish}", commentsToAdd[i].SubReddit, submission, comment);
+                                _redditCollector.PublishUrl($"{url}{contextIdToPublish}", comment);
                             }
                         }
                         else
@@ -97,7 +97,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
 
                             if (await _dao.IsContextPresent(contextModel.Id) && await _dao.IsSubmissionPresent(contextModel.Id))
                             {
-                                _redditCollector.PublishUrl($"{url}{contextIdToPublish}", commentsToAdd[i].SubReddit, submission, comment);
+                                _redditCollector.PublishUrl($"{url}{contextIdToPublish}", comment);
                             }
                         }
                     }
@@ -109,7 +109,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
 
                         if (await _dao.IsContextPresent(contextModel.Id) && await _dao.IsSubmissionPresent(contextModel.Id))
                         {
-                            _redditCollector.PublishUrl($"{url}{contextIdToPublish}", commentsToAdd[i].SubReddit, submission, comment);
+                            _redditCollector.PublishUrl($"{url}{contextIdToPublish}", comment);
                         }
                     }
                     #endregion
