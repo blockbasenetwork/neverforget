@@ -41,7 +41,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
         {
             List<OperationResult> result = new List<OperationResult>();
 
-            var commentsToAdd = await _dao.GetUniqueComments(commentArray);
+            var commentsList = CheckKeyword(commentArray);
+            var commentsToAdd = await _dao.GetUniqueComments(commentsList.ToArray());
 
             for (int i = 0; i < commentsToAdd.Count; i++)
             {
@@ -217,7 +218,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
 
         private RequestTypeEnum CheckRequestType(string body)
         {
-            if (Regex.IsMatch(body, @"(!neverforgetbot+ +post)", RegexOptions.IgnoreCase))
+            if (Regex.IsMatch(body, @"(\s!\s*never\s*forget+ +post)", RegexOptions.IgnoreCase))
             {
                 return RequestTypeEnum.Post;
             }
@@ -225,11 +226,25 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
             //{
             //    return RequestTypeEnum.Thread;
             //}
-            else if (Regex.IsMatch(body, @"(!neverforgetbot+ +comment)", RegexOptions.IgnoreCase))
+            else if (Regex.IsMatch(body, @"(\s!\s*never\s*forget+ +comment)", RegexOptions.IgnoreCase))
             {
                 return RequestTypeEnum.Comment;
             }
             else return RequestTypeEnum.Default;
+        }
+
+        public List<RedditCommentModel> CheckKeyword(RedditCommentModel[] commentArray)
+        {
+            List<RedditCommentModel> comments = new List<RedditCommentModel>();
+            foreach (var comment in commentArray)
+            {
+                if (Regex.IsMatch(comment.Body, @"(\s!\s*never\s*forget)", RegexOptions.IgnoreCase))
+                {
+                    comments.Add(comment);
+                }
+            }
+            return comments;
+
         }
         #endregion
 
