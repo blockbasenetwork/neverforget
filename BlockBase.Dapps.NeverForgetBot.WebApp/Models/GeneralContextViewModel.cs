@@ -25,7 +25,7 @@ namespace BlockBase.Dapps.NeverForgetBot.WebApp.Models
             gcvm.Content = generalContext.Content;
             gcvm.Author = generalContext.Author;
             gcvm.Date = generalContext.Date;
-            if (gcvm.SourceType.Equals(SourceTypeEnum.Reddit) && gcvm.RequestTypeId == (int)RequestTypeEnum.Post)
+            if (gcvm.SourceType.Equals(SourceTypeEnum.Reddit) && generalContext.Title != null)
             {
                 gcvm.Title = generalContext.Title;
             }

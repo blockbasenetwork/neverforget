@@ -52,12 +52,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                     else if (recentReddits[i].Context.RequestTypeId == (int)RequestTypeEnum.Default || recentReddits[i].Context.RequestTypeId == (int)RequestTypeEnum.Comment)
                     {
                         recentReddits[i].Comments.OrderByDescending(c => c.CommentDate).ToList();
-                        if (recentReddits[i].Comments.Count > 0 && recentReddits[i].Submission != null)
-                        {
-                            recentReddits[i].Comments.RemoveAt(0);
-                        }
-
-                        if (recentReddits[i].Comments.Count == 0)
+                        if (recentReddits[i].Submission != null)
                         {
                             var redditToGeneral = new GeneralContextPoco()
                             {
@@ -67,7 +62,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                                 Date = recentReddits[i].Submission.SubmissionDate,
                                 Link = recentReddits[i].Submission.Link,
                                 MediaLink = recentReddits[i].Submission.MediaLink,
-                                RequestTypeId = (int)RequestTypeEnum.Post,
+                                RequestTypeId = (int)RequestTypeEnum.Comment,
                                 SourceType = SourceTypeEnum.Reddit,
                                 SubReddit = recentReddits[i].Submission.SubReddit,
                                 Title = recentReddits[i].Submission.Title,
@@ -79,14 +74,14 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                         {
                             var redditToGeneral = new GeneralContextPoco()
                             {
-                                Author = recentReddits[i].Comments[0].Author,
-                                Content = recentReddits[i].Comments[0].Content,
+                                Author = recentReddits[i].Comments[1].Author,
+                                Content = recentReddits[i].Comments[1].Content,
                                 ContextId = recentReddits[i].Context.Id,
-                                Date = recentReddits[i].Comments[0].CommentDate,
-                                Link = recentReddits[i].Comments[0].Link,
+                                Date = recentReddits[i].Comments[1].CommentDate,
+                                Link = recentReddits[i].Comments[1].Link,
                                 RequestTypeId = (int)RequestTypeEnum.Comment,
                                 SourceType = SourceTypeEnum.Reddit,
-                                SubReddit = recentReddits[i].Comments[0].SubReddit,
+                                SubReddit = recentReddits[i].Comments[1].SubReddit,
                             };
 
                             result.Add(redditToGeneral);
@@ -114,12 +109,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                     else if (recentTweets[i].Context.RequestTypeId == (int)RequestTypeEnum.Default || recentTweets[i].Context.RequestTypeId == (int)RequestTypeEnum.Comment)
                     {
                         recentTweets[i].Comments.OrderByDescending(c => c.CommentDate).ToList();
-                        if (recentTweets[i].Comments.Count > 0 && recentTweets[i].Submission != null)
-                        {
-                            recentTweets[i].Comments.RemoveAt(0);
-                        }
 
-                        if (recentTweets[i].Comments.Count == 0)
+                        if (recentTweets[i].Submission != null)
                         {
                             var tweetToGeneral = new GeneralContextPoco()
                             {
@@ -129,7 +120,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                                 Date = recentTweets[i].Submission.SubmissionDate,
                                 Link = recentTweets[i].Submission.Link,
                                 MediaLink = recentTweets[i].Submission.MediaLink,
-                                RequestTypeId = (int)RequestTypeEnum.Post,
+                                RequestTypeId = (int)RequestTypeEnum.Comment,
                                 SourceType = SourceTypeEnum.Twitter,
                             };
 
@@ -139,16 +130,15 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                         {
                             var tweetToGeneral = new GeneralContextPoco()
                             {
-                                Author = recentTweets[i].Comments[0].Author,
-                                Content = recentTweets[i].Comments[0].Content,
+                                Author = recentTweets[i].Comments[1].Author,
+                                Content = recentTweets[i].Comments[1].Content,
                                 ContextId = recentTweets[i].Context.Id,
-                                Date = recentTweets[i].Comments[0].CommentDate,
-                                Link = recentTweets[i].Comments[0].Link,
-                                MediaLink = recentTweets[i].Comments[0].MediaLink,
+                                Date = recentTweets[i].Comments[1].CommentDate,
+                                Link = recentTweets[i].Comments[1].Link,
+                                MediaLink = recentTweets[i].Comments[1].MediaLink,
                                 RequestTypeId = (int)RequestTypeEnum.Comment,
                                 SourceType = SourceTypeEnum.Twitter,
                             };
-
                             result.Add(tweetToGeneral);
                         }
                     }
