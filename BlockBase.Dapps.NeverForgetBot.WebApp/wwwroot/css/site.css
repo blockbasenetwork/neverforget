@@ -125,6 +125,9 @@ body {*/
     flex-direction: column;
     justify-content: center;
   }
+  .socialMediaLogo {
+    margin-bottom: 25px !important;
+  }
 }
 @media print {
   .hidden-print {
@@ -176,11 +179,9 @@ body {*/
   padding: 0;
   display: flex;
   align-items: center;
-  border: none;
 }
 .socialMediaLogo .logoImg {
   background-color: transparent;
-  border: none;
 }
 .borderReddit {
   border: solid;

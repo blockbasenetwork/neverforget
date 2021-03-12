@@ -238,7 +238,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
             List<RedditCommentModel> comments = new List<RedditCommentModel>();
             foreach (var comment in commentArray)
             {
-                if (Regex.IsMatch(comment.Body, @"(\B!neverforget)", RegexOptions.IgnoreCase))
+                if (Regex.IsMatch(comment.Body, @"(\B!neverforget)", RegexOptions.IgnoreCase)/* && comment.Author != "NeverForget-Bot"*/)
                 {
                     comments.Add(comment);
                 }

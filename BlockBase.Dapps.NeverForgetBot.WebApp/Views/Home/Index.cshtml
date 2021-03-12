@@ -4,14 +4,14 @@
 
 <div class="container homeContext">
     <div class="row">
-        <table class="table display no-wrap border-0 homeTable">
+        <table class="table-borderless display no-wrap homeTable">
             @foreach (var item in Model)
             {
                 <tbody>
                     <tr>
                         <td class="m-0">
                             <div class="row">
-                                <div class="col- p-0 border-none d-flex align-items-center socialMediaLogo">
+                                <div class="col- p-0 d-flex align-items-center center socialMediaLogo">
                                     <div class="card border-0 logoImg">
                                         @if (item.SourceType == SourceTypeEnum.Reddit)
                                         {
