@@ -15,9 +15,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.Interfaces
         Task<OperationResult<TwitterContext>> GetAsync(Guid id);
         Task<OperationResult> DeleteAsync(TwitterContext entity);
         Task<OperationResult<List<TwitterContext>>> GetAllAsync();
-
         Task<OperationResult<List<TwitterContextPoco>>> GetAllPocoAsync();
-        Task<OperationResult<List<TwitterContextPoco>>> GetRecents();
         Task<OperationResult<TwitterContextPoco>> GetPocoAsync(Guid id);
     }
 }

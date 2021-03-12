@@ -1,4 +1,5 @@
-﻿using BlockBase.Dapps.NeverForgetBot.Data.Pocos;
+﻿using BlockBase.Dapps.NeverForgetBot.Data.Entities;
+using BlockBase.Dapps.NeverForgetBot.Data.Pocos;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
     {
         Task<RedditContextPoco> GetRedditContextById(Guid contextId);
         Task<List<RedditContextPoco>> GetAllRedditContexts();
-        Task<List<RedditContextPoco>> GetRecentRedditContexts();
+        Task<GeneralContextPoco> GetRecentRedditContext(RedditContext context);
+        Task<List<GeneralContextPoco>> GetRecentRedditContexts();
     }
 }

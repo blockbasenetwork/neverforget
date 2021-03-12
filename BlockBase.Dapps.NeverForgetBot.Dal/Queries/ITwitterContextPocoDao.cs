@@ -1,4 +1,5 @@
-﻿using BlockBase.Dapps.NeverForgetBot.Data.Pocos;
+﻿using BlockBase.Dapps.NeverForgetBot.Data.Entities;
+using BlockBase.Dapps.NeverForgetBot.Data.Pocos;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,6 +11,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
     {
         Task<TwitterContextPoco> GetTwitterContextById(Guid contextId);
         Task<List<TwitterContextPoco>> GetAllTwitterContexts();
-        Task<List<TwitterContextPoco>> GetRecentTwitterContexts();
+        Task<GeneralContextPoco> GetRecentTwitterContextById(TwitterContext context);
+        Task<List<GeneralContextPoco>> GetRecentTwitterContexts();
     }
 }
