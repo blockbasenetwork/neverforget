@@ -311,15 +311,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                 return result.Select(context => context).ToList();
             });
         }
-
-        public async Task<OperationResult<List<RedditContextPoco>>> GetRecents()
-        {
-            return await _opExecutor.ExecuteOperation<List<RedditContextPoco>>(async () =>
-            {
-                var result = await _pocoDao.GetRecentRedditContexts();
-                return result.Select(context => context).ToList();
-            });
-        }
         #endregion
     }
 }
