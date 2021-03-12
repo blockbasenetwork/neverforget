@@ -244,7 +244,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                 }
             }
             return comments;
-
         }
         #endregion
 

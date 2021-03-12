@@ -1,5 +1,9 @@
 ﻿using BlockBase.Dapps.NeverForgetBot.Data.Entities;
 using BlockBase.Dapps.NeverForgetBot.Services.API.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.Services.API
@@ -8,11 +12,54 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API
     {
         public async Task<RedditCommentModel[]> RedditCommentInfo()
         {
-            string url = "https://api.pushshift.io/reddit/comment/search/?q=%21neverforget";
+            int lastDate = ReadLastCommentDate();
+
+            string url = $"https://api.pushshift.io/reddit/comment/search/?q=%21neverforget&size=500&after={lastDate}";
 
             var result = await ApiHelper.FetchDataFromReddit<RedditCommentResultModel>(url);
+            if (result.Data.Length != 0)
+            {
+                var lastComment = result.Data[^1];
+                CreateLastCommentDate(lastComment.Created_Utc);
+            }
             return result.Data;
         }
+
+        public void CreateLastCommentDate(int lastCommentDate)
+        {
+            var lastDateJson = JsonConvert.SerializeObject(new
+            {
+                lastDate = lastCommentDate.ToString()
+            });
+
+            string fileName = "lastDateReddit.json";
+            string filePath = Path.Combine(Environment.CurrentDirectory, fileName);
+
+            using (StreamWriter file = File.CreateText(filePath))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(file, lastDateJson);
+            }
+        }
+
+        public int ReadLastCommentDate()
+        {
+            string fileName = "lastDateReddit.json";
+            string filePath = Path.Combine(Environment.CurrentDirectory, fileName);
+
+            using (StreamReader file = File.OpenText(filePath))
+            {
+                var json = file.ReadToEnd();
+
+                var jsonString = JsonConvert.DeserializeObject<string>(json);
+                JObject obj = JObject.Parse(jsonString);
+                JToken token = obj["lastDate"];
+                int lastDate = (int)token;
+
+                return lastDate;
+            }
+        }
+
 
         public async Task<RedditCommentModel[]> RedditParentCommentInfo(string id)
         {
