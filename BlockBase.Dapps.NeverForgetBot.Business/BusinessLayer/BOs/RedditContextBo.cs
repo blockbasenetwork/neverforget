@@ -37,6 +37,28 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
             _redditCollector = redditCollector;
         }
 
+        public async Task<OperationResult> FromApiRedditAllComments()
+        {
+            int lastDate;
+            RedditCommentModel[] commentBatch = new RedditCommentModel[] { };
+
+            var opResult = await _opExecutor.ExecuteOperation(async () =>
+            {
+                do
+                {
+                    lastDate = _redditCollector.ReadLastCommentDate();
+                    commentBatch = await _redditCollector.RedditCommentInfo(lastDate);
+                    if (commentBatch.Length != 0)
+                    {
+                        await FromApiRedditModel(commentBatch);
+                        lastDate = commentBatch[^1].Created_Utc;
+                        _redditCollector.CreateLastCommentDate(lastDate);
+                    }
+                } while (commentBatch.Length != 0);
+            });
+            return opResult;
+        }
+
         public async Task<List<OperationResult>> FromApiRedditModel(RedditCommentModel[] commentArray)
         {
             List<OperationResult> result = new List<OperationResult>();
