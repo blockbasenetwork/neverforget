@@ -71,12 +71,8 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
             ApiHelper.InitializeClient();
 
             ////RedditApi.AuthorizeUser();
-            //RedditApi.AuthenticateClient();
+            RedditApi.AuthenticateClient();
             await _redditContextBo.FromApiRedditAllComments();
-
-            //await _redditContextBo.FromApiRedditModel(comment);
-
-
         }
     }
 }

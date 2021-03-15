@@ -1,9 +1,10 @@
-﻿using BlockBase.Dapps.NeverForgetBot.Data.Entities;
-using BlockBase.Dapps.NeverForgetBot.Services.API.Models;
+﻿using BlockBase.Dapps.NeverForgetBot.Services.API.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using RedditSharp.Things;
 using System;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.Services.API
@@ -12,7 +13,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API
     {
         public async Task<RedditCommentModel[]> RedditCommentInfo(int lastDate)
         {
-            string url = $"https://api.pushshift.io/reddit/comment/search/?q=%21neverforget&size=100&after={lastDate}";
+            string url = $"https://api.pushshift.io/reddit/comment/search/?q=%21neverforget&size=100&subreddit=test&after={lastDate}";
             var result = await ApiHelper.FetchDataFromReddit<RedditCommentResultModel>(url);
             return result.Data;
         }
@@ -69,10 +70,16 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API
             return result.Data;
         }
 
-        public void PublishUrl(string url, RedditComment comment)
+        public void PublishUrl(string url, string commentId)
         {
-            var com = RedditApi.Client.Comment($"t1_{comment.CommentId}");
-            com.Reply($"@{ comment.Author } { url } ");
+            Comment com = (Comment)RedditApi.Client.GetThingByFullnameAsync($"t1_{commentId}").Result;
+            com.ReplyAsync($"@NeverForget-Bot { url } ");
+            Thread.Sleep(1 *   // minutes to sleep
+                        60 *   // seconds to a minute
+                        1000); // milliseconds to a second
+            //var com = RedditApi.Client.Comment($"t1_{comment.CommentId}");
+            //com.Reply($"@{ comment.Author } { url } ");
+
         }
     }
 }

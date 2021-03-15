@@ -25,7 +25,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
         private readonly RedditCollector _redditCollector;
 
         string url = "https://localhost:44371/redditcontexts/details/";
-        string contextIdToPublish = string.Empty;
+        //string contextIdToPublish = string.Empty;
 
         public RedditContextBo(IRedditContextDao dao, IDbOperationExecutor opExecutor, IRedditSubmissionDao submissionDao, IRedditCommentDao commentDao, IRedditContextPocoDao pocoDao, RedditCollector redditCollector)
         {
@@ -36,6 +36,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
             _pocoDao = pocoDao;
             _redditCollector = redditCollector;
         }
+
 
         public async Task<OperationResult> FromApiRedditAllComments()
         {
@@ -51,8 +52,11 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                     if (commentBatch.Length != 0)
                     {
                         await FromApiRedditModel(commentBatch);
-                        lastDate = commentBatch[^1].Created_Utc;
-                        _redditCollector.CreateLastCommentDate(lastDate);
+                        if (commentBatch[^1] != null)
+                        {
+                            lastDate = commentBatch[^1].Created_Utc;
+                            _redditCollector.CreateLastCommentDate(lastDate);
+                        }
                     }
                 } while (commentBatch.Length != 0);
             });
@@ -62,6 +66,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
         public async Task<List<OperationResult>> FromApiRedditModel(RedditCommentModel[] commentArray)
         {
             List<OperationResult> result = new List<OperationResult>();
+            List<RedditCommentContextPoco> toReply = new List<RedditCommentContextPoco>();
 
             var commentsList = CheckKeyword(commentArray);
             var commentsToAdd = await _dao.GetUniqueComments(commentsList.ToArray());
@@ -79,7 +84,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                     };
                     var requestType = CheckRequestType(commentsToAdd[i].Body);
                     await _dao.InsertAsync(contextModel);
-                    contextIdToPublish = contextModel.Id.ToString();
+                    //contextIdToPublish = contextModel.Id.ToString();
                     #endregion
 
                     #region Get comment with full link
@@ -108,7 +113,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
 
                             if (await _dao.IsContextPresent(contextModel.Id) && await _dao.IsSubmissionPresent(contextModel.Id))
                             {
-                                //_redditCollector.PublishUrl($"{url}{contextIdToPublish}", comment);
+                                toReply.Add(new RedditCommentContextPoco() { ContextId = contextModel.Id.ToString(), CommentId = comment.CommentId });
+                                //_redditCollector.PublishUrl($"{url}{contextIdToPublish}", comment.CommentId);
                             }
                         }
                         else
@@ -120,7 +126,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
 
                             if (await _dao.IsContextPresent(contextModel.Id) && await _dao.IsSubmissionPresent(contextModel.Id))
                             {
-                                //_redditCollector.PublishUrl($"{url}{contextIdToPublish}", comment);
+                                toReply.Add(new RedditCommentContextPoco() { ContextId = contextModel.Id.ToString(), CommentId = comment.CommentId });
+                                //_redditCollector.PublishUrl($"{url}{contextIdToPublish}", comment.CommentId);
                             }
                         }
                     }
@@ -132,7 +139,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
 
                         if (await _dao.IsContextPresent(contextModel.Id) && await _dao.IsSubmissionPresent(contextModel.Id))
                         {
-                            //_redditCollector.PublishUrl($"{url}{contextIdToPublish}", comment);
+                            toReply.Add(new RedditCommentContextPoco() { ContextId = contextModel.Id.ToString(), CommentId = comment.CommentId });
+                            //_redditCollector.PublishUrl($"{url}{contextIdToPublish}", comment.CommentId);
                         }
                     }
                     #endregion
@@ -147,8 +155,21 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
 
                 });
                 result.Add(opResult);
+                await PublishReplies(toReply);
             }
             return result;
+        }
+
+        public async Task<OperationResult> PublishReplies(List<RedditCommentContextPoco> toReply)
+        {
+            var opResult = await _opExecutor.ExecuteOperation(async () =>
+            {
+                foreach (var reply in toReply)
+                {
+                    _redditCollector.PublishUrl($"{url}{reply.ContextId}", reply.CommentId);
+                }
+            });
+            return opResult;
         }
 
         #region Process Data

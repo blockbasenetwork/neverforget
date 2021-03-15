@@ -123,6 +123,9 @@
   <data name="PASSWORD" xml:space="preserve">
     <value>x+&amp;cX5MM6qCjB+s</value>
   </data>
+  <data name="REDIRECT_URI" xml:space="preserve">
+    <value>http://localhost:8080/Reddit.NET/oauthRedirect</value>
+  </data>
   <data name="SECRET" xml:space="preserve">
     <value>1y8ER7jIOM-WwJSKGBdk8YdiamlMCw</value>
   </data>

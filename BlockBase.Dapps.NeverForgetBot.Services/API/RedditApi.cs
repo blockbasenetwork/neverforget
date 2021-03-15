@@ -1,7 +1,7 @@
 ﻿using BlockBase.Dapps.NeverForgetBot.Services.API.Models;
 using Newtonsoft.Json;
-using Reddit;
 using Reddit.AuthTokenRetriever;
+using RedditSharp;
 using RestSharp;
 using System;
 using System.Diagnostics;
@@ -14,7 +14,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API
 {
     public class RedditApi
     {
-        public static RedditClient Client { get; set; }
+        public static RedditSharp.Reddit Client { get; set; }
 
         public static void AuthenticateClient()
         {
@@ -22,8 +22,27 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API
             var prefix = Regex.Match(rTokens.access_token, @"^.*?(?=-)");
             var refreshToken = prefix + GetRefreshToken();
 
+            var webAgent = new BotWebAgent(Resources.RedditTokens.USERNAME, Resources.RedditTokens.PASSWORD, Resources.RedditTokens.APP_ID, Resources.RedditTokens.SECRET, Resources.RedditTokens.REDIRECT_URI);
+            Client = new RedditSharp.Reddit(webAgent, false);
+            //Client = new RedditClient(Resources.RedditTokens.APP_ID, refreshToken, Resources.RedditTokens.SECRET, rTokens.access_token, Resources.RedditTokens.USER_AGENT);
 
-            Client = new RedditClient(Resources.RedditTokens.APP_ID, refreshToken, Resources.RedditTokens.SECRET, rTokens.access_token, Resources.RedditTokens.USER_AGENT);
+            //var com = Client.Comment($"t1_gqgmgod");
+            //com.Reply($"Bot goes Broom");
+            //Thread.Sleep(65 *   // minutes to sleep
+            // 60 *   // seconds to a minute
+            // 1000); // milliseconds to a second
+            //Console.WriteLine("An hour has passed");
+            //com.Reply($"Bot goes Broom Broom");
+
+
+            //Comment comment = (Comment)reddit.GetThingByFullnameAsync($"t1_gqgmgod").Result;
+            //Comment comment2 = (Comment)reddit.GetThingByFullnameAsync($"t1_gr0lff9").Result;
+            //comment2.ReplyAsync($"I SAID : Bot goes Broom");
+            //Thread.Sleep(2 *   // minutes to sleep
+            // 60 *   // seconds to a minute
+            // 1000); // milliseconds to a second
+            //Console.WriteLine("An hour has passed");
+            //comment2.ReplyAsync($"BOT GOES BROOM BROOM");
         }
 
 

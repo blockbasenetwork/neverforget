@@ -79,6 +79,15 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to http://localhost:8080/Reddit.NET/oauthRedirect.
+        /// </summary>
+        public static string REDIRECT_URI {
+            get {
+                return ResourceManager.GetString("REDIRECT_URI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 1y8ER7jIOM-WwJSKGBdk8YdiamlMCw.
         /// </summary>
         public static string SECRET {
