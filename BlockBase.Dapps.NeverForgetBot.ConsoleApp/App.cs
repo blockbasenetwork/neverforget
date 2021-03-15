@@ -72,7 +72,7 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
 
             ////RedditApi.AuthorizeUser();
             RedditApi.AuthenticateClient();
-            await _redditContextBo.FromApiRedditAllComments();
+            //await _redditContextBo.FromApiRedditAllComments();
         }
     }
 }

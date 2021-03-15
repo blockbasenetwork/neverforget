@@ -13,7 +13,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API
     {
         public async Task<RedditCommentModel[]> RedditCommentInfo(int lastDate)
         {
-            string url = $"https://api.pushshift.io/reddit/comment/search/?q=%21neverforget&size=100&subreddit=test&after={lastDate}";
+            string url = $"https://api.pushshift.io/reddit/comment/search/?q=%21neverforget&size=100&after={lastDate}";
             var result = await ApiHelper.FetchDataFromReddit<RedditCommentResultModel>(url);
             return result.Data;
         }
