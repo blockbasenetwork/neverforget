@@ -122,6 +122,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
                     result.Author = retrievedSubmission.Result.First().Author;
                     result.Content = retrievedSubmission.Result.First().Content;
                     result.Date = retrievedSubmission.Result.First().SubmissionDate;
+                    result.Title = retrievedSubmission.Result.First().Title;
                     result.SourceType = SourceTypeEnum.Reddit;
 
                     return result;
