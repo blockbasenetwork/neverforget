@@ -1,5 +1,4 @@
-﻿using BlockBase.Dapps.NeverForgetBot.Common.Enums;
-using BlockBase.Dapps.NeverForgetBot.Data.Pocos;
+﻿using BlockBase.Dapps.NeverForgetBot.Data.Pocos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,15 +29,6 @@ namespace BlockBase.Dapps.NeverForgetBot.WebApp.Models
 
             foreach (var comment in context.Comments)
             {
-                //TwitterDetail c = new TwitterDetail();
-
-                //c.Id = comment.Id;
-                //c.Content = comment.Content;
-                //c.Author = comment.Author;
-                //c.Date = comment.CommentDate;
-                //c.Link = comment.Link;
-                //c.MediaLink = comment.MediaLink;
-
                 detailView.Comments.Add(new TwitterDetail()
                 {
                     Id = comment.Id,

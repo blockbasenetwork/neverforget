@@ -25,7 +25,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
         private readonly RedditCollector _redditCollector;
 
         string url = "https://localhost:44371/redditcontexts/details/";
-        //string contextIdToPublish = string.Empty;
 
         public RedditContextBo(IRedditContextDao dao, IDbOperationExecutor opExecutor, IRedditSubmissionDao submissionDao, IRedditCommentDao commentDao, IRedditContextPocoDao pocoDao, RedditCollector redditCollector)
         {
@@ -84,7 +83,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                     };
                     var requestType = CheckRequestType(commentsToAdd[i].Body);
                     await _dao.InsertAsync(contextModel);
-                    //contextIdToPublish = contextModel.Id.ToString();
                     #endregion
 
                     #region Get comment with full link
@@ -107,27 +105,23 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                         if (isParent)
                         {
                             var parentComment = await GetDefaultComments(comment, contextModel.Id);
-                            var submission = await GetSubmission(comment, contextModel.Id);
                             await _commentDao.InsertAsync(comment);
                             await _commentDao.InsertAsync(parentComment);
 
                             if (await _dao.IsContextPresent(contextModel.Id) && await _dao.IsSubmissionPresent(contextModel.Id))
                             {
                                 toReply.Add(new RedditCommentContextPoco() { ContextId = contextModel.Id.ToString(), CommentId = comment.CommentId });
-                                //_redditCollector.PublishUrl($"{url}{contextIdToPublish}", comment.CommentId);
                             }
                         }
                         else
                         {
                             var parentSubmission = await GetDefaultSubmissions(comment, contextModel.Id);
-                            var submission = await GetSubmission(comment, contextModel.Id);
                             await _commentDao.InsertAsync(comment);
                             await _submissionDao.InsertAsync(parentSubmission);
 
                             if (await _dao.IsContextPresent(contextModel.Id) && await _dao.IsSubmissionPresent(contextModel.Id))
                             {
                                 toReply.Add(new RedditCommentContextPoco() { ContextId = contextModel.Id.ToString(), CommentId = comment.CommentId });
-                                //_redditCollector.PublishUrl($"{url}{contextIdToPublish}", comment.CommentId);
                             }
                         }
                     }
@@ -140,7 +134,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                         if (await _dao.IsContextPresent(contextModel.Id) && await _dao.IsSubmissionPresent(contextModel.Id))
                         {
                             toReply.Add(new RedditCommentContextPoco() { ContextId = contextModel.Id.ToString(), CommentId = comment.CommentId });
-                            //_redditCollector.PublishUrl($"{url}{contextIdToPublish}", comment.CommentId);
                         }
                     }
                     #endregion
@@ -189,7 +182,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
             {
                 return new RedditComment();
             }
-
         }
 
         private async Task<RedditSubmission> GetDefaultSubmissions(RedditComment comment, Guid id)
@@ -281,7 +273,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
             List<RedditCommentModel> comments = new List<RedditCommentModel>();
             foreach (var comment in commentArray)
             {
-                if (Regex.IsMatch(comment.Body, @"(\B!neverforget)", RegexOptions.IgnoreCase)/* && comment.Author != "NeverForget-Bot"*/)
+                if (Regex.IsMatch(comment.Body, @"(\B!neverforget)", RegexOptions.IgnoreCase) && comment.Author != "NeverForget-Bot")
                 {
                     comments.Add(comment);
                 }

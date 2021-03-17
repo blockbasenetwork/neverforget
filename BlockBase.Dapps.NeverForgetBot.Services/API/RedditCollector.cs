@@ -53,7 +53,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API
             }
         }
 
-
         public async Task<RedditCommentModel[]> RedditParentCommentInfo(string id)
         {
             string url = "https://api.pushshift.io/reddit/comment/search/?ids=" + id;
@@ -74,12 +73,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Services.API
         {
             Comment com = (Comment)RedditApi.Client.GetThingByFullnameAsync($"t1_{commentId}").Result;
             com.ReplyAsync($"@NeverForget-Bot { url } ");
-            Thread.Sleep(1 *   // minutes to sleep
-                        60 *   // seconds to a minute
-                        1000); // milliseconds to a second
-            //var com = RedditApi.Client.Comment($"t1_{comment.CommentId}");
-            //com.Reply($"@{ comment.Author } { url } ");
-
+            Thread.Sleep(60000);
         }
     }
 }

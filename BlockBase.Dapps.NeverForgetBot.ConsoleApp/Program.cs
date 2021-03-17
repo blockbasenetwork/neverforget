@@ -58,15 +58,6 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
 
                     services.AddSingleton<RedditCollector>();
                     services.AddSingleton<TwitterCollector>();
-
-
-                    //var webAgentPool = new RedditSharp.RefreshTokenWebAgentPool(Services.Resources.RedditTokens.APP_ID, Services.Resources.RedditTokens.APP_ID, "http://localhost:8080/Reddit.NET/oauthRedirect")
-                    //{
-                    //    DefaultRateLimitMode = RedditSharp.RateLimitMode.Burst,
-                    //    DefaultUserAgent = "NeverForgetBot1.0"
-                    //};
-                    //services.AddSingleton(webAgentPool);
-
                 })
                 .UseSerilog()
                 .Build();

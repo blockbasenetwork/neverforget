@@ -16,62 +16,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
             RedditContextPoco result = new RedditContextPoco();
             using (var _context = new NeverForgetBotDbContext())
             {
-                #region Obsolete
-                //var retrievedContext = await _context.RedditContext.Where(rCtx => rCtx.Id == contextId && rCtx.IsDeleted == false)
-                //                                                    .List(rCtx => new RedditContext()
-                //                                                    {
-                //                                                        Id = rCtx.Id,
-                //                                                        RequestTypeId = rCtx.RequestTypeId
-                //                                                    });
-
-
-                //var retrievedComment = await _context.RedditContext.Join<RedditComment>()
-                //                                                    .Where((rCtx, rCom) => rCtx.Id == contextId && rCtx.IsDeleted == false)
-                //                                                    .List((rCtx, rCom) => new RedditComment()
-                //                                                    {
-                //                                                        Id = rCom.Id,
-                //                                                        CommentId = rCom.CommentId,
-                //                                                        ParentId = rCom.ParentId,
-                //                                                        ParentSubmissionId = rCom.ParentSubmissionId,
-                //                                                        Content = rCom.Content,
-                //                                                        CommentDate = rCom.CommentDate,
-                //                                                        Author = rCom.Author,
-                //                                                        SubReddit = rCom.SubReddit,
-                //                                                        Link = rCom.Link,
-                //                                                        RedditContextId = rCom.RedditContextId
-                //                                                    });
-                //
-                //var retrievedSubmission = await _context.RedditContext.Join<RedditSubmission>()
-                //                                                      .Where((rCtx, rSub) => rCtx.Id == contextId && rCtx.IsDeleted == false)
-                //                                                      .List((rCtx, rSub) => new RedditSubmission()
-                //                                                      {
-                //                                                          Id = rSub.Id,
-                //                                                          SubmissionId = rSub.SubmissionId,
-                //                                                          Content = rSub.Content,
-                //                                                          SubmissionDate = rSub.SubmissionDate,
-                //                                                          Author = rSub.Author,
-                //                                                          SubReddit = rSub.SubReddit,
-                //                                                          Link = rSub.Link,
-                //                                                          MediaLink = rSub.MediaLink,
-                //                                                          Title = rSub.Title,
-                //                                                          RedditContextId = rSub.RedditContextId
-                //                                                      });
-
-                //result.Context = retrievedContext.Result.GetEnumerator().Current;
-                ////result.Comments = retrievedComment.Result.GetEnumerator().Current;
-                //result.Submission = retrievedSubmission.Result.GetEnumerator().Current;
-
-                //foreach (var comment in retrievedComment.Result)
-                //{
-                //    if (retrievedComment.Result == null)
-                //    {
-                //        return new RedditContextPoco();
-                //    }
-                //    result.Comments.Add(comment);
-                //}
-
-                //return result;
-                #endregion
                 var retrievedContext = await _context.RedditContext.Where((rCtx) => (rCtx.Id == contextId) && (rCtx.IsDeleted == false)).List();
 
                 if (retrievedContext.Result.Count() != 0)
@@ -94,21 +38,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
                 return result;
             }
         }
-
-        //public async Task<List<RedditContextPoco>> GetAllRedditContexts()
-        //{
-        //    List<RedditContextPoco> result = new List<RedditContextPoco>();
-        //    using (var _context = new NeverForgetBotDbContext())
-        //    {
-        //        var retrievedContextIds = await _context.RedditContext.Where(ctx => ctx.IsDeleted == false).List();
-
-        //        foreach (var context in retrievedContextIds.Result)
-        //        {
-        //            result.Add(GetRedditContextById(context.Id).Result);
-        //        }
-        //    }
-        //    return result;
-        //}
 
         public async Task<GeneralContextPoco> GetRecentRedditContext(RedditContext context)
         {
@@ -157,8 +86,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
             return result;
         }
 
-       
-
         public async Task<List<GeneralContextPoco>> GetRecentRedditContexts()
         {
             List<GeneralContextPoco> result = new List<GeneralContextPoco>();
@@ -166,8 +93,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
             using (var _context = new NeverForgetBotDbContext())
             {
                 var retrievedContextIds = await _context.RedditContext.Where(ctx => ctx.IsDeleted == false).List();
-
-                //var contextIdsList = retrievedContextIds.Result.ToList().OrderByDescending(c => c.CreatedAt).Take(10);
 
                 foreach (var context in retrievedContextIds.Result.ToList().OrderByDescending(c => c.CreatedAt).Take(10))
                 {

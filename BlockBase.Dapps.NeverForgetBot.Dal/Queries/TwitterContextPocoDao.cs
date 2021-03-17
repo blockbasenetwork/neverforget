@@ -45,14 +45,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
             GeneralContextPoco result = new GeneralContextPoco();
             using (var _context = new NeverForgetBotDbContext())
             {
-                //var retrievedSubmission = await _context.TwitterSubmission.Where((tSub) => (tSub.TwitterContextId == context.Id)).List(sub => new GeneralContextPoco
-                //{
-                //    Author = sub.Author,
-                //    Content = sub.Content,
-                //    Date = sub.SubmissionDate,
-                //    SourceType = SourceTypeEnum.Twitter
-                //});
-
                 var retrievedSubmission = await _context.TwitterSubmission.Where((tSub) => (tSub.TwitterContextId == context.Id)).List();
                 if (retrievedSubmission.Result.Count() != 0)
                 {
@@ -65,14 +57,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
                 }
                 else
                 {
-                    //var retrievedComments = await _context.TwitterComment.Where((tCom) => (tCom.TwitterContextId == context.Id)).List(sub => new GeneralContextPoco
-                    //{
-                    //    Author = sub.Author,
-                    //    Content = sub.Content,
-                    //    Date = sub.CommentDate,
-                    //    SourceType = SourceTypeEnum.Twitter
-                    //});
-
                     var retrievedComments = await _context.TwitterComment.Where((tCom) => (tCom.TwitterContextId == context.Id)).List();
                     var comment = retrievedComments.Result.OrderBy(c => c.CommentDate).First();
 
@@ -82,7 +66,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
                     result.SourceType = SourceTypeEnum.Twitter;
 
                     return result;
-                    //return (GeneralContextPoco)retrievedComments.Result.OrderBy(c => c.Date).ToList().Take(1);                        
                 }
             }
         }
@@ -92,8 +75,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
             List<TwitterContextPoco> result = new List<TwitterContextPoco>();
             using (var _context = new NeverForgetBotDbContext())
             {
-                var retrievedContextIds = await _context.TwitterContext.Where(ctx => ctx.IsDeleted == false).List((ctx) => new TwitterContext(){Id = ctx.Id});
-;
+                var retrievedContextIds = await _context.TwitterContext.Where(ctx => ctx.IsDeleted == false).List((ctx) => new TwitterContext() { Id = ctx.Id });
+                ;
                 foreach (var context in retrievedContextIds.Result.OrderByDescending(c => c.CreatedAt).ToList())
                 {
                     result.Add(GetTwitterContextById(context.Id).Result);
@@ -108,22 +91,13 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
 
             using (var _context = new NeverForgetBotDbContext())
             {
-                //var retrievedContextIds = await _context.TwitterContext.Where(ctx => ctx.IsDeleted == false).List((ctx) => new TwitterContext()
-                //{
-                //    Id = ctx.Id,
-                //    CreatedAt = ctx.CreatedAt,
-                //    RequestTypeId = ctx.RequestTypeId
-                //});
-
                 var retrievedContextIds = await _context.TwitterContext.Where(ctx => ctx.IsDeleted == false).List();
-
-                //retrievedContextIds.Result.ToList().OrderByDescending(c => c.CreatedAt).Take(10);
 
                 foreach (var context in retrievedContextIds.Result.ToList().OrderByDescending(c => c.CreatedAt).Take(10))
                 {
                     result.Add(GetRecentTwitterContextById(context).Result);
                 }
-            }           
+            }
 
             return result;
         }
