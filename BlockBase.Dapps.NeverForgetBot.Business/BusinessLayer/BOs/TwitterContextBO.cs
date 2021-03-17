@@ -78,7 +78,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
 
                                     if (await _dao.IsContextPresent(contextModel.Id) && await _dao.IsSubmissionPresent(contextModel.Id))
                                     {
-                                        await _twitterCollector.PublishUrl($"{url}{contextIdToPublish}", model.Id);
+                                        //await _twitterCollector.PublishUrl($"{url}{contextIdToPublish}", model.Id);
                                     }
                                 }
                                 else
@@ -93,7 +93,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
 
                                     if (await _dao.IsContextPresent(contextModel.Id) && await _dao.IsCommentPresent(contextModel.Id))
                                     {
-                                        await _twitterCollector.PublishUrl($"{url}{contextIdToPublish}", model.Id);
+                                        //await _twitterCollector.PublishUrl($"{url}{contextIdToPublish}", model.Id);
                                     }
                                 }
                             }
@@ -117,7 +117,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                         }
                         else
                         {
-                            await _twitterCollector.ReplyWithUnable(model.Id);
+                            //await _twitterCollector.ReplyWithUnable(model.Id);
                         }
                     }
 
@@ -138,7 +138,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
 
                                 if (await _dao.IsContextPresent(contextModel.Id) && await _dao.IsSubmissionPresent(contextModel.Id))
                                 {
-                                    await _twitterCollector.PublishUrl($"{url}{contextIdToPublish}", model.Id);
+                                    //await _twitterCollector.PublishUrl($"{url}{contextIdToPublish}", model.Id);
                                 }
                             }
                             else
@@ -161,7 +161,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                         }
                         else
                         {
-                            await _twitterCollector.ReplyWithUnable(model.Id);
+                            //await _twitterCollector.ReplyWithUnable(model.Id);
                         }
                     }
                     #endregion

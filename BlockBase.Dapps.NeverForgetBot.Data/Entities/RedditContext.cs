@@ -1,4 +1,4 @@
-﻿using BlockBase.BBLinq.Annotations;
+﻿using BlockBase.BBLinq.DataAnnotations;
 using BlockBase.Dapps.NeverForgetBot.Data.Entities.Base;
 using BlockBase.Dapps.NeverForgetBot.Data.Interfaces;
 using System;
@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace BlockBase.Dapps.NeverForgetBot.Data.Entities
 {
-    [Table(Name = "RedditContexts")]
+    [Table("RedditContexts")]
     public class RedditContext : AuditEntity, IEntity
     {
         [PrimaryKey]
@@ -15,7 +15,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Data.Entities
         public virtual ICollection<RedditComment> RedditComments { get; set; }
         public virtual RedditSubmission RedditSubmission { get; set; }
 
-        [ForeignKey(Name = "RequestTypes")]
+        [ForeignKey(typeof(RequestType))]
         public int RequestTypeId { get; set; }
     }
 }

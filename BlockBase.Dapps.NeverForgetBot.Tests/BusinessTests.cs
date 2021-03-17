@@ -23,8 +23,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
         {
             using (var context = new NeverForgetBotDbContext())
             {
-                var resultDrop = context.DropDatabase().Result;
-                var resultCreate = context.CreateDatabase().Result;
+                var resultDrop = context.DropDatabase();
+                var resultCreate = context.CreateDatabase();
             }
             var _requestTypeDao = new RequestTypeDao();
             RequestType defaultRequest = new RequestType { Id = (int)RequestTypeEnum.Default, Name = "Default" };
@@ -38,7 +38,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
             var redditPoco = new RedditContextPocoDao();
             var mockLogger = new Mock<ILogger<DbOperationExecutor>>();
             var opExecutor = new DbOperationExecutor(mockLogger.Object);
-            var redditContextBO = new RedditContextBo(redditContextDAO, opExecutor, redditSubmissionDAO, redditCommentDAO, redditPoco, redditCollector );
+            var redditContextBO = new RedditContextBo(redditContextDAO, opExecutor, redditSubmissionDAO, redditCommentDAO, redditPoco, redditCollector);
             var redditCommentBO = new RedditCommentBo(redditCommentDAO, opExecutor);
 
             var redditContext = new RedditContext { Id = Guid.NewGuid(), CreatedAt = DateTime.UtcNow, RequestTypeId = defaultRequest.Id };
@@ -57,8 +57,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
         {
             using (var context = new NeverForgetBotDbContext())
             {
-                var resultDrop = context.DropDatabase().Result;
-                var resultCreate = context.CreateDatabase().Result;
+                var resultDrop = context.DropDatabase();
+                var resultCreate = context.CreateDatabase();
             }
             var _requestTypeDao = new RequestTypeDao();
             RequestType defaultRequest = new RequestType { Id = (int)RequestTypeEnum.Default, Name = "Default" };
@@ -97,8 +97,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
         {
             using (var context = new NeverForgetBotDbContext())
             {
-                var resultDrop = context.DropDatabase().Result;
-                var resultCreate = context.CreateDatabase().Result;
+                var resultDrop = context.DropDatabase();
+                var resultCreate = context.CreateDatabase();
             }
 
             var _requestTypeDao = new RequestTypeDao();
@@ -127,7 +127,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
 
             redditCommentBO.DeleteAsync(redditComment3).Wait();
 
-            
+
             Assert.IsTrue(redditComment3.IsDeleted == true);
         }
         #endregion
@@ -139,8 +139,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
         {
             using (var context = new NeverForgetBotDbContext())
             {
-                var resultDrop = context.DropDatabase().Result;
-                var resultCreate = context.CreateDatabase().Result;
+                var resultDrop = context.DropDatabase();
+                var resultCreate = context.CreateDatabase();
             }
 
             var _requestTypeDao = new RequestTypeDao();
@@ -194,8 +194,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
         {
             using (var context = new NeverForgetBotDbContext())
             {
-                var resultDrop = context.DropDatabase().Result;
-                var resultCreate = context.CreateDatabase().Result;
+                var resultDrop = context.DropDatabase();
+                var resultCreate = context.CreateDatabase();
             }
 
             var _requestTypeDao = new RequestTypeDao();
@@ -279,8 +279,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Tests
         {
             using (var context = new NeverForgetBotDbContext())
             {
-                var resultDrop = context.DropDatabase().Result;
-                var resultCreate = context.CreateDatabase().Result;
+                var resultDrop = context.DropDatabase();
+                var resultCreate = context.CreateDatabase();
             }
 
             var _requestTypeDao = new RequestTypeDao();

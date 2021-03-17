@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BlockBase.BBLinq\BlockBase.BBLinq.csproj" />
+    <ProjectReference Include="..\BbLinq\BbLinq.csproj" />
     <ProjectReference Include="..\BlockBase.Dapps.NeverForgetBot.Business\BlockBase.Dapps.NeverForgetBot.Business.csproj" />
     <ProjectReference Include="..\BlockBase.Dapps.NeverForgetBot.ConsoleApp\BlockBase.Dapps.NeverForgetBot.ConsoleApp.csproj" />
     <ProjectReference Include="..\BlockBase.Dapps.NeverForgetBot.Dal\BlockBase.Dapps.NeverForgetBot.Dal.csproj" />

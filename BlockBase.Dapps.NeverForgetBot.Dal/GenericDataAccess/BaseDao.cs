@@ -15,7 +15,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess
         {
             using (var context = new NeverForgetBotDbContext())
             {
-                await context.Set<TEntity, TKey>().Insert(entity);
+                await context.Set<TEntity>().InsertAsync(entity);
             }
         }
         #endregion
@@ -25,8 +25,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess
         {
             using (var context = new NeverForgetBotDbContext())
             {
-                var result = await context.Set<TEntity, Guid>().Get(id);
-                return result.Result;
+                var result = await context.Set<TEntity>().GetAsync(id);
+                return result;
             }
         }
         #endregion
@@ -36,7 +36,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess
         {
             using (var context = new NeverForgetBotDbContext())
             {
-                await context.Set<TEntity, TKey>().Update(entity);
+                await context.Set<TEntity>().UpdateAsync(entity);
             }
         }
         #endregion
@@ -46,7 +46,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess
         {
             using (var context = new NeverForgetBotDbContext())
             {
-                await context.Set<TEntity, TKey>().Delete(entity);
+                await context.Set<TEntity>().DeleteAsync(entity);
             }
         }
 
@@ -57,8 +57,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess
         {
             using (var context = new NeverForgetBotDbContext())
             {
-                var result = await context.Set<TEntity, TKey>().List();
-                return result.Result.ToList();
+                var result = await context.Set<TEntity>().SelectAsync();
+                return result.ToList();
             }
         }
         #endregion

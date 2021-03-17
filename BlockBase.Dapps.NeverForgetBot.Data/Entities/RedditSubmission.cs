@@ -1,11 +1,11 @@
-﻿using BlockBase.BBLinq.Annotations;
+﻿using BlockBase.BBLinq.DataAnnotations;
 using BlockBase.Dapps.NeverForgetBot.Data.Entities.Base;
 using BlockBase.Dapps.NeverForgetBot.Data.Interfaces;
 using System;
 
 namespace BlockBase.Dapps.NeverForgetBot.Data.Entities
 {
-    [Table(Name = "RedditSubmissions")]
+    [Table("RedditSubmissions")]
     public class RedditSubmission : AuditEntity, IEntity
     {
         [PrimaryKey]
@@ -19,7 +19,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Data.Entities
         public string Link { get; set; }
         public DateTime SubmissionDate { get; set; }
 
-        [ForeignKey(Name = "RedditContexts")]
+        [ForeignKey(typeof(RedditContext))]
         public Guid RedditContextId { get; set; }
     }
 }

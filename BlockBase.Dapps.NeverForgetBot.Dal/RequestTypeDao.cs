@@ -13,7 +13,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal
         {
             using (var context = new NeverForgetBotDbContext())
             {
-                await context.RequestType.Insert(entity);
+                await context.RequestType.InsertAsync(entity);
             }
         }
         #endregion
@@ -23,8 +23,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal
         {
             using (var context = new NeverForgetBotDbContext())
             {
-                var result = await context.RequestType.Get(id);
-                return result.Result;
+                var result = await context.RequestType.GetAsync(id);
+                return result;
             }
         }
         #endregion
@@ -34,7 +34,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal
         {
             using (var context = new NeverForgetBotDbContext())
             {
-                await context.RequestType.Update(entity);
+                await context.RequestType.UpdateAsync(entity);
             }
         }
         #endregion
@@ -44,7 +44,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal
         {
             using (var context = new NeverForgetBotDbContext())
             {
-                await context.RequestType.Delete(entity);
+                await context.RequestType.DeleteAsync(entity);
             }
         }
         #endregion
@@ -54,8 +54,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal
         {
             using (var context = new NeverForgetBotDbContext())
             {
-                var result = await context.RequestType.List();
-                return result.Result.ToList();
+                var result = await context.RequestType.SelectAsync();
+                return result.ToList();
             }
         }
         #endregion

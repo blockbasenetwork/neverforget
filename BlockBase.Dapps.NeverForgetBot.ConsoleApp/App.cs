@@ -1,5 +1,8 @@
 ﻿using BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.Interfaces;
+using BlockBase.Dapps.NeverForgetBot.Common.Enums;
 using BlockBase.Dapps.NeverForgetBot.Dal;
+using BlockBase.Dapps.NeverForgetBot.Data.Context;
+using BlockBase.Dapps.NeverForgetBot.Data.Entities;
 using BlockBase.Dapps.NeverForgetBot.Services.API;
 using System.Threading.Tasks;
 
@@ -44,35 +47,33 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
         {
             //using (var context = new NeverForgetBotDbContext())
             //{
-            //    var resultDrop = context.DropDatabase().Result;
-            //    var resultCreate = context.CreateDatabase().Result;
+            //    var resultDrop = context.DropDatabase();
+            //    var resultCreate = context.CreateDatabase();
             //}
 
             //#region Build RequestType Table
             //RequestType defaultRequest = new RequestType { Id = (int)RequestTypeEnum.Default, Name = "Default" };
             //RequestType commentRequest = new RequestType { Id = (int)RequestTypeEnum.Comment, Name = "Comment" };
-            ////RequestType threadRequest = new RequestType { Id = (int)RequestTypeEnum.Thread, Name = "Thread" };
             //RequestType postRequest = new RequestType { Id = (int)RequestTypeEnum.Post, Name = "Post" };
 
             //await _requestTypeDao.InsertAsync(defaultRequest);
             //await _requestTypeDao.InsertAsync(commentRequest);
-            ////await _requestTypeDao.InsertAsync(threadRequest);
             //await _requestTypeDao.InsertAsync(postRequest);
             //#endregion
 
 
-            //TwitterApi.AuthenticateClient();
+            TwitterApi.AuthenticateClient();
 
-            //var mentions = await _twitterCollector.GetMentions();
+            var mentions = await _twitterCollector.GetMentions();
 
-            //await _twitterContextBo.FromApiTwitterModel(mentions);
+            await _twitterContextBo.FromApiTwitterModel(mentions);
 
 
             ApiHelper.InitializeClient();
 
-            ////RedditApi.AuthorizeUser();
+            //RedditApi.AuthorizeUser();
             RedditApi.AuthenticateClient();
-            //await _redditContextBo.FromApiRedditAllComments();
+            await _redditContextBo.FromApiRedditAllComments();
         }
     }
 }

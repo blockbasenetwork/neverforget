@@ -1,11 +1,11 @@
-﻿using BlockBase.BBLinq.Annotations;
+﻿using BlockBase.BBLinq.DataAnnotations;
 using BlockBase.Dapps.NeverForgetBot.Data.Entities.Base;
 using BlockBase.Dapps.NeverForgetBot.Data.Interfaces;
 using System;
 
 namespace BlockBase.Dapps.NeverForgetBot.Data.Entities
 {
-    [Table(Name = "TwitterSubmissions")]
+    [Table("TwitterSubmissions")]
     public class TwitterSubmission : AuditEntity, IEntity
     {
         [PrimaryKey]
@@ -18,7 +18,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Data.Entities
         public string Link { get; set; }
         public DateTime SubmissionDate { get; set; }
 
-        [ForeignKey(Name = "TwitterContexts")]
+        [ForeignKey(typeof(TwitterContext))]
         public Guid TwitterContextId { get; set; }
     }
 }

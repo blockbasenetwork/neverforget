@@ -159,7 +159,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
             {
                 foreach (var reply in toReply)
                 {
-                    _redditCollector.PublishUrl($"{url}{reply.ContextId}", reply.CommentId);
+                    //_redditCollector.PublishUrl($"{url}{reply.ContextId}", reply.CommentId);
                 }
             });
             return opResult;

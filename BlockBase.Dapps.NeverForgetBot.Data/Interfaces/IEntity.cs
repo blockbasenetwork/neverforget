@@ -1,4 +1,4 @@
-﻿using BlockBase.BBLinq.Annotations;
+﻿using BlockBase.BBLinq.DataAnnotations;
 using System;
 
 namespace BlockBase.Dapps.NeverForgetBot.Data.Interfaces

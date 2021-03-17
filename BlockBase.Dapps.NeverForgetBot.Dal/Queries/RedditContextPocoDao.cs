@@ -16,21 +16,21 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
             RedditContextPoco result = new RedditContextPoco();
             using (var _context = new NeverForgetBotDbContext())
             {
-                var retrievedContext = await _context.RedditContext.Where((rCtx) => (rCtx.Id == contextId) && (rCtx.IsDeleted == false)).List();
+                var retrievedContext = await _context.RedditContext.Where((rCtx) => (rCtx.Id == contextId) && (rCtx.IsDeleted == false)).SelectAsync();
 
-                if (retrievedContext.Result.Count() != 0)
+                if (retrievedContext.Count() != 0)
                 {
-                    var retrievedComments = await _context.RedditComment.Where((rCom) => (rCom.RedditContextId == contextId)).List();
-                    var retrievedSubmission = await _context.RedditSubmission.Where((rSub) => (rSub.RedditContextId == contextId)).List();
-                    foreach (var item in retrievedContext.Result)
+                    var retrievedComments = await _context.RedditComment.Where((rCom) => (rCom.RedditContextId == contextId)).SelectAsync();
+                    var retrievedSubmission = await _context.RedditSubmission.Where((rSub) => (rSub.RedditContextId == contextId)).SelectAsync();
+                    foreach (var item in retrievedContext)
                     {
                         result.Context = item;
                     }
-                    foreach (var item in retrievedSubmission.Result)
+                    foreach (var item in retrievedSubmission)
                     {
                         result.Submission = item;
                     }
-                    foreach (var item in retrievedComments.Result)
+                    foreach (var item in retrievedComments)
                     {
                         result.Comments.Add(item);
                     }
@@ -44,22 +44,22 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
             GeneralContextPoco result = new GeneralContextPoco();
             using (var _context = new NeverForgetBotDbContext())
             {
-                var retrievedSubmission = await _context.RedditSubmission.Where((rSub) => (rSub.RedditContextId == context.Id)).List();
+                var retrievedSubmission = await _context.RedditSubmission.Where((rSub) => (rSub.RedditContextId == context.Id)).SelectAsync();
 
-                if (retrievedSubmission.Result.Count() != 0)
+                if (retrievedSubmission.Count() != 0)
                 {
-                    result.Author = retrievedSubmission.Result.First().Author;
-                    result.Content = retrievedSubmission.Result.First().Content;
-                    result.Date = retrievedSubmission.Result.First().SubmissionDate;
-                    result.Title = retrievedSubmission.Result.First().Title;
+                    result.Author = retrievedSubmission.First().Author;
+                    result.Content = retrievedSubmission.First().Content;
+                    result.Date = retrievedSubmission.First().SubmissionDate;
+                    result.Title = retrievedSubmission.First().Title;
                     result.SourceType = SourceTypeEnum.Reddit;
 
                     return result;
                 }
                 else
                 {
-                    var retrievedComments = await _context.RedditComment.Where((rCom) => (rCom.RedditContextId == context.Id)).List();
-                    var comment = retrievedComments.Result.OrderBy(c => c.CommentDate).First();
+                    var retrievedComments = await _context.RedditComment.Where((rCom) => (rCom.RedditContextId == context.Id)).SelectAsync();
+                    var comment = retrievedComments.OrderBy(c => c.CommentDate).First();
 
                     result.Author = comment.Author;
                     result.Content = comment.Content;
@@ -76,9 +76,9 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
             List<RedditContextPoco> result = new List<RedditContextPoco>();
             using (var _context = new NeverForgetBotDbContext())
             {
-                var retrievedContextIds = await _context.RedditContext.Where(ctx => ctx.IsDeleted == false).List((ctx) => new RedditContext() { Id = ctx.Id });
+                var retrievedContextIds = await _context.RedditContext.Where(ctx => ctx.IsDeleted == false).SelectAsync((ctx) => new RedditContext() { Id = ctx.Id });
 
-                foreach (var context in retrievedContextIds.Result)
+                foreach (var context in retrievedContextIds)
                 {
                     result.Add(GetRedditContextById(context.Id).Result);
                 }
@@ -92,9 +92,9 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
 
             using (var _context = new NeverForgetBotDbContext())
             {
-                var retrievedContextIds = await _context.RedditContext.Where(ctx => ctx.IsDeleted == false).List();
+                var retrievedContextIds = await _context.RedditContext.Where(ctx => ctx.IsDeleted == false).SelectAsync();
 
-                foreach (var context in retrievedContextIds.Result.ToList().OrderByDescending(c => c.CreatedAt).Take(10))
+                foreach (var context in retrievedContextIds.ToList().OrderByDescending(c => c.CreatedAt).Take(10))
                 {
                     result.Add(GetRecentRedditContext(context).Result);
                 }

@@ -18,9 +18,9 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess
             {
                 foreach (var tweet in tweetList)
                 {
-                    var resultComment = await _context.TwitterComment.Where((tCom) => (tCom.CommentId == tweet.Id)).List();
+                    var resultComment = await _context.TwitterComment.Where((tCom) => (tCom.CommentId == tweet.Id)).SelectAsync();
 
-                    if (resultComment.Result.Count() == 0)
+                    if (resultComment.Count() == 0)
                     {
                         resultList.Add(tweet);
                     }
@@ -33,9 +33,9 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess
         {
             using (var _context = new NeverForgetBotDbContext())
             {
-                var result = await _context.TwitterContext.Where((tCtx) => (tCtx.Id == contextId)).List();
+                var result = await _context.TwitterContext.Where((tCtx) => (tCtx.Id == contextId)).SelectAsync();
 
-                if (result.Result != null)
+                if (result != null)
                 {
                     return true;
                 }
@@ -47,9 +47,9 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess
         {
             using (var _context = new NeverForgetBotDbContext())
             {
-                var resultComment = await _context.TwitterComment.Where((tCom) => (tCom.TwitterContextId == contextId)).List();
+                var resultComment = await _context.TwitterComment.Where((tCom) => (tCom.TwitterContextId == contextId)).SelectAsync();
 
-                if (resultComment.Result != null)
+                if (resultComment != null)
                 {
                     return true;
                 }
@@ -61,9 +61,9 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess
         {
             using (var _context = new NeverForgetBotDbContext())
             {
-                var resultSubmission = await _context.TwitterSubmission.Where((tSub) => (tSub.TwitterContextId == contextId)).List();
+                var resultSubmission = await _context.TwitterSubmission.Where((tSub) => (tSub.TwitterContextId == contextId)).SelectAsync();
 
-                if (resultSubmission.Result != null)
+                if (resultSubmission != null)
                 {
                     return true;
                 }

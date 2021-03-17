@@ -16,14 +16,14 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess
         {
             using (var context = new NeverForgetBotDbContext())
             {
-                var result = await context.Set<TAuditEntity, Guid>().Where(e => e.Id == id && e.IsDeleted == false).List();
-                if (result.Result == null)
+                var result = await context.Set<TAuditEntity>().Where(e => e.Id == id && e.IsDeleted == false).SelectAsync();
+                if (result == null)
                 {
                     return null;
                 }
                 else
                 {
-                    return result.Result.ToList().FirstOrDefault();
+                    return result.ToList().FirstOrDefault();
                 }
             }
         }
@@ -32,14 +32,14 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess
         {
             using (var context = new NeverForgetBotDbContext())
             {
-                var result = await context.Set<TAuditEntity, Guid>().Where(e => e.Id == id && e.IsDeleted == true).List();
-                if (result.Result == null)
+                var result = await context.Set<TAuditEntity>().Where(e => e.Id == id && e.IsDeleted == true).SelectAsync();
+                if (result == null)
                 {
                     return null;
                 }
                 else
                 {
-                    return result.Result.ToList().FirstOrDefault();
+                    return result.ToList().FirstOrDefault();
                 }
             }
         }
@@ -51,7 +51,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess
             using (var context = new NeverForgetBotDbContext())
             {
                 entity.IsDeleted = true;
-                await context.Set<TAuditEntity, Guid>().Update(entity);
+                await context.Set<TAuditEntity>().UpdateAsync(entity);
             }
         }
         #endregion
@@ -61,14 +61,14 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess
         {
             using (var context = new NeverForgetBotDbContext())
             {
-                var result = await context.Set<TAuditEntity, Guid>().Where(e => e.IsDeleted == false).List();
-                if (result.Result == null)
+                var result = await context.Set<TAuditEntity>().Where(e => e.IsDeleted == false).SelectAsync();
+                if (result == null)
                 {
                     return new List<TAuditEntity>();
                 }
                 else
                 {
-                    return result.Result.ToList();
+                    return result.ToList();
                 }
             }
         }
@@ -77,14 +77,14 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess
         {
             using (var context = new NeverForgetBotDbContext())
             {
-                var result = await context.Set<TAuditEntity, Guid>().Where(e => e.IsDeleted == true).List();
-                if (result.Result == null)
+                var result = await context.Set<TAuditEntity>().Where(e => e.IsDeleted == true).SelectAsync();
+                if (result == null)
                 {
                     return new List<TAuditEntity>();
                 }
                 else
                 {
-                    return result.Result.ToList();
+                    return result.ToList();
                 }
             }
         }

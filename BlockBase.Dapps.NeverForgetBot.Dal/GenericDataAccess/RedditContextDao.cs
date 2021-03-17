@@ -18,9 +18,9 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess
             {
                 foreach (var comment in commentArray)
                 {
-                    var result = await _context.RedditComment.Where(c => c.CommentId == comment.Id).List();
+                    var result = await _context.RedditComment.Where(c => c.CommentId == comment.Id).SelectAsync();
 
-                    if (result.Result.Count() == 0)
+                    if (result.Count() == 0)
                     {
                         resultList.Add(comment);
                     }
@@ -34,9 +34,9 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess
         {
             using (var _context = new NeverForgetBotDbContext())
             {
-                var result = await _context.RedditContext.Where((rCtx) => (rCtx.Id == contextId)).List();
+                var result = await _context.RedditContext.Where((rCtx) => (rCtx.Id == contextId)).SelectAsync();
 
-                if (result.Result != null)
+                if (result != null)
                 {
                     return true;
                 }
@@ -48,9 +48,9 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess
         {
             using (var _context = new NeverForgetBotDbContext())
             {
-                var resultComment = await _context.RedditComment.Where((rCom) => (rCom.RedditContextId == contextId)).List();
+                var resultComment = await _context.RedditComment.Where((rCom) => (rCom.RedditContextId == contextId)).SelectAsync();
 
-                if (resultComment.Result != null)
+                if (resultComment != null)
                 {
                     return true;
                 }
@@ -62,9 +62,9 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess
         {
             using (var _context = new NeverForgetBotDbContext())
             {
-                var resultSubmission = await _context.RedditSubmission.Where((rSub) => (rSub.RedditContextId == contextId)).List();
+                var resultSubmission = await _context.RedditSubmission.Where((rSub) => (rSub.RedditContextId == contextId)).SelectAsync();
 
-                if (resultSubmission.Result != null)
+                if (resultSubmission != null)
                 {
                     return true;
                 }

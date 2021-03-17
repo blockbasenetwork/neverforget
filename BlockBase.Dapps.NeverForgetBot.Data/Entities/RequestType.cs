@@ -1,9 +1,9 @@
-﻿using BlockBase.BBLinq.Annotations;
+﻿using BlockBase.BBLinq.DataAnnotations;
 using System.Collections.Generic;
 
 namespace BlockBase.Dapps.NeverForgetBot.Data.Entities
 {
-    [Table(Name = "RequestTypes")]
+    [Table("RequestTypes")]
     public class RequestType
     {
         [PrimaryKey]
