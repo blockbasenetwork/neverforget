@@ -154,6 +154,10 @@ namespace BlockBase.BBLinq.Exceptions
             {
                 var expressionParameter = expression.Expression;
                 isOnParameter = expressionParameter == parameter;
+                if (isOnParameter)
+                {
+                    break;
+                }
             }
             return isOnParameter;
         }

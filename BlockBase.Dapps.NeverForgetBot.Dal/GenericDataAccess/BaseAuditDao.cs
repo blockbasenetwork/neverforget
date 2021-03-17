@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess
 {
-    public class BaseAuditDao<TAuditEntity, TKey> : BaseDao<TAuditEntity, TKey>, IBaseAuditDao<TAuditEntity, TKey> where TAuditEntity : AuditEntity, IEntity
+    public class BaseAuditDao<TAuditEntity> : BaseDao<TAuditEntity>, IBaseAuditDao<TAuditEntity> where TAuditEntity : AuditEntity, IEntity
     {
         #region Read
         public override async Task<TAuditEntity> GetAsync(Guid id)

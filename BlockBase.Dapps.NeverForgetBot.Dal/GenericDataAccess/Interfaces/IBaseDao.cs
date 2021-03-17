@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess.Interfaces
 {
-    public interface IBaseDao<TEntity, TKey> where TEntity : class, IEntity
+    public interface IBaseDao<TEntity> where TEntity : class, IEntity
     {
         Task<List<TEntity>> GetAllAsync();
         Task<TEntity> GetAsync(Guid id);

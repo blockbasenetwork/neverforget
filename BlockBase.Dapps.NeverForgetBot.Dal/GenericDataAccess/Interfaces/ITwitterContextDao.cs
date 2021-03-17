@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess.Interfaces
 {
-    public interface ITwitterContextDao : IBaseAuditDao<TwitterContext, Guid>
+    public interface ITwitterContextDao : IBaseAuditDao<TwitterContext>
     {
         Task<List<TweetModel>> GetUniqueComments(TweetModel[] tweetList);
         Task<bool> IsContextPresent(Guid contextId);

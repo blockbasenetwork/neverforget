@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess
 {
-    public class RedditContextDao : BaseAuditDao<RedditContext, Guid>, IRedditContextDao
+    public class RedditContextDao : BaseAuditDao<RedditContext>, IRedditContextDao
     {
         public async Task<List<RedditCommentModel>> GetUniqueComments(RedditCommentModel[] commentArray)
         {

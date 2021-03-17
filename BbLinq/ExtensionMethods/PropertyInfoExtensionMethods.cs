@@ -26,12 +26,24 @@ namespace BlockBase.BBLinq.ExtensionMethods
                     {
                         throw new NoPropertyFoundException(type.Name, property.Name);
                     }
-                    objectValues.Add(property.GetValue(@object));
+
+                    var value = property.GetValue(@object);
+                    if (value is Guid guidValue && guidValue == Guid.Empty && property.IsNullable())
+                    {
+                        value = null;
+                    }
+
+                    if (value is int intValue && intValue == 0 && property.IsNullable())
+                    {
+                        value = null;
+                    }
+                    objectValues.Add(value);
                 }
                 values.Add(objectValues.ToArray());
             }
 
             return values.ToArray();
         }
+
     }
 }

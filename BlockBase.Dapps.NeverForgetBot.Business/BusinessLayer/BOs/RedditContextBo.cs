@@ -54,7 +54,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                         if (commentBatch[^1] != null)
                         {
                             lastDate = commentBatch[^1].Created_Utc;
-                            _redditCollector.CreateLastCommentDate(lastDate);
+                            _redditCollector.CreateLastCommentDate(lastDate); //lastDate = 0  before deploy
                         }
                     }
                 } while (commentBatch.Length != 0);
@@ -148,7 +148,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
 
                 });
                 result.Add(opResult);
-                await PublishReplies(toReply);
+                //await PublishReplies(toReply); //uncomment before deploy
             }
             return result;
         }
@@ -159,7 +159,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
             {
                 foreach (var reply in toReply)
                 {
-                    //_redditCollector.PublishUrl($"{url}{reply.ContextId}", reply.CommentId);
+                    _redditCollector.PublishUrl($"{url}{reply.ContextId}", reply.CommentId);
                 }
             });
             return opResult;
@@ -273,7 +273,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
             List<RedditCommentModel> comments = new List<RedditCommentModel>();
             foreach (var comment in commentArray)
             {
-                if (Regex.IsMatch(comment.Body, @"(\B!neverforget)", RegexOptions.IgnoreCase) && comment.Author != "NeverForget-Bot")
+                if (Regex.IsMatch(comment.Body, @"(\B!neverforget)", RegexOptions.IgnoreCase)/* && comment.Author != "NeverForget-Bot"*/) //uncomment before deploy
                 {
                     comments.Add(comment);
                 }

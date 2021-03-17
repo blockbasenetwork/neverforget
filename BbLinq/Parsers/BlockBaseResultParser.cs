@@ -223,11 +223,15 @@ namespace BlockBase.BBLinq.Parsers
         {
             var currentType = property.PropertyType;
             var propType = Nullable.GetUnderlyingType(currentType) ?? currentType;
-            if (currentType == typeof(Guid))
+            if (value == "" && property.IsNullable())
+            {
+                return null;
+            }
+            if (propType == typeof(Guid))
             {
                 return Guid.Parse(value);
             }
-            if (currentType == typeof(DateTime))
+            if (propType == typeof(DateTime))
             {
                 return DateTime.Parse(value, CultureInfo.InvariantCulture);
             }

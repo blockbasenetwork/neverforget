@@ -24,7 +24,7 @@ namespace BlockBase.Dapps.NeverForgetBot.WebApp.Controllers
         public async Task<IActionResult> Index()
         {
             var listOp = await _generalContextBo.GetRecentCalls();
-            if (!listOp.Success) return View("Error", new ErrorViewModel() { RequestId = listOp.Exception.Message });
+            if (!listOp.Success) return Error(listOp.Exception.Message);
             var list = new List<GeneralContextViewModel>();
             foreach (var item in listOp.Result)
             {
@@ -43,7 +43,7 @@ namespace BlockBase.Dapps.NeverForgetBot.WebApp.Controllers
                 Message = message,
                 RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
             };
-            return View(viewModel);
+            return Error(viewModel.Message);
         }
     }
 }

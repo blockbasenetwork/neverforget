@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess.Interfaces
 {
-    public interface IRedditContextDao : IBaseAuditDao<RedditContext, Guid>
+    public interface IRedditContextDao : IBaseAuditDao<RedditContext>
     {
         Task<List<RedditCommentModel>> GetUniqueComments(RedditCommentModel[] commentArray);
 

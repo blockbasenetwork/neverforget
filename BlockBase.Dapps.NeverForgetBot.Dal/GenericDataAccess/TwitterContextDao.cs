@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess
 {
-    public class TwitterContextDao : BaseAuditDao<TwitterContext, Guid>, ITwitterContextDao
+    public class TwitterContextDao : BaseAuditDao<TwitterContext>, ITwitterContextDao
     {
         public async Task<List<TweetModel>> GetUniqueComments(TweetModel[] tweetList)
         {
