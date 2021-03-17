@@ -108,7 +108,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                             await _commentDao.InsertAsync(comment);
                             await _commentDao.InsertAsync(parentComment);
 
-                            if (await _dao.IsContextPresent(contextModel.Id) && await _dao.IsSubmissionPresent(contextModel.Id))
+                            if (await _dao.IsContextPresent(contextModel.Id) && await _dao.IsCommentPresent(contextModel.Id))
                             {
                                 toReply.Add(new RedditCommentContextPoco() { ContextId = contextModel.Id.ToString(), CommentId = comment.CommentId });
                             }
