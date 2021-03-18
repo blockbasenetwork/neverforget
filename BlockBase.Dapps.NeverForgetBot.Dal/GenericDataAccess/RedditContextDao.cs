@@ -36,7 +36,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess
             {
                 var result = await _context.RedditContext.Where((rCtx) => (rCtx.Id == contextId)).SelectAsync();
 
-                if (result != null)
+                if (result.Count() != 0)
                 {
                     return true;
                 }
@@ -50,7 +50,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess
             {
                 var resultComment = await _context.RedditComment.Where((rCom) => (rCom.RedditContextId == contextId)).SelectAsync();
 
-                if (resultComment != null)
+                if (resultComment.Count() != 0)
                 {
                     return true;
                 }
@@ -64,7 +64,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess
             {
                 var resultSubmission = await _context.RedditSubmission.Where((rSub) => (rSub.RedditContextId == contextId)).SelectAsync();
 
-                if (resultSubmission != null)
+                if (resultSubmission.Count() != 0)
                 {
                     return true;
                 }

@@ -1,9 +1,11 @@
 ﻿using BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.Interfaces;
 using BlockBase.Dapps.NeverForgetBot.Common.Enums;
 using BlockBase.Dapps.NeverForgetBot.Dal;
+using BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess.Interfaces;
 using BlockBase.Dapps.NeverForgetBot.Data.Context;
 using BlockBase.Dapps.NeverForgetBot.Data.Entities;
 using BlockBase.Dapps.NeverForgetBot.Services.API;
+using BlockBase.Dapps.NeverForgetBot.Services.API.Models;
 using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
@@ -19,6 +21,7 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
         private IRequestTypeDao _requestTypeDao;
         private RedditCollector _redditCollector;
         private TwitterCollector _twitterCollector;
+        private ITwitterContextDao _twitterContextDao;
 
         public App(
             IRedditContextBo redditContextBo,
@@ -29,7 +32,8 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
             ITwitterSubmissionBo twitterSubmissionBo,
             IRequestTypeDao requestTypeDao,
             RedditCollector redditCollector,
-            TwitterCollector twitterCollector
+            TwitterCollector twitterCollector,
+            ITwitterContextDao twitterContextDao
             )
         {
             _redditContextBo = redditContextBo;
@@ -41,33 +45,34 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
             _requestTypeDao = requestTypeDao;
             _redditCollector = redditCollector;
             _twitterCollector = twitterCollector;
+            _twitterContextDao = twitterContextDao;
         }
 
         public async Task Run()
         {
-            using (var context = new NeverForgetBotDbContext())
-            {
-                var resultDrop = context.DropDatabase();
-                var resultCreate = context.CreateDatabase();
-            }
+            //using (var context = new NeverForgetBotDbContext())
+            //{
+            //    var resultDrop = context.DropDatabase();
+            //    var resultCreate = context.CreateDatabase();
+            //}
 
             #region Build RequestType Table
-            RequestType defaultRequest = new RequestType { Id = (int)RequestTypeEnum.Default, Name = "Default" };
-            RequestType commentRequest = new RequestType { Id = (int)RequestTypeEnum.Comment, Name = "Comment" };
-            RequestType postRequest = new RequestType { Id = (int)RequestTypeEnum.Post, Name = "Post" };
+            //RequestType defaultRequest = new RequestType { Id = (int)RequestTypeEnum.Default, Name = "Default" };
+            //RequestType commentRequest = new RequestType { Id = (int)RequestTypeEnum.Comment, Name = "Comment" };
+            //RequestType postRequest = new RequestType { Id = (int)RequestTypeEnum.Post, Name = "Post" };
 
-            await _requestTypeDao.InsertAsync(defaultRequest);
-            await _requestTypeDao.InsertAsync(commentRequest);
-            await _requestTypeDao.InsertAsync(postRequest);
+            //await _requestTypeDao.InsertAsync(defaultRequest);
+            //await _requestTypeDao.InsertAsync(commentRequest);
+            //await _requestTypeDao.InsertAsync(postRequest);
             #endregion
 
 
 
-            ApiHelper.InitializeClient();
+            //ApiHelper.InitializeClient();
 
-            //RedditApi.AuthorizeUser();
-            RedditApi.AuthenticateClient();
-            await _redditContextBo.FromApiRedditAllComments();
+            ////RedditApi.AuthorizeUser();
+            //RedditApi.AuthenticateClient();
+            //await _redditContextBo.FromApiRedditAllComments();
 
 
             TwitterApi.AuthenticateClient();
@@ -75,6 +80,9 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
             var mentions = await _twitterCollector.GetMentions();
 
             await _twitterContextBo.FromApiTwitterModel(mentions);
+
+
+            //await _twitterContextDao.GetUniqueComments(mentions);
 
         }
     }

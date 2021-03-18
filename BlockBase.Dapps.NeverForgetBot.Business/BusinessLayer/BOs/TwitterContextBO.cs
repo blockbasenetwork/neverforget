@@ -112,7 +112,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                                 contextModel.DeletedAt = DateTime.UtcNow;
                                 await _dao.InsertAsync(contextModel);
                                 await _commentDao.InsertAsync(comment);
-                                await _twitterCollector.ReplyWithError(model.Id);
+                                //await _twitterCollector.ReplyWithError(model.Id);
                             }
                         }
                         else
@@ -156,7 +156,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                                 contextModel.DeletedAt = DateTime.UtcNow;
                                 await _dao.InsertAsync(contextModel);
                                 await _commentDao.InsertAsync(comment);
-                                await _twitterCollector.ReplyWithError(model.Id);
+                                //await _twitterCollector.ReplyWithError(model.Id);
                             }
                         }
                         else

@@ -20,6 +20,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess
                 {
                     var resultComment = await _context.TwitterComment.Where((tCom) => (tCom.CommentId == tweet.Id)).SelectAsync();
 
+                    //var resultComment = await _context.TwitterComment.SelectAsync();
+
                     if (resultComment.Count() == 0)
                     {
                         resultList.Add(tweet);
@@ -35,7 +37,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess
             {
                 var result = await _context.TwitterContext.Where((tCtx) => (tCtx.Id == contextId)).SelectAsync();
 
-                if (result != null)
+                if (result.Count() != 0)
                 {
                     return true;
                 }
@@ -49,7 +51,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess
             {
                 var resultComment = await _context.TwitterComment.Where((tCom) => (tCom.TwitterContextId == contextId)).SelectAsync();
 
-                if (resultComment != null)
+                if (resultComment.Count() != 0)
                 {
                     return true;
                 }
