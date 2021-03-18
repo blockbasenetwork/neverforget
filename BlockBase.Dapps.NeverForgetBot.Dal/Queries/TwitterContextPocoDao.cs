@@ -75,7 +75,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
             List<TwitterContextPoco> result = new List<TwitterContextPoco>();
             using (var _context = new NeverForgetBotDbContext())
             {
-                var retrievedContextIds = await _context.TwitterContext.Where(ctx => ctx.IsDeleted == false).SelectAsync((ctx) => new TwitterContext() { Id = ctx.Id });
+                var retrievedContextIds = await _context.TwitterContext.Where(tCtx => tCtx.IsDeleted == false).SelectAsync((tCtx) => new TwitterContext() { Id = tCtx.Id });
                 ;
                 foreach (var context in retrievedContextIds.OrderByDescending(c => c.CreatedAt).ToList())
                 {
@@ -91,9 +91,9 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
 
             using (var _context = new NeverForgetBotDbContext())
             {
-                var retrievedContextIds = await _context.TwitterContext.Where(ctx => ctx.IsDeleted == false).SelectAsync();
+                var retrievedContextIds = await _context.TwitterContext.Where((tCtx) => !tCtx.IsDeleted).SelectAsync();
 
-                foreach (var context in retrievedContextIds.ToList().OrderByDescending(c => c.CreatedAt).Take(10))
+                foreach (var context in retrievedContextIds.ToList().OrderByDescending(ctx => ctx.CreatedAt).Take(10))
                 {
                     result.Add(GetRecentTwitterContextById(context).Result);
                 }

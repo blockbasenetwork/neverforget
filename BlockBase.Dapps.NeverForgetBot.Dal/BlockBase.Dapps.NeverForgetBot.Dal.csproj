@@ -40,7 +40,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BbLinq\BbLinq.csproj" />
+    <ProjectReference Include="..\..\BBLINQ\BbLinq\BbLinq.csproj" />
     <ProjectReference Include="..\BlockBase.Dapps.NeverForgetBot.Common\BlockBase.Dapps.NeverForgetBot.Common.csproj" />
     <ProjectReference Include="..\BlockBase.Dapps.NeverForgetBot.Data\BlockBase.Dapps.NeverForgetBot.Data.csproj" />
     <ProjectReference Include="..\BlockBase.Dapps.NeverForgetBot.Services\BlockBase.Dapps.NeverForgetBot.Services.csproj" />

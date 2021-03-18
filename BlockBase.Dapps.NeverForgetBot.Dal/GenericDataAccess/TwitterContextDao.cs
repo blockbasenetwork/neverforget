@@ -18,17 +18,20 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess
             {
                 foreach (var tweet in tweetList)
                 {
-                    var resultComment = await _context.TwitterComment.Where((tCom) => (tCom.CommentId == tweet.Id)).SelectAsync();
-
-                    //var resultComment = await _context.TwitterComment.SelectAsync();
-
-                    if (resultComment.Count() == 0)
+                    if (tweet.User.Screen_name != "_NeverForgetBot")
                     {
-                        resultList.Add(tweet);
+                        var resultComment = await _context.TwitterComment.Where((tCom) => (tCom.CommentId == tweet.Id)).SelectAsync();
+
+                        //var resultComment = await _context.TwitterComment.SelectAsync();
+
+                        if (resultComment.Count() == 0)
+                        {
+                            resultList.Add(tweet);
+                        }
                     }
                 }
+                return resultList;
             }
-            return resultList;
         }
 
         public async Task<bool> IsContextPresent(Guid contextId)
@@ -65,7 +68,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess
             {
                 var resultSubmission = await _context.TwitterSubmission.Where((tSub) => (tSub.TwitterContextId == contextId)).SelectAsync();
 
-                if (resultSubmission != null)
+                if (resultSubmission.Count() != 0)
                 {
                     return true;
                 }

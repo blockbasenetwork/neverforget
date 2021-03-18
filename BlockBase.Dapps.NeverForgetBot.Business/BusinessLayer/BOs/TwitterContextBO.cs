@@ -66,7 +66,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                             var tweetParent = await _twitterCollector.GetTweet(model.In_reply_to_status_id_str);
                             if (tweetParent.Id != null)
                             {
-                                if (tweetParent.In_reply_to_status_id_str != null)
+                                if (tweetParent.In_reply_to_status_id_str == null)
                                 {
                                     var comment = model.ToComment();
                                     comment.TwitterContextId = contextModel.Id;

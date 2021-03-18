@@ -56,7 +56,7 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
             //    var resultCreate = context.CreateDatabase();
             //}
 
-            #region Build RequestType Table
+            //#region Build RequestType Table
             //RequestType defaultRequest = new RequestType { Id = (int)RequestTypeEnum.Default, Name = "Default" };
             //RequestType commentRequest = new RequestType { Id = (int)RequestTypeEnum.Comment, Name = "Comment" };
             //RequestType postRequest = new RequestType { Id = (int)RequestTypeEnum.Post, Name = "Post" };
@@ -64,26 +64,22 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
             //await _requestTypeDao.InsertAsync(defaultRequest);
             //await _requestTypeDao.InsertAsync(commentRequest);
             //await _requestTypeDao.InsertAsync(postRequest);
-            #endregion
+            //#endregion
 
 
 
             //ApiHelper.InitializeClient();
 
-            ////RedditApi.AuthorizeUser();
+            //////RedditApi.AuthorizeUser();
             //RedditApi.AuthenticateClient();
             //await _redditContextBo.FromApiRedditAllComments();
 
 
-            TwitterApi.AuthenticateClient();
+            //TwitterApi.AuthenticateClient();
 
-            var mentions = await _twitterCollector.GetMentions();
+            //var mentions = await _twitterCollector.GetMentions();
 
-            await _twitterContextBo.FromApiTwitterModel(mentions);
-
-
-            //await _twitterContextDao.GetUniqueComments(mentions);
-
+            //await _twitterContextBo.FromApiTwitterModel(mentions);
         }
     }
 }

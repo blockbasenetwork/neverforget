@@ -39,7 +39,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
             }
         }
 
-        public async Task<GeneralContextPoco> GetRecentRedditContext(RedditContext context)
+        public async Task<GeneralContextPoco> GetRecentRedditContextById(RedditContext context)
         {
             GeneralContextPoco result = new GeneralContextPoco();
             using (var _context = new NeverForgetBotDbContext())
@@ -76,7 +76,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
             List<RedditContextPoco> result = new List<RedditContextPoco>();
             using (var _context = new NeverForgetBotDbContext())
             {
-                var retrievedContextIds = await _context.RedditContext.Where(ctx => ctx.IsDeleted == false).SelectAsync((ctx) => new RedditContext() { Id = ctx.Id });
+                var retrievedContextIds = await _context.RedditContext.Where(rCtx => rCtx.IsDeleted == false).SelectAsync((rCtx) => new RedditContext() { Id = rCtx.Id });
 
                 foreach (var context in retrievedContextIds)
                 {
@@ -92,14 +92,13 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
 
             using (var _context = new NeverForgetBotDbContext())
             {
-                var retrievedContextIds = await _context.RedditContext.Where(ctx => ctx.IsDeleted == false).SelectAsync();
+                var retrievedContextIds = await _context.RedditContext.Where((rCtx) => !rCtx.IsDeleted).SelectAsync();
 
-                foreach (var context in retrievedContextIds.ToList().OrderByDescending(c => c.CreatedAt).Take(10))
+                foreach (var context in retrievedContextIds.ToList().OrderByDescending(ctx => ctx.CreatedAt).Take(10))
                 {
-                    result.Add(GetRecentRedditContext(context).Result);
+                    result.Add(GetRecentRedditContextById(context).Result);
                 }
             }
-
             return result;
         }
     }

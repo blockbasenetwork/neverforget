@@ -16,7 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BbLinq\BbLinq.csproj" />
     <ProjectReference Include="..\BlockBase.Dapps.NeverForgetBot.Business\BlockBase.Dapps.NeverForgetBot.Business.csproj" />
     <ProjectReference Include="..\BlockBase.Dapps.NeverForgetBot.ConsoleApp\BlockBase.Dapps.NeverForgetBot.ConsoleApp.csproj" />
     <ProjectReference Include="..\BlockBase.Dapps.NeverForgetBot.Dal\BlockBase.Dapps.NeverForgetBot.Dal.csproj" />
