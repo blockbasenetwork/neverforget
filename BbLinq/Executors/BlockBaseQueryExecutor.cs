@@ -30,6 +30,14 @@ namespace BlockBase.BBLinq.Executors
             {
                 throw new QueryExecutionException(parsedResult.Message);
             }
+
+            foreach (var response in parsedResult.Responses)
+            {
+                if (!response.Executed)
+                {
+                    throw new QueryExecutionException(response.Message);
+                }
+            }
         }
 
         public async Task<IEnumerable<TResult>> ExecuteQueryAsync<TResult>(ISelectQuery query)

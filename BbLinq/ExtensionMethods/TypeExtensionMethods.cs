@@ -46,7 +46,8 @@ namespace BlockBase.BBLinq.ExtensionMethods
             {
                 return false;
             }
-            return getGetMethod.IsStatic || getGetMethod.IsVirtual || getGetMethod.IsAbstract;
+            var isVirtual = getGetMethod.IsVirtual && !getGetMethod.IsFinal;
+            return getGetMethod.IsStatic || isVirtual|| getGetMethod.IsAbstract;
         }
 
         public static PropertyInfo[] GetPropertiesWithAttribute<T>(this Type type) where T : Attribute

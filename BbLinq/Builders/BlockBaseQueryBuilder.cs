@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Reflection;
+using System.Security.Principal;
 using BlockBase.BBLinq.Builders.Base;
 using BlockBase.BBLinq.Dictionaries;
 using BlockBase.BBLinq.Enumerables;
@@ -578,6 +579,10 @@ namespace BlockBase.BBLinq.Builders
                 value = Convert.ChangeType(enumValue, enumValue.GetTypeCode());
             }
             if (value == null)
+            {
+                return Append(Dictionary.NullValue);
+            }
+            if (value is Guid guid && guid == Guid.Empty)
             {
                 return Append(Dictionary.NullValue);
             }
