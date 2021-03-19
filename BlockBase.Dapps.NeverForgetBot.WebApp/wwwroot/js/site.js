@@ -1,4 +1,28 @@
 ﻿$(document).ready(function () {
+    $('#navbar-reddit').click(function () {
+        document.getElementById('navbar-reddit').disabled = true;
+        document.getElementById('navbar-twitter').disabled = true;
+        document.getElementById('detailsButton').disabled = true;
+    });
+
+    $('#navbar-twitter').click(function () {
+        document.getElementById('navbar-reddit').disabled = true;
+        document.getElementById('navbar-twitter').disabled = true;
+        document.getElementById('detailsButton').disabled = true;
+    });
+
+    $('#detailsButton').click(function () {
+        document.getElementById('navbar-reddit').disabled = true;
+        document.getElementById('navbar-twitter').disabled = true;
+        document.getElementById('detailsButton').disabled = true;
+    });
+
+    //document.onload = function () {
+    //    document.getElementById('navbar-reddit').disabled = false;
+    //    document.getElementById('navbar-twitter').disabled = false;
+    //    document.getElementById('detailsButton').disabled = false;
+    //}
+
     $('#myTable').DataTable({
         searching: true,
         ordering: false,

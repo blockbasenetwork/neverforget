@@ -29,11 +29,10 @@
                                     </div>
                                 </div>
 
-                                <div class="col-  p-0 d-flex border-0 align-items-center detailsLogo">
-                                    <div class="card border-0 detailsImg">
-                                        <a asp-controller="TwitterContexts" asp-action="Details" asp-route-id="@item.Id">
-                                            <img src="~/img/searchRobot.png" />
-                                        </a>
+                                <div class="col- p-0 d-flex border-0 align-items-center detailsLogo">
+                                    <div class="card border-0 detailsPosition">
+                                        <input id="detailsButton" type="button" class="detailsClickable detailsInput stacked-top align-items-center px-0 m-0" onclick="@("window.location.href='" + @Url.Action("Details", "TwitterContexts", new { id = item.Id }) + "'");" />
+                                        <img src="~/img/searchRobot.png" class="detailsClickable stacked-bottom align-items-center px-0 m-0"/>
                                     </div>
                                 </div>
                             </div>
