@@ -57,9 +57,9 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
             //}
 
             //#region Build RequestType Table
-            //RequestType defaultRequest = new RequestType { Id = (int)RequestTypeEnum.Default, Name = "Default" };
-            //RequestType commentRequest = new RequestType { Id = (int)RequestTypeEnum.Comment, Name = "Comment" };
-            //RequestType postRequest = new RequestType { Id = (int)RequestTypeEnum.Post, Name = "Post" };
+            RequestType defaultRequest = new RequestType { Id = (int)RequestTypeEnum.Default, Name = "Default" };
+            RequestType commentRequest = new RequestType { Id = (int)RequestTypeEnum.Comment, Name = "Comment" };
+            RequestType postRequest = new RequestType { Id = (int)RequestTypeEnum.Post, Name = "Post" };
 
             //await _requestTypeDao.InsertAsync(defaultRequest);
             //await _requestTypeDao.InsertAsync(commentRequest);

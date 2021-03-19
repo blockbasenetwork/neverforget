@@ -27,8 +27,8 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
             return await _opExecutor.ExecuteOperation<List<GeneralContextPoco>>(async () =>
             {
                 var result = new List<GeneralContextPoco>();
-                var recentReddits = await _redditDao.GetRecentRedditContexts();
-                var recentTweets = await _twitterDao.GetRecentTwitterContexts();
+                var recentReddits = await _redditDao.GetRecentReddit();
+                var recentTweets = await _twitterDao.GetRecentTwitter();
 
                 result.AddRange(recentReddits);
                 result.AddRange(recentTweets);

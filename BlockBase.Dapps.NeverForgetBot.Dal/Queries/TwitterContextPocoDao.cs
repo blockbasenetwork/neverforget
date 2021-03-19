@@ -40,36 +40,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
             }
         }
 
-        public async Task<GeneralContextPoco> GetRecentTwitterContextById(TwitterContext context)
-        {
-            GeneralContextPoco result = new GeneralContextPoco();
-            using (var _context = new NeverForgetBotDbContext())
-            {
-                var retrievedSubmission = await _context.TwitterSubmission.Where((tSub) => (tSub.TwitterContextId == context.Id)).SelectAsync();
-                if (retrievedSubmission.Count() != 0)
-                {
-                    result.Author = retrievedSubmission.First().Author;
-                    result.Content = retrievedSubmission.First().Content;
-                    result.Date = retrievedSubmission.First().SubmissionDate;
-                    result.SourceType = SourceTypeEnum.Twitter;
-
-                    return result;
-                }
-                else
-                {
-                    var retrievedComments = await _context.TwitterComment.Where((tCom) => (tCom.TwitterContextId == context.Id)).SelectAsync();
-                    var comment = retrievedComments.OrderBy(c => c.CommentDate).First();
-
-                    result.Author = comment.Author;
-                    result.Content = comment.Content;
-                    result.Date = comment.CommentDate;
-                    result.SourceType = SourceTypeEnum.Twitter;
-
-                    return result;
-                }
-            }
-        }
-
         public async Task<List<TwitterContextPoco>> GetAllTwitterContexts()
         {
             List<TwitterContextPoco> result = new List<TwitterContextPoco>();
@@ -85,17 +55,23 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
             return result;
         }
 
-        public async Task<List<GeneralContextPoco>> GetRecentTwitterContexts()
+        public async Task<List<GeneralContextPoco>> GetRecentTwitter()
         {
             List<GeneralContextPoco> result = new List<GeneralContextPoco>();
 
             using (var _context = new NeverForgetBotDbContext())
             {
-                var retrievedContextIds = await _context.TwitterContext.Where((tCtx) => !tCtx.IsDeleted).SelectAsync();
-
-                foreach (var context in retrievedContextIds.ToList().OrderByDescending(ctx => ctx.CreatedAt).Take(10))
+                var retrievedSubmissions = await _context.TwitterSubmission.Where((tSub) => !tSub.IsDeleted).SelectAsync((tSub) => new GeneralContextPoco
                 {
-                    result.Add(GetRecentTwitterContextById(context).Result);
+                    Author = tSub.Author,
+                    Content = tSub.Content,
+                    Date = tSub.SubmissionDate,
+                    SourceType = SourceTypeEnum.Twitter
+                });
+
+                foreach (var submission in retrievedSubmissions.ToList().OrderByDescending(ctx => ctx.Date).Take(10))
+                {
+                    result.Add(submission);
                 }
             }
 

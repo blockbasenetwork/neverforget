@@ -24,7 +24,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
         private readonly IRedditContextPocoDao _pocoDao;
         private readonly RedditCollector _redditCollector;
 
-        string url = "https://localhost:44371/redditcontexts/details/";
+        string url = "http://web-app-neverforget-blockbase.azurewebsites.net/redditcontexts/details/";
 
         public RedditContextBo(IRedditContextDao dao, IDbOperationExecutor opExecutor, IRedditSubmissionDao submissionDao, IRedditCommentDao commentDao, IRedditContextPocoDao pocoDao, RedditCollector redditCollector)
         {

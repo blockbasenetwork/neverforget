@@ -39,38 +39,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
             }
         }
 
-        public async Task<GeneralContextPoco> GetRecentRedditContextById(RedditContext context)
-        {
-            GeneralContextPoco result = new GeneralContextPoco();
-            using (var _context = new NeverForgetBotDbContext())
-            {
-                var retrievedSubmission = await _context.RedditSubmission.Where((rSub) => (rSub.RedditContextId == context.Id)).SelectAsync();
-
-                if (retrievedSubmission.Count() != 0)
-                {
-                    result.Author = retrievedSubmission.First().Author;
-                    result.Content = retrievedSubmission.First().Content;
-                    result.Date = retrievedSubmission.First().SubmissionDate;
-                    result.Title = retrievedSubmission.First().Title;
-                    result.SourceType = SourceTypeEnum.Reddit;
-
-                    return result;
-                }
-                else
-                {
-                    var retrievedComments = await _context.RedditComment.Where((rCom) => (rCom.RedditContextId == context.Id)).SelectAsync();
-                    var comment = retrievedComments.OrderBy(c => c.CommentDate).First();
-
-                    result.Author = comment.Author;
-                    result.Content = comment.Content;
-                    result.Date = comment.CommentDate;
-                    result.SourceType = SourceTypeEnum.Reddit;
-
-                    return result;
-                }
-            }
-        }
-
         public async Task<List<RedditContextPoco>> GetAllRedditContexts()
         {
             List<RedditContextPoco> result = new List<RedditContextPoco>();
@@ -86,17 +54,24 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
             return result;
         }
 
-        public async Task<List<GeneralContextPoco>> GetRecentRedditContexts()
+        public async Task<List<GeneralContextPoco>> GetRecentReddit()
         {
             List<GeneralContextPoco> result = new List<GeneralContextPoco>();
 
             using (var _context = new NeverForgetBotDbContext())
             {
-                var retrievedContextIds = await _context.RedditContext.Where((rCtx) => !rCtx.IsDeleted).SelectAsync();
-
-                foreach (var context in retrievedContextIds.ToList().OrderByDescending(ctx => ctx.CreatedAt).Take(10))
+                var retrievedSubmissions = await _context.RedditSubmission.Where((tSub) => !tSub.IsDeleted).SelectAsync((tSub) => new GeneralContextPoco
                 {
-                    result.Add(GetRecentRedditContextById(context).Result);
+                    Author = tSub.Author,
+                    Content = tSub.Content,
+                    Date = tSub.SubmissionDate,
+                    SourceType = SourceTypeEnum.Reddit,
+                    Title = tSub.Title
+                });
+
+                foreach (var submission in retrievedSubmissions.ToList().OrderByDescending(ctx => ctx.Date).Take(10))
+                {
+                    result.Add(submission);
                 }
             }
             return result;

@@ -24,7 +24,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
         private readonly ITwitterContextPocoDao _pocoDao;
         private readonly TwitterCollector _twitterCollector;
 
-        string url = "https://localhost:44371/twittercontexts/details/";
+        string url = "http://web-app-neverforget-blockbase.azurewebsites.net/twittercontexts/details/";
         string contextIdToPublish = string.Empty;
 
         public TwitterContextBo(ITwitterContextDao dao, IDbOperationExecutor opExecutor, ITwitterCommentDao commentDao, ITwitterSubmissionDao submissionDao, ITwitterContextPocoDao pocoDao, TwitterCollector twitterCollector)

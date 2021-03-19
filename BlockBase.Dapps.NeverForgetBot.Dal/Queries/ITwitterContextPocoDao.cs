@@ -11,7 +11,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.Queries
     {
         Task<TwitterContextPoco> GetTwitterContextById(Guid contextId);
         Task<List<TwitterContextPoco>> GetAllTwitterContexts();
-        Task<GeneralContextPoco> GetRecentTwitterContextById(TwitterContext context);
-        Task<List<GeneralContextPoco>> GetRecentTwitterContexts();
+        Task<List<GeneralContextPoco>> GetRecentTwitter();
     }
 }
