@@ -220,21 +220,6 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
             }
         }
 
-        #region To be implemented
-        //private async Task GetAndInsertAllParentComment(RedditCommentModel comment, Guid id)
-        //{
-        //    var parentId = comment.Parent_Id;
-        //    bool checkParent = Regex.IsMatch(parentId, @"^t3_");
-        //    if (!checkParent)
-        //    {
-        //        var cleanId = Regex.Replace(parentId, @"^(\bt1_\B)", " ");
-        //        var result = await _redditCollector.RedditParentCommentInfo(cleanId);
-        //        await _commentBo.FromApiRedditCommentModel(result.FirstOrDefault(), id);
-        //        await GetAndInsertAllParentComment(result.FirstOrDefault(), id);
-        //    }
-        //}
-        #endregion 
-
         private async Task<string> GetLink(RedditComment comment)
         {
             var cleanId = Regex.Replace(comment.ParentSubmissionId, @"^(\bt3_\B)", " ");

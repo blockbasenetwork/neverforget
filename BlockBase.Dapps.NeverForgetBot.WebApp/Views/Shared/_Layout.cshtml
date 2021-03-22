@@ -34,11 +34,9 @@
                         <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                             <ul class="navbar-nav flex-grow-1">
                                 <li class="nav-item">
-                                    @*<a id="navReddit" class="nav-link text-dark" asp-area="" asp-controller="RedditContexts" asp-action="Index"><b>Reddit</b></a>*@
                                     <input id="navbar-reddit" class="nav-link text-dark navbar-item" type="button" value="Reddit" onclick="@("window.location.href='" + @Url.Action("Index", "RedditContexts") + "'");" />
                                 </li>
                                 <li class="nav-item">
-                                    @*<a class="nav-link text-dark" asp-area="" asp-controller="TwitterContexts" asp-action="Index"><b>Twitter</b></a>*@
                                     <input id="navbar-twitter" class="nav-link text-dark navbar-item" type="button" value="Twitter" onclick="@("window.location.href='" + @Url.Action("Index", "TwitterContexts") + "'");" />
                                 </li>
                             </ul>

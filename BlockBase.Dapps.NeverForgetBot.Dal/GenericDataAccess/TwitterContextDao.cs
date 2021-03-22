@@ -18,11 +18,9 @@ namespace BlockBase.Dapps.NeverForgetBot.Dal.GenericDataAccess
             {
                 foreach (var tweet in tweetList)
                 {
-                    if (tweet.User.Screen_name != "_NeverForgetBot")
+                    if (tweet.User.Screen_name != "_NeverForgetBot" && tweet.User.Screen_name != "_NeverForgetDev")
                     {
                         var resultComment = await _context.TwitterComment.Where((tCom) => (tCom.CommentId == tweet.Id)).SelectAsync();
-
-                        //var resultComment = await _context.TwitterComment.SelectAsync();
 
                         if (resultComment.Count() == 0)
                         {
