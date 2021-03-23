@@ -50,36 +50,17 @@ namespace BlockBase.Dapps.NeverForgetBot.ConsoleApp
 
         public async Task Run()
         {
-            //using (var context = new NeverForgetBotDbContext())
-            //{
-            //    var resultDrop = context.DropDatabase();
-            //    var resultCreate = context.CreateDatabase();
-            //}
+            ApiHelper.InitializeClient();
 
-            //#region Build RequestType Table
-            RequestType defaultRequest = new RequestType { Id = (int)RequestTypeEnum.Default, Name = "Default" };
-            RequestType commentRequest = new RequestType { Id = (int)RequestTypeEnum.Comment, Name = "Comment" };
-            RequestType postRequest = new RequestType { Id = (int)RequestTypeEnum.Post, Name = "Post" };
-
-            //await _requestTypeDao.InsertAsync(defaultRequest);
-            //await _requestTypeDao.InsertAsync(commentRequest);
-            //await _requestTypeDao.InsertAsync(postRequest);
-            //#endregion
+            RedditApi.AuthenticateClient();
+            await _redditContextBo.FromApiRedditAllComments();
 
 
+            TwitterApi.AuthenticateClient();
 
-            //ApiHelper.InitializeClient();
+            var mentions = await _twitterCollector.GetMentions();
 
-            //////RedditApi.AuthorizeUser();
-            //RedditApi.AuthenticateClient();
-            //await _redditContextBo.FromApiRedditAllComments();
-
-
-            //TwitterApi.AuthenticateClient();
-
-            //var mentions = await _twitterCollector.GetMentions();
-
-            //await _twitterContextBo.FromApiTwitterModel(mentions);
+            await _twitterContextBo.FromApiTwitterModel(mentions);
         }
     }
 }
