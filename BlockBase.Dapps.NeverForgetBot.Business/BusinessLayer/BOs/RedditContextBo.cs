@@ -148,7 +148,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
 
                 });
                 result.Add(opResult);
-                //await PublishReplies(toReply); //uncomment before deploy
+                await PublishReplies(toReply); //uncomment before deploy
             }
             return result;
         }
