@@ -39,14 +39,22 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
 
         public async Task<OperationResult> FromApiRedditAllComments()
         {
-            int lastDate;
+            int lastDate = 0;
             RedditCommentModel[] commentBatch = new RedditCommentModel[] { };
 
             var opResult = await _opExecutor.ExecuteOperation(async () =>
             {
                 do
                 {
-                    lastDate = _redditCollector.ReadLastCommentDate();
+                    try
+                    {
+                        lastDate = _redditCollector.ReadLastCommentDate();
+                    }
+                    catch (Exception e)
+                    {
+                        _redditCollector.CreateLastCommentDate(lastDate);
+                    }
+                    
                     commentBatch = await _redditCollector.RedditCommentInfo(lastDate);
                     if (commentBatch.Length != 0)
                     {
@@ -54,7 +62,7 @@ namespace BlockBase.Dapps.NeverForgetBot.Business.BusinessLayer.BOs
                         if (commentBatch[^1] != null)
                         {
                             lastDate = commentBatch[^1].Created_Utc;
-                            _redditCollector.CreateLastCommentDate(lastDate); //lastDate = 0  before deploy
+                            _redditCollector.CreateLastCommentDate(lastDate);
                         }
                     }
                 } while (commentBatch.Length != 0);
