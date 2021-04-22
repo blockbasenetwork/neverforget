@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>BlockBase.Dapps.NeverForget.Services</RootNamespace>
+    <AssemblyName>BlockBase.Dapps.NeverForget.Services</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="API\Models\" />
+    <Folder Include="Resources\" />
+  </ItemGroup>
+
+</Project>

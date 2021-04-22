@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssemblyName>BlockBase.Dapps.NeverForget.Business</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="BusinessModels\OperationResults\" />
+    <Folder Include="BusinessObjects\" />
+    <Folder Include="Interfaces\" />
+  </ItemGroup>
+
+</Project>

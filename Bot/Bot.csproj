@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>BlockBase.Dapps.NeverForget.Bot</RootNamespace>
+    <AssemblyName>BlockBase.Dapps.NeverForget.Bot</AssemblyName>
+  </PropertyGroup>
+
+</Project>

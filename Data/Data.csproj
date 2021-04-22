@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>BlockBase.Dapps.NeverForget.Data</RootNamespace>
+    <AssemblyName>BlockBase.Dapps.NeverForget.Data</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Context\" />
+    <Folder Include="Pocos\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BlockBase.BBLinq" Version="0.0.59" />
+  </ItemGroup>
+
+</Project>

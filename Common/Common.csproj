@@ -2,6 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssemblyName>BlockBase.Dapps.NeverForget.Common</AssemblyName>
+    <RootNamespace>BlockBase.Dapps.NeverForget.Common</RootNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Enums\" />
+  </ItemGroup>
 
 </Project>
