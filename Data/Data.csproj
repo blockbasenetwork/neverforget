@@ -14,4 +14,8 @@
     <PackageReference Include="BlockBase.BBLinq" Version="0.0.59" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj" />
+  </ItemGroup>
+
 </Project>

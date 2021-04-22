@@ -6,8 +6,4 @@
     <RootNamespace>BlockBase.Dapps.NeverForget.Common</RootNamespace>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Enums\" />
-  </ItemGroup>
-
 </Project>
