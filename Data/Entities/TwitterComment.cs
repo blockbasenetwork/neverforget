@@ -2,8 +2,6 @@
 using BlockBase.Dapps.NeverForget.Data.Entities.Base;
 using BlockBase.Dapps.NeverForget.Data.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BlockBase.Dapps.NeverForget.Data.Entities
 {

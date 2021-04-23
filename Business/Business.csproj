@@ -3,12 +3,24 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AssemblyName>BlockBase.Dapps.NeverForget.Business</AssemblyName>
+    <RootNamespace>BlockBase.Dapps.NeverForget.Business</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
     <Folder Include="BusinessModels\OperationResults\" />
     <Folder Include="BusinessObjects\" />
     <Folder Include="Interfaces\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Serilog" Version="2.10.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj" />
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
+    <ProjectReference Include="..\Data\Data.csproj" />
+    <ProjectReference Include="..\Services\Services.csproj" />
   </ItemGroup>
 
 </Project>

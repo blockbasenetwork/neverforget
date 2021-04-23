@@ -3,7 +3,6 @@ using BlockBase.Dapps.NeverForget.Data.Entities.Base;
 using BlockBase.Dapps.NeverForget.Data.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace BlockBase.Dapps.NeverForget.Data.Entities
 {
@@ -14,7 +13,7 @@ namespace BlockBase.Dapps.NeverForget.Data.Entities
         public Guid Id { get; set; }
         public virtual ICollection<TwitterComment> TwitterComments { get; set; }
         public virtual TwitterSubmission TwitterSubmission { get; set; }
-        
+
         [ForeignKey(Parent = typeof(RequestType))]
         public int RequestTypeId { get; set; }
     }

@@ -1,7 +1,5 @@
 ﻿using BlockBase.BBLinq.DataAnnotations;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BlockBase.Dapps.NeverForget.Data.Entities
 {
