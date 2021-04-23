@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BlockBase.Dapps.NeverForget.DataAccess.DataAccessObjects
+namespace BlockBase.Dapps.NeverForget.DataAccess.DataAccessModels
 {
     public class BaseAuditDao<TAuditEntity> : BaseDao<TAuditEntity>, IBaseAuditDao<TAuditEntity> where TAuditEntity : AuditEntity, IEntity
     {
