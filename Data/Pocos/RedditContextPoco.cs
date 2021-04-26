@@ -5,7 +5,7 @@ namespace BlockBase.Dapps.NeverForget.Data.Pocos
 {
     public class RedditContextPoco
     {
-        public virtual RedditContextPoco Context { get; set; }
+        public virtual RedditContext Context { get; set; }
         public virtual RedditSubmission Submission { get; set; }
         public virtual List<RedditComment> Comments { get; set; }
 
