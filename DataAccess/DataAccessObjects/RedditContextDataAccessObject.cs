@@ -10,34 +10,32 @@ using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForget.DataAccess.DataAccessObjects
 {
-    public class TwitterContextDao : BaseAuditDao<TwitterContext>, ITwitterContextDao
+    public class RedditContextDataAccessObject : BaseAuditDataAccessObject<RedditContext>, IRedditContextDataAccessObject
     {
-        public async Task<List<TweetModel>> GetUniqueComments(TweetModel[] tweetList)
+        public async Task<List<RedditCommentModel>> GetUniqueComments(RedditCommentModel[] commentArray)
         {
-            var resultList = new List<TweetModel>();
+            var resultList = new List<RedditCommentModel>();
             using (var _context = new NeverForgetBotDbContext())
             {
-                foreach (var tweet in tweetList)
+                foreach (var comment in commentArray)
                 {
-                    if (tweet.User.Screen_name != "_NeverForgetBot" && tweet.User.Screen_name != "_NeverForgetDev")
-                    {
-                        var resultComment = await _context.TwitterComment.Where((tCom) => (tCom.CommentId == tweet.Id)).SelectAsync();
+                    var result = await _context.RedditComment.Where(c => c.CommentId == comment.Id).SelectAsync();
 
-                        if (resultComment.Count() == 0)
-                        {
-                            resultList.Add(tweet);
-                        }
+                    if (result.Count() == 0)
+                    {
+                        resultList.Add(comment);
                     }
                 }
-                return resultList;
             }
+            return resultList;
         }
+
 
         public async Task<bool> IsContextPresent(Guid contextId)
         {
             using (var _context = new NeverForgetBotDbContext())
             {
-                var result = await _context.TwitterContext.Where((tCtx) => (tCtx.Id == contextId)).SelectAsync();
+                var result = await _context.RedditContext.Where((rCtx) => (rCtx.Id == contextId)).SelectAsync();
 
                 if (result.Count() != 0)
                 {
@@ -51,7 +49,7 @@ namespace BlockBase.Dapps.NeverForget.DataAccess.DataAccessObjects
         {
             using (var _context = new NeverForgetBotDbContext())
             {
-                var resultComment = await _context.TwitterComment.Where((tCom) => (tCom.TwitterContextId == contextId)).SelectAsync();
+                var resultComment = await _context.RedditComment.Where((rCom) => (rCom.RedditContextId == contextId)).SelectAsync();
 
                 if (resultComment.Count() != 0)
                 {
@@ -65,7 +63,7 @@ namespace BlockBase.Dapps.NeverForget.DataAccess.DataAccessObjects
         {
             using (var _context = new NeverForgetBotDbContext())
             {
-                var resultSubmission = await _context.TwitterSubmission.Where((tSub) => (tSub.TwitterContextId == contextId)).SelectAsync();
+                var resultSubmission = await _context.RedditSubmission.Where((rSub) => (rSub.RedditContextId == contextId)).SelectAsync();
 
                 if (resultSubmission.Count() != 0)
                 {

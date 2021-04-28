@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForget.DataAccess.Interfaces
 {
-    public interface ITwitterContextPocoDao
+    public interface ITwitterContextPocoDataAccessObject
     {
         Task<TwitterContextPoco> GetTwitterContextById(Guid contextId);
         Task<List<TwitterContextPoco>> GetAllTwitterContexts();

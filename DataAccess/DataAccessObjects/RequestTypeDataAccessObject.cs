@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForget.DataAccess.DataAccessObjects
 {
-    public class RequestTypeDao : IRequestTypeDao
+    public class RequestTypeDataAccessObject : IRequestTypeDataAccessObject
     {
         #region Create
         public async Task InsertAsync(RequestType entity)

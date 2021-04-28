@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForget.DataAccess.DataAccessModels
 {
-    public abstract class BaseDao<TEntity> : IBaseDao<TEntity> where TEntity : class, IEntity
+    public abstract class BaseDataAccessObject<TEntity> : IBaseDataAccessObject<TEntity> where TEntity : class, IEntity
     {
         #region Create
         public async Task InsertAsync(TEntity entity)

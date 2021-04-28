@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForget.DataAccess.Interfaces
 {
-    public interface IRequestTypeDao
+    public interface IRequestTypeDataAccessObject
     {
         Task InsertAsync(RequestType entity);
         Task<RequestType> GetAsync(int id);

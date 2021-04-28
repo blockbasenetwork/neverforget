@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForget.DataAccess.DataAccessModels
 {
-    public class BaseAuditDao<TAuditEntity> : BaseDao<TAuditEntity>, IBaseAuditDao<TAuditEntity> where TAuditEntity : AuditEntity, IEntity
+    public class BaseAuditDataAccessObject<TAuditEntity> : BaseDataAccessObject<TAuditEntity>, IBaseAuditDataAccessObject<TAuditEntity> where TAuditEntity : AuditEntity, IEntity
     {
         #region Read
         public override async Task<TAuditEntity> GetAsync(Guid id)

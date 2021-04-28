@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForget.DataAccess.Interfaces
 {
-    public interface IBaseDao<TEntity> where TEntity : class, IEntity
+    public interface IBaseDataAccessObject<TEntity> where TEntity : class, IEntity
     {
         Task<List<TEntity>> GetAllAsync();
         Task<TEntity> GetAsync(Guid id);

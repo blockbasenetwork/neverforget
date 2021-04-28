@@ -3,7 +3,7 @@ using BlockBase.Dapps.NeverForget.Data.Interfaces;
 
 namespace BlockBase.Dapps.NeverForget.DataAccess.Interfaces
 {
-    public interface IBaseAuditDao<TAuditEntity> : IBaseDao<TAuditEntity> where TAuditEntity : AuditEntity, IEntity
+    public interface IBaseAuditDataAccessObject<TAuditEntity> : IBaseDataAccessObject<TAuditEntity> where TAuditEntity : AuditEntity, IEntity
     {
     }
 }

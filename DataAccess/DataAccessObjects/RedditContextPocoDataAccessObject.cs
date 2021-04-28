@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForget.DataAccess.DataAccessObjects
 {
-    public class RedditContextPocoDao : IRedditContextPocoDao
+    public class RedditContextPocoDataAccessObject : IRedditContextPocoDataAccessObject
     {
         public async Task<RedditContextPoco> GetRedditContextById(Guid contextId)
         {

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForget.DataAccess.Interfaces
 {
-    public interface IRedditContextPocoDao
+    public interface IRedditContextPocoDataAccessObject
     {
         Task<RedditContextPoco> GetRedditContextById(Guid contextId);
         Task<List<RedditContextPoco>> GetAllRedditContexts();

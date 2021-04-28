@@ -4,12 +4,11 @@ using BlockBase.Dapps.NeverForget.Data.Pocos;
 using BlockBase.Dapps.NeverForget.DataAccess.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForget.DataAccess.DataAccessObjects
 {
-    public class TwitterContextPocoDao : ITwitterContextPocoDao
+    public class TwitterContextPocoDataAccessObject : ITwitterContextPocoDataAccessObject
     {
         public async Task<TwitterContextPoco> GetTwitterContextById(Guid contextId)
         {

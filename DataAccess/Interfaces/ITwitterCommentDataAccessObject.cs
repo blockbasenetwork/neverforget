@@ -2,7 +2,7 @@
 
 namespace BlockBase.Dapps.NeverForget.DataAccess.Interfaces
 {
-    public interface IRedditSubmissionDao : IBaseAuditDao<RedditSubmission>
+    public interface ITwitterCommentDataAccessObject : IBaseAuditDataAccessObject<TwitterComment>
     {
     }
 }
