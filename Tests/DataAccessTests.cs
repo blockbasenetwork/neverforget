@@ -300,6 +300,7 @@ namespace BlockBase.Dapps.NeverForget.Tests
 
             var twitterDao = new TwitterContextDataAccessObject();
             var twitterCommentDao = new TwitterCommentDataAccessObject();
+            var twitterSubmissionDao = new TwitterSubmissionDataAccessObject();
 
             var twitterContext = new TwitterContext
             {
@@ -317,18 +318,33 @@ namespace BlockBase.Dapps.NeverForget.Tests
                 Author = "Author1",
                 Link = "Link",
                 MediaLink = "Link2",
-                ReplyToId = "fefe",
+                ReplyToId = "s1",
                 TwitterContextId = twitterContext.Id,
                 CreatedAt = DateTime.UtcNow,
-
             };
 
+            var twitterSubmission = new TwitterSubmission
+            {
+                Id = Guid.NewGuid(),
+                SubmissionId = "s1",
+                Content = "Main Tweet",
+                SubmissionDate = DateTime.UtcNow,
+                Author = "Tweeter1",
+                Link = "Link",
+                MediaLink = "Link2",
+                TwitterContextId = twitterContext.Id,
+                CreatedAt = DateTime.UtcNow,
+            };
+            
             twitterDao.InsertAsync(twitterContext).Wait();
             twitterCommentDao.InsertAsync(twitterComment).Wait();
+            twitterSubmissionDao.InsertAsync(twitterSubmission).Wait();
 
-            var resGet = twitterCommentDao.GetAsync(twitterComment.Id).Result;
+            var resGetCon = twitterDao.GetAsync(twitterContext.Id).Result;
+            var resGetCom = twitterCommentDao.GetAsync(twitterComment.Id).Result;
+            var resGetSub = twitterSubmissionDao.GetAsync(twitterSubmission.Id).Result;
 
-            Assert.IsTrue(resGet != null);
+            Assert.IsTrue(resGetCon != null && resGetCom != null && resGetSub != null);
         }
 
         [TestMethod]
@@ -356,8 +372,23 @@ namespace BlockBase.Dapps.NeverForget.Tests
 
             var twitterDao = new TwitterContextDataAccessObject();
             var twitterCommentDao = new TwitterCommentDataAccessObject();
+            var twitterSubmissionDao = new TwitterSubmissionDataAccessObject();
 
             var twitterContext = new TwitterContext
+            {
+                Id = Guid.NewGuid(),
+                RequestTypeId = defaultRequest.Id,
+                CreatedAt = DateTime.UtcNow,
+            };
+
+            var twitterContext2 = new TwitterContext
+            {
+                Id = Guid.NewGuid(),
+                RequestTypeId = defaultRequest.Id,
+                CreatedAt = DateTime.UtcNow,
+            };
+
+            var twitterContext3 = new TwitterContext
             {
                 Id = Guid.NewGuid(),
                 RequestTypeId = defaultRequest.Id,
@@ -373,7 +404,7 @@ namespace BlockBase.Dapps.NeverForget.Tests
                 Author = "Author1",
                 Link = "Link",
                 MediaLink = "Link2",
-                ReplyToId = "fefe",
+                ReplyToId = "s1",
                 TwitterContextId = twitterContext.Id,
                 CreatedAt = DateTime.UtcNow,
 
@@ -388,8 +419,8 @@ namespace BlockBase.Dapps.NeverForget.Tests
                 Author = "Author2",
                 Link = "Link",
                 MediaLink = "Link2",
-                ReplyToId = "fefe",
-                TwitterContextId = twitterContext.Id,
+                ReplyToId = "s2",
+                TwitterContextId = twitterContext2.Id,
                 CreatedAt = DateTime.UtcNow,
             };
 
@@ -402,19 +433,65 @@ namespace BlockBase.Dapps.NeverForget.Tests
                 Author = "Author3",
                 Link = "Link",
                 MediaLink = "Link2",
-                ReplyToId = "fefe",
+                ReplyToId = "s3",
+                TwitterContextId = twitterContext3.Id,
+                CreatedAt = DateTime.UtcNow,
+            };
+
+            var twitterSubmission = new TwitterSubmission
+            {
+                Id = Guid.NewGuid(),
+                SubmissionId = "s1",
+                Content = "Main Tweet",
+                SubmissionDate = DateTime.UtcNow,
+                Author = "Tweeter1",
+                Link = "Link",
+                MediaLink = "Link2",
                 TwitterContextId = twitterContext.Id,
                 CreatedAt = DateTime.UtcNow,
             };
 
+            var twitterSubmission2 = new TwitterSubmission
+            {
+                Id = Guid.NewGuid(),
+                SubmissionId = "s2",
+                Content = "Main Tweet",
+                SubmissionDate = DateTime.UtcNow,
+                Author = "Tweeter2",
+                Link = "Link",
+                MediaLink = "Link2",
+                TwitterContextId = twitterContext2.Id,
+                CreatedAt = DateTime.UtcNow,
+            };
+
+            var twitterSubmission3 = new TwitterSubmission
+            {
+                Id = Guid.NewGuid(),
+                SubmissionId = "s3",
+                Content = "Main Tweet",
+                SubmissionDate = DateTime.UtcNow,
+                Author = "Tweeter3",
+                Link = "Link",
+                MediaLink = "Link2",
+                TwitterContextId = twitterContext3.Id,
+                CreatedAt = DateTime.UtcNow,
+            };
+
             twitterDao.InsertAsync(twitterContext).Wait();
+            twitterDao.InsertAsync(twitterContext2).Wait();
+            twitterDao.InsertAsync(twitterContext3).Wait();
             twitterCommentDao.InsertAsync(twitterComment).Wait();
             twitterCommentDao.InsertAsync(twitterComment2).Wait();
             twitterCommentDao.InsertAsync(twitterComment3).Wait();
+            twitterSubmissionDao.InsertAsync(twitterSubmission).Wait();
+            twitterSubmissionDao.InsertAsync(twitterSubmission2).Wait();
+            twitterSubmissionDao.InsertAsync(twitterSubmission3).Wait();
 
+            var twitterContextList = twitterDao.List().Result;
             var twitterCommentList = twitterCommentDao.List().Result;
+            var twitterSubmissionList = twitterSubmissionDao.List().Result;
 
-            Assert.IsTrue(twitterCommentList.Count() == 3);
+            Assert.IsTrue(twitterContextList.Count() == 3 && twitterCommentList.Count() == 3 && twitterSubmissionList.Count() == 3);
         }
 
         [TestMethod]
@@ -442,6 +519,7 @@ namespace BlockBase.Dapps.NeverForget.Tests
 
             var twitterDao = new TwitterContextDataAccessObject();
             var twitterCommentDao = new TwitterCommentDataAccessObject();
+            var twitterSubmissionDao = new TwitterSubmissionDataAccessObject();
 
             var twitterContext = new TwitterContext
             {
@@ -459,19 +537,42 @@ namespace BlockBase.Dapps.NeverForget.Tests
                 Author = "Author1",
                 Link = "Link",
                 MediaLink = "Link2",
-                ReplyToId = "fefe",
+                ReplyToId = "s1",
+                TwitterContextId = twitterContext.Id,
+                CreatedAt = DateTime.UtcNow,
+
+            };
+
+            var twitterSubmission = new TwitterSubmission
+            {
+                Id = Guid.NewGuid(),
+                SubmissionId = "s1",
+                Content = "Main Tweet",
+                SubmissionDate = DateTime.UtcNow,
+                Author = "Tweeter1",
+                Link = "Link",
+                MediaLink = "Link2",
                 TwitterContextId = twitterContext.Id,
                 CreatedAt = DateTime.UtcNow,
             };
 
             twitterDao.InsertAsync(twitterContext).Wait();
             twitterCommentDao.InsertAsync(twitterComment).Wait();
+            twitterSubmissionDao.InsertAsync(twitterSubmission).Wait();
 
-            var resGet = twitterCommentDao.GetAsync(twitterComment.Id).Result;
-            resGet.Author = "NewAuthor";
-            twitterCommentDao.UpdateAsync(resGet).Wait();
+            var resGetCon = twitterDao.GetAsync(twitterContext.Id).Result;
+            var resGetCom = twitterCommentDao.GetAsync(twitterComment.Id).Result;
+            var resGetSub = twitterSubmissionDao.GetAsync(twitterSubmission.Id).Result;
 
-            Assert.IsTrue(resGet.Author == "NewAuthor");
+            resGetCon.IsDeleted = true;
+            resGetCom.IsDeleted = true;
+            resGetCom.IsDeleted = true;
+
+            twitterDao.UpdateAsync(resGetCon).Wait();
+            twitterCommentDao.UpdateAsync(resGetCom).Wait();
+            twitterSubmissionDao.UpdateAsync(resGetSub).Wait();
+
+            Assert.IsTrue(resGetCon.IsDeleted && resGetCom.IsDeleted && resGetSub.IsDeleted);
         }
 
         [TestMethod]
@@ -499,6 +600,7 @@ namespace BlockBase.Dapps.NeverForget.Tests
 
             var twitterDao = new TwitterContextDataAccessObject();
             var twitterCommentDao = new TwitterCommentDataAccessObject();
+            var twitterSubmissionDao = new TwitterSubmissionDataAccessObject();
 
             var twitterContext = new TwitterContext
             {
@@ -522,42 +624,28 @@ namespace BlockBase.Dapps.NeverForget.Tests
 
             };
 
-            var twitterComment2 = new TwitterComment
+            var twitterSubmission = new TwitterSubmission
             {
                 Id = Guid.NewGuid(),
-                CommentId = "tk2",
-                Content = "@_NeverForgetBot Tweet2",
-                CommentDate = DateTime.UtcNow,
-                Author = "Author2",
+                SubmissionId = "s1",
+                Content = "Main Tweet",
+                SubmissionDate = DateTime.UtcNow,
+                Author = "Tweeter1",
                 Link = "Link",
                 MediaLink = "Link2",
-                ReplyToId = "fefe",
-                TwitterContextId = twitterContext.Id,
-                CreatedAt = DateTime.UtcNow,
-            };
-
-            var twitterComment3 = new TwitterComment
-            {
-                Id = Guid.NewGuid(),
-                CommentId = "tk3",
-                Content = "@_NeverForgetBot Tweet3",
-                CommentDate = DateTime.UtcNow,
-                Author = "Author3",
-                Link = "Link",
-                MediaLink = "Link2",
-                ReplyToId = "fefe",
                 TwitterContextId = twitterContext.Id,
                 CreatedAt = DateTime.UtcNow,
             };
 
             twitterDao.InsertAsync(twitterContext).Wait();
             twitterCommentDao.InsertAsync(twitterComment).Wait();
-            twitterCommentDao.InsertAsync(twitterComment2).Wait();
-            twitterCommentDao.InsertAsync(twitterComment3).Wait();
+            twitterSubmissionDao.InsertAsync(twitterSubmission).Wait();
 
-            twitterCommentDao.DeleteAsync(twitterComment3).Wait();
+            twitterDao.DeleteAsync(twitterContext).Wait();
+            twitterCommentDao.DeleteAsync(twitterComment).Wait();
+            twitterSubmissionDao.DeleteAsync(twitterSubmission).Wait();
 
-            Assert.IsTrue(twitterComment3.IsDeleted == true);
+            Assert.IsTrue(twitterContext.IsDeleted == true && twitterComment.IsDeleted == true && twitterSubmission.IsDeleted == true);
         }
 
         //[TestMethod]
@@ -647,6 +735,7 @@ namespace BlockBase.Dapps.NeverForget.Tests
 
         //    Assert.IsTrue(twitterCommentList.Count() == 2 && twitterCommentListDeleted.Count == 1);
         //}
+
         #endregion
     }
 }
