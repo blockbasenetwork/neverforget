@@ -4,7 +4,7 @@ using BlockBase.Dapps.NeverForget.DataAccess.Interfaces;
 
 namespace BlockBase.Dapps.NeverForget.DataAccess.DataAccessObjects
 {
-    public class RedditSubmissionDataAccessObject : BaseDataAccessObject<RedditSubmission>, IRedditSubmissionDataAccessObject
+    public class RedditSubmissionDataAccessObject : BaseAuditDataAccessObject<RedditSubmission>, IRedditSubmissionDataAccessObject
     {
     }
 }

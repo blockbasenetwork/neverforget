@@ -215,62 +215,61 @@ namespace BlockBase.Dapps.NeverForget.Tests
 
 
             redditCommentDao.DeleteAsync(redditComment3).Wait();
-            var redditContextList = redditCommentDao.List().Result;
 
 
 
-            Assert.IsTrue(redditContextList.Count() == 2);
+            Assert.IsTrue(redditComment3.IsDeleted == true);
         }
 
-        //[TestMethod]
-        //public void TestGetAllDeletedReddit()
-        //{
-        //    #region Recreate Database
-        //    using (var context = new NeverForgetBotDbContext())
-        //    {
-        //        var resultDrop = context.DropDatabase();
-        //        var resultCreate = context.CreateDatabase();
-        //    }
+        [TestMethod]
+        public void TestGetAllDeletedReddit()
+        {
+            #region Recreate Database
+            using (var context = new NeverForgetBotDbContext())
+            {
+                var resultDrop = context.DropDatabase();
+                var resultCreate = context.CreateDatabase();
+            }
 
-        //    var _requestTypeDao = new RequestTypeDataAccessObject();
+            var _requestTypeDao = new RequestTypeDataAccessObject();
 
-        //    #region Build RequestType Table
-        //    RequestType defaultRequest = new RequestType { Id = (int)RequestTypeEnum.Default, Name = "Default" };
-        //    RequestType commentRequest = new RequestType { Id = (int)RequestTypeEnum.Comment, Name = "Comment" };
-        //    RequestType postRequest = new RequestType { Id = (int)RequestTypeEnum.Post, Name = "Post" };
+            #region Build RequestType Table
+            RequestType defaultRequest = new RequestType { Id = (int)RequestTypeEnum.Default, Name = "Default" };
+            RequestType commentRequest = new RequestType { Id = (int)RequestTypeEnum.Comment, Name = "Comment" };
+            RequestType postRequest = new RequestType { Id = (int)RequestTypeEnum.Post, Name = "Post" };
 
-        //    _requestTypeDao.InsertAsync(defaultRequest).Wait();
-        //    _requestTypeDao.InsertAsync(commentRequest).Wait();
-        //    _requestTypeDao.InsertAsync(postRequest).Wait();
-        //    #endregion
-        //    #endregion
+            _requestTypeDao.InsertAsync(defaultRequest).Wait();
+            _requestTypeDao.InsertAsync(commentRequest).Wait();
+            _requestTypeDao.InsertAsync(postRequest).Wait();
+            #endregion
+            #endregion
 
-        //    var redditContextDao = new RedditContextDataAccessObject();
-        //    var redditCommentDao = new RedditCommentDataAccessObject();
-        //    var redditSubmissionDao = new RedditSubmissionDataAccessObject();
+            var redditContextDao = new RedditContextDataAccessObject();
+            var redditCommentDao = new RedditCommentDataAccessObject();
+            var redditSubmissionDao = new RedditSubmissionDataAccessObject();
 
-        //    var redditContext = new RedditContext { Id = Guid.NewGuid(), CreatedAt = DateTime.UtcNow, RequestTypeId = defaultRequest.Id };
-        //    redditContextDao.InsertAsync(redditContext).Wait();
+            var redditContext = new RedditContext { Id = Guid.NewGuid(), CreatedAt = DateTime.UtcNow, RequestTypeId = defaultRequest.Id };
+            redditContextDao.InsertAsync(redditContext).Wait();
 
-        //    var redditComment = new RedditComment { Id = Guid.NewGuid(), CommentId = "tk1", Author = "Autor", SubReddit = "Testing", Content = "NeverForgetThis", CommentDate = DateTime.UtcNow, CreatedAt = DateTime.UtcNow, Link = "Zelda", ParentId = "t1_qualquercoisa", ParentSubmissionId = "t3_qualquercoisa", RedditContextId = redditContext.Id };
-        //    redditCommentDao.InsertAsync(redditComment).Wait();
-        //    var redditComment2 = new RedditComment { Id = Guid.NewGuid(), CommentId = "tk2", Author = "Autor", SubReddit = "Testing", Content = "NeverForgetThis", CommentDate = DateTime.UtcNow, CreatedAt = DateTime.UtcNow, Link = "Zelda", ParentId = "t1_qualquercoisa", ParentSubmissionId = "t3_qualquercoisa", RedditContextId = redditContext.Id };
-        //    redditCommentDao.InsertAsync(redditComment2).Wait();
-        //    var redditComment3 = new RedditComment { Id = Guid.NewGuid(), CommentId = "tk3", Author = "Ator", SubReddit = "Testing", Content = "NeverForgetThis", CommentDate = DateTime.UtcNow, CreatedAt = DateTime.UtcNow, Link = "Zelda", ParentId = "t1_qualquercoisa", ParentSubmissionId = "t3_qualquercoisa", RedditContextId = redditContext.Id };
-        //    redditCommentDao.InsertAsync(redditComment3).Wait();
+            var redditComment = new RedditComment { Id = Guid.NewGuid(), CommentId = "tk1", Author = "Autor", SubReddit = "Testing", Content = "NeverForgetThis", CommentDate = DateTime.UtcNow, CreatedAt = DateTime.UtcNow, Link = "Zelda", ParentId = "t1_qualquercoisa", ParentSubmissionId = "t3_qualquercoisa", RedditContextId = redditContext.Id };
+            redditCommentDao.InsertAsync(redditComment).Wait();
+            var redditComment2 = new RedditComment { Id = Guid.NewGuid(), CommentId = "tk2", Author = "Autor", SubReddit = "Testing", Content = "NeverForgetThis", CommentDate = DateTime.UtcNow, CreatedAt = DateTime.UtcNow, Link = "Zelda", ParentId = "t1_qualquercoisa", ParentSubmissionId = "t3_qualquercoisa", RedditContextId = redditContext.Id };
+            redditCommentDao.InsertAsync(redditComment2).Wait();
+            var redditComment3 = new RedditComment { Id = Guid.NewGuid(), CommentId = "tk3", Author = "Ator", SubReddit = "Testing", Content = "NeverForgetThis", CommentDate = DateTime.UtcNow, CreatedAt = DateTime.UtcNow, Link = "Zelda", ParentId = "t1_qualquercoisa", ParentSubmissionId = "t3_qualquercoisa", RedditContextId = redditContext.Id };
+            redditCommentDao.InsertAsync(redditComment3).Wait();
 
-        //    var redditSubmission = new RedditSubmission { Id = Guid.NewGuid(), SubmissionId = "t3_qualquercoisa", Author = "Autor", SubReddit = "Testing", Content = "NeverForgetThis", SubmissionDate = DateTime.UtcNow, CreatedAt = DateTime.UtcNow, Link = "Zelda", RedditContextId = redditContext.Id, Title = "Test" };
-        //    redditSubmissionDao.InsertAsync(redditSubmission).Wait();
-
-
-        //    redditCommentDao.DeleteAsync(redditComment3).Wait();
-        //    var redditContextList = redditCommentDao.List().Result;
-        //    var redditContextListDeleted = redditCommentDao.GetAllDeletedAsync().Result;
+            var redditSubmission = new RedditSubmission { Id = Guid.NewGuid(), SubmissionId = "t3_qualquercoisa", Author = "Autor", SubReddit = "Testing", Content = "NeverForgetThis", SubmissionDate = DateTime.UtcNow, CreatedAt = DateTime.UtcNow, Link = "Zelda", RedditContextId = redditContext.Id, Title = "Test" };
+            redditSubmissionDao.InsertAsync(redditSubmission).Wait();
 
 
+            redditCommentDao.DeleteAsync(redditComment3).Wait();
+            var redditContextList = redditCommentDao.List().Result;
+            var redditContextListDeleted = redditCommentDao.GetAllDeletedAsync().Result;
 
-        //    Assert.IsTrue(redditContextList.Contains(redditComment3) && !redditContextListDeleted.Contains(redditComment3));
-        //}
+
+
+            Assert.IsTrue(!redditContextList.Contains(redditComment3) && redditContextListDeleted.Contains(redditComment3));
+        }
         #endregion
 
 
