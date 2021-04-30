@@ -2,7 +2,7 @@
 
 namespace BlockBase.Dapps.NeverForget.DataAccess.Interfaces
 {
-    public interface ITwitterCommentDataAccessObject : IBaseAuditDataAccessObject<TwitterComment>
+    public interface ITwitterCommentDataAccessObject : IBaseDataAccessObject<TwitterComment>
     {
     }
 }

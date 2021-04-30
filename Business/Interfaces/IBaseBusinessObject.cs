@@ -1,16 +1,17 @@
 ﻿using BlockBase.Dapps.NeverForget.Business.BusinessModels.OperationResults;
-using BlockBase.Dapps.NeverForget.Data.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForget.Business.Interfaces
 {
-    public interface IBaseBusinessObject<TEntity> where TEntity : class, IEntity
+    public interface IBaseBusinessObject<T> where T : class
     {
-        Task<OperationResult> InsertAsync(TEntity entity);
-        Task<OperationResult<TEntity>> GetAsync(Guid id);
-        Task<OperationResult> DeleteAsync(TEntity entity);
-        Task<OperationResult<List<TEntity>>> GetAllAsync();
+        public Task<OperationResult> InsertAsync(T record);
+        public Task<OperationResult<IEnumerable<T>>> ListAsync();
+        public Task<OperationResult<T>> GetAsync(Guid id);
+        public Task<OperationResult> UpdateAsync(T record);
+        public Task<OperationResult> DeleteAsync(T record);
+        public Task<OperationResult> DeleteAsync(Guid id);
     }
 }

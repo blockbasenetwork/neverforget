@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForget.Business.Interfaces
 {
-    public interface IGeneralContextBusinessObject
+    public interface IGeneralContextBusinessObject : IBaseBusinessObject<GeneralContextPoco>
     {
         Task<OperationResult<List<GeneralContextPoco>>> GetRecentCalls();
     }

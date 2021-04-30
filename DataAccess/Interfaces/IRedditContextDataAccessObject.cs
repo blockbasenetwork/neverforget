@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForget.DataAccess.Interfaces
 {
-    public interface IRedditContextDataAccessObject : IBaseAuditDataAccessObject<RedditContext>
+    public interface IRedditContextDataAccessObject : IBaseDataAccessObject<RedditContext>
     {
         Task<List<RedditCommentModel>> GetUniqueComments(RedditCommentModel[] commentArray);
 

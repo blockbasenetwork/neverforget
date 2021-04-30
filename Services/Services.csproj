@@ -21,6 +21,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Resources\RedditTokens.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>RedditTokens.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\TwitterTokens.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -29,6 +34,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Resources\RedditTokens.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>RedditTokens.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\TwitterTokens.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>TwitterTokens.Designer.cs</LastGenOutput>

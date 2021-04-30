@@ -1,16 +1,19 @@
 ﻿using BlockBase.Dapps.NeverForget.Data.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForget.DataAccess.Interfaces
 {
-    public interface IBaseDataAccessObject<TEntity> where TEntity : class, IEntity
+    public interface IBaseDataAccessObject<T> where T : class
     {
-        Task<List<TEntity>> GetAllAsync();
-        Task<TEntity> GetAsync(Guid id);
-        Task InsertAsync(TEntity entity);
-        Task UpdateAsync(TEntity entity);
-        Task DeleteAsync(TEntity entity);
+        Task<IEnumerable<T>> List();
+        Task InsertAsync(T item);
+        Task<T> GetAsync(Guid id);
+        Task<IEnumerable<T>> Find(Expression<Func<T, bool>> condition);
+        Task UpdateAsync(T item);
+        Task DeleteAsync(T item);
+        //Task DeleteAsync(T item);
     }
 }

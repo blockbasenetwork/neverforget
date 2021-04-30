@@ -2,7 +2,7 @@
 
 namespace BlockBase.Dapps.NeverForget.DataAccess.Interfaces
 {
-    public interface IRedditCommentDataAccessObject : IBaseAuditDataAccessObject<RedditComment>
+    public interface IRedditCommentDataAccessObject : IBaseDataAccessObject<RedditComment>
     {
     }
 }

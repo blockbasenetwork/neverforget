@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForget.DataAccess.Interfaces
 {
-    public interface ITwitterContextDataAccessObject : IBaseAuditDataAccessObject<TwitterContext>
+    public interface ITwitterContextDataAccessObject : IBaseDataAccessObject<TwitterContext>
     {
         Task<List<TweetModel>> GetUniqueComments(TweetModel[] tweetList);
         Task<bool> IsContextPresent(Guid contextId);

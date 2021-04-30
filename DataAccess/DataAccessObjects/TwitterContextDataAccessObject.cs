@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForget.DataAccess.DataAccessObjects
 {
-    public class TwitterContextDataAccessObject : BaseAuditDataAccessObject<TwitterContext>, ITwitterContextDataAccessObject
+    public class TwitterContextDataAccessObject : BaseDataAccessObject<TwitterContext>, ITwitterContextDataAccessObject
     {
         public async Task<List<TweetModel>> GetUniqueComments(TweetModel[] tweetList)
         {

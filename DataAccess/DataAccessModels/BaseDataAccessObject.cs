@@ -4,63 +4,54 @@ using BlockBase.Dapps.NeverForget.DataAccess.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForget.DataAccess.DataAccessModels
 {
-    public abstract class BaseDataAccessObject<TEntity> : IBaseDataAccessObject<TEntity> where TEntity : class, IEntity
+    public class BaseDataAccessObject<T> : IBaseDataAccessObject<T> where T : class
     {
-        #region Create
-        public async Task InsertAsync(TEntity entity)
+        public async Task<IEnumerable<T>> List()
         {
-            using (var context = new NeverForgetBotDbContext())
-            {
-                await context.Set<TEntity>().InsertAsync(entity);
-            }
-        }
-        #endregion
-
-        #region Read
-        public virtual async Task<TEntity> GetAsync(Guid id)
-        {
-            using (var context = new NeverForgetBotDbContext())
-            {
-                var result = await context.Set<TEntity>().GetAsync(id);
-                return result;
-            }
-        }
-        #endregion
-
-        #region Update
-        public async Task UpdateAsync(TEntity entity)
-        {
-            using (var context = new NeverForgetBotDbContext())
-            {
-                await context.Set<TEntity>().UpdateAsync(entity);
-            }
-        }
-        #endregion
-
-        #region Delete
-        public virtual async Task DeleteAsync(TEntity entity)
-        {
-            using (var context = new NeverForgetBotDbContext())
-            {
-                await context.Set<TEntity>().DeleteAsync(entity);
-            }
+            using var ctx = new NeverForgetBotDbContext();
+            return await ctx.Set<T>().SelectAsync();
         }
 
-        #endregion
-
-        #region List
-        public virtual async Task<List<TEntity>> GetAllAsync()
+        public async Task InsertAsync(T item)
         {
-            using (var context = new NeverForgetBotDbContext())
-            {
-                var result = await context.Set<TEntity>().SelectAsync();
-                return result.ToList();
-            }
+            using var ctx = new NeverForgetBotDbContext();
+            await ctx.Set<T>().InsertAsync(item);
         }
-        #endregion
+
+        public async Task<T> GetAsync(Guid id)
+        {
+            using var ctx = new NeverForgetBotDbContext();
+            return await ctx.Set<T>().GetAsync(id);
+        }
+
+        public async Task<IEnumerable<T>> Find(Expression<Func<T, bool>> condition)
+        {
+            using var ctx = new NeverForgetBotDbContext();
+            return await ctx.Set<T>().Where(condition).SelectAsync();
+        }
+
+
+        public async Task UpdateAsync(T item)
+        {
+            using var ctx = new NeverForgetBotDbContext();
+            await ctx.Set<T>().UpdateAsync(item);
+        }
+
+        public async Task DeleteAsync(T item)
+        {
+            using var ctx = new NeverForgetBotDbContext();
+            await ctx.Set<T>().DeleteAsync(item);
+        }
+
+        //public async Task DeleteAsync(T item)
+        //{
+        //    using var ctx = new NeverForgetBotDbContext();
+        //    await ctx.Set<T>().DeleteAsync();
+        //}
     }
 }

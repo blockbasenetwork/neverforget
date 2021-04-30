@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForget.DataAccess.DataAccessObjects
 {
-    public class RedditContextDataAccessObject : BaseAuditDataAccessObject<RedditContext>, IRedditContextDataAccessObject
+    public class RedditContextDataAccessObject : BaseDataAccessObject<RedditContext>, IRedditContextDataAccessObject
     {
         public async Task<List<RedditCommentModel>> GetUniqueComments(RedditCommentModel[] commentArray)
         {

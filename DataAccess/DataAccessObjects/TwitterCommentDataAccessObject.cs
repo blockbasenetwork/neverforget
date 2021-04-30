@@ -4,7 +4,7 @@ using BlockBase.Dapps.NeverForget.DataAccess.Interfaces;
 
 namespace BlockBase.Dapps.NeverForget.DataAccess.DataAccessObjects
 {
-    public class TwitterCommentDataAccessObject : BaseAuditDataAccessObject<TwitterComment>, ITwitterCommentDataAccessObject
+    public class TwitterCommentDataAccessObject : BaseDataAccessObject<TwitterComment>, ITwitterCommentDataAccessObject
     {
     }
 }
