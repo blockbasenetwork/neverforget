@@ -2,7 +2,7 @@
 
 namespace BlockBase.Dapps.NeverForget.Business.Interfaces
 {
-    public interface IRedditSubmissionBusinessObject : IBaseBusinessObject<RedditSubmission>
+    public interface IRedditSubmissionBusinessObject : IBaseAuditBusinessObject<RedditSubmission>
     {
     }
 }

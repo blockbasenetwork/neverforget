@@ -6,9 +6,9 @@ using Microsoft.Extensions.Logging;
 
 namespace BlockBase.Dapps.NeverForget.Business.BusinessObjects
 {
-    public class RedditCommentBusinessObject : BaseBusinessObject<RedditComment>, IRedditCommentBusinessObject
+    public class RedditCommentBusinessObject : BaseAuditBusinessObject<RedditComment>, IRedditCommentBusinessObject
     {
-        public RedditCommentBusinessObject(IBaseDataAccessObject<RedditComment> dataAccessObject, IGenericDataAccessObject genericDataAccessObject, ILogger<BaseBusinessObject> logger) : base(dataAccessObject, genericDataAccessObject, logger)
+        public RedditCommentBusinessObject(IRedditCommentDataAccessObject dataAccessObject, IGenericDataAccessObject genericDataAccessObject, ILogger<BaseBusinessObject> logger) : base(dataAccessObject, genericDataAccessObject, logger)
         {
         }
     }

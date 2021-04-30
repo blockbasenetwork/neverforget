@@ -8,7 +8,7 @@ namespace BlockBase.Dapps.NeverForget.Services.API.Models
     {
         public string Author { get; set; }
         public string Body { get; set; }
-        public DateTime Created_Utc { get; set; }
+        public int Created_Utc { get; set; }
         public string Id { get; set; }
         public string SubReddit { get; set; }
         public string Parent_Id { get; set; }
@@ -22,7 +22,7 @@ namespace BlockBase.Dapps.NeverForget.Services.API.Models
                 Id = Guid.NewGuid(),
                 Author = Author,
                 Content = Helpers.CleanComment(Body),
-                CommentDate = Created_Utc,
+                CommentDate = DateTime.Parse(Created_Utc.ToString()),
                 CommentId = Id,
                 ParentId = Parent_Id,
                 ParentSubmissionId = Link_Id,

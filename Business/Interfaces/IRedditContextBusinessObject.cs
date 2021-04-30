@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForget.Business.Interfaces
 {
-    public interface IRedditContextBusinessObject : IBaseBusinessObject<RedditContext>
+    public interface IRedditContextBusinessObject : IBaseAuditBusinessObject<RedditContext>
     {
         Task<OperationResult> FromApiRedditAllComments();
         Task<List<OperationResult>> FromApiRedditModel(RedditCommentModel[] commentArray);

@@ -109,4 +109,61 @@ namespace BlockBase.Dapps.NeverForget.Business.BusinessModels
             });
         }
     }
+
+    public class BaseAuditBusinessObject<T> : BaseBusinessObject, IBaseBusinessObject<T> where T : AuditEntity, IEntity
+    {
+        private readonly IBaseAuditDataAccessObject<T> _baseAuditDataAccessObject;
+
+        public BaseAuditBusinessObject(IBaseAuditDataAccessObject<T> baseAuditDataAccessObject, IGenericDataAccessObject genericDataAccessObject, ILogger<BaseBusinessObject> logger) : base(genericDataAccessObject, logger)
+        {
+            _baseAuditDataAccessObject = baseAuditDataAccessObject;
+        }
+
+        public async Task<OperationResult> InsertAsync(T record)
+        {
+            return await ExecuteOperation(async () => {
+                record.CreatedAt = DateTime.UtcNow;
+                await _baseAuditDataAccessObject.InsertAsync(record);
+            });
+        }
+
+        public async Task<OperationResult<IEnumerable<T>>> ListAsync()
+        {
+            return await ExecuteOperation(async () => await _baseAuditDataAccessObject.List());
+        }
+
+        public async Task<OperationResult<T>> GetAsync(Guid id)
+        {
+            return await ExecuteOperation(async () => await _baseAuditDataAccessObject.GetAsync(id));
+        }
+
+        public async Task<OperationResult> UpdateAsync(T record)
+        {
+            return await ExecuteOperation(async () =>
+            {
+                await _baseAuditDataAccessObject.UpdateAsync(record);
+            });
+        }
+
+        public async Task<OperationResult> DeleteAsync(T record)
+        {
+            return await ExecuteOperation(async () =>
+            {
+                record.IsDeleted = true;
+                record.DeletedAt = DateTime.UtcNow;
+                await _baseAuditDataAccessObject.DeleteAsync(record);
+            });
+        }
+
+        public async Task<OperationResult> DeleteAsync(Guid id)
+        {
+            return await ExecuteOperation(async () =>
+            {
+                var toDelete = await _baseAuditDataAccessObject.GetAsync(id);
+                toDelete.IsDeleted = true;
+                toDelete.DeletedAt = DateTime.UtcNow;
+                await DeleteAsync(toDelete);
+            });
+        }
+    }
 }
