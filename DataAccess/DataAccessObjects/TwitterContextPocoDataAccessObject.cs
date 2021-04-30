@@ -1,5 +1,6 @@
 ﻿using BlockBase.Dapps.NeverForget.Common.Enums;
 using BlockBase.Dapps.NeverForget.Data.Context;
+using BlockBase.Dapps.NeverForget.Data.Entities;
 using BlockBase.Dapps.NeverForget.Data.Pocos;
 using BlockBase.Dapps.NeverForget.DataAccess.Interfaces;
 using System;
