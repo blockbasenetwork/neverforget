@@ -151,7 +151,7 @@ namespace BlockBase.Dapps.NeverForget.Business.BusinessModels
             {
                 record.IsDeleted = true;
                 record.DeletedAt = DateTime.UtcNow;
-                await _baseAuditDataAccessObject.DeleteAsync(record);
+                await _baseAuditDataAccessObject.UpdateAsync(record);
             });
         }
 

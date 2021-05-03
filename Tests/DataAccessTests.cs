@@ -640,12 +640,18 @@ namespace BlockBase.Dapps.NeverForget.Tests
             twitterCommentDao.InsertAsync(twitterComment).Wait();
             twitterSubmissionDao.InsertAsync(twitterSubmission).Wait();
 
-            twitterDao.DeleteAsync(twitterContext).Wait();
             twitterCommentDao.DeleteAsync(twitterComment).Wait();
             twitterSubmissionDao.DeleteAsync(twitterSubmission).Wait();
+            twitterDao.DeleteAsync(twitterContext).Wait();
 
-            Assert.IsTrue(twitterContext.IsDeleted == true && twitterComment.IsDeleted == true && twitterSubmission.IsDeleted == true);
+            var twitterContextList = twitterDao.List().Result;
+            var twitterCommentList = twitterCommentDao.List().Result;
+            var twitterSubmissionList = twitterSubmissionDao.List().Result;
+
+            Assert.IsTrue(twitterContextList.Count() == 0 && twitterCommentList.Count() == 0 && twitterSubmissionList.Count() == 0);
         }
+
+
 
         //[TestMethod]
         //public void TestGetAllDeletedTwitter()

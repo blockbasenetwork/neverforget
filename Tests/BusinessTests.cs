@@ -1,4 +1,5 @@
 ﻿using BlockBase.Dapps.NeverForget.Business.BusinessModels;
+using BlockBase.Dapps.NeverForget.Business.BusinessModels.OperationResults;
 using BlockBase.Dapps.NeverForget.Business.BusinessObjects;
 using BlockBase.Dapps.NeverForget.Common.Enums;
 using BlockBase.Dapps.NeverForget.Data.Context;
@@ -311,7 +312,336 @@ namespace BlockBase.Dapps.NeverForget.Tests
         #endregion
 
 
+
         #region Twitter
+
+        [TestMethod]
+        public void TestInsertAndGetTwitter()
+        {
+            #region Recreate Database
+            using (var context = new NeverForgetBotDbContext())
+            {
+                var resultDrop = context.DropDatabase();
+                var resultCreate = context.CreateDatabase();
+            }
+
+            var _requestTypeDao = new RequestTypeDataAccessObject();
+
+            #region Build RequestType Table
+            RequestType defaultRequest = new RequestType { Id = (int)RequestTypeEnum.Default, Name = "Default" };
+            RequestType commentRequest = new RequestType { Id = (int)RequestTypeEnum.Comment, Name = "Comment" };
+            RequestType postRequest = new RequestType { Id = (int)RequestTypeEnum.Post, Name = "Post" };
+
+            _requestTypeDao.InsertAsync(defaultRequest).Wait();
+            _requestTypeDao.InsertAsync(commentRequest).Wait();
+            _requestTypeDao.InsertAsync(postRequest).Wait();
+            #endregion
+            #endregion
+
+            var twitterContextDAO = new TwitterContextDataAccessObject();
+            var twitterCommentDAO = new TwitterCommentDataAccessObject();
+            var twitterSubmissionDAO = new TwitterSubmissionDataAccessObject();
+            var twitterCollector = new TwitterCollector();
+            var twitterPoco = new TwitterContextPocoDataAccessObject();
+            var genericDAO = new GenericDataAccessObject();
+            var logger = new Mock<ILogger<BaseBusinessObject>>();
+            var twitterContextBO = new TwitterContextBusinessObject(twitterContextDAO, twitterCommentDAO, twitterSubmissionDAO, twitterPoco, twitterCollector, genericDAO, logger.Object);
+            var twitterCommentBO = new TwitterCommentBusinessObject(twitterCommentDAO, genericDAO, logger.Object);
+            var twitterSubmissionBO = new TwitterSubmissionBusinessObject(twitterSubmissionDAO, genericDAO, logger.Object);
+
+            var twitterContext = new TwitterContext
+            {
+                Id = Guid.NewGuid(),
+                RequestTypeId = defaultRequest.Id,
+                CreatedAt = DateTime.UtcNow,
+            };
+
+            var twitterComment = new TwitterComment
+            {
+                Id = Guid.NewGuid(),
+                CommentId = "tk1",
+                Content = "@_NeverForgetBot Tweet1",
+                CommentDate = DateTime.UtcNow,
+                Author = "Author1",
+                Link = "Link",
+                MediaLink = "Link2",
+                ReplyToId = "s1",
+                TwitterContextId = twitterContext.Id,
+                CreatedAt = DateTime.UtcNow,
+            };
+
+            var twitterSubmission = new TwitterSubmission
+            {
+                Id = Guid.NewGuid(),
+                SubmissionId = "s1",
+                Content = "Main Tweet",
+                SubmissionDate = DateTime.UtcNow,
+                Author = "Tweeter1",
+                Link = "Link",
+                MediaLink = "Link2",
+                TwitterContextId = twitterContext.Id,
+                CreatedAt = DateTime.UtcNow,
+            };
+
+            twitterContextBO.InsertAsync(twitterContext).Wait();
+            twitterCommentBO.InsertAsync(twitterComment).Wait();
+            twitterSubmissionBO.InsertAsync(twitterSubmission).Wait();
+
+            var resGetCon = twitterContextBO.GetAsync(twitterContext.Id);
+            var resGetCom = twitterCommentBO.GetAsync(twitterComment.Id);
+            var resGetSub = twitterSubmissionBO.GetAsync(twitterSubmission.Id);
+
+            Assert.IsTrue(resGetCon != null && resGetCom != null && resGetSub != null);
+        }
+
+        [TestMethod]
+        public void TestGetAllTwitter()
+        {
+            #region Recreate Database
+            using (var context = new NeverForgetBotDbContext())
+            {
+                var resultDrop = context.DropDatabase();
+                var resultCreate = context.CreateDatabase();
+            }
+
+            var _requestTypeDao = new RequestTypeDataAccessObject();
+
+            #region Build RequestType Table
+            RequestType defaultRequest = new RequestType { Id = (int)RequestTypeEnum.Default, Name = "Default" };
+            RequestType commentRequest = new RequestType { Id = (int)RequestTypeEnum.Comment, Name = "Comment" };
+            RequestType postRequest = new RequestType { Id = (int)RequestTypeEnum.Post, Name = "Post" };
+
+            _requestTypeDao.InsertAsync(defaultRequest).Wait();
+            _requestTypeDao.InsertAsync(commentRequest).Wait();
+            _requestTypeDao.InsertAsync(postRequest).Wait();
+            #endregion
+            #endregion
+
+            var twitterContextDAO = new TwitterContextDataAccessObject();
+            var twitterCommentDAO = new TwitterCommentDataAccessObject();
+            var twitterSubmissionDAO = new TwitterSubmissionDataAccessObject();
+            var twitterCollector = new TwitterCollector();
+            var twitterPoco = new TwitterContextPocoDataAccessObject();
+            var genericDAO = new GenericDataAccessObject();
+            var logger = new Mock<ILogger<BaseBusinessObject>>();
+            var twitterContextBO = new TwitterContextBusinessObject(twitterContextDAO, twitterCommentDAO, twitterSubmissionDAO, twitterPoco, twitterCollector, genericDAO, logger.Object);
+            var twitterCommentBO = new TwitterCommentBusinessObject(twitterCommentDAO, genericDAO, logger.Object);
+            var twitterSubmissionBO = new TwitterSubmissionBusinessObject(twitterSubmissionDAO, genericDAO, logger.Object);
+
+            var twitterContext = new TwitterContext
+            {
+                Id = Guid.NewGuid(),
+                RequestTypeId = defaultRequest.Id,
+                CreatedAt = DateTime.UtcNow,
+            };
+
+            var twitterComment = new TwitterComment
+            {
+                Id = Guid.NewGuid(),
+                CommentId = "tk1",
+                Content = "@_NeverForgetBot Tweet1",
+                CommentDate = DateTime.UtcNow,
+                Author = "Author1",
+                Link = "Link",
+                MediaLink = "Link2",
+                ReplyToId = "s1",
+                TwitterContextId = twitterContext.Id,
+                CreatedAt = DateTime.UtcNow,
+            };
+
+            var twitterSubmission = new TwitterSubmission
+            {
+                Id = Guid.NewGuid(),
+                SubmissionId = "s1",
+                Content = "Main Tweet",
+                SubmissionDate = DateTime.UtcNow,
+                Author = "Tweeter1",
+                Link = "Link",
+                MediaLink = "Link2",
+                TwitterContextId = twitterContext.Id,
+                CreatedAt = DateTime.UtcNow,
+            };
+
+            twitterContextBO.InsertAsync(twitterContext).Wait();
+            twitterCommentBO.InsertAsync(twitterComment).Wait();
+            twitterSubmissionBO.InsertAsync(twitterSubmission).Wait();
+
+            var resGetCon = twitterContextBO.ListAsync().Result.Result;
+            var resGetCom = twitterCommentBO.ListAsync().Result.Result;
+            var resGetSub = twitterSubmissionBO.ListAsync().Result.Result;
+
+            Assert.IsTrue(resGetCon.Count() == 1 && resGetCom.Count() == 1 && resGetSub.Count() == 1);
+        }
+
+        [TestMethod]
+        public void TestUpdateTwitter()
+        {
+            #region Recreate Database
+            using (var context = new NeverForgetBotDbContext())
+            {
+                var resultDrop = context.DropDatabase();
+                var resultCreate = context.CreateDatabase();
+            }
+
+            var _requestTypeDao = new RequestTypeDataAccessObject();
+
+            #region Build RequestType Table
+            RequestType defaultRequest = new RequestType { Id = (int)RequestTypeEnum.Default, Name = "Default" };
+            RequestType commentRequest = new RequestType { Id = (int)RequestTypeEnum.Comment, Name = "Comment" };
+            RequestType postRequest = new RequestType { Id = (int)RequestTypeEnum.Post, Name = "Post" };
+
+            _requestTypeDao.InsertAsync(defaultRequest).Wait();
+            _requestTypeDao.InsertAsync(commentRequest).Wait();
+            _requestTypeDao.InsertAsync(postRequest).Wait();
+            #endregion
+            #endregion
+
+            var twitterContextDAO = new TwitterContextDataAccessObject();
+            var twitterCommentDAO = new TwitterCommentDataAccessObject();
+            var twitterSubmissionDAO = new TwitterSubmissionDataAccessObject();
+            var twitterCollector = new TwitterCollector();
+            var twitterPoco = new TwitterContextPocoDataAccessObject();
+            var genericDAO = new GenericDataAccessObject();
+            var logger = new Mock<ILogger<BaseBusinessObject>>();
+            var twitterContextBO = new TwitterContextBusinessObject(twitterContextDAO, twitterCommentDAO, twitterSubmissionDAO, twitterPoco, twitterCollector, genericDAO, logger.Object);
+            var twitterCommentBO = new TwitterCommentBusinessObject(twitterCommentDAO, genericDAO, logger.Object);
+            var twitterSubmissionBO = new TwitterSubmissionBusinessObject(twitterSubmissionDAO, genericDAO, logger.Object);
+
+            var twitterContext = new TwitterContext
+            {
+                Id = Guid.NewGuid(),
+                RequestTypeId = defaultRequest.Id,
+                CreatedAt = DateTime.UtcNow,
+            };
+
+            var twitterComment = new TwitterComment
+            {
+                Id = Guid.NewGuid(),
+                CommentId = "tk1",
+                Content = "@_NeverForgetBot Tweet1",
+                CommentDate = DateTime.UtcNow,
+                Author = "Author1",
+                Link = "Link",
+                MediaLink = "Link2",
+                ReplyToId = "s1",
+                TwitterContextId = twitterContext.Id,
+                CreatedAt = DateTime.UtcNow,
+            };
+
+            var twitterSubmission = new TwitterSubmission
+            {
+                Id = Guid.NewGuid(),
+                SubmissionId = "s1",
+                Content = "Main Tweet",
+                SubmissionDate = DateTime.UtcNow,
+                Author = "Tweeter1",
+                Link = "Link",
+                MediaLink = "Link2",
+                TwitterContextId = twitterContext.Id,
+                CreatedAt = DateTime.UtcNow,
+            };
+
+            twitterContextBO.InsertAsync(twitterContext).Wait();
+            twitterCommentBO.InsertAsync(twitterComment).Wait();
+            twitterSubmissionBO.InsertAsync(twitterSubmission).Wait();
+
+            twitterContext.RequestTypeId = commentRequest.Id;
+            twitterComment.Link = "NewLink";
+            twitterSubmission.Link = "NewLink";
+
+            twitterContextBO.UpdateAsync(twitterContext).Wait();
+            twitterCommentBO.UpdateAsync(twitterComment).Wait();
+            twitterSubmissionBO.UpdateAsync(twitterSubmission).Wait();
+
+            var resGetCon = twitterContextBO.GetAsync(twitterContext.Id).Result.Result;
+            var resGetCom = twitterCommentBO.GetAsync(twitterComment.Id).Result.Result;
+            var resGetSub = twitterSubmissionBO.GetAsync(twitterSubmission.Id).Result.Result;
+
+            Assert.IsTrue(resGetCon.RequestTypeId == commentRequest.Id && resGetCom.Link == "NewLink" && resGetSub.Link == "NewLink");
+        }
+
+        [TestMethod]
+        public void TestDeleteTwitter()
+        {
+            #region Recreate Database
+            using (var context = new NeverForgetBotDbContext())
+            {
+                var resultDrop = context.DropDatabase();
+                var resultCreate = context.CreateDatabase();
+            }
+
+            var _requestTypeDao = new RequestTypeDataAccessObject();
+
+            #region Build RequestType Table
+            RequestType defaultRequest = new RequestType { Id = (int)RequestTypeEnum.Default, Name = "Default" };
+            RequestType commentRequest = new RequestType { Id = (int)RequestTypeEnum.Comment, Name = "Comment" };
+            RequestType postRequest = new RequestType { Id = (int)RequestTypeEnum.Post, Name = "Post" };
+
+            _requestTypeDao.InsertAsync(defaultRequest).Wait();
+            _requestTypeDao.InsertAsync(commentRequest).Wait();
+            _requestTypeDao.InsertAsync(postRequest).Wait();
+            #endregion
+            #endregion
+
+            var twitterContextDAO = new TwitterContextDataAccessObject();
+            var twitterCommentDAO = new TwitterCommentDataAccessObject();
+            var twitterSubmissionDAO = new TwitterSubmissionDataAccessObject();
+            var twitterCollector = new TwitterCollector();
+            var twitterPoco = new TwitterContextPocoDataAccessObject();
+            var genericDAO = new GenericDataAccessObject();
+            var logger = new Mock<ILogger<BaseBusinessObject>>();
+            var twitterContextBO = new TwitterContextBusinessObject(twitterContextDAO, twitterCommentDAO, twitterSubmissionDAO, twitterPoco, twitterCollector, genericDAO, logger.Object);
+            var twitterCommentBO = new TwitterCommentBusinessObject(twitterCommentDAO, genericDAO, logger.Object);
+            var twitterSubmissionBO = new TwitterSubmissionBusinessObject(twitterSubmissionDAO, genericDAO, logger.Object);
+
+            var twitterContext = new TwitterContext
+            {
+                Id = Guid.NewGuid(),
+                RequestTypeId = defaultRequest.Id,
+                CreatedAt = DateTime.UtcNow,
+            };
+
+            var twitterComment = new TwitterComment
+            {
+                Id = Guid.NewGuid(),
+                CommentId = "tk1",
+                Content = "@_NeverForgetBot Tweet1",
+                CommentDate = DateTime.UtcNow,
+                Author = "Author1",
+                Link = "Link",
+                MediaLink = "Link2",
+                ReplyToId = "s1",
+                TwitterContextId = twitterContext.Id,
+                CreatedAt = DateTime.UtcNow,
+            };
+
+            var twitterSubmission = new TwitterSubmission
+            {
+                Id = Guid.NewGuid(),
+                SubmissionId = "s1",
+                Content = "Main Tweet",
+                SubmissionDate = DateTime.UtcNow,
+                Author = "Tweeter1",
+                Link = "Link",
+                MediaLink = "Link2",
+                TwitterContextId = twitterContext.Id,
+                CreatedAt = DateTime.UtcNow,
+            };
+
+            twitterContextBO.InsertAsync(twitterContext).Wait();
+            twitterCommentBO.InsertAsync(twitterComment).Wait();
+            twitterSubmissionBO.InsertAsync(twitterSubmission).Wait();
+
+            twitterCommentBO.DeleteAsync(twitterComment).Wait();
+            twitterSubmissionBO.DeleteAsync(twitterSubmission).Wait();
+            twitterContextBO.DeleteAsync(twitterContext).Wait();
+
+            var resGetCon = twitterContextBO.GetAsync(twitterContext.Id).Result.Result;
+            var resGetCom = twitterCommentBO.GetAsync(twitterComment.Id).Result.Result;
+            var resGetSub = twitterSubmissionBO.GetAsync(twitterSubmission.Id).Result.Result;
+
+            Assert.IsTrue(resGetCon.IsDeleted == true && resGetCom.IsDeleted == true && resGetSub.IsDeleted == true);
+        }
 
         #endregion
     }
