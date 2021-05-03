@@ -248,67 +248,12 @@ namespace BlockBase.Dapps.NeverForget.Tests
             var redditSubmission = new RedditSubmission { Id = Guid.NewGuid(), SubmissionId = "t3_qualquercoisa", Author = "Autor", SubReddit = "Testing", Content = "NeverForgetThis", SubmissionDate = DateTime.UtcNow, CreatedAt = DateTime.UtcNow, Link = "Zelda", RedditContextId = redditContext.Id, Title = "Test" };
             redditSubmissionBO.InsertAsync(redditSubmission).Wait();
 
-            redditCommentBO.DeleteAsync(redditComment3).Wait();
+            var resGet = redditCommentBO.GetAsync(redditComment.Id).Result.Result;
+            redditCommentBO.DeleteAsync(resGet).Wait();
 
-
-            Assert.IsTrue(redditComment3.IsDeleted == true);
+            Assert.IsTrue(resGet.IsDeleted == true);
         }
 
-        [TestMethod]
-        public void TestGetAllDeletedReddit()
-        {
-            #region Recreate Database
-            using (var context = new NeverForgetBotDbContext())
-            {
-                var resultDrop = context.DropDatabase();
-                var resultCreate = context.CreateDatabase();
-            }
-
-            var _requestTypeDao = new RequestTypeDataAccessObject();
-
-            #region Build RequestType Table
-            RequestType defaultRequest = new RequestType { Id = (int)RequestTypeEnum.Default, Name = "Default" };
-            RequestType commentRequest = new RequestType { Id = (int)RequestTypeEnum.Comment, Name = "Comment" };
-            RequestType postRequest = new RequestType { Id = (int)RequestTypeEnum.Post, Name = "Post" };
-
-            _requestTypeDao.InsertAsync(defaultRequest).Wait();
-            _requestTypeDao.InsertAsync(commentRequest).Wait();
-            _requestTypeDao.InsertAsync(postRequest).Wait();
-            #endregion
-            #endregion
-
-            var redditContextDAO = new RedditContextDataAccessObject();
-            var redditCommentDAO = new RedditCommentDataAccessObject();
-            var redditSubmissionDAO = new RedditSubmissionDataAccessObject();
-            var redditCollector = new RedditCollector();
-            var redditPoco = new RedditContextPocoDataAccessObject();
-            var genericDAO = new GenericDataAccessObject();
-            var logger = new Mock<ILogger<BaseBusinessObject>>();
-            var redditContextBO = new RedditContextBusinessObject(redditCommentDAO, redditSubmissionDAO, redditPoco, redditCollector, redditContextDAO, genericDAO, logger.Object);
-            var redditCommentBO = new RedditCommentBusinessObject(redditCommentDAO, genericDAO, logger.Object);
-            var redditSubmissionBO = new RedditSubmissionBusinessObject(redditSubmissionDAO, genericDAO, logger.Object);
-
-            var redditContext = new RedditContext { Id = Guid.NewGuid(), CreatedAt = DateTime.UtcNow, RequestTypeId = defaultRequest.Id };
-            redditContextBO.InsertAsync(redditContext).Wait();
-
-            var redditComment = new RedditComment { Id = Guid.NewGuid(), CommentId = "tk1", Author = "Autor", SubReddit = "Testing", Content = "NeverForgetThis", CommentDate = DateTime.UtcNow, CreatedAt = DateTime.UtcNow, Link = "Zelda", ParentId = "t1_qualquercoisa", ParentSubmissionId = "t3_qualquercoisa", RedditContextId = redditContext.Id };
-            redditCommentBO.InsertAsync(redditComment).Wait();
-            var redditComment2 = new RedditComment { Id = Guid.NewGuid(), CommentId = "tk2", Author = "Autor", SubReddit = "Testando", Content = "NeverForgetThis", CommentDate = DateTime.UtcNow, CreatedAt = DateTime.UtcNow, Link = "Zelda", ParentId = "t1_qualquercoisa", ParentSubmissionId = "t3_qualquercoisa", RedditContextId = redditContext.Id };
-            redditCommentBO.InsertAsync(redditComment2).Wait();
-            var redditComment3 = new RedditComment { Id = Guid.NewGuid(), CommentId = "tk3", Author = "Ator", SubReddit = "Testing", Content = "NeverForgetThis", CommentDate = DateTime.UtcNow, CreatedAt = DateTime.UtcNow, Link = "Zelda", ParentId = "t1_qualquercoisa", ParentSubmissionId = "t3_qualquercoisa", RedditContextId = redditContext.Id };
-            redditCommentBO.InsertAsync(redditComment3).Wait();
-
-            var redditSubmission = new RedditSubmission { Id = Guid.NewGuid(), SubmissionId = "t3_qualquercoisa", Author = "Autor", SubReddit = "Testing", Content = "NeverForgetThis", SubmissionDate = DateTime.UtcNow, CreatedAt = DateTime.UtcNow, Link = "Zelda", RedditContextId = redditContext.Id, Title = "Test" };
-            redditSubmissionBO.InsertAsync(redditSubmission).Wait();
-
-
-            redditCommentBO.DeleteAsync(redditComment3).Wait();
-            var redditContextBMList = redditCommentBO.ListAsync().Result.Result;
-
-
-
-            Assert.IsTrue(redditContextBMList.Count() == 1);
-        }
         #endregion
 
 
@@ -632,15 +577,15 @@ namespace BlockBase.Dapps.NeverForget.Tests
             twitterCommentBO.InsertAsync(twitterComment).Wait();
             twitterSubmissionBO.InsertAsync(twitterSubmission).Wait();
 
+            twitterContextBO.DeleteAsync(twitterContext).Wait();
             twitterCommentBO.DeleteAsync(twitterComment).Wait();
             twitterSubmissionBO.DeleteAsync(twitterSubmission).Wait();
-            twitterContextBO.DeleteAsync(twitterContext).Wait();
-
+            
             var resGetCon = twitterContextBO.GetAsync(twitterContext.Id).Result.Result;
             var resGetCom = twitterCommentBO.GetAsync(twitterComment.Id).Result.Result;
             var resGetSub = twitterSubmissionBO.GetAsync(twitterSubmission.Id).Result.Result;
 
-            Assert.IsTrue(resGetCon.IsDeleted == true && resGetCom.IsDeleted == true && resGetSub.IsDeleted == true);
+            Assert.IsTrue(resGetCon == null && resGetCom == null && resGetSub == null);
         }
 
         #endregion

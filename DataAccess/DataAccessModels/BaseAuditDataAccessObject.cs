@@ -48,6 +48,7 @@ namespace BlockBase.Dapps.NeverForget.DataAccess.DataAccessModels
             using (var context = new NeverForgetBotDbContext())
             {
                 entity.IsDeleted = true;
+                entity.DeletedAt = DateTime.UtcNow;
                 await context.Set<TAuditEntity>().UpdateAsync(entity);
             }
         }
