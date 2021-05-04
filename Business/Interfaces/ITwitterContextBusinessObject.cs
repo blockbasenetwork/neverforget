@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForget.Business.Interfaces
 {
-    interface ITwitterContextBusinessObject : IBaseAuditBusinessObject<TwitterContext>
+    public interface ITwitterContextBusinessObject : IBaseAuditBusinessObject<TwitterContext>
     {
         Task<List<OperationResult>> FromApiRedditModel(TweetModel[] modelArray);
         Task<OperationResult<List<TwitterContextPoco>>> GetAllPocoAsync();

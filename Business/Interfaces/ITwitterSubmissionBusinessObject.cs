@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BlockBase.Dapps.NeverForget.Business.Interfaces
 {
-    interface ITwitterSubmissionBusinessObject : IBaseAuditBusinessObject<TwitterSubmission>
+    public interface ITwitterSubmissionBusinessObject : IBaseAuditBusinessObject<TwitterSubmission>
     {
     }
 }
