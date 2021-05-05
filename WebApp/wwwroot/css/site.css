@@ -1,71 +1,266 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
-
-a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
-}
-
-/* Provide sufficient contrast against white background */
-a {
-  color: #0366d6;
-}
-
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
-}
-
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
-}
-
-/* Sticky footer styles
+﻿/* Layout
 -------------------------------------------------- */
-html {
-  font-size: 14px;
+.logoBackground {
+  background-image: linear-gradient(rgba(255, 86, 0, 0.9), rgba(29, 161, 242, 0.9) 75%), url('../img/WaterPattern.jpg');
+  max-width: 100%;
 }
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
+.logoBackground .logo {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  max-width: 100px;
+  text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+}
+.banner {
+  background: linear-gradient(rgba(29, 161, 242, 0.9), rgba(255, 86, 0, 0.9) 125%), url('../img/WaterPattern.jpg') 0% 2240px;
+}
+.banner .neverForgetHome,
+.banner .neverForgetHome a {
+  display: block;
+  width: 220px;
+  color: white;
+  text-decoration: none !important;
+  text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+}
+.center,
+.center a {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  color: black;
+  text-decoration: none !important;
+}
+@media screen and (max-width: 640px) {
+  .navbar-toggler {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background: currentColor;
+    opacity: 0.5;
+    height: 25px;
+  }
+  .navbar-toggler-icon {
+    font-size: small;
+    vertical-align: top;
+  }
+  .navbar-collaps {
+    position: fixed !important;
+    top: 30px !important;
+    left: 10px !important;
+    background: currentColor !important;
+    opacity: 0.5 !important;
+  }
+  .errorPage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .socialMediaLogo {
+    margin-bottom: 25px !important;
   }
 }
-
-.border-top {
-  border-top: 1px solid #e5e5e5;
+@media print {
+  .hidden-print {
+    display: none !important;
+  }
+  .print-black {
+    color: #000 !important;
+  }
 }
-.border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+.icon {
+  color: black;
 }
-
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+.mainBody {
+  background-color: rgba(39, 2, 22, 0.1);
+  max-width: 100%;
 }
-
-button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+.navbar-item {
+  background-color: transparent !important;
+  background-repeat: no-repeat !important;
+  border: none !important;
+  cursor: pointer !important;
+  overflow: hidden !important;
+  outline: none !important;
+  font-weight: bold !important;
 }
-
-/* Sticky footer styles
+/*-------------------------------------------------*/
+/* Error
 -------------------------------------------------- */
-html {
-  position: relative;
+.errorBody {
+  background-image: linear-gradient(rgba(255, 86, 0, 0.9), rgba(29, 161, 242, 0.9) 75%), url('../img/WaterPattern.jpg');
+  background-attachment: fixed;
+}
+.vertical-center {
   min-height: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
 }
-
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+.errorLogo {
+  max-width: 50%;
+  height: 50%;
 }
-.footer {
-  position: absolute;
-  bottom: 0;
+.errorMessage {
+  text-align: center;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 5px;
+  color: white;
+  text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+}
+.backButton {
+  color: #D9B908;
+}
+/*-------------------------------------------------*/
+/* Home
+-------------------------------------------------- */
+.socialMediaLogo {
+  width: 50px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+.socialMediaLogo .logoImg {
+  background-color: transparent;
+}
+.borderReddit {
+  border: solid;
+  border-color: #ff5600;
+  background-color: rgba(255, 86, 0, 0.3);
+}
+.borderReddit a {
+  color: black;
+}
+.borderTwitter {
+  border: solid;
+  border-color: #1da1f2;
+  background-color: rgba(29, 161, 242, 0.3);
+}
+.homeContext {
+  max-width: 1000px;
+}
+.homeTable {
+  border-collapse: collapse;
   width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+  table-layout: fixed;
 }
+.homeTable td {
+  vertical-align: middle;
+}
+.homeTable td .row {
+  margin-bottom: 20px;
+  padding-top: 20px;
+}
+/*-------------------------------------------------*/
+/*Social Media Context Index
+---------------------------------------------------*/
+.redditContext,
+.twitterContext,
+.redditDetailsContext,
+.twitterDetailsContext {
+  max-width: 1000px;
+}
+.detailsLogo {
+  width: 100px;
+}
+.detailsInput {
+  position: absolute;
+  background: transparent;
+  border: 0;
+  color: #000;
+  font-size: 20px;
+  text-align: center;
+  width: 100%;
+  top: 20px;
+  outline: none;
+}
+.detailsPosition {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  flex-direction: unset !important;
+  background-color: transparent;
+}
+.detailsClickable {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.stacked-top {
+  z-index: 2;
+}
+.stacked-bottom {
+  z-index: 1;
+}
+/*-------------------------------------------------*/
+table.dataTable,
+table.dataTable th,
+table.dataTable td {
+  background-color: rgba(39, 2, 22, 0.1) !important;
+  border-top: none !important;
+}
+table.dataTable tr:hover,
+table.dataTable th tr:hover,
+table.dataTable td tr:hover {
+  background-color: white !important;
+}
+.mySearchForm {
+  padding-top: 10px;
+}
+#myTable_filter input:focus::-webkit-input-placeholder {
+  visibility: hidden;
+  /*hide placeholder on focus*/
+}
+#myTable_filter input {
+  width: 250px;
+  height: 40px;
+  border: 1px solid;
+  text-indent: 10px;
+  border-radius: 4px;
+  text-align: left;
+  font-size: 11px;
+  color: #FF5700;
+  font-family: sans-serif;
+  background-color: rgba(39, 2, 22, 0.1);
+  padding: 0 3px;
+}
+#myTable_filter input:focus {
+  border: 1px solid;
+  border-radius: 3px;
+}
+#twitterTable_filter input:focus::-webkit-input-placeholder {
+  visibility: hidden;
+  /*hide placeholder on focus*/
+}
+#twitterTable_filter input {
+  width: 250px;
+  height: 40px;
+  border: 1px solid;
+  text-indent: 10px;
+  border-radius: 4px;
+  text-align: left;
+  font-size: 11px;
+  color: #1DA1F2;
+  font-family: sans-serif;
+  background-color: rgba(39, 2, 22, 0.1);
+  padding: 0 3px;
+}
+#twitterTable_filter input:focus {
+  border: 1px solid;
+  border-radius: 3px;
+}
+/*-------------------------------------------------*/
+/*Social Media Context Details
+---------------------------------------------------*/
+.tooltip-inner {
+  white-space: nowrap;
+  max-width: none;
+}
+.rowDetails {
+  margin-bottom: 20px;
+  padding-top: 20px;
+}
+.cardDetails {
+  max-width: 90%;
+}
+/*-------------------------------------------------*/

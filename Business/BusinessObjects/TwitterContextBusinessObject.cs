@@ -35,7 +35,7 @@ namespace BlockBase.Dapps.NeverForget.Business.BusinessObjects
             _twitterCollector = twitterCollector;
         }
 
-        public async Task<List<OperationResult>> FromApiRedditModel(TweetModel[] modelArray)
+        public async Task<List<OperationResult>> FromApiTwitterModel(TweetModel[] modelArray)
         {
             List<OperationResult> opResults = new List<OperationResult>();
 
