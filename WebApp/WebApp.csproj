@@ -20,7 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\TwitterContexts\" />
     <Folder Include="wwwroot\img\" />
   </ItemGroup>
 
