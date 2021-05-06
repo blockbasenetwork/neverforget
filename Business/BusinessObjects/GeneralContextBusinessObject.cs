@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForget.Business.BusinessObjects
 {
-    public class GeneralContextBusinessObject : BaseBusinessObject<GeneralContextPoco>, IGeneralContextBusinessObject
+    public class GeneralContextBusinessObject : BaseBusinessObject, IGeneralContextBusinessObject
     {
         private readonly IRedditContextPocoDataAccessObject _redditDataAccessObject;
         private readonly ITwitterContextPocoDataAccessObject _twitterDataAccessObject;
 
-        public GeneralContextBusinessObject(IRedditContextPocoDataAccessObject redditDataAccessObject, ITwitterContextPocoDataAccessObject twitterDataAccessObject, IBaseDataAccessObject<GeneralContextPoco> dataAccessObject, IGenericDataAccessObject genericDataAccessObject, ILogger<BaseBusinessObject> logger) : base(dataAccessObject, genericDataAccessObject, logger)
+        public GeneralContextBusinessObject(IRedditContextPocoDataAccessObject redditDataAccessObject, ITwitterContextPocoDataAccessObject twitterDataAccessObject, IGenericDataAccessObject genericDataAccessObject, ILogger<BaseBusinessObject> logger) : base(genericDataAccessObject, logger)
         {
             _redditDataAccessObject = redditDataAccessObject;
             _twitterDataAccessObject = twitterDataAccessObject;

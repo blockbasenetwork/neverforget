@@ -1,7 +1,7 @@
 ﻿/* Layout
 -------------------------------------------------- */
 .logoBackground {
-  background-image: linear-gradient(rgba(255, 86, 0, 0.9), rgba(29, 161, 242, 0.9) 75%), url('../img/banner.png');
+  background-image: linear-gradient(rgba(255, 86, 0, 0.9), rgba(29, 161, 242, 0.9) 75%), url('../img/WaterPattern.jpg');
   max-width: 100%;
 }
 .logoBackground .logo {
@@ -11,7 +11,7 @@
   text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
 }
 .banner {
-  background: linear-gradient(rgba(29, 161, 242, 0.9), rgba(255, 86, 0, 0.9) 125%), url('../img/banner.png') 0% 2240px;
+  background: linear-gradient(rgba(29, 161, 242, 0.9), rgba(255, 86, 0, 0.9) 125%), url('../img/WaterPattern.jpg') 0% 2240px;
 }
 .banner .neverForgetHome,
 .banner .neverForgetHome a {
@@ -86,7 +86,7 @@
 /* Error
 -------------------------------------------------- */
 .errorBody {
-  background-image: linear-gradient(rgba(255, 86, 0, 0.9), rgba(29, 161, 242, 0.9) 75%), url('../img/banner.png');
+  background-image: url('../img/banner.png');
   background-attachment: fixed;
 }
 .vertical-center {

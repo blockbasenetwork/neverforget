@@ -70,7 +70,7 @@ namespace BlockBase.Dapps.NeverForget.WebApp
             app.UseStaticFiles();
 
 
-            app.UseSerilogRequestLogging();
+            //app.UseSerilogRequestLogging();
 
             app.UseRouting();
 
