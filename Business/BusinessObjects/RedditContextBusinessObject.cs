@@ -75,7 +75,7 @@ namespace BlockBase.Dapps.NeverForget.Business.BusinessObjects
             var commentsList = CheckKeyword(commentArray);
             var commentsToAdd = await _dataAccessObject.GetUniqueComments(commentsList.ToArray());
 
-            for (int i = 0; i < commentsList.Count; i++)
+            for (int i = 0; i < commentsToAdd.Count; i++)
             {
                 var opResult = await ExecuteOperation(async () =>
                 {

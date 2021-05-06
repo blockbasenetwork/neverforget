@@ -1,4 +1,6 @@
 ﻿using BlockBase.Dapps.NeverForget.Data.Context;
+using BlockBase.Dapps.NeverForget.Data.Entities.Base;
+using BlockBase.Dapps.NeverForget.Data.Interfaces;
 using BlockBase.Dapps.NeverForget.DataAccess.Interfaces;
 using System;
 using System.Collections.Generic;

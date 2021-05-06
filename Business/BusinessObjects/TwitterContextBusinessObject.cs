@@ -10,6 +10,7 @@ using BlockBase.Dapps.NeverForget.Services.API.Models;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -41,7 +42,7 @@ namespace BlockBase.Dapps.NeverForget.Business.BusinessObjects
 
             var commentsToAdd = await _dataAccessObject.GetUniqueComments(modelArray);
 
-            foreach (var model in modelArray)
+            foreach (var model in commentsToAdd)
             {
                 var result = await ExecuteOperation(async () =>
                 {
@@ -210,16 +211,22 @@ namespace BlockBase.Dapps.NeverForget.Business.BusinessObjects
 
 
 
-
-
-        public Task<OperationResult<List<TwitterContextPoco>>> GetAllPocoAsync()
+        public async Task<OperationResult<TwitterContextPoco>> GetPocoAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return await ExecuteOperation(async () =>
+            {
+                var result = await _pocoDataAccessObject.GetTwitterContextById(id);
+                return result;
+            });
         }
 
-        public Task<OperationResult<TwitterContextPoco>> GetPocoAsync(Guid id)
+        public async Task<OperationResult<List<TwitterContextPoco>>> GetAllPocoAsync()
         {
-            throw new NotImplementedException();
-        }
+            return await ExecuteOperation(async () =>
+            {
+                var result = await _pocoDataAccessObject.GetAllTwitterContexts();
+                return result.ToList();
+            });
+        }        
     }
 }
