@@ -3,6 +3,6 @@
     public enum SourceTypeEnum
     {
         Reddit = 0,
-        Twitter = 0,
+        Twitter = 1,
     }
 }
