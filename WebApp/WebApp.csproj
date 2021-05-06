@@ -20,8 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Error\" />
-    <Folder Include="Views\RedditContexts\" />
     <Folder Include="Views\TwitterContexts\" />
     <Folder Include="wwwroot\img\" />
   </ItemGroup>

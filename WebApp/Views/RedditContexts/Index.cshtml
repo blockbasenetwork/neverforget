@@ -1,0 +1,47 @@
+﻿@using BlockBase.Dapps.NeverForget.WebApp.Models
+@model IEnumerable<RedditContextViewModel>
+
+<div class="container redditContext">
+    <div class="row">
+        <table class="table display no-wrap homeTable" id="myTable">
+            <thead class="d-none">
+                <tr><th></th></tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <div class="row">
+                                <div class="col-md contentContext">
+                                    <div class="card-body borderReddit">
+                                        <h6 class="card-title d-block title text-left"><u>r/@Html.DisplayFor(modelItem => item.Subreddit)</u></h6>
+                                        <h5 class="card-title d-block text-left">@Html.DisplayFor(modelItem => item.Title)</h5>
+                                        <div class="card-text d-block text-left">@Html.DisplayFor(modelItem => item.Content)</div>
+                                        <b class="card-text d-block text-right">@Html.DisplayFor(modelItem => item.Author)</b>
+                                    </div>
+                                </div>
+
+                                <div class="col- d-flex align-items-center">
+                                    <div class="card-body">
+                                        @{
+                                            var dateToString = item.Date.ToString("yyyy/MM/dd");
+                                        }
+                                        <div class="card-content date">@Html.DisplayFor(modelItem => dateToString) <i class="fas fa-calendar-alt"></i></div>
+                                    </div>
+                                </div>
+
+                                <div class="col- p-0 d-flex border-0 align-items-center detailsLogo">
+                                    <div class="card border-0 detailsPosition">
+                                        <input id="detailsButton" type="button" class="detailsClickable detailsInput stacked-top align-items-center px-0 m-0" onclick="@("window.location.href='" + @Url.Action("Details", "RedditContexts", new { id = item.Id }) + "'");" />
+                                        <img src="~/img/searchRobot.png" class="detailsClickable stacked-bottom align-items-center px-0 m-0" />
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

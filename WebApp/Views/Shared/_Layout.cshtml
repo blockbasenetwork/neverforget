@@ -3,33 +3,56 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - WebApp</title>
+    <title>@ViewData["Title"] - BlockBase.Dapps.NeverForgetBot.WebApp</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.css" />
+    <link rel="icon" href="~/img/Logo.png" type="image/gif" sizes="16x16">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="~/css/site.css" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WebApp</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
+
+    @await Html.PartialAsync("_LogoPartial")
+
+    <header class="sticky-top banner">
+        <div>
+            <div class="neverForgetHome mx-auto">
+                <a asp-area="" asp-controller="Home" asp-action="Index">
+                    <h3>Never Forget Bot</h3>
+                </a>
             </div>
-        </nav>
+
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow">
+                <div class="container">
+                    <div class="row mx-auto">
+                        <button class="navbar-toggler mt-1" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                            <ul class="navbar-nav flex-grow-1">
+                                <li class="nav-item">
+                                    <input id="navbar-reddit" class="nav-link text-dark navbar-item" type="button" value="Reddit" onclick="@("window.location.href='" + @Url.Action("Index", "RedditContexts") + "'");" />
+                                </li>
+                                <li class="nav-item">
+                                    <input id="navbar-twitter" class="nav-link text-dark navbar-item" type="button" value="Twitter" onclick="@("window.location.href='" + @Url.Action("Index", "TwitterContexts") + "'");" />
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
     </header>
-    <div class="container">
+
+
+
+
+
+
+    <div class="container mainBody">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -37,12 +60,25 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2021 - WebApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="col">
+                &copy; 2021 - NeverForgetBot
+                <a href="https://www.reddit.com/user/NeverForget-Bot"><i class="icon fab fa-reddit-alien "></i></a>
+                <a href="https://twitter.com/_NeverForgetBot"><i class="icon fab fa-twitter"></i></a>
+            </div>
         </div>
     </footer>
+
+
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+
+
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/font-awesome/js/all.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>
