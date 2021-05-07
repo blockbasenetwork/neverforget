@@ -56,30 +56,6 @@ namespace BlockBase.Dapps.NeverForget.DataAccess.DataAccessObjects
             return result;
         }
 
-        //public async Task<List<GeneralContextPoco>> GetRecentReddit()
-        //{
-        //    List<GeneralContextPoco> result = new List<GeneralContextPoco>();
-
-        //    using (var _context = new NeverForgetBotDbContext())
-        //    {
-        //        var retrievedSubmissions = await _context.RedditSubmission.Where((tSub) => !tSub.IsDeleted).SelectAsync((tSub) => new GeneralContextPoco
-        //        {
-        //            Author = tSub.Author,
-        //            Content = tSub.Content,
-        //            Date = tSub.SubmissionDate,
-        //            SourceType = SourceTypeEnum.Reddit,
-        //            Title = tSub.Title
-        //        });
-
-        //        foreach (var submission in retrievedSubmissions.ToList().OrderByDescending(ctx => ctx.Date).Take(10))
-        //        {
-        //            result.Add(submission);
-        //        }
-        //    }
-        //    return result;
-        //}
-
-
         public async Task<List<GeneralContextPoco>> GetRecentReddit()
         {
             using (var _context = new NeverForgetBotDbContext())
