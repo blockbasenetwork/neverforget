@@ -1,4 +1,5 @@
-﻿using BlockBase.Dapps.NeverForget.Common.Enums;
+﻿using BlockBase.BBLinq.Enumerables;
+using BlockBase.Dapps.NeverForget.Common.Enums;
 using BlockBase.Dapps.NeverForget.Data.Context;
 using BlockBase.Dapps.NeverForget.Data.Entities;
 using BlockBase.Dapps.NeverForget.Data.Pocos;
@@ -55,27 +56,48 @@ namespace BlockBase.Dapps.NeverForget.DataAccess.DataAccessObjects
             return result;
         }
 
+        //public async Task<List<GeneralContextPoco>> GetRecentReddit()
+        //{
+        //    List<GeneralContextPoco> result = new List<GeneralContextPoco>();
+
+        //    using (var _context = new NeverForgetBotDbContext())
+        //    {
+        //        var retrievedSubmissions = await _context.RedditSubmission.Where((tSub) => !tSub.IsDeleted).SelectAsync((tSub) => new GeneralContextPoco
+        //        {
+        //            Author = tSub.Author,
+        //            Content = tSub.Content,
+        //            Date = tSub.SubmissionDate,
+        //            SourceType = SourceTypeEnum.Reddit,
+        //            Title = tSub.Title
+        //        });
+
+        //        foreach (var submission in retrievedSubmissions.ToList().OrderByDescending(ctx => ctx.Date).Take(10))
+        //        {
+        //            result.Add(submission);
+        //        }
+        //    }
+        //    return result;
+        //}
+
+
         public async Task<List<GeneralContextPoco>> GetRecentReddit()
         {
-            List<GeneralContextPoco> result = new List<GeneralContextPoco>();
-
             using (var _context = new NeverForgetBotDbContext())
             {
-                var retrievedSubmissions = await _context.RedditSubmission.Where((tSub) => !tSub.IsDeleted).SelectAsync((tSub) => new GeneralContextPoco
-                {
-                    Author = tSub.Author,
-                    Content = tSub.Content,
-                    Date = tSub.SubmissionDate,
-                    SourceType = SourceTypeEnum.Reddit,
-                    Title = tSub.Title
-                });
+                var recentReddits = await _context.RedditContext.Join<RedditSubmission>(BlockBaseJoinEnum.Left)
+                     .Where((redditContext, redditSubmission) => (redditContext.Id == redditSubmission.RedditContextId) && (!redditContext.IsDeleted))
+                     .SelectAsync((redditContext, redditSubmission) => new GeneralContextPoco
+                     {
+                         SourceType = SourceTypeEnum.Reddit,
+                         Date = redditSubmission.SubmissionDate,
+                         Author = redditSubmission.Author,
+                         Title = redditSubmission.Title,
+                         Content = redditSubmission.Content
+                     });
 
-                foreach (var submission in retrievedSubmissions.ToList().OrderByDescending(ctx => ctx.Date).Take(10))
-                {
-                    result.Add(submission);
-                }
+                return recentReddits.OrderByDescending((reddit) => reddit.Date).Take(10).ToList();
             }
-            return result;
         }
+
     }
 }

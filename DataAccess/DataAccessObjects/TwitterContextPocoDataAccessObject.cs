@@ -1,10 +1,12 @@
-﻿using BlockBase.Dapps.NeverForget.Common.Enums;
+﻿using BlockBase.BBLinq.Enumerables;
+using BlockBase.Dapps.NeverForget.Common.Enums;
 using BlockBase.Dapps.NeverForget.Data.Context;
 using BlockBase.Dapps.NeverForget.Data.Entities;
 using BlockBase.Dapps.NeverForget.Data.Pocos;
 using BlockBase.Dapps.NeverForget.DataAccess.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForget.DataAccess.DataAccessObjects
@@ -54,27 +56,46 @@ namespace BlockBase.Dapps.NeverForget.DataAccess.DataAccessObjects
             return result;
         }
 
+        //public async Task<List<GeneralContextPoco>> GetRecentTwitter()
+        //{
+        //    List<GeneralContextPoco> result = new List<GeneralContextPoco>();
+
+        //    using (var _context = new NeverForgetBotDbContext())
+        //    {
+        //        var retrievedSubmissions = await _context.TwitterSubmission.Where((tSub) => !tSub.IsDeleted).Take(10).SelectAsync((tSub) => new GeneralContextPoco
+        //        {
+        //            Author = tSub.Author,
+        //            Content = tSub.Content,
+        //            Date = tSub.SubmissionDate,
+        //            SourceType = SourceTypeEnum.Twitter
+        //        });
+
+        //        foreach (var submission in retrievedSubmissions)
+        //        {
+        //            result.Add(submission);
+        //        }
+        //    }
+
+        //    return result;
+        //}
+
+
         public async Task<List<GeneralContextPoco>> GetRecentTwitter()
         {
-            List<GeneralContextPoco> result = new List<GeneralContextPoco>();
-
             using (var _context = new NeverForgetBotDbContext())
             {
-                var retrievedSubmissions = await _context.TwitterSubmission.Where((tSub) => !tSub.IsDeleted).Take(10).SelectAsync((tSub) => new GeneralContextPoco
-                {
-                    Author = tSub.Author,
-                    Content = tSub.Content,
-                    Date = tSub.SubmissionDate,
-                    SourceType = SourceTypeEnum.Twitter
-                });
+                var recentTweets = await _context.TwitterContext.Join<TwitterSubmission>(BlockBaseJoinEnum.Left)
+                    .Where((tweetContext, tweetSubmission) => (tweetContext.Id == tweetSubmission.TwitterContextId) && (!tweetContext.IsDeleted))
+                    .SelectAsync((tweetContext, tweetSubmission) => new GeneralContextPoco 
+                    {
+                        SourceType = SourceTypeEnum.Twitter,
+                        Date = tweetSubmission.SubmissionDate,
+                        Author = tweetSubmission.Author,
+                        Content = tweetSubmission.Content
+                    });
 
-                foreach (var submission in retrievedSubmissions)
-                {
-                    result.Add(submission);
-                }
+                return recentTweets.OrderByDescending((tweet) => tweet.Date).Take(10).ToList();
             }
-
-            return result;
         }
     }
 }
