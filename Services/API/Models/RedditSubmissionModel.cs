@@ -8,7 +8,7 @@ namespace BlockBase.Dapps.NeverForget.Services.API.Models
     {
         public string Author { get; set; }
         public string SelfText { get; set; }
-        public DateTime Created_Utc { get; set; }
+        public int Created_Utc { get; set; }
         public string Id { get; set; }
         public string SubReddit { get; set; }
         public string Title { get; set; }
@@ -23,7 +23,7 @@ namespace BlockBase.Dapps.NeverForget.Services.API.Models
                 Title = Title,
                 Author = Author,
                 Content = Helpers.CleanComment(SelfText),
-                SubmissionDate = Created_Utc,
+                SubmissionDate = Helpers.FromUnixTime(Created_Utc),
                 SubmissionId = Id,
                 SubReddit = SubReddit,
                 MediaLink = Url,
