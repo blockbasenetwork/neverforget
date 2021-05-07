@@ -140,6 +140,7 @@
 .borderTwitter {
   border: solid;
   border-color: #1da1f2;
+  background-color: rgba(29, 161, 242, 0.3);
 }
 .borderTwitter a {
   color: black;
