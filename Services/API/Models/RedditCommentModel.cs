@@ -22,7 +22,7 @@ namespace BlockBase.Dapps.NeverForget.Services.API.Models
                 Id = Guid.NewGuid(),
                 Author = Author,
                 Content = Helpers.CleanComment(Body),
-                CommentDate = DateTime.Parse(Created_Utc.ToString()),
+                CommentDate = Helpers.FromUnixTime(Created_Utc),
                 CommentId = Id,
                 ParentId = Parent_Id,
                 ParentSubmissionId = Link_Id,

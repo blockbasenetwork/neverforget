@@ -1,9 +1,6 @@
-﻿using BlockBase.Dapps.NeverForget.Common.Enums;
-using BlockBase.Dapps.NeverForget.Data.Pocos;
+﻿using BlockBase.Dapps.NeverForget.Data.Pocos;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForget.WebApp.Models
 {
@@ -17,7 +14,7 @@ namespace BlockBase.Dapps.NeverForget.WebApp.Models
         public string? MediaLink { get; set; }
         public int RequestTypeId { get; set; }
 
-        public static TwitterContextViewModel FromData(TwitterContextPoco twitterContext) //STATIC???
+        public static TwitterContextViewModel FromData(TwitterContextPoco twitterContext)
         {
             TwitterContextViewModel twitterContextViewModel = new TwitterContextViewModel
             {

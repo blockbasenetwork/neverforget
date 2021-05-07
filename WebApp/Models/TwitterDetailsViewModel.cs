@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForget.WebApp.Models
 {
@@ -19,7 +18,7 @@ namespace BlockBase.Dapps.NeverForget.WebApp.Models
             Submission = new TwitterDetail();
         }
 
-        public static TwitterDetailsViewModel FromData(TwitterContextPoco twitterContext) //STATIC???
+        public static TwitterDetailsViewModel FromData(TwitterContextPoco twitterContext)
         {
             TwitterDetailsViewModel twitterDetailViewModel = new TwitterDetailsViewModel
             {

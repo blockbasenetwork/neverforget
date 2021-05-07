@@ -42,7 +42,7 @@ namespace BlockBase.Dapps.NeverForget.Business.BusinessObjects
 
             var commentsToAdd = await _dataAccessObject.GetUniqueComments(modelArray);
 
-            foreach (var model in commentsToAdd)
+            foreach (var model in modelArray)
             {
                 var result = await ExecuteOperation(async () =>
                 {

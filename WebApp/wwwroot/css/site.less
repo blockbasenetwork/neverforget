@@ -101,7 +101,14 @@
     overflow: hidden !important;
     outline: none !important;
     font-weight: bold !important;
+    color: rgb(0, 0, 0) !important;
+
+    :hover {
+        color: rgb(50,50,50) !important;
+    }
 }
+
+
 
 /*-------------------------------------------------*/
 
@@ -128,14 +135,19 @@
 
 .errorMessage {
     text-align: center;
-    background: rgba(0, 0, 0, 0.2);
     padding: 5px;
     color: white;
     text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+    font-size: x-large;
+}
+
+.errorBase {
+    font-size: xx-large;
 }
 
 .backButton {
     color: @oldGold;
+    font-size: large;
 }
 
 /*-------------------------------------------------*/

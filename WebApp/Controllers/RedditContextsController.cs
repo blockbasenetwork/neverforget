@@ -26,6 +26,7 @@ namespace BlockBase.Dapps.NeverForget.WebApp.Controllers
         {
             var listOp = await _redditContextBusinessObject.GetAllPocoAsync();
             if (!listOp.Success) return Error(listOp.Exception.Message);
+
             var list = new List<RedditContextViewModel>();
             foreach (var item in listOp.Result)
             {
@@ -36,6 +37,7 @@ namespace BlockBase.Dapps.NeverForget.WebApp.Controllers
 
             string logoUrl = Url.Content("~/img/redditRobot.png");
             ViewData["Logo"] = logoUrl;
+
             return View(orderedList);
         }
 
@@ -43,12 +45,15 @@ namespace BlockBase.Dapps.NeverForget.WebApp.Controllers
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null) return NotFound();
+
             var resultOp = await _redditContextBusinessObject.GetPocoAsync((Guid)id);
             if (!resultOp.Success) return Error(resultOp.Exception.Message);
+
             if (resultOp.Result == null) return NotFound();
 
             string logoUrl = Url.Content("~/img/redditRobot.png");
             ViewData["Logo"] = logoUrl;
+
             return View(RedditDetailsViewModel.FromData(resultOp.Result));
         }
 

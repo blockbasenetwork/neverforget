@@ -35,35 +35,35 @@ namespace BlockBase.Dapps.NeverForget.Bot
         public async Task Run()
         {
             #region Recreate Database
-            //using (var context = new NeverForgetBotDbContext())
-            //{
-            //    var resultDrop = context.DropDatabase();
-            //    var resultCreate = context.CreateDatabase();
-            //}
+            using (var context = new NeverForgetBotDbContext())
+            {
+                var resultDrop = context.DropDatabase();
+                var resultCreate = context.CreateDatabase();
+            }
 
-            //#region Build RequestType Table
-            //RequestType defaultRequest = new RequestType { Id = (int)RequestTypeEnum.Default, Name = "Default" };
-            //RequestType commentRequest = new RequestType { Id = (int)RequestTypeEnum.Comment, Name = "Comment" };
-            //RequestType postRequest = new RequestType { Id = (int)RequestTypeEnum.Post, Name = "Post" };
+            #region Build RequestType Table
+            RequestType defaultRequest = new RequestType { Id = (int)RequestTypeEnum.Default, Name = "Default" };
+            RequestType commentRequest = new RequestType { Id = (int)RequestTypeEnum.Comment, Name = "Comment" };
+            RequestType postRequest = new RequestType { Id = (int)RequestTypeEnum.Post, Name = "Post" };
 
-            //await _requestTypeDataAccessObject.InsertAsync(defaultRequest);
-            //await _requestTypeDataAccessObject.InsertAsync(commentRequest);
-            //await _requestTypeDataAccessObject.InsertAsync(postRequest);
-            //#endregion
+            await _requestTypeDataAccessObject.InsertAsync(defaultRequest);
+            await _requestTypeDataAccessObject.InsertAsync(commentRequest);
+            await _requestTypeDataAccessObject.InsertAsync(postRequest);
+            #endregion
             #endregion
 
-            //_redditCollector.CreateLastCommentDate(1611131718);
-            //ApiHelper.InitializeClient();
+            _redditCollector.CreateLastCommentDate(1611131718);
+            ApiHelper.InitializeClient();
 
-            //RedditApi.AuthenticateClient();
-            //await _redditContextBusinessObject.FromApiRedditAllComments();
+            RedditApi.AuthenticateClient();
+            await _redditContextBusinessObject.FromApiRedditAllComments();
 
 
-            //TwitterApi.AuthenticateClient();
+            TwitterApi.AuthenticateClient();
 
-            //var mentions = await _twitterCollector.GetMentions();
+            var mentions = await _twitterCollector.GetMentions();
 
-            //await _twitterContextBusinessObject.FromApiTwitterModel(mentions);
+            await _twitterContextBusinessObject.FromApiTwitterModel(mentions);
         }
     }
 }
