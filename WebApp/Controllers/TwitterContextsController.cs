@@ -41,7 +41,7 @@ namespace BlockBase.Dapps.NeverForget.WebApp.Controllers
             return View(orderedList);
         }
 
-        [HttpGet("TwitterContexts/Details/{id}")]
+        [HttpGet("TwitterContexts/Details/{contextId}")]
         public async Task<IActionResult> Details(Guid? contextId)
         {
             if (contextId == null) return NotFound();
