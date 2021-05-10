@@ -33,12 +33,10 @@ namespace BlockBase.Dapps.NeverForget.WebApp.Controllers
                 contextsList.Add(TwitterContextViewModel.FromData(context));
             }
 
-            var orderedList = contextsList.OrderByDescending(i => i.Date);
-
             string logoUrl = Url.Content("~/img/twitterRobot.png");
             ViewData["Logo"] = logoUrl;
 
-            return View(orderedList);
+            return View(contextsList);
         }
 
         [HttpGet("TwitterContexts/Details/{contextId}")]

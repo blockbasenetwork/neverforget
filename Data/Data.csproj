@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BlockBase.BBLinq" Version="0.0.67" />
+    <PackageReference Include="BlockBase.BBLinq" Version="0.0.68" />
   </ItemGroup>
 
   <ItemGroup>

@@ -225,7 +225,7 @@ namespace BlockBase.Dapps.NeverForget.Business.BusinessObjects
             return await ExecuteOperation(async () =>
             {
                 var result = await _pocoDataAccessObject.GetAllTwitterContexts();
-                return result.ToList();
+                return result.OrderBy(t => t.ContextCreatedAt).ToList();
             });
         }        
     }
