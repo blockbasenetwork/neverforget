@@ -37,8 +37,6 @@ namespace BlockBase.Dapps.NeverForget.Bot
 
                     services.AddSingleton<IRequestTypeDataAccessObject, RequestTypeDataAccessObject>();
 
-                    services.AddSingleton<IGenericDataAccessObject, GenericDataAccessObject>();
-
                     services.AddSingleton<IRedditContextDataAccessObject, RedditContextDataAccessObject>();
                     services.AddSingleton<IRedditCommentDataAccessObject, RedditCommentDataAccessObject>();
                     services.AddSingleton<IRedditSubmissionDataAccessObject, RedditSubmissionDataAccessObject>();
@@ -47,8 +45,6 @@ namespace BlockBase.Dapps.NeverForget.Bot
                     services.AddSingleton<ITwitterSubmissionDataAccessObject, TwitterSubmissionDataAccessObject>();
                     services.AddSingleton<IRedditContextPocoDataAccessObject, RedditContextPocoDataAccessObject>();
                     services.AddSingleton<ITwitterContextPocoDataAccessObject, TwitterContextPocoDataAccessObject>();
-
-                    services.AddSingleton<IGenericBusinessObject, GenericBusinessObject>();
 
                     services.AddSingleton<IRedditContextBusinessObject, RedditContextBusinessObject>();
                     services.AddSingleton<IRedditCommentBusinessObject, RedditCommentBusinessObject>();

@@ -15,7 +15,7 @@ namespace BlockBase.Dapps.NeverForget.Business.BusinessObjects
         private readonly IRedditContextPocoDataAccessObject _redditDataAccessObject;
         private readonly ITwitterContextPocoDataAccessObject _twitterDataAccessObject;
 
-        public GeneralContextBusinessObject(IRedditContextPocoDataAccessObject redditDataAccessObject, ITwitterContextPocoDataAccessObject twitterDataAccessObject, IGenericDataAccessObject genericDataAccessObject, ILogger<BaseBusinessObject> logger) : base(genericDataAccessObject, logger)
+        public GeneralContextBusinessObject(IRedditContextPocoDataAccessObject redditDataAccessObject, ITwitterContextPocoDataAccessObject twitterDataAccessObject, ILogger<BaseBusinessObject> logger) : base(logger)
         {
             _redditDataAccessObject = redditDataAccessObject;
             _twitterDataAccessObject = twitterDataAccessObject;

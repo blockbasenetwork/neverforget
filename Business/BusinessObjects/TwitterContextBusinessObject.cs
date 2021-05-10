@@ -27,7 +27,7 @@ namespace BlockBase.Dapps.NeverForget.Business.BusinessObjects
         string url = "http://web-app-neverforget-blockbase.azurewebsites.net/twittercontexts/details/";
         string contextIdToPublish = string.Empty;
 
-        public TwitterContextBusinessObject(ITwitterContextDataAccessObject dataAccessObject, ITwitterCommentDataAccessObject commentDataAccessObject, ITwitterSubmissionDataAccessObject submissionDataAccessObject, ITwitterContextPocoDataAccessObject pocoDataAccessObject, TwitterCollector twitterCollector, IGenericDataAccessObject genericDataAccessObject, ILogger<BaseBusinessObject> logger) : base(dataAccessObject, genericDataAccessObject, logger)
+        public TwitterContextBusinessObject(ITwitterContextDataAccessObject dataAccessObject, ITwitterCommentDataAccessObject commentDataAccessObject, ITwitterSubmissionDataAccessObject submissionDataAccessObject, ITwitterContextPocoDataAccessObject pocoDataAccessObject, TwitterCollector twitterCollector, ILogger<BaseBusinessObject> logger) : base(dataAccessObject, logger)
         {
             _dataAccessObject = dataAccessObject;
             _commentDataAccessObject = commentDataAccessObject;

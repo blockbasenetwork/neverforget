@@ -27,22 +27,6 @@ namespace BlockBase.Dapps.NeverForget.DataAccess.DataAccessModels
             }
         }
 
-        public async Task<TAuditEntity> GetDeletedAsync(Guid id)
-        {
-            using (var context = new NeverForgetBotDbContext())
-            {
-                var result = await context.Set<TAuditEntity>().Where(e => e.Id == id && e.IsDeleted == true).SelectAsync();
-                if (result == null)
-                {
-                    return null;
-                }
-                else
-                {
-                    return result.ToList().FirstOrDefault();
-                }
-            }
-        }
-
         public override async Task DeleteAsync(TAuditEntity entity)
         {
             using (var context = new NeverForgetBotDbContext())
@@ -58,22 +42,6 @@ namespace BlockBase.Dapps.NeverForget.DataAccess.DataAccessModels
             using (var context = new NeverForgetBotDbContext())
             {
                 var result = await context.Set<TAuditEntity>().Where(e => e.IsDeleted == false).SelectAsync();
-                if (result == null)
-                {
-                    return new List<TAuditEntity>();
-                }
-                else
-                {
-                    return result.ToList();
-                }
-            }
-        }
-
-        public async Task<List<TAuditEntity>> GetAllDeletedAsync()
-        {
-            using (var context = new NeverForgetBotDbContext())
-            {
-                var result = await context.Set<TAuditEntity>().Where(e => e.IsDeleted == true).SelectAsync();
                 if (result == null)
                 {
                     return new List<TAuditEntity>();

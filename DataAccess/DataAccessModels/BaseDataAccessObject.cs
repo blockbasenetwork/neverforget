@@ -27,13 +27,6 @@ namespace BlockBase.Dapps.NeverForget.DataAccess.DataAccessModels
             return await ctx.Set<T>().GetAsync(id);
         }
 
-        public async Task<IEnumerable<T>> Find(Expression<Func<T, bool>> condition)
-        {
-            using var ctx = new NeverForgetBotDbContext();
-            return await ctx.Set<T>().Where(condition).SelectAsync();
-        }
-
-
         public async Task UpdateAsync(T item)
         {
             using var ctx = new NeverForgetBotDbContext();

@@ -15,29 +15,30 @@ namespace BlockBase.Dapps.NeverForget.WebApp.Models
 
         public static TwitterContextViewModel FromData(TwitterContextPoco twitterContext)
         {
-            TwitterContextViewModel twitterContextViewModel = new TwitterContextViewModel
-            {
-                Id = twitterContext.ContextId
-            };
+            //TwitterContextViewModel twitterContextViewModel = new TwitterContextViewModel
+            //{
+            //    Id = twitterContext.ContextId
+            //};
 
-            if (twitterContext.SubmissionLink == null)
-            {
-                twitterContextViewModel.Date = twitterContext.CommentDate;
-                twitterContextViewModel.Author = twitterContext.CommentAuthor;
-                twitterContextViewModel.Content = twitterContext.CommentContent;
-                twitterContextViewModel.Link = twitterContext.CommentLink;
-                twitterContextViewModel.MediaLink = twitterContext.CommentMediaLink;
-            }
-            else
-            {
-                twitterContextViewModel.Date = twitterContext.SubmissionDate;
-                twitterContextViewModel.Author = twitterContext.SubmissionAuthor;
-                twitterContextViewModel.Content = twitterContext.SubmissionContent;
-                twitterContextViewModel.Link = twitterContext.SubmissionLink;
-                twitterContextViewModel.MediaLink = twitterContext.SubmissionMediaLink;
-            }
+            //if (twitterContext.SubmissionLink == null)
+            //{
+            //    twitterContextViewModel.Date = twitterContext.CommentDate;
+            //    twitterContextViewModel.Author = twitterContext.CommentAuthor;
+            //    twitterContextViewModel.Content = twitterContext.CommentContent;
+            //    twitterContextViewModel.Link = twitterContext.CommentLink;
+            //    twitterContextViewModel.MediaLink = twitterContext.CommentMediaLink;
+            //}
+            //else
+            //{
+            //    twitterContextViewModel.Date = twitterContext.SubmissionDate;
+            //    twitterContextViewModel.Author = twitterContext.SubmissionAuthor;
+            //    twitterContextViewModel.Content = twitterContext.SubmissionContent;
+            //    twitterContextViewModel.Link = twitterContext.SubmissionLink;
+            //    twitterContextViewModel.MediaLink = twitterContext.SubmissionMediaLink;
+            //}
 
-            return twitterContextViewModel;
+            //return twitterContextViewModel;
+            return new TwitterContextViewModel();
         }
     }
 }

@@ -8,7 +8,7 @@ namespace BlockBase.Dapps.NeverForget.Business.BusinessObjects
 {
     public class TwitterSubmissionBusinessObject : BaseAuditBusinessObject<TwitterSubmission>, ITwitterSubmissionBusinessObject
     {
-        public TwitterSubmissionBusinessObject(ITwitterSubmissionDataAccessObject dataAccessObject, IGenericDataAccessObject genericDataAccessObject, ILogger<BaseBusinessObject> logger) : base(dataAccessObject, genericDataAccessObject, logger)
+        public TwitterSubmissionBusinessObject(ITwitterSubmissionDataAccessObject dataAccessObject, ILogger<BaseBusinessObject> logger) : base(dataAccessObject, logger)
         {
         }
     }

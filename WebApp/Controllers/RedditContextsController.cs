@@ -33,7 +33,7 @@ namespace BlockBase.Dapps.NeverForget.WebApp.Controllers
                 list.Add(RedditContextViewModel.FromData(item));
             }
 
-            var orderedList = list.OrderByDescending(i => i.Date);
+            var orderedList = list.OrderByDescending(i => i.Date); //control in reddit context business object
 
             string logoUrl = Url.Content("~/img/redditRobot.png");
             ViewData["Logo"] = logoUrl;

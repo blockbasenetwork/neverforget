@@ -10,7 +10,6 @@ namespace BlockBase.Dapps.NeverForget.DataAccess.Interfaces
         Task<IEnumerable<T>> List();
         Task InsertAsync(T item);
         Task<T> GetAsync(Guid id);
-        Task<IEnumerable<T>> Find(Expression<Func<T, bool>> condition);
         Task UpdateAsync(T item);
         Task DeleteAsync(T item);
     }

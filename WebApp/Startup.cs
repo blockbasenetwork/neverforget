@@ -28,7 +28,6 @@ namespace BlockBase.Dapps.NeverForget.WebApp
         {
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
-            services.AddSingleton<IGenericDataAccessObject, GenericDataAccessObject>();
             services.AddSingleton<IRequestTypeDataAccessObject, RequestTypeDataAccessObject>();
             services.AddSingleton<IRedditContextDataAccessObject, RedditContextDataAccessObject>();
             services.AddSingleton<IRedditCommentDataAccessObject, RedditCommentDataAccessObject>();
@@ -39,7 +38,6 @@ namespace BlockBase.Dapps.NeverForget.WebApp
             services.AddSingleton<IRedditContextPocoDataAccessObject, RedditContextPocoDataAccessObject>();
             services.AddSingleton<ITwitterContextPocoDataAccessObject, TwitterContextPocoDataAccessObject>();
 
-            services.AddSingleton<IGenericBusinessObject, GenericBusinessObject>();
             services.AddSingleton<IRedditContextBusinessObject, RedditContextBusinessObject>();
             services.AddSingleton<IRedditCommentBusinessObject, RedditCommentBusinessObject>();
             services.AddSingleton<IRedditSubmissionBusinessObject, RedditSubmissionBusinessObject>();

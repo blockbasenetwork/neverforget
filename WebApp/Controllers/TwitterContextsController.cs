@@ -28,10 +28,10 @@ namespace BlockBase.Dapps.NeverForget.WebApp.Controllers
             if (!twitterContextsList.Success) return Error(twitterContextsList.Exception.Message);
 
             var contextsList = new List<TwitterContextViewModel>();
-            foreach (var context in twitterContextsList.Result)
-            {
-                contextsList.Add(TwitterContextViewModel.FromData(context));
-            }
+            //foreach (var context in twitterContextsList.Result)
+            //{
+            //    contextsList.Add(TwitterContextViewModel.FromData(context));
+            //}
 
             string logoUrl = Url.Content("~/img/twitterRobot.png");
             ViewData["Logo"] = logoUrl;

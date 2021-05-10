@@ -18,26 +18,6 @@ namespace BlockBase.Dapps.NeverForget.Tests
     [TestClass]
     public class BusinessTests
     {
-        #region Recreate Database
-        //using (var context = new NeverForgetBotDbContext())
-        //{
-        //    var resultDrop = context.DropDatabase();
-        //    var resultCreate = context.CreateDatabase();
-        //}
-
-        //var _requestTypeDao = new RequestTypeDataAccessObject();
-
-        //#region Build RequestType Table
-        //RequestType defaultRequest = new RequestType { Id = (int)RequestTypeEnum.Default, Name = "Default" };
-        //RequestType commentRequest = new RequestType { Id = (int)RequestTypeEnum.Comment, Name = "Comment" };
-        //RequestType postRequest = new RequestType { Id = (int)RequestTypeEnum.Post, Name = "Post" };
-
-        //_requestTypeDao.InsertAsync(defaultRequest).Wait();
-        //_requestTypeDao.InsertAsync(commentRequest).Wait();
-        //_requestTypeDao.InsertAsync(postRequest).Wait();
-        //#endregion
-        #endregion
-
         #region Reddit
         [TestMethod]
         public void TestInsertAndGetReddit()
@@ -68,11 +48,10 @@ namespace BlockBase.Dapps.NeverForget.Tests
             var redditSubmissionDAO = new RedditSubmissionDataAccessObject();
             var redditCollector = new RedditCollector();
             var redditPoco = new RedditContextPocoDataAccessObject();
-            var genericDAO = new GenericDataAccessObject();
             var logger = new Mock<ILogger<BaseBusinessObject>>();
-            var redditContextBO = new RedditContextBusinessObject(redditCommentDAO, redditSubmissionDAO, redditPoco, redditCollector, redditContextDAO, genericDAO, logger.Object);
-            var redditCommentBO = new RedditCommentBusinessObject(redditCommentDAO, genericDAO, logger.Object);
-            var redditSubmissionBO = new RedditSubmissionBusinessObject(redditSubmissionDAO, genericDAO, logger.Object);
+            var redditContextBO = new RedditContextBusinessObject(redditCommentDAO, redditSubmissionDAO, redditPoco, redditCollector, redditContextDAO, logger.Object);
+            var redditCommentBO = new RedditCommentBusinessObject(redditCommentDAO, logger.Object);
+            var redditSubmissionBO = new RedditSubmissionBusinessObject(redditSubmissionDAO, logger.Object);
 
             var redditContext = new RedditContext { Id = Guid.NewGuid(), CreatedAt = DateTime.UtcNow, RequestTypeId = defaultRequest.Id };
             redditContextBO.InsertAsync(redditContext).Wait();
@@ -116,11 +95,10 @@ namespace BlockBase.Dapps.NeverForget.Tests
             var redditSubmissionDAO = new RedditSubmissionDataAccessObject();
             var redditCollector = new RedditCollector();
             var redditPoco = new RedditContextPocoDataAccessObject();
-            var genericDAO = new GenericDataAccessObject();
             var logger = new Mock<ILogger<BaseBusinessObject>>();
-            var redditContextBO = new RedditContextBusinessObject(redditCommentDAO, redditSubmissionDAO, redditPoco, redditCollector, redditContextDAO, genericDAO, logger.Object);
-            var redditCommentBO = new RedditCommentBusinessObject(redditCommentDAO, genericDAO, logger.Object);
-            var redditSubmissionBO = new RedditSubmissionBusinessObject(redditSubmissionDAO, genericDAO, logger.Object);
+            var redditContextBO = new RedditContextBusinessObject(redditCommentDAO, redditSubmissionDAO, redditPoco, redditCollector, redditContextDAO, logger.Object);
+            var redditCommentBO = new RedditCommentBusinessObject(redditCommentDAO, logger.Object);
+            var redditSubmissionBO = new RedditSubmissionBusinessObject(redditSubmissionDAO, logger.Object);
 
             var redditContext = new RedditContext { Id = Guid.NewGuid(), CreatedAt = DateTime.UtcNow, RequestTypeId = defaultRequest.Id };
             redditContextBO.InsertAsync(redditContext).Wait();
@@ -172,11 +150,10 @@ namespace BlockBase.Dapps.NeverForget.Tests
             var redditSubmissionDAO = new RedditSubmissionDataAccessObject();
             var redditCollector = new RedditCollector();
             var redditPoco = new RedditContextPocoDataAccessObject();
-            var genericDAO = new GenericDataAccessObject();
             var logger = new Mock<ILogger<BaseBusinessObject>>();
-            var redditContextBO = new RedditContextBusinessObject(redditCommentDAO, redditSubmissionDAO, redditPoco, redditCollector, redditContextDAO, genericDAO, logger.Object);
-            var redditCommentBO = new RedditCommentBusinessObject(redditCommentDAO, genericDAO, logger.Object);
-            var redditSubmissionBO = new RedditSubmissionBusinessObject(redditSubmissionDAO, genericDAO, logger.Object);
+            var redditContextBO = new RedditContextBusinessObject(redditCommentDAO, redditSubmissionDAO, redditPoco, redditCollector, redditContextDAO, logger.Object);
+            var redditCommentBO = new RedditCommentBusinessObject(redditCommentDAO, logger.Object);
+            var redditSubmissionBO = new RedditSubmissionBusinessObject(redditSubmissionDAO, logger.Object);
 
             var redditContext = new RedditContext { Id = Guid.NewGuid(), CreatedAt = DateTime.UtcNow, RequestTypeId = defaultRequest.Id };
             redditContextBO.InsertAsync(redditContext).Wait();
@@ -229,11 +206,10 @@ namespace BlockBase.Dapps.NeverForget.Tests
             var redditSubmissionDAO = new RedditSubmissionDataAccessObject();
             var redditCollector = new RedditCollector();
             var redditPoco = new RedditContextPocoDataAccessObject();
-            var genericDAO = new GenericDataAccessObject();
             var logger = new Mock<ILogger<BaseBusinessObject>>();
-            var redditContextBO = new RedditContextBusinessObject(redditCommentDAO, redditSubmissionDAO, redditPoco, redditCollector, redditContextDAO, genericDAO, logger.Object);
-            var redditCommentBO = new RedditCommentBusinessObject(redditCommentDAO, genericDAO, logger.Object);
-            var redditSubmissionBO = new RedditSubmissionBusinessObject(redditSubmissionDAO, genericDAO, logger.Object);
+            var redditContextBO = new RedditContextBusinessObject(redditCommentDAO, redditSubmissionDAO, redditPoco, redditCollector, redditContextDAO, logger.Object);
+            var redditCommentBO = new RedditCommentBusinessObject(redditCommentDAO, logger.Object);
+            var redditSubmissionBO = new RedditSubmissionBusinessObject(redditSubmissionDAO, logger.Object);
 
             var redditContext = new RedditContext { Id = Guid.NewGuid(), CreatedAt = DateTime.UtcNow, RequestTypeId = defaultRequest.Id };
             redditContextBO.InsertAsync(redditContext).Wait();
@@ -288,11 +264,10 @@ namespace BlockBase.Dapps.NeverForget.Tests
             var twitterSubmissionDAO = new TwitterSubmissionDataAccessObject();
             var twitterCollector = new TwitterCollector();
             var twitterPoco = new TwitterContextPocoDataAccessObject();
-            var genericDAO = new GenericDataAccessObject();
             var logger = new Mock<ILogger<BaseBusinessObject>>();
-            var twitterContextBO = new TwitterContextBusinessObject(twitterContextDAO, twitterCommentDAO, twitterSubmissionDAO, twitterPoco, twitterCollector, genericDAO, logger.Object);
-            var twitterCommentBO = new TwitterCommentBusinessObject(twitterCommentDAO, genericDAO, logger.Object);
-            var twitterSubmissionBO = new TwitterSubmissionBusinessObject(twitterSubmissionDAO, genericDAO, logger.Object);
+            var twitterContextBO = new TwitterContextBusinessObject(twitterContextDAO, twitterCommentDAO, twitterSubmissionDAO, twitterPoco, twitterCollector, logger.Object);
+            var twitterCommentBO = new TwitterCommentBusinessObject(twitterCommentDAO, logger.Object);
+            var twitterSubmissionBO = new TwitterSubmissionBusinessObject(twitterSubmissionDAO, logger.Object);
 
             var twitterContext = new TwitterContext
             {
@@ -367,11 +342,10 @@ namespace BlockBase.Dapps.NeverForget.Tests
             var twitterSubmissionDAO = new TwitterSubmissionDataAccessObject();
             var twitterCollector = new TwitterCollector();
             var twitterPoco = new TwitterContextPocoDataAccessObject();
-            var genericDAO = new GenericDataAccessObject();
             var logger = new Mock<ILogger<BaseBusinessObject>>();
-            var twitterContextBO = new TwitterContextBusinessObject(twitterContextDAO, twitterCommentDAO, twitterSubmissionDAO, twitterPoco, twitterCollector, genericDAO, logger.Object);
-            var twitterCommentBO = new TwitterCommentBusinessObject(twitterCommentDAO, genericDAO, logger.Object);
-            var twitterSubmissionBO = new TwitterSubmissionBusinessObject(twitterSubmissionDAO, genericDAO, logger.Object);
+            var twitterContextBO = new TwitterContextBusinessObject(twitterContextDAO, twitterCommentDAO, twitterSubmissionDAO, twitterPoco, twitterCollector, logger.Object);
+            var twitterCommentBO = new TwitterCommentBusinessObject(twitterCommentDAO, logger.Object);
+            var twitterSubmissionBO = new TwitterSubmissionBusinessObject(twitterSubmissionDAO, logger.Object);
 
             var twitterContext = new TwitterContext
             {
@@ -446,11 +420,10 @@ namespace BlockBase.Dapps.NeverForget.Tests
             var twitterSubmissionDAO = new TwitterSubmissionDataAccessObject();
             var twitterCollector = new TwitterCollector();
             var twitterPoco = new TwitterContextPocoDataAccessObject();
-            var genericDAO = new GenericDataAccessObject();
             var logger = new Mock<ILogger<BaseBusinessObject>>();
-            var twitterContextBO = new TwitterContextBusinessObject(twitterContextDAO, twitterCommentDAO, twitterSubmissionDAO, twitterPoco, twitterCollector, genericDAO, logger.Object);
-            var twitterCommentBO = new TwitterCommentBusinessObject(twitterCommentDAO, genericDAO, logger.Object);
-            var twitterSubmissionBO = new TwitterSubmissionBusinessObject(twitterSubmissionDAO, genericDAO, logger.Object);
+            var twitterContextBO = new TwitterContextBusinessObject(twitterContextDAO, twitterCommentDAO, twitterSubmissionDAO, twitterPoco, twitterCollector, logger.Object);
+            var twitterCommentBO = new TwitterCommentBusinessObject(twitterCommentDAO, logger.Object);
+            var twitterSubmissionBO = new TwitterSubmissionBusinessObject(twitterSubmissionDAO, logger.Object);
 
             var twitterContext = new TwitterContext
             {
@@ -533,11 +506,10 @@ namespace BlockBase.Dapps.NeverForget.Tests
             var twitterSubmissionDAO = new TwitterSubmissionDataAccessObject();
             var twitterCollector = new TwitterCollector();
             var twitterPoco = new TwitterContextPocoDataAccessObject();
-            var genericDAO = new GenericDataAccessObject();
             var logger = new Mock<ILogger<BaseBusinessObject>>();
-            var twitterContextBO = new TwitterContextBusinessObject(twitterContextDAO, twitterCommentDAO, twitterSubmissionDAO, twitterPoco, twitterCollector, genericDAO, logger.Object);
-            var twitterCommentBO = new TwitterCommentBusinessObject(twitterCommentDAO, genericDAO, logger.Object);
-            var twitterSubmissionBO = new TwitterSubmissionBusinessObject(twitterSubmissionDAO, genericDAO, logger.Object);
+            var twitterContextBO = new TwitterContextBusinessObject(twitterContextDAO, twitterCommentDAO, twitterSubmissionDAO, twitterPoco, twitterCollector, logger.Object);
+            var twitterCommentBO = new TwitterCommentBusinessObject(twitterCommentDAO, logger.Object);
+            var twitterSubmissionBO = new TwitterSubmissionBusinessObject(twitterSubmissionDAO, logger.Object);
 
             var twitterContext = new TwitterContext
             {

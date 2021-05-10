@@ -12,12 +12,10 @@ namespace BlockBase.Dapps.NeverForget.Business.BusinessModels
 {
     public abstract class BaseBusinessObject
     {
-        protected readonly IGenericDataAccessObject GenericDataAccessObject;
         private readonly ILogger<BaseBusinessObject> _logger;
 
-        protected BaseBusinessObject(IGenericDataAccessObject genericDataAccessObject, ILogger<BaseBusinessObject> logger)
+        protected BaseBusinessObject(ILogger<BaseBusinessObject> logger)
         {
-            GenericDataAccessObject = genericDataAccessObject;
             _logger = logger;
         }
 
@@ -48,24 +46,13 @@ namespace BlockBase.Dapps.NeverForget.Business.BusinessModels
                 return new OperationResult<TResult>(ex);
             }
         }
-
-        protected async Task CheckIfExists<T>(Guid id, string alternativeName = "") where T : AuditEntity, IEntity
-        {
-            var record = await GenericDataAccessObject.Any<T>((t) => t.Id == id && !t.IsDeleted);
-            if (!record)
-            {
-                if (alternativeName == "") alternativeName = typeof(T).Name;
-                throw new Exception($"{alternativeName} with the id {id} was not found.");
-            }
-        }
-
     }
 
     public class BaseBusinessObject<T> : BaseBusinessObject, IBaseBusinessObject<T> where T : class
     {
         private readonly IBaseDataAccessObject<T> _baseDataAccessObject;
 
-        public BaseBusinessObject(IBaseDataAccessObject<T> baseDataAccessObject, IGenericDataAccessObject genericDataAccessObject, ILogger<BaseBusinessObject> logger) : base(genericDataAccessObject, logger)
+        public BaseBusinessObject(IBaseDataAccessObject<T> baseDataAccessObject, ILogger<BaseBusinessObject> logger) : base(logger)
         {
             _baseDataAccessObject = baseDataAccessObject;
         }
@@ -114,7 +101,7 @@ namespace BlockBase.Dapps.NeverForget.Business.BusinessModels
     {
         private readonly IBaseAuditDataAccessObject<T> _baseAuditDataAccessObject;
 
-        public BaseAuditBusinessObject(IBaseAuditDataAccessObject<T> baseAuditDataAccessObject, IGenericDataAccessObject genericDataAccessObject, ILogger<BaseBusinessObject> logger) : base(genericDataAccessObject, logger)
+        public BaseAuditBusinessObject(IBaseAuditDataAccessObject<T> baseAuditDataAccessObject, ILogger<BaseBusinessObject> logger) : base(logger)
         {
             _baseAuditDataAccessObject = baseAuditDataAccessObject;
         }

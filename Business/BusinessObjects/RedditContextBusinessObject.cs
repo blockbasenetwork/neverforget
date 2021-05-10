@@ -26,7 +26,7 @@ namespace BlockBase.Dapps.NeverForget.Business.BusinessObjects
 
         string url = "http://neverforgetbot.azurewebsites.net/redditcontexts/details/";
 
-        public RedditContextBusinessObject(IRedditCommentDataAccessObject commentDataAccessObject, IRedditSubmissionDataAccessObject submissionDataAccessObject, IRedditContextPocoDataAccessObject pocoDataAccessObject, RedditCollector redditCollector, IRedditContextDataAccessObject dataAccessObject, IGenericDataAccessObject genericDataAccessObject, ILogger<BaseBusinessObject> logger) : base(dataAccessObject, genericDataAccessObject, logger)
+        public RedditContextBusinessObject(IRedditCommentDataAccessObject commentDataAccessObject, IRedditSubmissionDataAccessObject submissionDataAccessObject, IRedditContextPocoDataAccessObject pocoDataAccessObject, RedditCollector redditCollector, IRedditContextDataAccessObject dataAccessObject, ILogger<BaseBusinessObject> logger) : base(dataAccessObject, logger)
         {
             _dataAccessObject = dataAccessObject;
             _commentDataAccessObject = commentDataAccessObject;
@@ -271,7 +271,7 @@ namespace BlockBase.Dapps.NeverForget.Business.BusinessObjects
             return await ExecuteOperation(async () =>
             {
                 var result = await _pocoDataAccessObject.GetAllRedditContexts();
-                return result.ToList();
+                return result.ToList(); //orderby
             });
         }
     }

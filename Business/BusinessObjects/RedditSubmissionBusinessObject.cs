@@ -8,7 +8,7 @@ namespace BlockBase.Dapps.NeverForget.Business.BusinessObjects
 {
     public class RedditSubmissionBusinessObject : BaseAuditBusinessObject<RedditSubmission>, IRedditSubmissionBusinessObject
     {
-        public RedditSubmissionBusinessObject(IRedditSubmissionDataAccessObject dataAccessObject, IGenericDataAccessObject genericDataAccessObject, ILogger<BaseBusinessObject> logger) : base(dataAccessObject, genericDataAccessObject, logger)
+        public RedditSubmissionBusinessObject(IRedditSubmissionDataAccessObject dataAccessObject, ILogger<BaseBusinessObject> logger) : base(dataAccessObject, logger)
         {
         }
     }
