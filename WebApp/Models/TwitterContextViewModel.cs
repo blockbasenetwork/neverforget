@@ -1,4 +1,5 @@
-﻿using BlockBase.Dapps.NeverForget.Data.Pocos;
+﻿using BlockBase.Dapps.NeverForget.Business.BusinessModels;
+using BlockBase.Dapps.NeverForget.Data.Pocos;
 using System;
 using System.Linq;
 
@@ -13,32 +14,32 @@ namespace BlockBase.Dapps.NeverForget.WebApp.Models
         public string Link { get; set; }
         public string? MediaLink { get; set; }
 
-        public static TwitterContextViewModel FromData(TwitterContextPoco twitterContext)
+        public static TwitterContextViewModel FromData(TwitterContextBusinessModel model)
         {
-            //TwitterContextViewModel twitterContextViewModel = new TwitterContextViewModel
-            //{
-            //    Id = twitterContext.ContextId
-            //};
+            TwitterContextViewModel twitterContextViewModel = new TwitterContextViewModel
+            {
+                Id = model.Id
+            };
 
-            //if (twitterContext.SubmissionLink == null)
-            //{
-            //    twitterContextViewModel.Date = twitterContext.CommentDate;
-            //    twitterContextViewModel.Author = twitterContext.CommentAuthor;
-            //    twitterContextViewModel.Content = twitterContext.CommentContent;
-            //    twitterContextViewModel.Link = twitterContext.CommentLink;
-            //    twitterContextViewModel.MediaLink = twitterContext.CommentMediaLink;
-            //}
-            //else
-            //{
-            //    twitterContextViewModel.Date = twitterContext.SubmissionDate;
-            //    twitterContextViewModel.Author = twitterContext.SubmissionAuthor;
-            //    twitterContextViewModel.Content = twitterContext.SubmissionContent;
-            //    twitterContextViewModel.Link = twitterContext.SubmissionLink;
-            //    twitterContextViewModel.MediaLink = twitterContext.SubmissionMediaLink;
-            //}
+            if (model.TwitterComments.Count == 2)
+            {
+                var comments = model.TwitterComments.OrderBy(c => c.CommentDate);
+                twitterContextViewModel.Date = comments.ElementAt(0).CommentDate;
+                twitterContextViewModel.Author = comments.ElementAt(0).Author;
+                twitterContextViewModel.Content = comments.ElementAt(0).Content;
+                twitterContextViewModel.Link = comments.ElementAt(0).Link;
+                twitterContextViewModel.MediaLink = comments.ElementAt(0).MediaLink;
+            }
+            else
+            {
+                twitterContextViewModel.Date = model.TwitterSubmission.SubmissionDate;
+                twitterContextViewModel.Author = model.TwitterSubmission.Author;
+                twitterContextViewModel.Content = model.TwitterSubmission.Content;
+                twitterContextViewModel.Link = model.TwitterSubmission.Link;
+                twitterContextViewModel.MediaLink = model.TwitterSubmission.MediaLink;
+            }
 
-            //return twitterContextViewModel;
-            return new TwitterContextViewModel();
+            return twitterContextViewModel;
         }
     }
 }

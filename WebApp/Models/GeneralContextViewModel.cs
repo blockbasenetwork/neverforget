@@ -15,7 +15,7 @@ namespace BlockBase.Dapps.NeverForget.WebApp.Models
         public string? Title { get; set; }
         public string Content { get; set; }
 
-        public static GeneralContextViewModel FromData(GeneralContextPoco generalContext) //STATIC???
+        public static GeneralContextViewModel FromData(GeneralContextPoco generalContext)
         {
             GeneralContextViewModel generalViewModel = new GeneralContextViewModel
             {

@@ -211,21 +211,36 @@ namespace BlockBase.Dapps.NeverForget.Business.BusinessObjects
 
 
 
-        public async Task<OperationResult<TwitterContextPoco>> GetPocoAsync(Guid id)
+        public async Task<OperationResult<TwitterContextBusinessModel>> GetPocoAsync(Guid id)
         {
             return await ExecuteOperation(async () =>
             {
                 var result = await _pocoDataAccessObject.GetTwitterContextById(id);
-                return result;
+
+                var context = result.GroupBy(c => c.ContextId).FirstOrDefault();
+
+                var detail = TwitterContextBusinessModel.From(context, id);
+
+                return detail;
             });
         }
 
-        public async Task<OperationResult<List<TwitterContextPoco>>> GetAllPocoAsync()
+        public async Task<OperationResult<List<TwitterContextBusinessModel>>> GetAllPocoAsync()
         {
             return await ExecuteOperation(async () =>
             {
                 var result = await _pocoDataAccessObject.GetAllTwitterContexts();
-                return result.OrderBy(t => t.ContextCreatedAt).ToList();
+
+                var contexts = new List<TwitterContextBusinessModel>();
+
+                var contextPocos = result.GroupBy(c => c.ContextId);
+
+                foreach (var context in contextPocos)
+                {
+                    contexts.Add(TwitterContextBusinessModel.From(context, context.Key));
+                }
+
+                return contexts;
             });
         }        
     }

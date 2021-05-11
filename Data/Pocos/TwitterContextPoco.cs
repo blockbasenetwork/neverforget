@@ -19,10 +19,5 @@ namespace BlockBase.Dapps.NeverForget.Data.Pocos
         public virtual string SubmissionLink { get; set; }
         public virtual string? SubmissionMediaLink { get; set; }
         public virtual DateTime SubmissionDate { get; set; }
-        public virtual string ParentCommentContent { get; set; }
-        public virtual string ParentCommentAuthor { get; set; }
-        public virtual string ParentCommentLink { get; set; }
-        public virtual string? ParentCommentMediaLink { get; set; }
-        public virtual DateTime ParentCommentDate { get; set; }
     }
 }
