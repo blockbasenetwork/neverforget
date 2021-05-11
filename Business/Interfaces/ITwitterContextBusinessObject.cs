@@ -1,7 +1,6 @@
 ﻿using BlockBase.Dapps.NeverForget.Business.BusinessModels;
 using BlockBase.Dapps.NeverForget.Business.BusinessModels.OperationResults;
 using BlockBase.Dapps.NeverForget.Data.Entities;
-using BlockBase.Dapps.NeverForget.Data.Pocos;
 using BlockBase.Dapps.NeverForget.Services.API.Models;
 using System;
 using System.Collections.Generic;

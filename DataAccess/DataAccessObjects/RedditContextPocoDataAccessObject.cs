@@ -13,67 +13,83 @@ namespace BlockBase.Dapps.NeverForget.DataAccess.DataAccessObjects
 {
     public class RedditContextPocoDataAccessObject : IRedditContextPocoDataAccessObject
     {
-        public async Task<RedditContextPoco> GetRedditContextById(Guid contextId)
+        public async Task<List<RedditContextPoco>> GetRedditContextById(Guid contextId)
         {
-            RedditContextPoco result = new RedditContextPoco();
             using (var _context = new NeverForgetBotDbContext())
             {
-                var retrievedContext = await _context.RedditContext.Where((rCtx) => (rCtx.Id == contextId) && (rCtx.IsDeleted == false)).SelectAsync();
+                List<RedditContextPoco> context = new List<RedditContextPoco>();
 
-                if (retrievedContext.Count() != 0)
-                {
-                    var retrievedComments = await _context.RedditComment.Where((rCom) => (rCom.RedditContextId == contextId)).SelectAsync();
-                    var retrievedSubmission = await _context.RedditSubmission.Where((rSub) => (rSub.RedditContextId == contextId)).SelectAsync();
-                    foreach (var item in retrievedContext)
+                var redditContext = await _context.RedditContext.Join<RedditComment>(BlockBaseJoinEnum.Left).Join<RedditSubmission>(BlockBaseJoinEnum.Left)
+                    .Where((redditContext, redditComment, redditSubmission) => (!redditContext.IsDeleted) && (redditContext.Id == contextId))
+                    .SelectAsync((redditContext, redditComment, redditSubmission) => new RedditContextPoco
                     {
-                        result.Context = item;
-                    }
-                    foreach (var item in retrievedSubmission)
-                    {
-                        result.Submission = item;
-                    }
-                    foreach (var item in retrievedComments)
-                    {
-                        result.Comments.Add(item);
-                    }
-                }
-                return result;
+                        ContextId = redditContext.Id,
+                        ContextCreatedAt = redditContext.CreatedAt,
+                        CommentContent = redditComment.Content,
+                        CommentAuthor = redditComment.Author,
+                        CommentLink = redditComment.Link,
+                        CommentSubReddit = redditComment.SubReddit,
+                        CommentDate = redditComment.CommentDate,
+                        SubmissionContent = redditSubmission.Content,
+                        SubmissionAuthor = redditSubmission.Author,
+                        SubmissionLink = redditSubmission.Link,
+                        SubmissionMediaLink = redditSubmission.MediaLink,
+                        SubmissionSubReddit = redditSubmission.SubReddit,
+                        SubmissionTitle = redditSubmission.Title,
+                        SubmissionDate = redditSubmission.SubmissionDate,
+                    });
+
+                return redditContext.ToList();
             }
         }
 
         public async Task<List<RedditContextPoco>> GetAllRedditContexts()
         {
-            List<RedditContextPoco> result = new List<RedditContextPoco>();
             using (var _context = new NeverForgetBotDbContext())
             {
-                var retrievedContextIds = await _context.RedditContext.Where(rCtx => rCtx.IsDeleted == false).SelectAsync((rCtx) => new RedditContext() { Id = rCtx.Id });
+                List<RedditContextPoco> contextList = new List<RedditContextPoco>();
 
-                foreach (var context in retrievedContextIds)
-                {
-                    result.Add(GetRedditContextById(context.Id).Result);
-                }
+                var redditContext = await _context.RedditContext.Join<RedditComment>(BlockBaseJoinEnum.Left).Join<RedditSubmission>(BlockBaseJoinEnum.Left)
+                    .Where((redditContext, redditComment, redditSubmission) => (!redditContext.IsDeleted))
+                    .SelectAsync((redditContext, redditComment, redditSubmission) => new RedditContextPoco
+                    {
+                        ContextId = redditContext.Id,
+                        ContextCreatedAt = redditContext.CreatedAt,
+                        CommentContent = redditComment.Content,
+                        CommentAuthor = redditComment.Author,
+                        CommentLink = redditComment.Link,
+                        CommentSubReddit = redditComment.SubReddit,
+                        CommentDate = redditComment.CommentDate,
+                        SubmissionContent = redditSubmission.Content,
+                        SubmissionAuthor = redditSubmission.Author,
+                        SubmissionLink = redditSubmission.Link,
+                        SubmissionMediaLink = redditSubmission.MediaLink,
+                        SubmissionSubReddit = redditSubmission.SubReddit,
+                        SubmissionTitle = redditSubmission.Title,
+                        SubmissionDate = redditSubmission.SubmissionDate,
+                    });
+
+                return redditContext.ToList();
             }
-            return result;
         }
 
         public async Task<List<GeneralContextPoco>> GetRecentReddit()
         {
             using (var _context = new NeverForgetBotDbContext())
             {
-                var recentReddits = await _context.RedditContext.Join<RedditSubmission>(BlockBaseJoinEnum.Left)
-                     .Where((redditContext, redditSubmission) => (redditContext.Id == redditSubmission.RedditContextId) && (!redditContext.IsDeleted))
-                     .SelectAsync((redditContext, redditSubmission) => new GeneralContextPoco
-                     {
-                         SourceType = SourceTypeEnum.Reddit,
-                         Date = redditSubmission.SubmissionDate,
-                         Author = redditSubmission.Author,
-                         Title = redditSubmission.Title,
-                         Content = redditSubmission.Content
-                     });
+                var recentPosts = await _context.RedditContext.Join<RedditSubmission>(BlockBaseJoinEnum.Left)
+                    .Where((redditContext, redditSubmission) => (!redditContext.IsDeleted))
+                    .SelectAsync((redditContext, redditSubmission) => new GeneralContextPoco
+                    {
+                        SourceType = SourceTypeEnum.Reddit,
+                        Date = redditSubmission.SubmissionDate,
+                        Author = redditSubmission.Author,
+                        Content = redditSubmission.Content,
+                        Title = redditSubmission.Title
+                    });
 
-                return recentReddits.OrderByDescending((reddit) => reddit.Date).Take(10).ToList();
+                return recentPosts.OrderByDescending((reddit) => reddit.Date).Take(10).ToList();
             }
         }
-
     }
 }

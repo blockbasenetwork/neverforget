@@ -3,7 +3,6 @@ using BlockBase.Dapps.NeverForget.Business.BusinessModels.OperationResults;
 using BlockBase.Dapps.NeverForget.Business.Interfaces;
 using BlockBase.Dapps.NeverForget.Common.Enums;
 using BlockBase.Dapps.NeverForget.Data.Entities;
-using BlockBase.Dapps.NeverForget.Data.Pocos;
 using BlockBase.Dapps.NeverForget.DataAccess.Interfaces;
 using BlockBase.Dapps.NeverForget.Services.API;
 using BlockBase.Dapps.NeverForget.Services.API.Models;
@@ -219,7 +218,7 @@ namespace BlockBase.Dapps.NeverForget.Business.BusinessObjects
 
                 var context = result.GroupBy(c => c.ContextId).FirstOrDefault();
 
-                var detail = TwitterContextBusinessModel.From(context, id);
+                var detail = TwitterContextBusinessModel.From(id, context);
 
                 return detail;
             });
@@ -237,11 +236,11 @@ namespace BlockBase.Dapps.NeverForget.Business.BusinessObjects
 
                 foreach (var context in contextPocos)
                 {
-                    contexts.Add(TwitterContextBusinessModel.From(context, context.Key));
+                    contexts.Add(TwitterContextBusinessModel.From(context.Key, context));
                 }
 
                 return contexts;
             });
-        }        
+        }
     }
 }

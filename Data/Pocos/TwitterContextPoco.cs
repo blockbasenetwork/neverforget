@@ -1,7 +1,4 @@
-﻿using BlockBase.Dapps.NeverForget.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 
 namespace BlockBase.Dapps.NeverForget.Data.Pocos
 {

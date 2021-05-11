@@ -1,4 +1,4 @@
-﻿using BlockBase.Dapps.NeverForget.Data.Pocos;
+﻿using BlockBase.Dapps.NeverForget.Business.BusinessModels;
 using System;
 using System.Linq;
 
@@ -9,46 +9,39 @@ namespace BlockBase.Dapps.NeverForget.WebApp.Models
         public Guid Id { get; set; }
         public string? Content { get; set; }
         public string Author { get; set; }
-        public string Subreddit { get; set; }
+        public string SubReddit { get; set; }
         public string Link { get; set; }
         public string? MediaLink { get; set; }
         public string? Title { get; set; }
         public DateTime Date { get; set; }
-        public int RequestTypeId { get; set; }
 
-        public static RedditContextViewModel FromData(RedditContextPoco redditContext)
+        public static RedditContextViewModel FromData(RedditContextBusinessModel model)
         {
             RedditContextViewModel redditContextViewModel = new RedditContextViewModel
             {
-                Id = redditContext.Context.Id,
-                RequestTypeId = redditContext.Context.RequestTypeId
+                Id = model.Id
             };
 
-            redditContext.Comments.OrderByDescending(c => c.CommentDate).ToList();
-            redditContext.Comments.RemoveAt(0);
-
-            if (redditContext.Comments.Count == 0)
+            if (model.RedditComments.Count == 2)
             {
-                redditContextViewModel.Author = redditContext.Submission.Author;
-                redditContextViewModel.Content = redditContext.Submission.Content;
-                redditContextViewModel.Id = redditContext.Context.Id;
-                redditContextViewModel.Date = redditContext.Submission.SubmissionDate;
-                redditContextViewModel.Subreddit = redditContext.Submission.SubReddit;
-                redditContextViewModel.Title = redditContext.Submission.Title;
-                redditContextViewModel.Link = redditContext.Submission.Link;
-                redditContextViewModel.MediaLink = redditContext.Submission.MediaLink;
-
+                var comments = model.RedditComments.OrderBy(c => c.CommentDate);
+                redditContextViewModel.Date = comments.ElementAt(0).CommentDate;
+                redditContextViewModel.Author = comments.ElementAt(0).Author;
+                redditContextViewModel.Content = comments.ElementAt(0).Content;
+                redditContextViewModel.Link = comments.ElementAt(0).Link;
+                redditContextViewModel.SubReddit = comments.ElementAt(0).SubReddit;
             }
             else
             {
-                redditContextViewModel.Author = redditContext.Comments[0].Author;
-                redditContextViewModel.Content = redditContext.Comments[0].Content;
-                redditContextViewModel.Id = redditContext.Context.Id;
-                redditContextViewModel.Date = redditContext.Comments[0].CommentDate;
-                redditContextViewModel.Subreddit = redditContext.Comments[0].SubReddit;
-                redditContextViewModel.Link = redditContext.Comments[0].Link;
-
+                redditContextViewModel.Date = model.RedditSubmission.SubmissionDate;
+                redditContextViewModel.Author = model.RedditSubmission.Author;
+                redditContextViewModel.Content = model.RedditSubmission.Content;
+                redditContextViewModel.Link = model.RedditSubmission.Link;
+                redditContextViewModel.MediaLink = model.RedditSubmission.MediaLink;
+                redditContextViewModel.SubReddit = model.RedditSubmission.SubReddit;
+                redditContextViewModel.Title = model.RedditSubmission.Title;
             }
+
             return redditContextViewModel;
         }
     }

@@ -1,10 +1,8 @@
 ﻿using BlockBase.Dapps.NeverForget.Business.BusinessModels;
-using BlockBase.Dapps.NeverForget.Business.BusinessModels.OperationResults;
 using BlockBase.Dapps.NeverForget.Business.BusinessObjects;
 using BlockBase.Dapps.NeverForget.Common.Enums;
 using BlockBase.Dapps.NeverForget.Data.Context;
 using BlockBase.Dapps.NeverForget.Data.Entities;
-using BlockBase.Dapps.NeverForget.DataAccess.DataAccessModels;
 using BlockBase.Dapps.NeverForget.DataAccess.DataAccessObjects;
 using BlockBase.Dapps.NeverForget.Services.API;
 using Microsoft.Extensions.Logging;
@@ -231,7 +229,6 @@ namespace BlockBase.Dapps.NeverForget.Tests
         }
 
         #endregion
-
 
 
         #region Twitter
@@ -552,7 +549,7 @@ namespace BlockBase.Dapps.NeverForget.Tests
             twitterContextBO.DeleteAsync(twitterContext).Wait();
             twitterCommentBO.DeleteAsync(twitterComment).Wait();
             twitterSubmissionBO.DeleteAsync(twitterSubmission).Wait();
-            
+
             var resGetCon = twitterContextBO.GetAsync(twitterContext.Id).Result.Result;
             var resGetCom = twitterCommentBO.GetAsync(twitterComment.Id).Result.Result;
             var resGetSub = twitterSubmissionBO.GetAsync(twitterSubmission.Id).Result.Result;

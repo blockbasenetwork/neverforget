@@ -1,4 +1,4 @@
-﻿using BlockBase.Dapps.NeverForget.Data.Pocos;
+﻿using BlockBase.Dapps.NeverForget.Business.BusinessModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,54 +10,48 @@ namespace BlockBase.Dapps.NeverForget.WebApp.Models
         public Guid Id { get; set; }
         public List<RedditDetail> Comments { get; set; }
         public RedditDetail Submission { get; set; }
-        public int RequestTypeId { get; set; }
 
         public RedditDetailsViewModel()
         {
             Comments = new List<RedditDetail>();
-            Submission = new RedditDetail();
         }
 
-        public static RedditDetailsViewModel FromData(RedditContextPoco context)
+        public static RedditDetailsViewModel FromData(RedditContextBusinessModel model)
         {
-            RedditDetailsViewModel redditDetailsViewModel = new RedditDetailsViewModel
+            RedditDetailsViewModel redditDetailViewModel = new RedditDetailsViewModel
             {
-                Id = context.Context.Id,
-                RequestTypeId = context.Context.RequestTypeId
+                Id = model.Id,
+                Comments = new List<RedditDetail>()
             };
 
-            context.Comments = context.Comments.OrderBy(c => c.CommentDate).ToList();
-
-            foreach (var comment in context.Comments)
+            var comments = model.RedditComments.OrderBy(c => c.CommentDate);
+            foreach (var comment in comments)
             {
-                redditDetailsViewModel.Comments.Add(new RedditDetail()
+                redditDetailViewModel.Comments.Add(new RedditDetail()
                 {
-                    Id = comment.Id,
-                    Subreddit = comment.SubReddit,
-                    Content = comment.Content,
-                    Author = comment.Author,
                     Date = comment.CommentDate,
-                    Link = comment.Link
+                    Author = comment.Author,
+                    Content = comment.Content,
+                    Link = comment.Link,
+                    SubReddit = comment.SubReddit
                 });
             }
 
-            if (context.Submission != null)
+            if (model.RedditSubmission != null)
             {
-                redditDetailsViewModel.Submission.Id = context.Submission.Id;
-                redditDetailsViewModel.Submission.Title = context.Submission.Title;
-                redditDetailsViewModel.Submission.Subreddit = context.Submission.SubReddit;
-                redditDetailsViewModel.Submission.Content = context.Submission.Content;
-                redditDetailsViewModel.Submission.Author = context.Submission.Author;
-                redditDetailsViewModel.Submission.Date = context.Submission.SubmissionDate;
-                redditDetailsViewModel.Submission.Link = context.Submission.Link;
-                redditDetailsViewModel.Submission.MediaLink = context.Submission.MediaLink;
-            }
-            else
-            {
-                redditDetailsViewModel.Submission = null;
+                redditDetailViewModel.Submission = new RedditDetail()
+                {
+                    Date = model.RedditSubmission.SubmissionDate,
+                    Author = model.RedditSubmission.Author,
+                    Content = model.RedditSubmission.Content,
+                    Link = model.RedditSubmission.Link,
+                    MediaLink = model.RedditSubmission.MediaLink,
+                    SubReddit = model.RedditSubmission.SubReddit,
+                    Title = model.RedditSubmission.Title
+                };
             }
 
-            return redditDetailsViewModel;
+            return redditDetailViewModel;
         }
     }
 
@@ -65,7 +59,7 @@ namespace BlockBase.Dapps.NeverForget.WebApp.Models
     {
         public Guid Id { get; set; }
         public string? Title { get; set; }
-        public string? Subreddit { get; set; }
+        public string? SubReddit { get; set; }
         public string Content { get; set; }
         public string Author { get; set; }
         public DateTime Date { get; set; }

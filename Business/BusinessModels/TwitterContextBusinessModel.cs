@@ -1,8 +1,6 @@
 ﻿using BlockBase.Dapps.NeverForget.Data.Pocos;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace BlockBase.Dapps.NeverForget.Business.BusinessModels
 {
@@ -12,7 +10,7 @@ namespace BlockBase.Dapps.NeverForget.Business.BusinessModels
         public virtual ICollection<TwitterCommentBusinessModel> TwitterComments { get; set; }
         public virtual TwitterSubmissionBusinessModel TwitterSubmission { get; set; }
 
-        public static TwitterContextBusinessModel From(IEnumerable<TwitterContextPoco> model, Guid contextId)
+        public static TwitterContextBusinessModel From(Guid contextId, IEnumerable<TwitterContextPoco> model)
         {
             var context = new TwitterContextBusinessModel()
             {
@@ -24,7 +22,7 @@ namespace BlockBase.Dapps.NeverForget.Business.BusinessModels
             {
                 var submission = TwitterSubmissionBusinessModel.From(ctx);
 
-                if(submission != null)
+                if (submission != null)
                 {
                     context.TwitterSubmission = submission;
                 }

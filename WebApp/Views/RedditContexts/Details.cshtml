@@ -8,8 +8,8 @@
                 @if (Model.Submission != null)
                 {
                     var dateToString = Model.Submission.Date.ToString("yyyy/MM/dd");
-                    <a href="https://www.reddit.com/r/@Model.Submission.Subreddit/">
-                        <h6 class="card-title d-block"><u>r/@Html.DisplayFor(item => Model.Submission.Subreddit)</u></h6>
+                    <a href="https://www.reddit.com/r/@Model.Submission.SubReddit/">
+                        <h6 class="card-title d-block"><u>r/@Html.DisplayFor(item => Model.Submission.SubReddit)</u></h6>
                     </a>
                     <h5 class="card-title d-block">@Html.DisplayFor(item => Model.Submission.Title)</h5>
                     <div class="card-text">@Html.DisplayFor(item => Model.Submission.Content)</div>
@@ -40,8 +40,8 @@
                 else
                 {
                     var dateToString = Model.Comments[0].Date.ToString("yyyy/MM/dd");
-                    <a href="https://www.reddit.com/r/@Model.Comments[0].Subreddit/">
-                        <h6 class="card-title d-block"><u>r/@Html.DisplayFor(item => Model.Comments[0].Subreddit)</u></h6>
+                    <a href="https://www.reddit.com/r/@Model.Comments[0].SubReddit/">
+                        <h6 class="card-title d-block"><u>r/@Html.DisplayFor(item => Model.Comments[0].SubReddit)</u></h6>
                     </a>
                     <div class="card-text content">@Html.DisplayFor(item => Model.Comments[0].Content)</div>
                     <hr>

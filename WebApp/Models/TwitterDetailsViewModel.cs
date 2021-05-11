@@ -1,5 +1,4 @@
 ﻿using BlockBase.Dapps.NeverForget.Business.BusinessModels;
-using BlockBase.Dapps.NeverForget.Data.Pocos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ namespace BlockBase.Dapps.NeverForget.WebApp.Models
 {
     public class TwitterDetailsViewModel
     {
-        
+
 
         public Guid Id { get; set; }
         public List<TwitterDetail> Comments { get; set; }
@@ -40,7 +39,7 @@ namespace BlockBase.Dapps.NeverForget.WebApp.Models
                 });
             }
 
-            if(model.TwitterSubmission != null)
+            if (model.TwitterSubmission != null)
             {
                 twitterDetailViewModel.Submission = new TwitterDetail()
                 {
@@ -50,7 +49,7 @@ namespace BlockBase.Dapps.NeverForget.WebApp.Models
                     Link = model.TwitterSubmission.Link,
                     MediaLink = model.TwitterSubmission.MediaLink
                 };
-            }            
+            }
 
             return twitterDetailViewModel;
         }

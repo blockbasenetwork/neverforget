@@ -1,9 +1,6 @@
 ﻿using BlockBase.Dapps.NeverForget.Common.Enums;
 using BlockBase.Dapps.NeverForget.Data.Pocos;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForget.WebApp.Models
 {

@@ -7,7 +7,7 @@ namespace BlockBase.Dapps.NeverForget.DataAccess.Interfaces
 {
     public interface IRedditContextPocoDataAccessObject
     {
-        Task<RedditContextPoco> GetRedditContextById(Guid contextId);
+        Task<List<RedditContextPoco>> GetRedditContextById(Guid contextId);
         Task<List<RedditContextPoco>> GetAllRedditContexts();
         Task<List<GeneralContextPoco>> GetRecentReddit();
     }

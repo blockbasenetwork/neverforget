@@ -3,26 +3,26 @@ using System;
 
 namespace BlockBase.Dapps.NeverForget.Business.BusinessModels
 {
-    public class TwitterCommentBusinessModel
+    public class RedditCommentBusinessModel
     {
         public string Content { get; set; }
         public string Author { get; set; }
-        public string? MediaLink { get; set; }
         public string Link { get; set; }
+        public string SubReddit { get; set; }
         public DateTime CommentDate { get; set; }
 
-        public static TwitterCommentBusinessModel From(TwitterContextPoco model)
+        public static RedditCommentBusinessModel From(RedditContextPoco model)
         {
             if (model.CommentAuthor == null)
                 return null;
 
-            return new TwitterCommentBusinessModel()
+            return new RedditCommentBusinessModel()
             {
                 Content = model.CommentContent,
                 Author = model.CommentAuthor,
                 CommentDate = model.CommentDate,
                 Link = model.CommentLink,
-                MediaLink = model.CommentMediaLink
+                SubReddit = model.CommentSubReddit
             };
         }
     }

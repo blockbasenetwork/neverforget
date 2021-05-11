@@ -257,21 +257,36 @@ namespace BlockBase.Dapps.NeverForget.Business.BusinessObjects
         }
         #endregion
 
-        public async Task<OperationResult<RedditContextPoco>> GetPocoAsync(Guid id)
+        public async Task<OperationResult<RedditContextBusinessModel>> GetPocoAsync(Guid id)
         {
             return await ExecuteOperation(async () =>
             {
                 var result = await _pocoDataAccessObject.GetRedditContextById(id);
-                return result;
+
+                var context = result.GroupBy(c => c.ContextId).FirstOrDefault();
+
+                var detail = RedditContextBusinessModel.From(id, context);
+
+                return detail;
             });
         }
 
-        public async Task<OperationResult<List<RedditContextPoco>>> GetAllPocoAsync()
+        public async Task<OperationResult<List<RedditContextBusinessModel>>> GetAllPocoAsync()
         {
             return await ExecuteOperation(async () =>
             {
                 var result = await _pocoDataAccessObject.GetAllRedditContexts();
-                return result.ToList(); //orderby
+
+                var contexts = new List<RedditContextBusinessModel>();
+
+                var contextPocos = result.GroupBy(c => c.ContextId);
+
+                foreach (var context in contextPocos)
+                {
+                    contexts.Add(RedditContextBusinessModel.From(context.Key, context));
+                }
+
+                return contexts;
             });
         }
     }
