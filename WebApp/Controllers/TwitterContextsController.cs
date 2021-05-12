@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForget.WebApp.Controllers
@@ -35,7 +36,7 @@ namespace BlockBase.Dapps.NeverForget.WebApp.Controllers
             string logoUrl = Url.Content("~/img/twitterRobot.png");
             ViewData["Logo"] = logoUrl;
 
-            return View(contextsList);
+            return View(contextsList.OrderByDescending(c => c.Date));
         }
 
         [HttpGet("TwitterContexts/Details/{contextId}")]

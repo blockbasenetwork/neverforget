@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForget.WebApp.Controllers
@@ -36,7 +37,7 @@ namespace BlockBase.Dapps.NeverForget.WebApp.Controllers
             string logoUrl = Url.Content("~/img/redditRobot.png");
             ViewData["Logo"] = logoUrl;
 
-            return View(list);
+            return View(list.OrderByDescending(c => c.Date));
         }
 
         [HttpGet("RedditContexts/Details/{id}")]

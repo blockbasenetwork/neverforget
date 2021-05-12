@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 
 namespace BlockBase.Dapps.NeverForget.WebApp
 {
@@ -15,6 +16,7 @@ namespace BlockBase.Dapps.NeverForget.WebApp
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                });
+                })
+            .UseSerilog();
     }
 }
