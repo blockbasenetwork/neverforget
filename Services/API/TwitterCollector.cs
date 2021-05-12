@@ -51,7 +51,7 @@ namespace BlockBase.Dapps.NeverForget.Services.API
             try
             {
                 var tweet = await TwitterApi.Client.Tweets.GetTweetAsync(long.Parse(contextId));
-                var reply = await TwitterApi.Client.Tweets.PublishTweetAsync(new PublishTweetParameters($"There is a deleted tweet in the thread. Call me in another tweet.")
+                var reply = await TwitterApi.Client.Tweets.PublishTweetAsync(new PublishTweetParameters($"@{tweet.CreatedBy} There is a deleted tweet in the thread. Call me in another tweet.")
                 {
                     InReplyToTweet = tweet
                 });
@@ -71,7 +71,7 @@ namespace BlockBase.Dapps.NeverForget.Services.API
             try
             {
                 var tweet = await TwitterApi.Client.Tweets.GetTweetAsync(long.Parse(contextId));
-                var reply = await TwitterApi.Client.Tweets.PublishTweetAsync(new PublishTweetParameters($"There is nothing above to save. Call me in another tweet.")
+                var reply = await TwitterApi.Client.Tweets.PublishTweetAsync(new PublishTweetParameters($"@{tweet.CreatedBy} There is nothing above to save. Call me in another tweet.")
                 {
                     InReplyToTweet = tweet
                 });
@@ -91,7 +91,7 @@ namespace BlockBase.Dapps.NeverForget.Services.API
             try
             {
                 var tweet = await TwitterApi.Client.Tweets.GetTweetAsync(long.Parse(contextId));
-                var reply = await TwitterApi.Client.Tweets.PublishTweetAsync(new PublishTweetParameters($"Never Forget { url }")
+                var reply = await TwitterApi.Client.Tweets.PublishTweetAsync(new PublishTweetParameters($"@{tweet.CreatedBy} Never Forget - { url }")
                 {
                     InReplyToTweet = tweet
                 });

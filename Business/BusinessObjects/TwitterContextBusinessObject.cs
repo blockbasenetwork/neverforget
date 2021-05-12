@@ -76,7 +76,7 @@ namespace BlockBase.Dapps.NeverForget.Business.BusinessObjects
 
                                     if (await _dataAccessObject.IsContextPresent(contextModel.Id) && await _dataAccessObject.IsSubmissionPresent(contextModel.Id))
                                     {
-                                        //await _twitterCollector.PublishUrl($"{url}{contextIdToPublish}", model.Id);
+                                        await _twitterCollector.PublishUrl($"{url}{contextIdToPublish}", model.Id);
                                     }
                                 }
                                 else
@@ -91,7 +91,7 @@ namespace BlockBase.Dapps.NeverForget.Business.BusinessObjects
 
                                     if (await _dataAccessObject.IsContextPresent(contextModel.Id) && await _dataAccessObject.IsCommentPresent(contextModel.Id))
                                     {
-                                        //await _twitterCollector.PublishUrl($"{url}{contextIdToPublish}", model.Id);
+                                        await _twitterCollector.PublishUrl($"{url}{contextIdToPublish}", model.Id);
                                     }
                                 }
                             }
@@ -110,12 +110,12 @@ namespace BlockBase.Dapps.NeverForget.Business.BusinessObjects
                                 contextModel.DeletedAt = DateTime.UtcNow;
                                 await _dataAccessObject.InsertAsync(contextModel);
                                 await _commentDataAccessObject.InsertAsync(comment);
-                                //await _twitterCollector.ReplyWithError(model.Id);
+                                await _twitterCollector.ReplyWithError(model.Id);
                             }
                         }
                         else
                         {
-                            //await _twitterCollector.ReplyWithUnable(model.Id);
+                            await _twitterCollector.ReplyWithUnable(model.Id);
                         }
                     }
 
@@ -136,7 +136,7 @@ namespace BlockBase.Dapps.NeverForget.Business.BusinessObjects
 
                                 if (await _dataAccessObject.IsContextPresent(contextModel.Id) && await _dataAccessObject.IsSubmissionPresent(contextModel.Id))
                                 {
-                                    //await _twitterCollector.PublishUrl($"{url}{contextIdToPublish}", model.Id);
+                                    await _twitterCollector.PublishUrl($"{url}{contextIdToPublish}", model.Id);
                                 }
                             }
                             else
@@ -154,12 +154,12 @@ namespace BlockBase.Dapps.NeverForget.Business.BusinessObjects
                                 contextModel.DeletedAt = DateTime.UtcNow;
                                 await _dataAccessObject.InsertAsync(contextModel);
                                 await _commentDataAccessObject.InsertAsync(comment);
-                                //await _twitterCollector.ReplyWithError(model.Id);
+                                await _twitterCollector.ReplyWithError(model.Id);
                             }
                         }
                         else
                         {
-                            //await _twitterCollector.ReplyWithUnable(model.Id);
+                            await _twitterCollector.ReplyWithUnable(model.Id);
                         }
                     }
                     #endregion
