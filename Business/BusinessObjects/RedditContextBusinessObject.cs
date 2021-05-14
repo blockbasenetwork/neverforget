@@ -37,7 +37,7 @@ namespace BlockBase.Dapps.NeverForget.Business.BusinessObjects
 
         public async Task<OperationResult> FromApiRedditAllComments()
         {
-            int lastDate = 0;
+            int lastDate = 1611131718;
             RedditCommentModel[] commentBatch = new RedditCommentModel[] { };
 
             return await ExecuteOperation(async () =>
@@ -144,7 +144,7 @@ namespace BlockBase.Dapps.NeverForget.Business.BusinessObjects
                     #endregion
                 });
                 result.Add(opResult);
-                //await PublishReplies(toReply);
+                await PublishReplies(toReply);
             }
             return result;
         }

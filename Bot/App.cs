@@ -52,20 +52,19 @@ namespace BlockBase.Dapps.NeverForget.Bot
             //#endregion
             #endregion
 
-            //_redditCollector.CreateLastCommentDate(1611131718);
 
 
-            //ApiHelper.InitializeClient();
+            ApiHelper.InitializeClient();
 
-            //RedditApi.AuthenticateClient();
-            //await _redditContextBusinessObject.FromApiRedditAllComments();
+            RedditApi.AuthenticateClient();
+            await _redditContextBusinessObject.FromApiRedditAllComments();
 
 
-            //TwitterApi.AuthenticateClient();
+            TwitterApi.AuthenticateClient();
 
-            //var mentions = await _twitterCollector.GetMentions();
+            var mentions = await _twitterCollector.GetMentions();
 
-            //await _twitterContextBusinessObject.FromApiTwitterModel(mentions);
+            await _twitterContextBusinessObject.FromApiTwitterModel(mentions);
         }
     }
 }
