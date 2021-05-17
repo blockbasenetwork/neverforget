@@ -1,9 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AssemblyName>BlockBase.Dapps.NeverForget.WebApp</AssemblyName>
     <RootNamespace>BlockBase.Dapps.NeverForget.WebApp</RootNamespace>
+    <UserSecretsId>b62a7bce-6566-41c9-8fb1-bfe7d4012d74</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
