@@ -61,7 +61,7 @@ namespace BlockBase.Dapps.NeverForget.Services.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to http://neverforgetbot.azurewebsites.net/.
+        ///   Looks up a localized string similar to https://web-app-neverforget-blockbase.azurewebsites.net/.
         /// </summary>
         public static string Link {
             get {
