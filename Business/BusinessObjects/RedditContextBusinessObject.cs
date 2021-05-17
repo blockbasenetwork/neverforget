@@ -7,6 +7,7 @@ using BlockBase.Dapps.NeverForget.Data.Pocos;
 using BlockBase.Dapps.NeverForget.DataAccess.Interfaces;
 using BlockBase.Dapps.NeverForget.Services.API;
 using BlockBase.Dapps.NeverForget.Services.API.Models;
+using BlockBase.Dapps.NeverForget.Services.Resources;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ namespace BlockBase.Dapps.NeverForget.Business.BusinessObjects
         private readonly IRedditContextPocoDataAccessObject _pocoDataAccessObject;
         private readonly RedditCollector _redditCollector;
 
-        string url = "http://neverforgetbot.azurewebsites.net/redditcontexts/details/";
+        string url = Web.Link + "redditcontexts/details/";
 
         public RedditContextBusinessObject(IRedditCommentDataAccessObject commentDataAccessObject, IRedditSubmissionDataAccessObject submissionDataAccessObject, IRedditContextPocoDataAccessObject pocoDataAccessObject, RedditCollector redditCollector, IRedditContextDataAccessObject dataAccessObject, ILogger<BaseBusinessObject> logger) : base(dataAccessObject, logger)
         {

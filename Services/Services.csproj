@@ -29,6 +29,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>TwitterTokens.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\Web.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Web.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -39,6 +44,10 @@
     <EmbeddedResource Update="Resources\TwitterTokens.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>TwitterTokens.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Web.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Web.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 

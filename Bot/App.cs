@@ -34,26 +34,6 @@ namespace BlockBase.Dapps.NeverForget.Bot
 
         public async Task Run()
         {
-            #region Recreate Database
-            //using (var context = new NeverForgetBotDbContext())
-            //{
-            //    var resultDrop = context.DropDatabase();
-            //    var resultCreate = context.CreateDatabase();
-            //}
-
-            //#region Build RequestType Table
-            //RequestType defaultRequest = new RequestType { Id = (int)RequestTypeEnum.Default, Name = "Default" };
-            //RequestType commentRequest = new RequestType { Id = (int)RequestTypeEnum.Comment, Name = "Comment" };
-            //RequestType postRequest = new RequestType { Id = (int)RequestTypeEnum.Post, Name = "Post" };
-
-            //await _requestTypeDataAccessObject.InsertAsync(defaultRequest);
-            //await _requestTypeDataAccessObject.InsertAsync(commentRequest);
-            //await _requestTypeDataAccessObject.InsertAsync(postRequest);
-            //#endregion
-            #endregion
-
-
-
             ApiHelper.InitializeClient();
 
             RedditApi.AuthenticateClient();

@@ -6,6 +6,7 @@ using BlockBase.Dapps.NeverForget.Data.Entities;
 using BlockBase.Dapps.NeverForget.DataAccess.Interfaces;
 using BlockBase.Dapps.NeverForget.Services.API;
 using BlockBase.Dapps.NeverForget.Services.API.Models;
+using BlockBase.Dapps.NeverForget.Services.Resources;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace BlockBase.Dapps.NeverForget.Business.BusinessObjects
         private readonly ITwitterContextPocoDataAccessObject _pocoDataAccessObject;
         private readonly TwitterCollector _twitterCollector;
 
-        string url = "http://web-app-neverforget-blockbase.azurewebsites.net/twittercontexts/details/";
+        string url = Web.Link + "twittercontexts/details/";
         string contextIdToPublish = string.Empty;
 
         public TwitterContextBusinessObject(ITwitterContextDataAccessObject dataAccessObject, ITwitterCommentDataAccessObject commentDataAccessObject, ITwitterSubmissionDataAccessObject submissionDataAccessObject, ITwitterContextPocoDataAccessObject pocoDataAccessObject, TwitterCollector twitterCollector, ILogger<BaseBusinessObject> logger) : base(dataAccessObject, logger)

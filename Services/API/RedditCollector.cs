@@ -72,7 +72,7 @@ namespace BlockBase.Dapps.NeverForget.Services.API
         public void PublishUrl(string url, string commentId)
         {
             Comment com = (Comment)RedditApi.Client.GetThingByFullnameAsync($"t1_{commentId}").Result;
-            com.ReplyAsync($"@NeverForget-Bot { url } ");
+            com.ReplyAsync($"Never Forget - { url }");
             Thread.Sleep(60000);
         }
     }
