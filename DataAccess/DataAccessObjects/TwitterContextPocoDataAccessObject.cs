@@ -81,7 +81,8 @@ namespace BlockBase.Dapps.NeverForget.DataAccess.DataAccessObjects
                         SourceType = SourceTypeEnum.Twitter,
                         Date = tweetSubmission.SubmissionDate,
                         Author = tweetSubmission.Author,
-                        Content = tweetSubmission.Content
+                        Content = tweetSubmission.Content,
+                        Link = tweetSubmission.Link
                     });
 
                 return recentTweets.OrderByDescending((tweet) => tweet.Date).Take(10).ToList();

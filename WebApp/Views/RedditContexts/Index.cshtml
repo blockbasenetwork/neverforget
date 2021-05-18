@@ -42,7 +42,7 @@
                                             </div>
                                         </div>
                                         <p class="card-text container contentInfo">@Html.DisplayFor(modelItem => item.Content)</p>
-                                        <i class="far fa-search ml-auto" onclick="@("window.location.href='" + @Url.Action("Details", "RedditContexts", new { id = item.Id }) + "'");"></i>
+                                        <i class="far fa-search ml-auto detailsClickable" onclick="@("window.location.href='" + @Url.Action("Details", "RedditContexts", new { id = item.Id }) + "'");"></i>
                                     </div>
                                 </div>
 
