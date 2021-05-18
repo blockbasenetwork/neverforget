@@ -9,7 +9,7 @@ namespace BlockBase.Dapps.NeverForget.WebApp.Models
         public SourceTypeEnum SourceType { get; set; }
         public DateTime Date { get; set; }
         public string Author { get; set; }
-        public string? Title { get; set; }
+        public string Title { get; set; }
         public string Content { get; set; }
 
         public static GeneralContextViewModel FromData(GeneralContextPoco generalContext)

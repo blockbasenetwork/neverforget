@@ -14,7 +14,7 @@ namespace BlockBase.Dapps.NeverForget.Data.Pocos
         public virtual string SubmissionContent { get; set; }
         public virtual string SubmissionAuthor { get; set; }
         public virtual string SubmissionLink { get; set; }
-        public virtual string? SubmissionMediaLink { get; set; }
+        public virtual string SubmissionMediaLink { get; set; }
         public virtual string SubmissionSubReddit { get; set; }
         public virtual string SubmissionTitle { get; set; }
         public virtual DateTime SubmissionDate { get; set; }

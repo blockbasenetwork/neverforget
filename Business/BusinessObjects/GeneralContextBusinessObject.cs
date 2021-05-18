@@ -32,8 +32,7 @@ namespace BlockBase.Dapps.NeverForget.Business.BusinessObjects
                 result.AddRange(recentReddits);
                 result.AddRange(recentTweets);
 
-                result = result.OrderByDescending(c => c.Date).Take(10).ToList();
-
+                result = result.Where(x => !string.IsNullOrEmpty(x.Author)).OrderByDescending(c => c.Date).Take(10).ToList();
                 return result;
             });
         }

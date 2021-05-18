@@ -77,6 +77,7 @@ namespace BlockBase.Dapps.NeverForget.DataAccess.DataAccessObjects
                     .Where((tweetContext, tweetSubmission) => (!tweetContext.IsDeleted))
                     .SelectAsync((tweetContext, tweetSubmission) => new GeneralContextPoco 
                     {
+                        Id = tweetContext.Id,
                         SourceType = SourceTypeEnum.Twitter,
                         Date = tweetSubmission.SubmissionDate,
                         Author = tweetSubmission.Author,

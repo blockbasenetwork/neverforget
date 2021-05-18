@@ -7,7 +7,8 @@ namespace BlockBase.Dapps.NeverForget.Data.Pocos
 {
     public class GeneralContextPoco
     {
-        public virtual string? Title { get; set; }
+        public Guid Id { get; set; }
+        public virtual string Title { get; set; }
         public virtual string Content { get; set; }
         public virtual string Author { get; set; }
         public virtual DateTime Date { get; set; }
