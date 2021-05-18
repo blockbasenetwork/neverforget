@@ -58,12 +58,12 @@ namespace BlockBase.Dapps.NeverForget.WebApp.Models
     public class RedditDetail
     {
         public Guid Id { get; set; }
-        public string? Title { get; set; }
-        public string? SubReddit { get; set; }
+        public string Title { get; set; }
+        public string SubReddit { get; set; }
         public string Content { get; set; }
         public string Author { get; set; }
         public DateTime Date { get; set; }
         public string Link { get; set; }
-        public string? MediaLink { get; set; }
+        public string MediaLink { get; set; }
     }
 }

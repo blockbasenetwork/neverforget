@@ -61,7 +61,7 @@ namespace BlockBase.Dapps.NeverForget.WebApp.Models
             public string Author { get; set; }
             public string Content { get; set; }
             public string Link { get; set; }
-            public string? MediaLink { get; set; }
+            public string MediaLink { get; set; }
 
         }
     }
