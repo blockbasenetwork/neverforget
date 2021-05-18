@@ -132,7 +132,9 @@
 .borderReddit {
   border: solid;
   border-color: #ff5600;
-  background-color: rgba(255, 86, 0, 0.3);
+  border-width: thin;
+  border-radius: 10px;
+  background-color: rgba(255, 86, 0, 0.1);
 }
 .borderReddit a {
   color: black;
@@ -140,7 +142,9 @@
 .borderTwitter {
   border: solid;
   border-color: #1da1f2;
-  background-color: rgba(29, 161, 242, 0.3);
+  border-width: thin;
+  border-radius: 10px;
+  background-color: rgba(29, 161, 242, 0.1);
 }
 .borderTwitter a {
   color: black;
@@ -273,5 +277,23 @@ table.dataTable td tr:hover {
 }
 .cardDetails {
   max-width: 90%;
+}
+.cornerInfo {
+  padding: 1rem;
+}
+.titleInfo {
+  font-size: 1.75rem;
+}
+.contentInfo {
+  font-size: 1.25rem;
+}
+.contentInfoSmall {
+  font-size: 1.125rem;
+}
+.auditInfo {
+  font-size: 0.9rem;
+}
+.auditInfoSmall {
+  font-size: 0.8rem;
 }
 /*-------------------------------------------------*/

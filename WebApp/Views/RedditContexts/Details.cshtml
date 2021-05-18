@@ -8,60 +8,54 @@
                 @if (Model.Submission != null)
                 {
                     var dateToString = Model.Submission.Date.ToString("yyyy/MM/dd");
-                    <a href="https://www.reddit.com/r/@Model.Submission.SubReddit/">
-                        <h6 class="card-title d-block"><u>r/@Html.DisplayFor(item => Model.Submission.SubReddit)</u></h6>
-                    </a>
-                    <h5 class="card-title d-block">@Html.DisplayFor(item => Model.Submission.Title)</h5>
-                    <div class="card-text">@Html.DisplayFor(item => Model.Submission.Content)</div>
-                    <hr>
-                    <div class="d-flex flex-row">
-                        <div class="col-3 card-body">
-                            <div class="card-content">
-                                <b class="card-text d-block text-center foot">@Html.DisplayFor(item => Model.Submission.Author)</b>
-                            </div>
-                        </div>
-
-                        <div class="col-3 card-body">
-                            <div class="card-content text-center">@Html.DisplayFor(item => dateToString) <i class="fas fa-calendar-alt"></i></div>
-                        </div>
-
-                        <div class="col-3 card-body">
-                            <div class="card-content text-center">
-                                <a target="_blank" href="@Model.Submission.Link" data-toggle="tooltip" data-placement="top" title="Redirect to Reddit"><i class="far fa-eye"></i></a>
-
-                                @if (Model.Submission.MediaLink != null)
-                                {
-                                    <a target="_blank" href="@Model.Submission.MediaLink" data-toggle="tooltip" data-placement="top" title="Show media"><i class="far fa-photo-video"></i></a>
-                                }
-                            </div>
+                    <div class="container auditInfo">
+                        <a class="col- pr-1" target="_blank" href="https://www.reddit.com/r/@Model.Submission.SubReddit/">
+                            <b>r/@Html.DisplayFor(item => Model.Submission.SubReddit)</b>
+                        </a>
+                        <span>•</span>
+                        <a class="col- pr-1" target="_blank" href="https://www.reddit.com/user/@Model.Submission.Author/">
+                            u/@Html.DisplayFor(item => Model.Submission.Author)
+                        </a>
+                        <span>•</span>
+                        <a class="col-">
+                            @Html.DisplayFor(item => dateToString)
+                        </a>
+                    </div>
+                    <div class="container d-flex">
+                        <h3 class="card-title col- mr-auto my-auto titleInfo">@Html.DisplayFor(item => Model.Submission.Title)</h3>
+                        <div class="col- ml-auto d-flex cornerInfo">
+                            @if (Model.Submission.MediaLink != null)
+                            {
+                                <a target="_blank" href="@Model.Submission.MediaLink" data-toggle="tooltip" data-placement="top" title="Show media"><i class="far fa-photo-video"></i></a>
+                            }
+                            <a target="_blank" href="@Model.Submission.Link" data-toggle="tooltip" data-placement="top" title="Redirect to Reddit"><img src="~/img/Reddit_logo.png" class="socialMediaLogo" /></a>
                         </div>
                     </div>
+                    <p class="card-text container contentInfo">@Html.DisplayFor(item => Model.Submission.Content)</p>
                 }
                 else
                 {
                     var dateToString = Model.Comments[0].Date.ToString("yyyy/MM/dd");
-                    <a href="https://www.reddit.com/r/@Model.Comments[0].SubReddit/">
-                        <h6 class="card-title d-block"><u>r/@Html.DisplayFor(item => Model.Comments[0].SubReddit)</u></h6>
-                    </a>
-                    <div class="card-text content">@Html.DisplayFor(item => Model.Comments[0].Content)</div>
-                    <hr>
-                    <div class="d-flex flex-row">
-                        <div class="col-3 card-body">
-                            <div class="card-content">
-                                <b class="card-text text-right">@Html.DisplayFor(item => Model.Comments[0].Author)</b>
-                            </div>
-                        </div>
-
-                        <div class="col-3 card-body">
-                            <div class="card-content">@Html.DisplayFor(item => dateToString) <i class="fas fa-calendar-alt"></i></div>
-                        </div>
-
-                        <div class="col-3 card-body">
-                            <div class="card-content">
-                                <a target="_blank" href="@Model.Comments[0].Link" data-toggle="tooltip" data-placement="top" title="Redirect to Reddit"><i class="far fa-eye"></i></a>
-                            </div>
+                    <div class="container auditInfo">
+                        <a class="col- pr-1" target="_blank" href="https://www.reddit.com/r/@Model.Comments[0].SubReddit//">
+                            <b>r/@Html.DisplayFor(item => Model.Comments[0].SubReddit)</b>
+                        </a>
+                        <span>•</span>
+                        <a class="col- pr-1" target="_blank" href="https://www.reddit.com/user/@Model.Comments[0].Author/">
+                            u/@Html.DisplayFor(item => Model.Comments[0].Author)
+                        </a>
+                        <span>•</span>
+                        <a class="col-">
+                            @Html.DisplayFor(item => dateToString)
+                        </a>
+                    </div>
+                    <div class="container d-flex">
+                        <div class="col- ml-auto d-flex cornerInfo">
+                            <a target="_blank" href="@Model.Comments[0].Link" data-toggle="tooltip" data-placement="top" title="Redirect to Reddit"><img src="~/img/Reddit_logo.png" class="socialMediaLogo" /></a>
+                            <i class="far fa-reply"></i>
                         </div>
                     </div>
+                    <p class="card-text content container contentInfo">@Html.DisplayFor(item => Model.Comments[0].Content)</p>
                     Model.Comments.RemoveAt(0);
                 }
 
@@ -71,26 +65,17 @@
                 {
                     var dateToString = item.Date.ToString("yyyy/MM/dd");
                     <div class="pt-2 d-flex flex-row justify-content-center">
-                        <div class="card-body borderReddit cardDetails">
-                            <div class="card-text text-left">@Html.DisplayFor(modelItem => item.Content)</div>
-                            <hr>
-                            <div class="d-flex flex-row">
-                                <div class="col-3 card-body">
-                                    <div class="card-content">
-                                        <b class="card-text text-right">@Html.DisplayFor(modelItem => item.Author)</b>
-                                    </div>
-                                </div>
-
-                                <div class="col-3 card-body">
-                                    <div class="card-content">@Html.DisplayFor(modelItem => dateToString) <i class="fas fa-calendar-alt"></i></div>
-                                </div>
-
-                                <div class="col-3 card-body">
-                                    <div class="card-content">
-                                        <a target="_blank" href="@item.Link" data-toggle="tooltip" data-placement="top" title="Redirect to Reddit"><i class="far fa-eye"></i></a>
-                                    </div>
-                                </div>
+                        <div class="card-body borderReddit cardDetails auditInfoSmall">
+                            <div class="container">
+                                <a class="col- pr-1" target="_blank" href="https://www.reddit.com/user/@Html.DisplayFor(modelItem => item.Author)/">
+                                    u/@Html.DisplayFor(modelItem => item.Author)
+                                </a>
+                                <span>•</span>
+                                <a class="col-">
+                                    @Html.DisplayFor(modelItem => dateToString)
+                                </a>
                             </div>
+                            <div class="card-text text-left container contentInfoSmall">@Html.DisplayFor(modelItem => item.Content)</div>
                         </div>
                     </div>
                 }

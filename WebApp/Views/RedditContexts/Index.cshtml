@@ -15,19 +15,34 @@
                             <div class="row">
                                 <div class="col-md contentContext">
                                     <div class="card-body borderReddit">
-                                        <h6 class="card-title d-block title text-left"><u>r/@Html.DisplayFor(modelItem => item.SubReddit)</u></h6>
-                                        <h5 class="card-title d-block text-left">@Html.DisplayFor(modelItem => item.Title)</h5>
-                                        <div class="card-text d-block text-left">@Html.DisplayFor(modelItem => item.Content)</div>
-                                        <b class="card-text d-block text-right">@Html.DisplayFor(modelItem => item.Author)</b>
-                                    </div>
-                                </div>
-
-                                <div class="col- d-flex align-items-center">
-                                    <div class="card-body">
                                         @{
                                             var dateToString = item.Date.ToString("yyyy/MM/dd");
                                         }
-                                        <div class="card-content date">@Html.DisplayFor(modelItem => dateToString) <i class="fas fa-calendar-alt"></i></div>
+                                        <div class="container auditInfo">
+                                            <a class="col- pr-1" target="_blank" href="https://www.reddit.com/r/@Html.DisplayFor(modelItem => item.SubReddit)/">
+                                                <b>r/@Html.DisplayFor(modelItem => item.SubReddit)</b>
+                                            </a>
+                                            <span>•</span>
+                                            <a class="col- pr-1" target="_blank" href="https://www.reddit.com/user/@Html.DisplayFor(modelItem => item.Author)/">
+                                                u/@Html.DisplayFor(modelItem => item.Author)
+                                            </a>
+                                            <span>•</span>
+                                            <a class="col-">
+                                                @Html.DisplayFor(modelItem => dateToString)
+                                            </a>
+                                        </div>
+                                        <div class="container d-flex">
+                                            <h3 class="card-title col- mr-auto my-auto titleInfo">@Html.DisplayFor(modelItem => item.Title)</h3>
+                                            <div class="col- ml-auto d-flex cornerInfo">
+                                                @if (item.MediaLink != null)
+                                                {
+                                                    <a target="_blank" href="@item.MediaLink" data-toggle="tooltip" data-placement="top" title="Show media"><i class="far fa-photo-video"></i></a>
+                                                }
+                                                <a target="_blank" href="@item.Link" data-toggle="tooltip" data-placement="top" title="Redirect to Reddit"><img src="~/img/Reddit_logo.png" class="socialMediaLogo" /></a>
+                                            </div>
+                                        </div>
+                                        <p class="card-text container contentInfo">@Html.DisplayFor(modelItem => item.Content)</p>
+                                        <i class="far fa-search ml-auto" onclick="@("window.location.href='" + @Url.Action("Details", "RedditContexts", new { id = item.Id }) + "'");"></i>
                                     </div>
                                 </div>
 
