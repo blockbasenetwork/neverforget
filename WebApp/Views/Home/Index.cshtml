@@ -22,7 +22,7 @@
                                                     <b>r/@Html.DisplayFor(modelItem => item.SubReddit)</b>
                                                 </a>
                                                 <span>•</span>
-                                                <a class="col- pr-1" target="_blank" href="https://www.reddit.com/user/@item,Author/">
+                                                <a class="col- pr-1" target="_blank" href="https://www.reddit.com/user/@item.Author/">
                                                     u/@Html.DisplayFor(modelItem => item.Author)
                                                 </a>
                                                 <span>•</span>
@@ -42,7 +42,7 @@
                                             </div>
                                             
                                             <div class="container d-flex ml-auto">
-                                                <i class="far fa-search ml-auto" onclick="@("window.location.href='" + @Url.Action("Details", "RedditContexts", new { id = item.Id }) + "'");"></i>
+                                                <i class="far fa-search ml-auto clickable" onclick="@("window.location.href='" + @Url.Action("Details", "RedditContexts", new { id = item.Id }) + "'");"></i>
                                             </div>
                                         </div>
                                     }
@@ -69,7 +69,7 @@
                                             </div>
 
                                             <div class="container d-flex ml-auto">
-                                                <i class="far fa-search ml-auto" onclick="@("window.location.href='" + @Url.Action("Details", "TwitterContexts", new { id = item.Id }) + "'");"></i>
+                                                <i class="far fa-search ml-auto clickable" onclick="@("window.location.href='" + @Url.Action("Details", "TwitterContexts", new { id = item.Id }) + "'");"></i>
                                             </div>                                            
                                         </div>
                                     }

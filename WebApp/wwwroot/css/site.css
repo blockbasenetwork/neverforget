@@ -296,4 +296,7 @@ table.dataTable td tr:hover {
 .auditInfoSmall {
   font-size: 0.8rem;
 }
+.clickable {
+  cursor: pointer;
+}
 /*-------------------------------------------------*/
