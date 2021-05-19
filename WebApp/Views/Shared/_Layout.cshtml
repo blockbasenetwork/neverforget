@@ -18,9 +18,9 @@
 
     <header class="sticky-top banner">
         <div>
-            <div class="neverForgetHome mx-auto">
+            <div class="neverForgetHome mx-auto text-center">
                 <a asp-area="" asp-controller="Home" asp-action="Index">
-                    <h3>Never Forget Bot</h3>
+                    <h1>NEVER FORGET BOT</h1>
                 </a>
             </div>
 
@@ -33,10 +33,10 @@
                         </button>
                         <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                             <ul class="navbar-nav flex-grow-1">
-                                <li class="nav-item">
+                                <li class="nav-item badge nav-badge m-1">
                                     <input class="nav-link navbar-item" type="button" value="Reddit" onclick="@("window.location.href='" + @Url.Action("Index", "RedditContexts") + "'");" />
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item badge nav-badge m-1">
                                     <input class="nav-link navbar-item" type="button" value="Twitter" onclick="@("window.location.href='" + @Url.Action("Index", "TwitterContexts") + "'");" />
                                 </li>
                             </ul>

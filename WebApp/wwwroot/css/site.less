@@ -15,14 +15,14 @@
 
 
 .banner {
-    background: url('../img/ReTwiBa.png') ;
+    background: url('../img/ReTwiBa.png');
 
     .neverForgetHome, .neverForgetHome a {
         display: block;
-        width: 220px;
+        width: 365px;
         color: white;
         text-decoration: none !important;
-        text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+        text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black, -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black, 2px 2px 0 black;
     }
 }
 
@@ -89,7 +89,7 @@
 }
 
 .mainBody {
-    background-color: rgba(39, 2, 22, 0.1);
+    background-color: rgba(156,171,238, 0.1);
     max-width: 100%;
 }
 
@@ -101,14 +101,19 @@
     overflow: hidden !important;
     outline: none !important;
     font-weight: bold !important;
-    color: rgb(0, 0, 0) !important;
+    color: white !important;
+    font-size: 100% !important;
+    text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
 
     :hover {
         color: rgb(50,50,50) !important;
     }
 }
 
-
+.nav-badge {
+    background-color: rgba(0,0,0,0.2);
+    font-size: 100% !important;
+}
 
 /*-------------------------------------------------*/
 
@@ -164,6 +169,10 @@
     .logoImg {
         background-color: transparent;
     }
+}
+
+.socialMediaLogoSmall {
+    max-width: 30px;
 }
 
 .borderReddit {
@@ -264,7 +273,7 @@
 /*-------------------------------------------------*/
 
 table.dataTable, table.dataTable th, table.dataTable td {
-    background-color: rgba(39, 2, 22, 0.1) !important;
+    background-color: rgba(156,171,238, 0.1) !important;
     border-top: none !important;
 
     tr:hover {
@@ -290,7 +299,7 @@ table.dataTable, table.dataTable th, table.dataTable td {
     font-size: 11px;
     color: @orangePantone;
     font-family: sans-serif;
-    background-color: rgba(39, 2, 22, 0.1);
+    background-color: rgba(156,171,238, 0.1);
     padding: 0 3px;
 
     &:focus {
@@ -313,7 +322,7 @@ table.dataTable, table.dataTable th, table.dataTable td {
     font-size: 11px;
     color: @carolinaBlue;
     font-family: sans-serif;
-    background-color: rgba(39, 2, 22, 0.1);
+    background-color: rgba(156,171,238, 0.1);
     padding: 0 3px;
 
     &:focus {
@@ -367,7 +376,11 @@ table.dataTable, table.dataTable th, table.dataTable td {
 }
 
 .clickable {
-    cursor: pointer;
+    cursor: pointer !important;
+
+    :hover {
+        text-decoration: underline !important;
+    }
 }
 
 /*-------------------------------------------------*/

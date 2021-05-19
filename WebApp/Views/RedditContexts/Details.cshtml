@@ -14,19 +14,15 @@
                         </a>
                         <span>•</span>
                         <a class="col- pr-1" target="_blank" href="https://www.reddit.com/user/@Model.Submission.Author/">
-                            u/@Html.DisplayFor(item => Model.Submission.Author)
+                            <b>u/@Html.DisplayFor(item => Model.Submission.Author)</b>
                         </a>
                         <span>•</span>
                         <a class="col-">
                             @Html.DisplayFor(item => dateToString)
                         </a>
                         <div class="col- d-flex ml-auto">
-                            @if (Model.Submission.MediaLink != null)
-                            {
-                                <a target="_blank" href="@Model.Submission.MediaLink" data-toggle="tooltip" data-placement="top" title="Show media"><i class="far fa-photo-video"></i></a>
-                            }
                             <a target="_blank" href="@Model.Submission.Link" data-toggle="tooltip" data-placement="top" title="Redirect to Reddit">
-                                <img style="max-width: 30px" src="~/img/Reddit_logo.png" />
+                                <img class="socialMediaLogoSmall" src="~/img/Reddit_logo.png" />
                             </a>
                         </div>
                     </div>
@@ -34,6 +30,13 @@
                     <div class="container ">
                         <h3 class="card-title d-block text-left titleInfo">@Html.DisplayFor(item => Model.Submission.Title)</h3>
                         <div class="card-text d-block text-left contentInfo">@Html.DisplayFor(item => Model.Submission.Content)</div>
+                    </div>
+
+                    <div class="container d-flex">
+                        @if (Model.Submission.MediaLink != null)
+                        {
+                            <a target="_blank" href="@Model.Submission.MediaLink" class="badge nav-badge">Show Media</a>
+                        }
                     </div>
                 }
                 else
@@ -45,19 +48,15 @@
                         </a>
                         <span>•</span>
                         <a class="col- pr-1" target="_blank" href="https://www.reddit.com/user/@Model.Comments[0].Author/">
-                            u/@Html.DisplayFor(item => Model.Comments[0].Author)
+                            <b>u/@Html.DisplayFor(item => Model.Comments[0].Author)</b>
                         </a>
                         <span>•</span>
                         <a class="col-">
                             @Html.DisplayFor(item => dateToString)
                         </a>
                         <div class="col- d-flex ml-auto">
-                            @if (Model.Comments[0].MediaLink != null)
-                            {
-                                <a target="_blank" href="@Model.Comments[0].MediaLink" data-toggle="tooltip" data-placement="top" title="Show media"><i class="far fa-photo-video"></i></a>
-                            }
                             <a target="_blank" href="@Model.Comments[0].Link" data-toggle="tooltip" data-placement="top" title="Redirect to Reddit">
-                                <img style="max-width: 30px" src="~/img/Reddit_logo.png" />
+                                <img class="socialMediaLogoSmall" src="~/img/Reddit_logo.png" />
                             </a>
                         </div>
                     </div>
@@ -66,6 +65,14 @@
                         <h3 class="card-title d-block text-left titleInfo">@Html.DisplayFor(item => Model.Comments[0].Title)</h3>
                         <div class="card-text d-block text-left contentInfo">@Html.DisplayFor(item => Model.Comments[0].Content)</div>
                     </div>
+
+                    <div class="container d-flex">
+                        @if (Model.Comments[0].MediaLink != null)
+                        {
+                            <a target="_blank" href="@Model.Comments[0].MediaLink" class="badge nav-badge">Show Media</a>
+                        }
+                    </div>
+
                     Model.Comments.RemoveAt(0);
                 }
 
@@ -78,7 +85,7 @@
                         <div class="card-body borderReddit cardDetails auditInfoSmall">
                             <div class="container auditInfoSmall d-flex">
                                 <a class="col- pr-1" target="_blank" href="https://www.reddit.com/user/@item.Author/">
-                                    u/@Html.DisplayFor(modelItem => item.Author)
+                                    <b>u/@Html.DisplayFor(modelItem => item.Author)</b>
                                 </a>
                                 <span>•</span>
                                 <a class="col-">

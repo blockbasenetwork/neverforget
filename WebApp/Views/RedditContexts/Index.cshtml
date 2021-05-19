@@ -24,19 +24,15 @@
                                             </a>
                                             <span>•</span>
                                             <a class="col- pr-1" target="_blank" href="https://www.reddit.com/user/@item.Author/">
-                                                u/@Html.DisplayFor(modelItem => item.Author)
+                                                <b>u/@Html.DisplayFor(modelItem => item.Author)</b>
                                             </a>
                                             <span>•</span>
                                             <a class="col-">
                                                 @Html.DisplayFor(modelItem => dateToString)
                                             </a>
                                             <div class="col- d-flex ml-auto">
-                                                @if (item.MediaLink != null)
-                                                {
-                                                    <a target="_blank" href="@item.MediaLink" data-toggle="tooltip" data-placement="top" title="Show media"><i class="far fa-photo-video"></i></a>
-                                                }
                                                 <a target="_blank" href="@item.Link" data-toggle="tooltip" data-placement="top" title="Redirect to Reddit">
-                                                    <img style="max-width: 30px" src="~/img/Reddit_logo.png" />
+                                                    <img class="socialMediaLogoSmall" src="~/img/Reddit_logo.png" />
                                                 </a>
                                             </div>
                                         </div>
@@ -46,8 +42,15 @@
                                             <div class="card-text d-block text-left contentInfo">@Html.DisplayFor(modelItem => item.Content)</div>
                                         </div>
 
-                                        <div class="container d-flex ml-auto">
-                                            <i class="far fa-search ml-auto clickable" onclick="@("window.location.href='" + @Url.Action("Details", "RedditContexts", new { id = item.Id }) + "'");"></i>
+                                        <div class="container d-flex">
+                                            @if (item.MediaLink != null)
+                                            {
+                                                <a target="_blank" href="@item.MediaLink" class="col- mr-auto badge nav-badge">Show Media</a>
+                                            }
+
+                                            <div class="d-flex ml-auto clickable col- badge nav-badge" onclick="@("window.location.href='" + @Url.Action("Details", "RedditContexts", new { id = item.Id }) + "'");">
+                                                Details
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

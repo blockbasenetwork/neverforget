@@ -16,10 +16,10 @@
 .banner .neverForgetHome,
 .banner .neverForgetHome a {
   display: block;
-  width: 220px;
+  width: 365px;
   color: white;
   text-decoration: none !important;
-  text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+  text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black, -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black, 2px 2px 0 black;
 }
 .center,
 .center a {
@@ -70,7 +70,7 @@
   color: black;
 }
 .mainBody {
-  background-color: rgba(39, 2, 22, 0.1);
+  background-color: rgba(156, 171, 238, 0.1);
   max-width: 100%;
 }
 .navbar-item {
@@ -81,10 +81,16 @@
   overflow: hidden !important;
   outline: none !important;
   font-weight: bold !important;
-  color: #000000 !important;
+  color: white !important;
+  font-size: 100% !important;
+  text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
 }
 .navbar-item :hover {
   color: #323232 !important;
+}
+.nav-badge {
+  background-color: rgba(0, 0, 0, 0.2);
+  font-size: 100% !important;
 }
 /*-------------------------------------------------*/
 /* Error
@@ -128,6 +134,9 @@
 }
 .socialMediaLogo .logoImg {
   background-color: transparent;
+}
+.socialMediaLogoSmall {
+  max-width: 30px;
 }
 .borderReddit {
   border: solid;
@@ -211,7 +220,7 @@
 table.dataTable,
 table.dataTable th,
 table.dataTable td {
-  background-color: rgba(39, 2, 22, 0.1) !important;
+  background-color: rgba(156, 171, 238, 0.1) !important;
   border-top: none !important;
 }
 table.dataTable tr:hover,
@@ -236,7 +245,7 @@ table.dataTable td tr:hover {
   font-size: 11px;
   color: #FF5700;
   font-family: sans-serif;
-  background-color: rgba(39, 2, 22, 0.1);
+  background-color: rgba(156, 171, 238, 0.1);
   padding: 0 3px;
 }
 #myTable_filter input:focus {
@@ -257,7 +266,7 @@ table.dataTable td tr:hover {
   font-size: 11px;
   color: #1DA1F2;
   font-family: sans-serif;
-  background-color: rgba(39, 2, 22, 0.1);
+  background-color: rgba(156, 171, 238, 0.1);
   padding: 0 3px;
 }
 #twitterTable_filter input:focus {
@@ -297,6 +306,9 @@ table.dataTable td tr:hover {
   font-size: 0.8rem;
 }
 .clickable {
-  cursor: pointer;
+  cursor: pointer !important;
+}
+.clickable :hover {
+  text-decoration: underline !important;
 }
 /*-------------------------------------------------*/

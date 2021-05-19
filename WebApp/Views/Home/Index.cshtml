@@ -23,7 +23,7 @@
                                                 </a>
                                                 <span>•</span>
                                                 <a class="col- pr-1" target="_blank" href="https://www.reddit.com/user/@item.Author/">
-                                                    u/@Html.DisplayFor(modelItem => item.Author)
+                                                    <b>u/@Html.DisplayFor(modelItem => item.Author)</b>
                                                 </a>
                                                 <span>•</span>
                                                 <a class="col-">
@@ -31,7 +31,7 @@
                                                 </a>
                                                 <div class="col- d-flex ml-auto">
                                                     <a href=@item.Link target="_blank">
-                                                        <img style="max-width: 30px" src="~/img/Reddit_logo.png" />
+                                                        <img class="socialMediaLogoSmall" src="~/img/Reddit_logo.png" />
                                                     </a>
                                                 </div>
                                             </div>
@@ -40,9 +40,11 @@
                                                 <h3 class="card-title d-block text-left titleInfo">@Html.DisplayFor(modelItem => item.Title)</h3>
                                                 <div class="card-text d-block text-left contentInfo">@Html.DisplayFor(modelItem => item.Content)</div>
                                             </div>
-                                            
-                                            <div class="container d-flex ml-auto">
-                                                <i class="far fa-search ml-auto clickable" onclick="@("window.location.href='" + @Url.Action("Details", "RedditContexts", new { id = item.Id }) + "'");"></i>
+
+                                            <div class="container d-flex">
+                                                <div class="d-flex ml-auto clickable col- badge nav-badge" onclick="@("window.location.href='" + @Url.Action("Details", "RedditContexts", new { id = item.Id }) + "'");">
+                                                    Details
+                                                </div>
                                             </div>
                                         </div>
                                     }
@@ -51,7 +53,7 @@
                                         <div class="card-body borderTwitter">
                                             <div class="container d-flex auditInfo">
                                                 <a class="col- pr-1" target="_blank" href="https://www.twitter.com/@item.Author">
-                                                    @Html.Raw("@")@Html.DisplayFor(modelItem => item.Author)
+                                                    <b>@Html.Raw("@")@Html.DisplayFor(modelItem => item.Author)</b>
                                                 </a>
                                                 <span>•</span>
                                                 <a class="col-">
@@ -59,7 +61,7 @@
                                                 </a>
                                                 <div class="col- d-flex ml-auto">
                                                     <a href=@item.Link target="_blank">
-                                                        <img style="max-width: 30px" src="~/img/Twitter_logo.png" />
+                                                        <img class="socialMediaLogoSmall" src="~/img/Twitter_logo.png" />
                                                     </a>
                                                 </div>
                                             </div>
@@ -68,9 +70,11 @@
                                                 <div class="card-text d-block text-left contentInfo">@Html.DisplayFor(modelItem => item.Content)</div>
                                             </div>
 
-                                            <div class="container d-flex ml-auto">
-                                                <i class="far fa-search ml-auto clickable" onclick="@("window.location.href='" + @Url.Action("Details", "TwitterContexts", new { id = item.Id }) + "'");"></i>
-                                            </div>                                            
+                                            <div class="container d-flex">
+                                                <div class="d-flex ml-auto clickable col- badge nav-badge" onclick="@("window.location.href='" + @Url.Action("Details", "TwitterContexts", new { id = item.Id }) + "'");">
+                                                    Details
+                                                </div>
+                                            </div>
                                         </div>
                                     }
                                 </div>
@@ -78,7 +82,7 @@
                         </td>
                     </tr>
                 </tbody>
-             }
+            }
         </table>
     </div>
 </div>

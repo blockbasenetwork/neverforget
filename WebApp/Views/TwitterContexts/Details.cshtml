@@ -10,19 +10,15 @@
                     var dateToString = Model.Submission.Date.ToString("yyyy/MM/dd");
                     <div class="container auditInfo d-flex">
                         <a class="col- pr-1" target="_blank" href="https://www.twitter.com/@Model.Submission.Author">
-                            u/@Html.DisplayFor(item => Model.Submission.Author)
+                            <b>@Html.Raw("@")@Html.DisplayFor(item => Model.Submission.Author)</b>
                         </a>
                         <span>•</span>
                         <a class="col-">
                             @Html.DisplayFor(item => dateToString)
                         </a>
                         <div class="col- d-flex ml-auto">
-                            @if (Model.Submission.MediaLink != null)
-                            {
-                                <a target="_blank" href="@Model.Submission.MediaLink" data-toggle="tooltip" data-placement="top" title="Show media"><i class="far fa-photo-video"></i></a>
-                            }
                             <a target="_blank" href="@Model.Submission.Link" data-toggle="tooltip" data-placement="top" title="Redirect to Twitter">
-                                <img style="max-width: 30px" src="~/img/Twitter_logo.png" />
+                                <img class="socialMediaLogoSmall" src="~/img/Twitter_logo.png" />
                             </a>
                         </div>
                     </div>
@@ -30,25 +26,28 @@
                     <div class="container ">
                         <div class="card-text d-block text-left contentInfo">@Html.DisplayFor(item => Model.Submission.Content)</div>
                     </div>
+
+                    <div class="container d-flex">
+                        @if (Model.Submission.MediaLink != null)
+                        {
+                            <a target="_blank" href="@Model.Submission.MediaLink" class="badge nav-badge">Show Media</a>
+                        }
+                    </div>
                 }
                 else
                 {
                     var dateToString = Model.Comments[0].Date.ToString("yyyy/MM/dd");
                     <div class="container auditInfo d-flex">
                         <a class="col- pr-1" target="_blank" href="https://www.twitter.com/@Model.Comments[0].Author/">
-                            u/@Html.DisplayFor(item => Model.Comments[0].Author)
+                            <b>@Html.Raw("@")@Html.DisplayFor(item => Model.Comments[0].Author)</b>
                         </a>
                         <span>•</span>
                         <a class="col-">
                             @Html.DisplayFor(item => dateToString)
                         </a>
                         <div class="col- d-flex ml-auto">
-                            @if (Model.Comments[0].MediaLink != null)
-                            {
-                                <a target="_blank" href="@Model.Comments[0].MediaLink" data-toggle="tooltip" data-placement="top" title="Show media"><i class="far fa-photo-video"></i></a>
-                            }
                             <a target="_blank" href="@Model.Comments[0].Link" data-toggle="tooltip" data-placement="top" title="Redirect to Twitter">
-                                <img style="max-width: 30px" src="~/img/Twitter_logo.png" />
+                                <img class="socialMediaLogoSmall" src="~/img/Twitter_logo.png" />
                             </a>
                         </div>
                     </div>
@@ -56,6 +55,14 @@
                     <div class="container ">
                         <div class="card-text d-block text-left contentInfo">@Html.DisplayFor(item => Model.Comments[0].Content)</div>
                     </div>
+
+                    <div class="container d-flex">
+                        @if (Model.Comments[0].MediaLink != null)
+                        {
+                            <a target="_blank" href="@Model.Comments[0].MediaLink" class="badge nav-badge">Show Media</a>
+                        }
+                    </div>
+
                     Model.Comments.RemoveAt(0);
                 }
 
@@ -68,7 +75,7 @@
                         <div class="card-body borderTwitter cardDetails auditInfoSmall">
                             <div class="container auditInfoSmall d-flex">
                                 <a class="col- pr-1" target="_blank" href="https://www.twitter.com/@item.Author/">
-                                    u/@Html.DisplayFor(modelItem => item.Author)
+                                    <b>@Html.Raw("@")@Html.DisplayFor(modelItem => item.Author)</b>
                                 </a>
                                 <span>•</span>
                                 <a class="col-">
