@@ -23,16 +23,18 @@ namespace BlockBase.Dapps.NeverForget.Business.BusinessObjects
         private readonly IRedditCommentDataAccessObject _commentDataAccessObject;
         private readonly IRedditSubmissionDataAccessObject _submissionDataAccessObject;
         private readonly IRedditContextPocoDataAccessObject _pocoDataAccessObject;
+        private readonly IRequestTypeDataAccessObject _requestTypeDataAccessObject;
         private readonly RedditCollector _redditCollector;
 
         string url = Web.Link + "redditcontexts/details/";
 
-        public RedditContextBusinessObject(IRedditCommentDataAccessObject commentDataAccessObject, IRedditSubmissionDataAccessObject submissionDataAccessObject, IRedditContextPocoDataAccessObject pocoDataAccessObject, RedditCollector redditCollector, IRedditContextDataAccessObject dataAccessObject, ILogger<BaseBusinessObject> logger) : base(dataAccessObject, logger)
+        public RedditContextBusinessObject(IRedditCommentDataAccessObject commentDataAccessObject, IRedditSubmissionDataAccessObject submissionDataAccessObject, IRedditContextPocoDataAccessObject pocoDataAccessObject, IRequestTypeDataAccessObject requestTypeDataAccessObject, RedditCollector redditCollector, IRedditContextDataAccessObject dataAccessObject, ILogger<BaseBusinessObject> logger) : base(dataAccessObject, logger)
         {
             _dataAccessObject = dataAccessObject;
             _commentDataAccessObject = commentDataAccessObject;
             _submissionDataAccessObject = submissionDataAccessObject;
             _pocoDataAccessObject = pocoDataAccessObject;
+            _requestTypeDataAccessObject = requestTypeDataAccessObject;
             _redditCollector = redditCollector;
         }
 
@@ -75,6 +77,7 @@ namespace BlockBase.Dapps.NeverForget.Business.BusinessObjects
 
             var commentsList = CheckKeyword(commentArray);
             var commentsToAdd = await _dataAccessObject.GetUniqueComments(commentsList.ToArray());
+            var requestTypes = await _requestTypeDataAccessObject.List();
 
             for (int i = 0; i < commentsToAdd.Count; i++)
             {
@@ -85,7 +88,7 @@ namespace BlockBase.Dapps.NeverForget.Business.BusinessObjects
                     {
                         Id = Guid.NewGuid(),
                         CreatedAt = DateTime.UtcNow,
-                        RequestTypeId = (int)CheckRequestType(commentsToAdd[i].Body)
+                        RequestTypeId = requestTypes.First(x => x.Type == CheckRequestType(commentsToAdd[i].Body)).Id
                     };
                     var requestType = CheckRequestType(commentsToAdd[i].Body);
                     await _dataAccessObject.InsertAsync(contextModel);

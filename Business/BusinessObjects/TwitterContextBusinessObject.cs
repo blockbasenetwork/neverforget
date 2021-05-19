@@ -22,17 +22,19 @@ namespace BlockBase.Dapps.NeverForget.Business.BusinessObjects
         private readonly ITwitterCommentDataAccessObject _commentDataAccessObject;
         private readonly ITwitterSubmissionDataAccessObject _submissionDataAccessObject;
         private readonly ITwitterContextPocoDataAccessObject _pocoDataAccessObject;
+        private readonly IRequestTypeDataAccessObject _requestTypeDataAccessObject;
         private readonly TwitterCollector _twitterCollector;
 
         string url = Web.Link + "twittercontexts/details/";
         string contextIdToPublish = string.Empty;
 
-        public TwitterContextBusinessObject(ITwitterContextDataAccessObject dataAccessObject, ITwitterCommentDataAccessObject commentDataAccessObject, ITwitterSubmissionDataAccessObject submissionDataAccessObject, ITwitterContextPocoDataAccessObject pocoDataAccessObject, TwitterCollector twitterCollector, ILogger<BaseBusinessObject> logger) : base(dataAccessObject, logger)
+        public TwitterContextBusinessObject(ITwitterContextDataAccessObject dataAccessObject, ITwitterCommentDataAccessObject commentDataAccessObject, ITwitterSubmissionDataAccessObject submissionDataAccessObject, ITwitterContextPocoDataAccessObject pocoDataAccessObject, IRequestTypeDataAccessObject requestTypeDataAccessObject, TwitterCollector twitterCollector, ILogger<BaseBusinessObject> logger) : base(dataAccessObject, logger)
         {
             _dataAccessObject = dataAccessObject;
             _commentDataAccessObject = commentDataAccessObject;
             _submissionDataAccessObject = submissionDataAccessObject;
             _pocoDataAccessObject = pocoDataAccessObject;
+            _requestTypeDataAccessObject = requestTypeDataAccessObject;
             _twitterCollector = twitterCollector;
         }
 
@@ -41,17 +43,20 @@ namespace BlockBase.Dapps.NeverForget.Business.BusinessObjects
             List<OperationResult> opResults = new List<OperationResult>();
 
             var commentsToAdd = await _dataAccessObject.GetUniqueComments(modelArray);
+            var requestTypes = await _requestTypeDataAccessObject.List();
 
             foreach (var model in commentsToAdd)
             {
                 var result = await ExecuteOperation(async () =>
                 {
                     #region Create Context
+                    
+
                     var contextModel = new TwitterContext()
                     {
                         Id = Guid.NewGuid(),
                         CreatedAt = DateTime.UtcNow,
-                        RequestTypeId = (int)CheckRequestType(model.Full_text)
+                        RequestTypeId = requestTypes.First(x => x.Type == CheckRequestType(model.Full_text)).Id
                     };
                     var requestType = CheckRequestType(model.Full_text);
                     contextIdToPublish = contextModel.Id.ToString();

@@ -1,6 +1,7 @@
 ﻿using BlockBase.Dapps.NeverForget.Business.BusinessModels;
 using System;
 using System.Linq;
+using System.Web;
 
 namespace BlockBase.Dapps.NeverForget.WebApp.Models
 {
@@ -27,7 +28,7 @@ namespace BlockBase.Dapps.NeverForget.WebApp.Models
                 var comments = model.RedditComments.OrderBy(c => c.CommentDate);
                 redditContextViewModel.Date = comments.ElementAt(0).CommentDate;
                 redditContextViewModel.Author = comments.ElementAt(0).Author;
-                redditContextViewModel.Content = comments.ElementAt(0).Content;
+                redditContextViewModel.Content = HttpUtility.HtmlDecode(comments.ElementAt(0).Content);
                 redditContextViewModel.Link = comments.ElementAt(0).Link;
                 redditContextViewModel.SubReddit = comments.ElementAt(0).SubReddit;
             }
@@ -35,11 +36,11 @@ namespace BlockBase.Dapps.NeverForget.WebApp.Models
             {
                 redditContextViewModel.Date = model.RedditSubmission.SubmissionDate;
                 redditContextViewModel.Author = model.RedditSubmission.Author;
-                redditContextViewModel.Content = model.RedditSubmission.Content;
+                redditContextViewModel.Content = HttpUtility.HtmlDecode(model.RedditSubmission.Content);
                 redditContextViewModel.Link = model.RedditSubmission.Link;
                 redditContextViewModel.MediaLink = model.RedditSubmission.MediaLink;
                 redditContextViewModel.SubReddit = model.RedditSubmission.SubReddit;
-                redditContextViewModel.Title = model.RedditSubmission.Title;
+                redditContextViewModel.Title = HttpUtility.HtmlDecode(model.RedditSubmission.Title);
             }
 
             return redditContextViewModel;

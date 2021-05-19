@@ -9,10 +9,14 @@ namespace BlockBase.Dapps.NeverForget.Data.Context
     {
         public NeverForgetBotDbContext() : base(new BlockBaseSettings()
         {
-            DatabaseName = "NeverForgetBot",
-            Host = "https://20.51.248.230:5000",
-            Password = "5JEJ5TtiEtyoWAUiBF2iTiMcji9yZ6nBqTJy79mE54a7MHaR1WE",
-            UserAccount = "bbtestacc124"
+            //DatabaseName = "NeverForgetBot",
+            //Host = "https://20.51.248.230:5000",
+            //Password = "5JEJ5TtiEtyoWAUiBF2iTiMcji9yZ6nBqTJy79mE54a7MHaR1WE",
+            //UserAccount = "bbtestacc124"
+            DatabaseName = "NeverTestingBot",
+            Host = "http://40.121.160.216/nodedb1",
+            Password = "5HzL18MQEMChpGsaEok364FdsQnjWHMS8yK76X7NvpPHLdZTsao",
+            UserAccount = "sandbox"
         })
         { }
 

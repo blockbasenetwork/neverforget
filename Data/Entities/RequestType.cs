@@ -1,4 +1,6 @@
 ﻿using BlockBase.BBLinq.DataAnnotations;
+using BlockBase.Dapps.NeverForget.Common.Enums;
+using System;
 using System.Collections.Generic;
 
 namespace BlockBase.Dapps.NeverForget.Data.Entities
@@ -7,10 +9,11 @@ namespace BlockBase.Dapps.NeverForget.Data.Entities
     public class RequestType
     {
         [PrimaryKey]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Name { get; set; }
 
         public virtual ICollection<RedditContext> RedditContext { get; set; }
         public virtual ICollection<TwitterContext> TwitterContext { get; set; }
+        public RequestTypeEnum Type { get; set; }
     }
 }

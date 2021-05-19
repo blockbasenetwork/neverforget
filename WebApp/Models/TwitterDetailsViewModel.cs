@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 
 namespace BlockBase.Dapps.NeverForget.WebApp.Models
 {
@@ -33,7 +34,7 @@ namespace BlockBase.Dapps.NeverForget.WebApp.Models
                 {
                     Date = comment.CommentDate,
                     Author = comment.Author,
-                    Content = comment.Content,
+                    Content = HttpUtility.HtmlDecode(comment.Content),
                     Link = comment.Link,
                     MediaLink = comment.MediaLink
                 });
@@ -45,7 +46,7 @@ namespace BlockBase.Dapps.NeverForget.WebApp.Models
                 {
                     Date = model.TwitterSubmission.SubmissionDate,
                     Author = model.TwitterSubmission.Author,
-                    Content = model.TwitterSubmission.Content,
+                    Content = HttpUtility.HtmlDecode(model.TwitterSubmission.Content),
                     Link = model.TwitterSubmission.Link,
                     MediaLink = model.TwitterSubmission.MediaLink
                 };

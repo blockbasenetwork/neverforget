@@ -16,6 +16,6 @@ namespace BlockBase.Dapps.NeverForget.Data.Entities
         public virtual RedditSubmission RedditSubmission { get; set; }
 
         [ForeignKey(Parent = typeof(RequestType))]
-        public int RequestTypeId { get; set; }
+        public Guid RequestTypeId { get; set; }
     }
 }

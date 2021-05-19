@@ -1,6 +1,7 @@
 ﻿using BlockBase.Dapps.NeverForget.Common.Enums;
 using BlockBase.Dapps.NeverForget.Data.Pocos;
 using System;
+using System.Web;
 
 namespace BlockBase.Dapps.NeverForget.WebApp.Models
 {
@@ -23,7 +24,7 @@ namespace BlockBase.Dapps.NeverForget.WebApp.Models
                 SourceType = generalContext.SourceType,
                 Date = generalContext.Date,
                 Author = generalContext.Author,
-                Content = generalContext.Content,
+                Content = HttpUtility.HtmlDecode(generalContext.Content),
                 Link = generalContext.Link
             };
 
@@ -31,7 +32,7 @@ namespace BlockBase.Dapps.NeverForget.WebApp.Models
                 generalViewModel.SubReddit = generalContext.SubReddit;
 
             if (generalContext.Title != null)
-                generalViewModel.Title = generalContext.Title;
+                generalViewModel.Title = HttpUtility.HtmlDecode(generalContext.Title);
 
             return generalViewModel;
         }
