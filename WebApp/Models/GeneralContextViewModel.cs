@@ -24,7 +24,7 @@ namespace BlockBase.Dapps.NeverForget.WebApp.Models
                 SourceType = generalContext.SourceType,
                 Date = generalContext.Date,
                 Author = generalContext.Author,
-                Content = HttpUtility.HtmlDecode(generalContext.Content),
+                Content = generalContext.Content,
                 Link = generalContext.Link
             };
 
@@ -32,7 +32,7 @@ namespace BlockBase.Dapps.NeverForget.WebApp.Models
                 generalViewModel.SubReddit = generalContext.SubReddit;
 
             if (generalContext.Title != null)
-                generalViewModel.Title = HttpUtility.HtmlDecode(generalContext.Title);
+                generalViewModel.Title = generalContext.Title;
 
             return generalViewModel;
         }

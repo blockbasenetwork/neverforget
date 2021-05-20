@@ -32,7 +32,7 @@ namespace BlockBase.Dapps.NeverForget.WebApp.Models
                 {
                     Date = comment.CommentDate,
                     Author = comment.Author,
-                    Content = HttpUtility.HtmlDecode(comment.Content),
+                    Content = comment.Content,
                     Link = comment.Link,
                     SubReddit = comment.SubReddit
                 });
@@ -44,11 +44,11 @@ namespace BlockBase.Dapps.NeverForget.WebApp.Models
                 {
                     Date = model.RedditSubmission.SubmissionDate,
                     Author = model.RedditSubmission.Author,
-                    Content = HttpUtility.HtmlDecode(model.RedditSubmission.Content),
+                    Content = model.RedditSubmission.Content,
                     Link = model.RedditSubmission.Link,
                     MediaLink = model.RedditSubmission.MediaLink,
                     SubReddit = model.RedditSubmission.SubReddit,
-                    Title = HttpUtility.HtmlDecode(model.RedditSubmission.Title)
+                    Title = model.RedditSubmission.Title
                 };
             }
 

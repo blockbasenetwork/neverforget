@@ -34,7 +34,7 @@ namespace BlockBase.Dapps.NeverForget.WebApp.Models
                 {
                     Date = comment.CommentDate,
                     Author = comment.Author,
-                    Content = HttpUtility.HtmlDecode(comment.Content),
+                    Content = comment.Content,
                     Link = comment.Link,
                     MediaLink = comment.MediaLink
                 });
@@ -46,7 +46,7 @@ namespace BlockBase.Dapps.NeverForget.WebApp.Models
                 {
                     Date = model.TwitterSubmission.SubmissionDate,
                     Author = model.TwitterSubmission.Author,
-                    Content = HttpUtility.HtmlDecode(model.TwitterSubmission.Content),
+                    Content = model.TwitterSubmission.Content,
                     Link = model.TwitterSubmission.Link,
                     MediaLink = model.TwitterSubmission.MediaLink
                 };

@@ -26,7 +26,7 @@ namespace BlockBase.Dapps.NeverForget.WebApp.Models
                 var comments = model.TwitterComments.OrderBy(c => c.CommentDate);
                 twitterContextViewModel.Date = comments.ElementAt(0).CommentDate;
                 twitterContextViewModel.Author = comments.ElementAt(0).Author;
-                twitterContextViewModel.Content = HttpUtility.HtmlDecode(comments.ElementAt(0).Content);
+                twitterContextViewModel.Content = comments.ElementAt(0).Content;
                 twitterContextViewModel.Link = comments.ElementAt(0).Link;
                 twitterContextViewModel.MediaLink = comments.ElementAt(0).MediaLink;
             }
@@ -34,7 +34,7 @@ namespace BlockBase.Dapps.NeverForget.WebApp.Models
             {
                 twitterContextViewModel.Date = model.TwitterSubmission.SubmissionDate;
                 twitterContextViewModel.Author = model.TwitterSubmission.Author;
-                twitterContextViewModel.Content = HttpUtility.HtmlDecode(model.TwitterSubmission.Content);
+                twitterContextViewModel.Content = model.TwitterSubmission.Content;
                 twitterContextViewModel.Link = model.TwitterSubmission.Link;
                 twitterContextViewModel.MediaLink = model.TwitterSubmission.MediaLink;
             }
