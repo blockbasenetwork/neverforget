@@ -15,14 +15,14 @@
 
 
 .banner {
-    background: url('../img/ReTwiBa.png') ;
+    background: url('../img/ReTwiBa.png');
 
     .neverForgetHome, .neverForgetHome a {
         display: block;
-        width: 220px;
+        width: 365px;
         color: white;
         text-decoration: none !important;
-        text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+        text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black, -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black, 2px 2px 0 black;
     }
 }
 
@@ -89,7 +89,7 @@
 }
 
 .mainBody {
-    background-color: rgba(39, 2, 22, 0.1);
+    background-color: rgba(156,171,238, 0.1);
     max-width: 100%;
 }
 
@@ -101,14 +101,19 @@
     overflow: hidden !important;
     outline: none !important;
     font-weight: bold !important;
-    color: rgb(0, 0, 0) !important;
+    color: white !important;
+    font-size: 100% !important;
+    text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
 
     :hover {
         color: rgb(50,50,50) !important;
     }
 }
 
-
+.nav-badge {
+    background-color: rgba(0,0,0,0.2);
+    font-size: 100% !important;
+}
 
 /*-------------------------------------------------*/
 
@@ -166,10 +171,16 @@
     }
 }
 
+.socialMediaLogoSmall {
+    max-width: 30px;
+}
+
 .borderReddit {
     border: solid;
     border-color: rgb(255, 86, 0);
-    background-color: rgba(255, 86, 0, 0.3);
+    border-width: thin;
+    border-radius: 10px;
+    background-color: rgba(255, 86, 0, 0.1);
 
     a {
         color: black;
@@ -179,7 +190,9 @@
 .borderTwitter {
     border: solid;
     border-color: rgb(29, 161, 242);
-    background-color: rgba(29, 161, 242, 0.3);
+    border-width: thin;
+    border-radius: 10px;
+    background-color: rgba(29, 161, 242, 0.1);
 
     a {
         color: black;
@@ -260,7 +273,7 @@
 /*-------------------------------------------------*/
 
 table.dataTable, table.dataTable th, table.dataTable td {
-    background-color: rgba(39, 2, 22, 0.1) !important;
+    background-color: rgba(156,171,238, 0.1) !important;
     border-top: none !important;
 
     tr:hover {
@@ -286,7 +299,7 @@ table.dataTable, table.dataTable th, table.dataTable td {
     font-size: 11px;
     color: @orangePantone;
     font-family: sans-serif;
-    background-color: rgba(39, 2, 22, 0.1);
+    background-color: rgba(156,171,238, 0.1);
     padding: 0 3px;
 
     &:focus {
@@ -309,7 +322,7 @@ table.dataTable, table.dataTable th, table.dataTable td {
     font-size: 11px;
     color: @carolinaBlue;
     font-family: sans-serif;
-    background-color: rgba(39, 2, 22, 0.1);
+    background-color: rgba(156,171,238, 0.1);
     padding: 0 3px;
 
     &:focus {
@@ -336,6 +349,38 @@ table.dataTable, table.dataTable th, table.dataTable td {
 
 .cardDetails {
     max-width: 90%;
+}
+
+.cornerInfo {
+    padding: 1rem;
+}
+
+.titleInfo {
+    font-size: 1.75rem;
+}
+
+.contentInfo {
+    font-size: 1.25rem;
+}
+
+.contentInfoSmall {
+    font-size: 1.125rem;
+}
+
+.auditInfo {
+    font-size: 0.90rem;
+}
+
+.auditInfoSmall {
+    font-size: 0.80rem;
+}
+
+.clickable {
+    cursor: pointer !important;
+
+    :hover {
+        text-decoration: underline !important;
+    }
 }
 
 /*-------------------------------------------------*/

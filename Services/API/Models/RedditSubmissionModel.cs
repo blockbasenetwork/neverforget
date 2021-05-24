@@ -1,6 +1,7 @@
 ﻿using BlockBase.Dapps.NeverForget.Common;
 using BlockBase.Dapps.NeverForget.Data.Entities;
 using System;
+using System.Web;
 
 namespace BlockBase.Dapps.NeverForget.Services.API.Models
 {
@@ -20,9 +21,9 @@ namespace BlockBase.Dapps.NeverForget.Services.API.Models
             return new RedditSubmission()
             {
                 Id = Guid.NewGuid(),
-                Title = Title,
+                Title = HttpUtility.HtmlDecode(Title),
                 Author = Author,
-                Content = Helpers.CleanComment(SelfText),
+                Content = HttpUtility.HtmlDecode(Helpers.CleanComment(SelfText)),
                 SubmissionDate = Helpers.FromUnixTime(Created_Utc),
                 SubmissionId = Id,
                 SubReddit = SubReddit,

@@ -15,24 +15,38 @@
                             <div class="row">
                                 <div class="col-md contentContext">
                                     <div class="card-body borderTwitter">
-                                        <div class="card-text d-block  text-left">@Html.DisplayFor(modelItem => item.Content)</div>
-                                        <b class="card-text d-block text-right">@Html.DisplayFor(modelItem => item.Author)</b>
-                                    </div>
-                                </div>
-
-                                <div class="col- d-flex align-items-center">
-                                    <div class="card-body">
                                         @{
                                             var dateToString = item.Date.ToString("yyyy/MM/dd");
                                         }
-                                        <div class="card-content">@Html.DisplayFor(modelItem => dateToString) <i class="fas fa-calendar-alt"></i></div>
-                                    </div>
-                                </div>
+                                        <div class="container auditInfo d-flex">
+                                            <a class="col- pr-1" target="_blank" href="https://www.twitter.com/@item.Author">
+                                                <b>@Html.Raw("@")@Html.DisplayFor(modelItem => item.Author)</b>
+                                            </a>
+                                            <span>•</span>
+                                            <a class="col-">
+                                                @Html.DisplayFor(modelItem => dateToString)
+                                            </a>
+                                            <div class="col- d-flex ml-auto">
+                                                <a target="_blank" href="@item.Link" data-toggle="tooltip" data-placement="top" title="Redirect to Twitter">
+                                                    <img class="socialMediaLogoSmall" src="~/img/Twitter_logo.png" />
+                                                </a>
+                                            </div>
+                                        </div>
 
-                                <div class="col- p-0 d-flex border-0 align-items-center detailsLogo">
-                                    <div class="card border-0 detailsPosition">
-                                        <input type="button" class="detailsClickable detailsInput stacked-top align-items-center px-0 m-0" onclick="@("window.location.href='" + @Url.Action("Details", "TwitterContexts", new { contextId = item.Id }) + "'");" />
-                                        <img src="~/img/searchRobot.png" class="detailsClickable stacked-bottom align-items-center px-0 m-0" />
+                                        <div class="container ">
+                                            <div class="card-text d-block text-left contentInfo">@Html.DisplayFor(modelItem => item.Content)</div>
+                                        </div>
+
+                                        <div class="container d-flex">
+                                            @if (item.MediaLink != null)
+                                            {
+                                                <a target="_blank" href="@item.MediaLink" class="col- mr-auto badge nav-badge">Show Media</a>
+                                            }
+
+                                            <div class="d-flex ml-auto clickable col- badge nav-badge" onclick="@("window.location.href='" + @Url.Action("Details", "TwitterContexts", new { id = item.Id }) + "'");">
+                                                Details
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -11,6 +11,6 @@ namespace BlockBase.Dapps.NeverForget.Data.Entities.Base
         public bool IsDeleted { get; set; }
 
         [ComparableDate]
-        public DateTime? DeletedAt { get; set; }
+        public DateTime DeletedAt { get; set; }
     }
 }

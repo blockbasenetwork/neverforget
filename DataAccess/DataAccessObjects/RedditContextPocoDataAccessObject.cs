@@ -81,11 +81,14 @@ namespace BlockBase.Dapps.NeverForget.DataAccess.DataAccessObjects
                     .Where((redditContext, redditSubmission) => (!redditContext.IsDeleted))
                     .SelectAsync((redditContext, redditSubmission) => new GeneralContextPoco
                     {
+                        Id = redditContext.Id,
                         SourceType = SourceTypeEnum.Reddit,
                         Date = redditSubmission.SubmissionDate,
                         Author = redditSubmission.Author,
                         Content = redditSubmission.Content,
-                        Title = redditSubmission.Title
+                        Title = redditSubmission.Title,
+                        SubReddit = redditSubmission.SubReddit,
+                        Link = redditSubmission.Link
                     });
 
                 return recentPosts.OrderByDescending((reddit) => reddit.Date).Take(10).ToList();

@@ -1,6 +1,7 @@
 ﻿using BlockBase.Dapps.NeverForget.Business.BusinessModels;
 using System;
 using System.Linq;
+using System.Web;
 
 namespace BlockBase.Dapps.NeverForget.WebApp.Models
 {

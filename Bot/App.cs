@@ -4,6 +4,7 @@ using BlockBase.Dapps.NeverForget.Data.Context;
 using BlockBase.Dapps.NeverForget.Data.Entities;
 using BlockBase.Dapps.NeverForget.DataAccess.Interfaces;
 using BlockBase.Dapps.NeverForget.Services.API;
+using System;
 using System.Threading.Tasks;
 
 namespace BlockBase.Dapps.NeverForget.Bot

@@ -7,49 +7,76 @@
         <table class="table-borderless display no-wrap homeTable">
             @foreach (var item in Model)
             {
+                var dateToString = item.Date.ToString("yyyy/MM/dd");
+
                 <tbody>
                     <tr>
                         <td class="m-0">
                             <div class="row">
-                                <div class="col- p-0 d-flex align-items-center center socialMediaLogo">
-                                    <div class="card border-0 logoImg">
-                                        @if (item.SourceType == SourceTypeEnum.Reddit)
-                                        {
-                                            <img src="~/img/Reddit_logo.png" />
-                                        }
-                                        else if (item.SourceType == SourceTypeEnum.Twitter)
-                                        {
-                                            <img src="~/img/Twitter_logo.png" />
-                                        }
-                                    </div>
-                                </div>
-
                                 <div class="col-md">
                                     @if (item.SourceType == SourceTypeEnum.Reddit)
                                     {
                                         <div class="card-body borderReddit">
-                                            <h5 class="card-title d-block text-left">@Html.DisplayFor(modelItem => item.Title)</h5>
-                                            <div class="card-text d-block text-left">@Html.DisplayFor(modelItem => item.Content)</div>
-                                            <b class="card-text d-block text-right">@Html.DisplayFor(modelItem => item.Author)</b>
+                                            <div class="container auditInfo d-flex">
+                                                <a class="col- pr-1" target="_blank" href="https://www.reddit.com/r/@item.SubReddit/">
+                                                    <b>r/@Html.DisplayFor(modelItem => item.SubReddit)</b>
+                                                </a>
+                                                <span>•</span>
+                                                <a class="col- pr-1" target="_blank" href="https://www.reddit.com/user/@item.Author/">
+                                                    <b>u/@Html.DisplayFor(modelItem => item.Author)</b>
+                                                </a>
+                                                <span>•</span>
+                                                <a class="col-">
+                                                    @Html.DisplayFor(modelItem => dateToString)
+                                                </a>
+                                                <div class="col- d-flex ml-auto">
+                                                    <a href=@item.Link target="_blank">
+                                                        <img class="socialMediaLogoSmall" src="~/img/Reddit_logo.png" />
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                            <div class="container ">
+                                                <h3 class="card-title d-block text-left titleInfo">@Html.DisplayFor(modelItem => item.Title)</h3>
+                                                <div class="card-text d-block text-left contentInfo">@Html.DisplayFor(modelItem => item.Content)</div>
+                                            </div>
+
+                                            <div class="container d-flex">
+                                                <div class="d-flex ml-auto clickable col- badge nav-badge" onclick="@("window.location.href='" + @Url.Action("Details", "RedditContexts", new { id = item.Id }) + "'");">
+                                                    Details
+                                                </div>
+                                            </div>
                                         </div>
                                     }
                                     else if (item.SourceType == SourceTypeEnum.Twitter)
                                     {
                                         <div class="card-body borderTwitter">
-                                            <h5 class="card-title d-block text-left">@Html.DisplayFor(modelItem => item.Title)</h5>
-                                            <div class="card-text d-block text-left">@Html.DisplayFor(modelItem => item.Content)</div>
-                                            <b class="card-text d-block text-right">@Html.DisplayFor(modelItem => item.Author)</b>
+                                            <div class="container d-flex auditInfo">
+                                                <a class="col- pr-1" target="_blank" href="https://www.twitter.com/@item.Author">
+                                                    <b>@Html.Raw("@")@Html.DisplayFor(modelItem => item.Author)</b>
+                                                </a>
+                                                <span>•</span>
+                                                <a class="col-">
+                                                    @Html.DisplayFor(item => dateToString)
+                                                </a>
+                                                <div class="col- d-flex ml-auto">
+                                                    <a href=@item.Link target="_blank">
+                                                        <img class="socialMediaLogoSmall" src="~/img/Twitter_logo.png" />
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                            <div class="container ">
+                                                <div class="card-text d-block text-left contentInfo">@Html.DisplayFor(modelItem => item.Content)</div>
+                                            </div>
+
+                                            <div class="container d-flex">
+                                                <div class="d-flex ml-auto clickable col- badge nav-badge" onclick="@("window.location.href='" + @Url.Action("Details", "TwitterContexts", new { id = item.Id }) + "'");">
+                                                    Details
+                                                </div>
+                                            </div>
                                         </div>
                                     }
-                                </div>
-
-                                <div class="col- border-none d-flex align-items-center">
-                                    <div class="card-body">
-                                        @{
-                                            var dateToString = item.Date.ToString("yyyy/MM/dd");
-                                        }
-                                        <div class="card-content">@Html.DisplayFor(modelItem => dateToString) <i class="fas fa-calendar-alt"></i></div>
-                                    </div>
                                 </div>
                             </div>
                         </td>

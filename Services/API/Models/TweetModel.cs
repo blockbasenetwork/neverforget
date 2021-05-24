@@ -1,6 +1,7 @@
 ﻿using BlockBase.Dapps.NeverForget.Common;
 using BlockBase.Dapps.NeverForget.Data.Entities;
 using System;
+using System.Web;
 
 namespace BlockBase.Dapps.NeverForget.Services.API.Models
 {
@@ -24,7 +25,7 @@ namespace BlockBase.Dapps.NeverForget.Services.API.Models
                 TwitterContextId = Guid.Empty,
                 CommentId = Id,
                 ReplyToId = In_reply_to_status_id_str,
-                Content = Helpers.CleanComment(Full_text),
+                Content = HttpUtility.HtmlDecode(Helpers.CleanComment(Full_text)),
                 Author = User.Screen_name,
                 MediaLink = Entities.Media != null ? Entities.Media[0].media_url : null,
                 Link = $"http://www.twitter.com/{User.Screen_name}/status/{Id}",
@@ -40,7 +41,7 @@ namespace BlockBase.Dapps.NeverForget.Services.API.Models
                 Id = Guid.NewGuid(),
                 TwitterContextId = Guid.Empty,
                 SubmissionId = Id,
-                Content = Helpers.CleanComment(Full_text),
+                Content = HttpUtility.HtmlDecode(Helpers.CleanComment(Full_text)),
                 Author = User.Screen_name,
                 MediaLink = Entities.Media != null ? Entities.Media[0].media_url : null,
                 Link = $"http://www.twitter.com/{User.Screen_name}/status/{Id}",

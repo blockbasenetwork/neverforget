@@ -1,6 +1,7 @@
 ﻿using BlockBase.Dapps.NeverForget.Common;
 using BlockBase.Dapps.NeverForget.Data.Entities;
 using System;
+using System.Web;
 
 namespace BlockBase.Dapps.NeverForget.Services.API.Models
 {
@@ -21,7 +22,7 @@ namespace BlockBase.Dapps.NeverForget.Services.API.Models
             {
                 Id = Guid.NewGuid(),
                 Author = Author,
-                Content = Helpers.CleanComment(Body),
+                Content = HttpUtility.HtmlDecode(Helpers.CleanComment(Body)),
                 CommentDate = Helpers.FromUnixTime(Created_Utc),
                 CommentId = Id,
                 ParentId = Parent_Id,
